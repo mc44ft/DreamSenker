@@ -1,0 +1,3 @@
+导出前清空 Editor/ArtRes/Excel文件夹 部分
+导出前清空E_EventType下的 CUSTOM EVENT 部分
+导出前清空BinaryDataMgr的 InitData 部分

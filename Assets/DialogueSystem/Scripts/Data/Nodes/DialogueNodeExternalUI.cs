@@ -1,0 +1,73 @@
+﻿
+using DialogueSystem.Misc;
+using UnityEngine;
+using XNode;
+namespace DialogueSystem.Data
+{
+    /// <summary>
+    /// 用于通知外部打开UI的节点
+    /// </summary>
+    public class DialogueNodeExternalUI : DialogueNodeBase
+    {
+        [Tooltip("想要显示的UI面板类型")]
+        [SerializeField] private E_DialogueExternalUiPanelType m_panelType;
+
+        private int m_nextNodeIndex = 0;
+        protected override void OnExecute()
+        {
+            //监听外部面板操作完成的事件
+            EventCenter.Instance.AddEventListener<DialoguePanelFinishedEventArgs>(E_EventType.Dialogue_PanelFinished, OnPanelFinished);
+
+
+            //隐藏对话框
+            DialogueManager.Instance.FadeOutDialogueBox(0.5f, () =>
+            {
+                //通知外部打开面板
+                EventCenter.Instance.EventTrigger(E_EventType.Dialogue_ShowPanel, this, new DialogueShowPanelEventArgs(m_panelType));
+            });
+            
+        }
+
+        private void OnPanelFinished(object eventSender, DialoguePanelFinishedEventArgs args)
+        {
+            m_nextNodeIndex = args.Index;
+            
+
+
+            //显示对话框
+            DialogueManager.Instance.FadeInDialogueBox(0.5f);
+            //外部面板操作完成后结束该节点
+            Finished();
+        }
+
+        protected override void OnFinished()
+        {
+            //取消监听外部面板操作完成的事件
+            EventCenter.Instance.RemoveEventListener<DialoguePanelFinishedEventArgs>(E_EventType.Dialogue_PanelFinished, OnPanelFinished);
+        }
+        /// <summary>
+        /// 这里简单重写了获取下一个节点的方法，用于应对策划需求 后续还需要根据自己的UIToolkit重做
+        /// </summary>
+        /// <returns></returns>
+        public override DialogueNodeBase GetNextNode()
+        {
+            if(m_panelType == E_DialogueExternalUiPanelType.TaskPublishPanel)
+            {
+                NodePort outputPort = GetOutputPort("Output");
+                if (outputPort == null || !outputPort.IsConnected)
+                    return null;
+                if (m_nextNodeIndex < 0 || m_nextNodeIndex >= outputPort.ConnectionCount)
+                    return null;
+                NodePort connection = outputPort.GetConnection(m_nextNodeIndex);
+                return connection.node as DialogueNodeBase;
+            }
+            else
+            {
+                return base.GetNextNode();
+            }
+                
+
+        }
+    }
+}
+

@@ -1,0 +1,53 @@
+﻿using MapSystem.Nodes;
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+[Serializable]
+public class GameSaveData : IRunningData
+{
+    [Header("PLAYER DETAILS")]
+    [Tooltip("玩家最近的存档点")]
+    public string SavePointID;//存档时设置
+    [Tooltip("玩家存档点所在的地图")]
+    public E_MapSceneName SaveMapSceneName;
+
+    [HideInInspector] public string CurrentMapNodeGuid;
+    [HideInInspector] public string PreviousMapNodeGuid;
+
+    /// <summary>
+    /// 存储所有玩家已经触发过的对话信息
+    /// </summary>
+    [HideInInspector] public List<string> TriggeredDialogueGuidList;
+
+    //[Tooltip("是否打开了山洞通向法师地图的隐藏出入口 ------ 出入口解锁")]
+    //public bool IsOpenTheSlngleEnter;
+    [Tooltip("是否遇到了蜘蛛Boss")]
+    public bool IsMetSpiderBoss;
+    [Tooltip("是否击杀了蜘蛛Boss ------ 获得切换形态的能力")]
+    public bool IsKilledSpiderBoss;
+    [Tooltip("是否遇到了狐狸Boss")]
+    public bool IsMetFoxBoss;
+    [Tooltip("是否击杀了狐狸Boss ------ 游戏通关（这个可以不要 击杀后强制通关）")]
+    public bool IsKilledFoxBoss;
+    [Tooltip("是否拾取了晨露梦核")]
+    public bool IsGotChen;
+    [Tooltip("是否通关了梦境地图")]
+    public bool IsClearMirrorMap;
+
+    //[Tooltip("是否触发过了晨露梦核的？？？")]
+    //public bool IsTriggeredDreamCoreDialogue;
+    //[Tooltip("是否触发过了首次访问山洞地图的？？？")]
+    //public bool IsTriggeredCaveDialogue;
+    //[Tooltip("击败的失梦者数量 ------- 击败一直后 触发??? 击败三只后 触发??? 击败5只后 触发成就")]
+    //public int KillMonsterCount;
+
+
+    public bool CheckDialogueTriggered(string dialogueInfoGuid)
+    {
+        if (TriggeredDialogueGuidList.Contains(dialogueInfoGuid))
+        {
+            return true;
+        }
+        return false;
+    }
+}

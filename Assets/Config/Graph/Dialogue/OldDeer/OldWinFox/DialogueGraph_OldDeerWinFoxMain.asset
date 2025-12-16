@@ -1,0 +1,107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7747225516443926429
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c85e04da01cff9c46824fd4a230ec43c, type: 3}
+  m_Name: Dialogue Node Normal
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 56, y: 280}
+  ports:
+    keys:
+    - Input
+    - Output
+    values:
+    - _fieldName: Input
+      _node: {fileID: -7747225516443926429}
+      _typeQualifiedName: DialogueSystem.Data.DialogueNodeBase+Connection, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Output
+      _node: {fileID: -7747225516443926429}
+      _typeQualifiedName: DialogueSystem.Data.DialogueNodeBase+Connection, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: Input
+        node: {fileID: 5802981022153851978}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  _dialogueDataArray:
+  - SpeakerName: "\u9E7F\u957F\u8001"
+    Content: "\u201C\u90A3\u4E2A\u5B58\u5728\uFF0C\u662F\u6240\u6709\u4EBA\u5171\u540C\u521B\u9020\u7684\u602A\u7269\u2014\u2014\u662F\u56FD\u738B\u672A\u5C3D\u7684\u5B88\u62A4\uFF0C\u662F\u63A0\u68A6\u8005\u65E0\u6CD5\u586B\u6EE1\u7684\u9965\u997F\u3002\u201D"
+    DisplayType: 2
+    CanQuickShow: 0
+  - SpeakerName: "\u9E7F\u957F\u8001"
+    Content: "\u201C\u6211\u4EEC\u6240\u6709\u4EBA\u7684\u68A6\uFF0C\u90FD\u5C06\u5728\u90A3\u4E00\u523B\uFF0C\u7B49\u5F85\u4F60\u7684\u88C1\u51B3\u3002\u201D"
+    DisplayType: 2
+    CanQuickShow: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d4fb09544e87d94d9c39fbdd0a65bbc, type: 3}
+  m_Name: DialogueGraph_OldDeerWinFoxMain
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: -7747225516443926429}
+  - {fileID: 5802981022153851978}
+--- !u!114 &5802981022153851978
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b2731de6e2afc448adc712b178d644, type: 3}
+  m_Name: Dialogue Node External UI
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 328.0842, y: 388.39636}
+  ports:
+    keys:
+    - Input
+    - Output
+    values:
+    - _fieldName: Input
+      _node: {fileID: 5802981022153851978}
+      _typeQualifiedName: DialogueSystem.Data.DialogueNodeBase+Connection, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: Output
+        node: {fileID: -7747225516443926429}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Output
+      _node: {fileID: 5802981022153851978}
+      _typeQualifiedName: DialogueSystem.Data.DialogueNodeBase+Connection, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  m_panelType: 3

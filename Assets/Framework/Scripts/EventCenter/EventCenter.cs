@@ -1,0 +1,88 @@
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine.Events;
+//该类用于里氏替换 可以用一个外部不能new的抽象类 也可以使用接口
+public abstract class EventInfoBase
+{ }
+//更新：
+//加入了事件触发者参数
+//删除了无参数的事件（使用EventArgs.Empty作为无参的 “参数”)
+public class EventInfo<T> : EventInfoBase where T : struct, IEventArgs
+{
+    public UnityAction<object, T> Action;
+
+    public EventInfo(UnityAction<object, T> action)
+    {
+        Action += action;
+    }
+}
+public class EventCenter : BaseManager<EventCenter>
+{
+    private Dictionary<E_EventType, EventInfoBase> _eventDic = new Dictionary<E_EventType, EventInfoBase>();//事件字典
+
+    private EventCenter()
+    { }
+
+    /// <summary>
+    /// 添加事件监听者（有参）
+    /// </summary>
+    /// <param name="eventName"></param>
+    /// <param name="func"></param>
+    public void AddEventListener<T>(E_EventType eventName, UnityAction<object, T> func) where T : struct, IEventArgs
+    {
+        if (_eventDic.ContainsKey(eventName))
+        {
+            (_eventDic[eventName] as EventInfo<T>).Action += func; //+= 事件订阅
+        }
+        else
+        {
+            _eventDic.Add(eventName, new EventInfo<T>(func));
+        }
+    }
+
+    /// <summary>
+    /// 移除事件监听者（有参）
+    /// 这里一定要记得移除 不然会造成内存泄漏
+    /// </summary>
+    /// <param name="eventName"></param>
+    /// <param name="action"></param>
+    public void RemoveEventListener<T>(E_EventType eventName, UnityAction<object, T> action) where T : struct, IEventArgs
+    {
+        if (_eventDic.ContainsKey(eventName))
+        {
+            (_eventDic[eventName] as EventInfo<T>).Action -= action; //-= 事件取消订阅
+        }
+    }
+    /// <summary>
+    /// 触发（分发）事件（有参）
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="eventName"></param>
+    /// <param name="eventSender">事件触发者</param>
+    /// <param name="info"></param>
+    public void EventTrigger<T>(E_EventType eventName, object eventSender, T info) where T : struct, IEventArgs
+    {
+        if (_eventDic.ContainsKey(eventName))//存在关注者才执行逻辑
+        {
+            (_eventDic[eventName] as EventInfo<T>).Action?.Invoke(eventSender, info); //调用事件
+        }
+    }
+    /// <summary>
+    /// 清空所有事件监听
+    /// </summary>
+    public void ClearAllListeners()
+    {
+        _eventDic.Clear();
+    }
+    /// <summary>
+    /// 清除指定事件监听
+    /// </summary>
+    /// <param name="eventName"></param>
+    public void ClearListener(E_EventType eventName)
+    {
+        if (_eventDic.ContainsKey(eventName))
+        {
+            _eventDic.Remove(eventName);
+        }
+    }
+}

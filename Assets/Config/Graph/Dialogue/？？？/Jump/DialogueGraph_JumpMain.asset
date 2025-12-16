@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-3691171548257373930
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c85e04da01cff9c46824fd4a230ec43c, type: 3}
+  m_Name: Dialogue Node Normal
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 488, y: 504}
+  ports:
+    keys:
+    - Input
+    - Output
+    values:
+    - _fieldName: Input
+      _node: {fileID: -3691171548257373930}
+      _typeQualifiedName: DialogueSystem.Nodes.DialogueNodeBase+Connection, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Output
+      _node: {fileID: -3691171548257373930}
+      _typeQualifiedName: DialogueSystem.Nodes.DialogueNodeBase+Connection, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  _dialogueDataArray:
+  - SpeakerName: ???
+    Content: "\u660F\u8FF7\u4E86\u51E0\u5929\uFF0C\u4E0D\u4F1A\u5FD8\u8BB0\u600E\u4E48\u638C\u63A7\u81EA\u5DF1\u8EAB\u4F53\u4E86\u5427\uFF1F"
+    DisplayType: 2
+    CanQuickShow: 0
+  - SpeakerName: ???
+    Content: "\u6309\u7A7A\u683C\u952E\u8DF3\u8DC3\u3002"
+    DisplayType: 2
+    CanQuickShow: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d4fb09544e87d94d9c39fbdd0a65bbc, type: 3}
+  m_Name: DialogueGraph_JumpMain
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: -3691171548257373930}

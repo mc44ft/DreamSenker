@@ -1,0 +1,4 @@
+对话表Excel文件放置在Framework/Editor/ArtRes/Excel/Dialogue路径下
+Excel单个文件 存储单个阶段的所有对话表
+单个对话表 存储单段对话
+对话表命名规范 触发对话的对象名_对话表索引号

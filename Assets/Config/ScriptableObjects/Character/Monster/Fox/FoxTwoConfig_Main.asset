@@ -1,0 +1,127 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3f57c14f6709c848b8fa6123ea082f2, type: 3}
+  m_Name: FoxTwoConfig_Main
+  m_EditorClassIdentifier: 
+  <MaxHealthAmount>k__BackingField: 108
+  <TouchDamage>k__BackingField: 2
+  <HideDuration>k__BackingField: 0.5
+  <HideMinTime>k__BackingField: 0.5
+  <ShowDuration>k__BackingField: 0.5
+  <FloatingOffset>k__BackingField: 0.5
+  <FloatingOneLoopTime>k__BackingField: 1
+  <AttackLayerMask>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 64
+  <DeathIntervalTime>k__BackingField: 2
+  <SkillJumpCooldown>k__BackingField: 4
+  <SkillJumpScratchDamage>k__BackingField: 2
+  <SkillJumpPower>k__BackingField: 4
+  <SkillJumpDuration>k__BackingField: 0.2
+  <SkillJumpEaseCurve>k__BackingField:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  <SkillJumpToFallIntervalTime>k__BackingField: 0.2
+  <SkillJumpFallDuration>k__BackingField: 0.5
+  <SkillJumpFallEaseCurve>k__BackingField:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  <SkillJumpScratchIntervalTime>k__BackingField: 1
+  <SkillDashCooldown>k__BackingField: 3
+  <SkillDashCount>k__BackingField: 3
+  <SkillDashIntervalTime>k__BackingField: 0.7
+  <SkillDashDistance>k__BackingField: 9
+  <SkillDashDuration>k__BackingField: 0.5
+  <SkillDashEaseCurve>k__BackingField:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  <SkillBoomCooldown>k__BackingField: 10
+  <SkillBoomFirePrefab>k__BackingField: {fileID: 6149538635349951245, guid: 5ead010875dba9f47ab4830094826300, type: 3}
+  <SkillBoomFireCount>k__BackingField: 4
+  <SkillBoomFireLaunchChargeTime>k__BackingField: 1
+  <SkillBoomFireLaunchPower>k__BackingField: 10
+  <SkillBoomFireLaunchDuration>k__BackingField: 2
+  <SkillBoomFireLaunchAccuracyOffset>k__BackingField: 5
+  <SkillBoomLaunchedTime>k__BackingField: 2
+  <SkillPetrifyCooldown>k__BackingField: 10
+  <SkillPetrifyTime>k__BackingField: 2
+  <SkillPetrifyedTime>k__BackingField: 1
+  <SkillCloneCooldown>k__BackingField: 20
+  <SkillCloneObjectPrefab>k__BackingField: {fileID: 8275951393004217934, guid: f8d610e09c77b4c49a76852975623636, type: 3}
+  <SkillCloneTriggerHealthPercent>k__BackingField: 1
+  <SkillCloneObjectShowIntervalTime>k__BackingField: 1
+  <SkillCloneObjectKeepTime>k__BackingField: 7
+  <SkillCloneDisappearIntervalTime>k__BackingField: 0
+  <SkillCloneSingleRestoreHealthAmount>k__BackingField: 5

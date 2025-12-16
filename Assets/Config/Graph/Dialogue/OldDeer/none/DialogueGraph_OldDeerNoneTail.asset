@@ -1,0 +1,183 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-3532212153441690369
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b2731de6e2afc448adc712b178d644, type: 3}
+  m_Name: Dialogue Node External UI
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 382.37097, y: 157.69989}
+  ports:
+    keys:
+    - Input
+    - Output
+    values:
+    - _fieldName: Input
+      _node: {fileID: -3532212153441690369}
+      _typeQualifiedName: DialogueSystem.Data.DialogueNodeBase+Connection, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: Output
+        node: {fileID: -2594752463972932483}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Output
+      _node: {fileID: -3532212153441690369}
+      _typeQualifiedName: DialogueSystem.Data.DialogueNodeBase+Connection, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  m_panelType: 3
+--- !u!114 &-2594752463972932483
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c85e04da01cff9c46824fd4a230ec43c, type: 3}
+  m_Name: Dialogue Node Normal
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 72, y: 8}
+  ports:
+    keys:
+    - Input
+    - Output
+    values:
+    - _fieldName: Input
+      _node: {fileID: -2594752463972932483}
+      _typeQualifiedName: DialogueSystem.Data.DialogueNodeBase+Connection, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Output
+      _node: {fileID: -2594752463972932483}
+      _typeQualifiedName: DialogueSystem.Data.DialogueNodeBase+Connection, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: Input
+        node: {fileID: -3532212153441690369}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  _dialogueDataArray:
+  - SpeakerName: "\u9E7F\u957F\u8001"
+    Content: "\u201C\u522B\u5FD8\u4E86\u65F6\u5E38\u5BA1\u89C6\u68A6\u4E2D\uFF0C\u4F60\u81EA\u5DF1\u7684\u8F6E\u5ED3\u2014\u2014\u90A3\u624D\u662F\u4F60\u552F\u4E00\u9700\u8981\u770B\u6E05\u7684\u5730\u56FE\u3002\u201D"
+    DisplayType: 2
+    CanQuickShow: 0
+  - SpeakerName: "\u9E7F\u957F\u8001"
+    Content: "\u201C\u5C0F\u5FC3\u811A\u4E0B\uFF0C\u4F46\u66F4\u8981\u7559\u610F\u9AD8\u5904\u3002\u90A3\u7247\u770B\u4F3C\u5E73\u9759\u7684\u53F0\u9636\u4E0A\u65B9\uFF0C\u6C14\u606F\u5E76\u4E0D\u5BFB\u5E38\u3002\u201D"
+    DisplayType: 2
+    CanQuickShow: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d4fb09544e87d94d9c39fbdd0a65bbc, type: 3}
+  m_Name: DialogueGraph_OldDeerNoneTail
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: -2594752463972932483}
+  - {fileID: -3532212153441690369}
+--- !u!114 &881526281609428695
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c85e04da01cff9c46824fd4a230ec43c, type: 3}
+  m_Name: Dialogue Node Normal
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 56, y: 8}
+  ports:
+    keys:
+    - Input
+    - Output
+    values:
+    - _fieldName: Input
+      _node: {fileID: 881526281609428695}
+      _typeQualifiedName: DialogueSystem.Data.DialogueNodeBase+Connection, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Output
+      _node: {fileID: 881526281609428695}
+      _typeQualifiedName: DialogueSystem.Data.DialogueNodeBase+Connection, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  _dialogueDataArray: []
+--- !u!114 &2031076635269382910
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c85e04da01cff9c46824fd4a230ec43c, type: 3}
+  m_Name: Dialogue Node Normal
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 56, y: 8}
+  ports:
+    keys:
+    - Input
+    - Output
+    values:
+    - _fieldName: Input
+      _node: {fileID: 2031076635269382910}
+      _typeQualifiedName: DialogueSystem.Data.DialogueNodeBase+Connection, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Output
+      _node: {fileID: 2031076635269382910}
+      _typeQualifiedName: DialogueSystem.Data.DialogueNodeBase+Connection, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  _dialogueDataArray: []

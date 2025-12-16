@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Monster
+  - MonsterAmmo
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - PlayerReal
+  - PlayerMirror
+  - Destructible
+  - 
+  - MonsterReal
+  - MonsterMirror
+  - GroundReal
+  - GroundMirror
+  - TrapReal
+  - TrapMirror
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Shadow
+    uniqueID: 3248525691
+    locked: 0
+  - name: Decoration
+    uniqueID: 3314985805
+    locked: 0
+  - name: Instantiate
+    uniqueID: 2913468099
+    locked: 0
+  - name: Ammo
+    uniqueID: 2476127925
+    locked: 0

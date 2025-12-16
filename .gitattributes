@@ -1,0 +1,68 @@
+# ======================================================
+# 核心设置：解决跨平台换行符警告 (Windows/Mac)
+# ======================================================
+# 强制所有文本文件使用 LF 换行，彻底解决 "LF will be replaced by CRLF"
+* text=auto eol=lf
+
+# 针对 Unity 特殊文件，保持文本格式但使用 LF
+*.cs text eol=lf
+*.shader text eol=lf
+*.cginc text eol=lf
+*.xml text eol=lf
+*.json text eol=lf
+*.yaml text eol=lf
+*.unity text eol=lf
+*.prefab text eol=lf
+*.mat text eol=lf
+*.meta text eol=lf
+# ======================================================
+# Git LFS Configuration for a Unity 2D Game Project
+# ======================================================
+
+# -- Art Source Files --
+# (美术同学的源文件，最需要LFS管理！)
+*.psd      filter=lfs diff=lfs merge=lfs -text
+*.ai        filter=lfs diff=lfs merge=lfs -text
+*.aseprite  filter=lfs diff=lfs merge=lfs -text
+*.clip      filter=lfs diff=lfs merge=lfs -text
+# (如果你们还用其他绘画软件，比如SAI, Krita等，把对应后缀名加上)
+
+
+# -- Final Image Assets --
+# (导入到Unity里的最终图片资源)
+*.png       filter=lfs diff=lfs merge=lfs -text
+*.jpg       filter=lfs diff=lfs merge=lfs -text
+*.jpeg      filter=lfs diff=lfs merge=lfs -text
+*.tga       filter=lfs diff=lfs merge=lfs -text
+*.gif       filter=lfs diff=lfs merge=lfs -text
+
+
+# -- Audio Assets --
+# (WAV通常是无损音效源文件，MP3/OGG是压缩后的背景音乐)
+*.wav       filter=lfs diff=lfs merge=lfs -text
+*.mp3       filter=lfs diff=lfs merge=lfs -text
+*.ogg       filter=lfs diff=lfs merge=lfs -text
+
+
+# -- Video Files --
+# (用于过场动画或作为视频播放的素材)
+*.mp4       filter=lfs diff=lfs merge=lfs -text
+*.mov       filter=lfs diff=lfs merge=lfs -text
+*.webm      filter=lfs diff=lfs merge=lfs -text
+
+
+# -- Fonts --
+*.ttf       filter=lfs diff=lfs merge=lfs -text
+*.otf       filter=lfs diff=lfs merge=lfs -text
+
+
+# -- 3D Models (If any) --
+# (即使是2D游戏，偶尔也可能用到3D模型或动画文件)
+*.fbx       filter=lfs diff=lfs merge=lfs -text
+*.obj       filter=lfs diff=lfs merge=lfs -text
+*.blend     filter=lfs diff=lfs merge=lfs -text
+
+
+# -- Design Documents --
+# (如果策划习惯把文档放仓库的话)
+*.pdf       filter=lfs diff=lfs merge=lfs -text

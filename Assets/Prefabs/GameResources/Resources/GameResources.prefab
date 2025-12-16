@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6219338807529587169
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1304984509352376039}
+  - component: {fileID: 8002197192974684858}
+  m_Layer: 0
+  m_Name: GameResources
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1304984509352376039
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6219338807529587169}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.3463743, y: -1.0996099, z: 0.036899365}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8002197192974684858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6219338807529587169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5696551f131ec1e40b23652ed5a95476, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <BeginVideoClip>k__BackingField: {fileID: 32900000, guid: 41618b0e37e15764d861f2b3762aa1c4, type: 3}
+  <EndVideoClip>k__BackingField: {fileID: 32900000, guid: 08319e84774266341b89896b31f6a78b, type: 3}
+  <BeginPanelClip>k__BackingField: {fileID: 8300000, guid: ac650b7e5fa623643a576c7eb05827d3, type: 3}
+  <UiButtonClip>k__BackingField: {fileID: 8300000, guid: e1f953105e8c2f6438e256dfd7e0388d, type: 3}
+  <UiShowPanelClip>k__BackingField: {fileID: 8300000, guid: cc3e407ce0dc4854c8e53a7d944f3c0c, type: 3}
+  <CommonMapClip>k__BackingField: {fileID: 8300000, guid: 9452417b11b5f1b41bdbce3061937d08, type: 3}
+  <MirrorMapClip>k__BackingField: {fileID: 8300000, guid: e6e5bda06a74db54f82308dd2a8de14d, type: 3}
+  <FoxFightingClip>k__BackingField: {fileID: 8300000, guid: 5d50f50cd17917843ae59a44b98c5452, type: 3}
+  <FoxFlameBurnClip>k__BackingField: {fileID: 8300000, guid: 8c0c34cba265f0f4d9b47c6d9f4b90fc, type: 3}
+  <FoxTwoRestoreHealthClip>k__BackingField: {fileID: 8300000, guid: 1969321f09beebf45b63c412a2db6e84, type: 3}
+  <FoxTwoSkillCloneClip>k__BackingField: {fileID: 8300000, guid: 4fb9f5f12a50627408bc7e917a97f7bb, type: 3}
+  <FoxTwoSkillDashClip>k__BackingField: {fileID: 8300000, guid: 1158ae7fde0632a4e8d9e2c485fcc98f, type: 3}
+  <FoxTwoSkillJumpScratchClip>k__BackingField: {fileID: 8300000, guid: 9d631625236343048bffb69074f3dc3c, type: 3}
+  <FoxOneSkillDeterClip>k__BackingField: {fileID: 8300000, guid: e1504ccfd24c63a449b0e2cd50eddc30, type: 3}
+  <FoxOneSkillTailClip>k__BackingField: {fileID: 8300000, guid: 017ef9eed5f2a724bb8806140a73b0ef, type: 3}
+  <SpiderDeathClip>k__BackingField: {fileID: 8300000, guid: e27ca725c8fc6614682a8ee324f5e250, type: 3}
+  <SpiderFightingClip>k__BackingField: {fileID: 8300000, guid: feed1572ed951d8469a0152d7a19d7af, type: 3}
+  <SpiderSkillShakeClip>k__BackingField: {fileID: 8300000, guid: 92c8270fe1087d04f82cf1ebfc5203c1, type: 3}
+  <SpiderSkillVenomBiteClip>k__BackingField: {fileID: 8300000, guid: 45083005ae201f046b1ee66d2bde74ac, type: 3}
+  <SpiderSkillWebClip>k__BackingField: {fileID: 8300000, guid: 148644cd8cec15147b38fe48a08c9f56, type: 3}
+  <SlimeAmmoFellToGroundClip>k__BackingField: {fileID: 8300000, guid: 9bb7798c97dc4684da5d456bce10bee0, type: 3}
+  <PlayerMirrorFormAttackClip>k__BackingField: {fileID: 8300000, guid: db5485f0554073247b0fc4dcaded7588, type: 3}
+  <PlayerRealFormAttackClip>k__BackingField: {fileID: 8300000, guid: c97acb3e39641f24da1db394d1c7435d, type: 3}
+  <PlayerRunClip>k__BackingField: {fileID: 8300000, guid: 63dc86fd5d934d6439372cffddb076a9, type: 3}
+  <PlayerSwitchFormClip>k__BackingField: {fileID: 8300000, guid: d4f531440a70359448597720f9aedc53, type: 3}
+  <PickupItemClip>k__BackingField: {fileID: 8300000, guid: c0abe20d800547243aed3ff7dc340e22, type: 3}

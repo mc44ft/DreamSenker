@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bac9b0fa6dd1ae84db42991430379cd8, type: 3}
+  m_Name: SpiderConfig_Main
+  m_EditorClassIdentifier: 
+  <CrawlSpeed>k__BackingField: 5
+  <IdleTime>k__BackingField: 0.3
+  <MaxHealthAmount>k__BackingField: 108
+  <TouchDamage>k__BackingField: 2
+  <SkillHealCooldown>k__BackingField: 10
+  <HealAmount>k__BackingField: 5
+  <HealWindupTime>k__BackingField: 2
+  <SkillVenomBiteCooldown>k__BackingField: 4
+  <SkillVenomBiteDamage>k__BackingField: 2
+  <SkillVenomBiteContinueDamage>k__BackingField: 1
+  <SkillVenomBiteContinueDamageIntervalTime>k__BackingField: 1
+  <SkillVenomBiteContinueTime>k__BackingField: 5.05
+  <ChaseSpeed>k__BackingField: 13
+  <SkillWebCooldown>k__BackingField: 3
+  <SpiderSilkPrefab>k__BackingField: {fileID: 8671385691562829959, guid: e4e744b1b84ab4941b477a45c95d32a6, type: 3}
+  <SilkWindupTime>k__BackingField: 1
+  <SilkContinueTime>k__BackingField: 5
+  <SilkSpeed>k__BackingField: 10
+  <SilkClampSpeedRate>k__BackingField: 0.2
+  <SilkHealthAmount>k__BackingField: 4
+  <SkillShakeCooldown>k__BackingField: 12
+  <SkillShakeWindUpTime>k__BackingField: 0.7
+  <WebHitIntervalTimeArray>k__BackingField:
+  - 1
+  - 2
+  - 3
+  - 1.5
+  <WebHitCameraShakeForceArray>k__BackingField:
+  - 0.5
+  - 1
+  - 2
+  - 3
+  <WebHitDamageArray>k__BackingField: 01000000010000000200000002000000
+  <ReturnCenterSpeed>k__BackingField: 8

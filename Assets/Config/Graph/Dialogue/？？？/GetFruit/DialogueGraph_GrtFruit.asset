@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d4fb09544e87d94d9c39fbdd0a65bbc, type: 3}
+  m_Name: DialogueGraph_GrtFruit
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: 6691326879234773331}
+--- !u!114 &6691326879234773331
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c85e04da01cff9c46824fd4a230ec43c, type: 3}
+  m_Name: Dialogue Node Normal
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 584.5, y: 617.9}
+  ports:
+    keys:
+    - Input
+    - Output
+    values:
+    - _fieldName: Input
+      _node: {fileID: 6691326879234773331}
+      _typeQualifiedName: DialogueSystem.Nodes.DialogueNodeBase+Connection, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Output
+      _node: {fileID: 6691326879234773331}
+      _typeQualifiedName: DialogueSystem.Nodes.DialogueNodeBase+Connection, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  _dialogueDataArray:
+  - SpeakerName: ???
+    Content: "\u6309f\u952E\u53EF\u62FE\u53D6\u6108\u68A6\u679C/\u7EC7\u68A6\u679C"
+    DisplayType: 2
+    CanQuickShow: 0
+  - SpeakerName: ???
+    Content: "\u62FE\u53D6\u540E\u4F1A\u4FDD\u5B58\u5728\u80CC\u5305\u91CC"
+    DisplayType: 2
+    CanQuickShow: 0
+  - SpeakerName: ???
+    Content: "\u6309b\u952E\u53EF\u4EE5\u6253\u5F00\u80CC\u5305"
+    DisplayType: 2
+    CanQuickShow: 0

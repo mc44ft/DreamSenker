@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ce4445bce570914abe5d60f92fc75c8, type: 3}
+  m_Name: GameConfig_main
+  m_EditorClassIdentifier: 
+  <SaveData>k__BackingField:
+    SavePointID: Save_0
+    SaveMapSceneName: 3
+    CurrentMapNodeGuid: 
+    PreviousMapNodeGuid: 
+    TriggeredDialogueGuidList: []
+    IsMetSpiderBoss: 0
+    IsKilledSpiderBoss: 0
+    IsMetFoxBoss: 0
+    IsKilledFoxBoss: 0
+    IsGotChen: 0
+    IsClearMirrorMap: 0

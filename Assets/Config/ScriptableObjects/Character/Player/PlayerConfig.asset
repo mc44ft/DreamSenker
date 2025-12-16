@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2335b89314d8b744a5624f9588a0ba3, type: 3}
+  m_Name: PlayerConfig
+  m_EditorClassIdentifier: 
+  <PlayerPrefab>k__BackingField: {fileID: 8440365495553823547, guid: 627b74eb1bde3484b8ee6214fefb2327, type: 3}
+  <PlayerGroundLayerMask>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 12288
+  <MaxHealthAmount>k__BackingField: 50
+  <MaxGravityScale>k__BackingField: 20
+  <RealFormConfig>k__BackingField:
+    <RuntimeAnimatorController>k__BackingField: {fileID: 22100000, guid: aa36a7ccf16e0de4eb67571e7387d509, type: 2}
+    <AttackDamage>k__BackingField: 10
+    <AttackCheckLayer>k__BackingField:
+      serializedVersion: 2
+      m_Bits: 1280
+    <RunSpeed>k__BackingField: 8
+    <JumpSpeed>k__BackingField: 18
+    <JumpCount>k__BackingField: 2
+    <GetHitStopTime>k__BackingField: 0.3
+    <GetHitKnockbackForceValue>k__BackingField: 15
+    <JumpGravityScale>k__BackingField: 5
+    <FallGravityScale>k__BackingField: 7
+    <FlyingTime>k__BackingField: 5
+    <FlyingForce>k__BackingField: 2.5
+    <AmmoPrefab>k__BackingField: {fileID: 0}
+    <AmmoSpeed>k__BackingField: 0
+    <AmmoDamage>k__BackingField: 0
+    <AmmoFireInterval>k__BackingField: 0.5
+  <MirrorFormConfig>k__BackingField:
+    <RuntimeAnimatorController>k__BackingField: {fileID: 22100000, guid: a97121ae7d174de43bc2b9b90f9c85bb, type: 2}
+    <AttackDamage>k__BackingField: 4
+    <AttackCheckLayer>k__BackingField:
+      serializedVersion: 2
+      m_Bits: 1024
+    <RunSpeed>k__BackingField: 8
+    <JumpSpeed>k__BackingField: 18
+    <JumpCount>k__BackingField: 2
+    <GetHitStopTime>k__BackingField: 0.3
+    <GetHitKnockbackForceValue>k__BackingField: 15
+    <JumpGravityScale>k__BackingField: 5
+    <FallGravityScale>k__BackingField: 7
+    <FlyingTime>k__BackingField: 5
+    <FlyingForce>k__BackingField: 2.5
+    <AmmoPrefab>k__BackingField: {fileID: 7783390304028953344, guid: 665e3436d53460b439caa1e46488de8b, type: 3}
+    <AmmoSpeed>k__BackingField: 3
+    <AmmoDamage>k__BackingField: 4
+    <AmmoFireInterval>k__BackingField: 0.5
+  <PlayerSaveData>k__BackingField:
+    CurrentHealth: 30
+    AttackMultiply: 1
+    IsUnlockSwitchStateSkill: 0
