@@ -23,7 +23,6 @@ public class PlayerRealForm : FormStrategy
     #region AttackState
     public override void AttackEnter()
     {
-        AudioManager.Instance.PlaySound(GameResources.Instance.PlayerRealFormAttackClip);
 
         //播放攻击动画
         _controller.Animator.Play(Settings.PlayerRealAnimNameToHash_Attack);

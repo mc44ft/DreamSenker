@@ -118,17 +118,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4633f679296fcd4bb32e77b11bf37af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_rayCheckGround: {fileID: 7953438379639488096}
-  m_rayCheckWall: {fileID: 6262043458677913179}
-  m_slimeAmmoFireTransform: {fileID: 4710245850469760315}
-  m_selectedEffect: {fileID: 46884318477345700}
-  m_slimeAmmoPrefab: {fileID: 8359338475284517878, guid: c811b935a88a4e448a33cd708ced18a9, type: 3}
-  m_maxHealthAmount: 6
-  m_damage: 0
-  m_moveSpeed: 1
-  m_knockbackForceValue: 10
-  m_deathDuration: 1
-  m_launchIntervalTime: 5
+  _rayCheckGround: {fileID: 7953438379639488096}
+  _rayCheckWall: {fileID: 6262043458677913179}
+  _slimeAmmoFireTransform: {fileID: 4710245850469760315}
+  _selectedEffect: {fileID: 46884318477345700}
+  _triggerBig: {fileID: 6716489611309143770}
+  _triggerSmall: {fileID: 3594811279016722697}
+  _slimeAmmoPrefab: {fileID: 8359338475284517878, guid: c811b935a88a4e448a33cd708ced18a9, type: 3}
+  _maxHealthAmount: 1000
+  _damage: 0
+  _moveSpeed: 1
+  _knockbackForceValue: 0.5
+  _deathDuration: 1
+  _launchIntervalTime: 2
 --- !u!95 &1119875428347467232
 Animator:
   serializedVersion: 5
@@ -189,7 +191,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1381499197
-  m_SortingLayer: 3
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 93abe6b5ef3fd9f429a0856425355038, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -456,7 +458,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4710245850469760315}
   m_Layer: 0
-  m_Name: FirePosition
+  m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

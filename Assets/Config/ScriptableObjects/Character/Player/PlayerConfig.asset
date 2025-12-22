@@ -24,11 +24,11 @@ MonoBehaviour:
     <AttackCheckLayer>k__BackingField:
       serializedVersion: 2
       m_Bits: 1280
-    <RunSpeed>k__BackingField: 8
-    <JumpSpeed>k__BackingField: 18
+    <RunSpeed>k__BackingField: 5
+    <JumpSpeed>k__BackingField: 12
     <JumpCount>k__BackingField: 2
-    <GetHitStopTime>k__BackingField: 0.3
-    <GetHitKnockbackForceValue>k__BackingField: 15
+    <GetHitStopTime>k__BackingField: 0.1
+    <GetHitKnockbackForceValue>k__BackingField: 5
     <JumpGravityScale>k__BackingField: 5
     <FallGravityScale>k__BackingField: 7
     <FlyingTime>k__BackingField: 5

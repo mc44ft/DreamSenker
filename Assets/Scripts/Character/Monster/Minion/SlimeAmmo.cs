@@ -5,29 +5,29 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class SlimeAmmo : MonoBehaviour
 {
-    [SerializeField] private GameObject m_shadowPrefab;
+    [SerializeField] private GameObject _shadowPrefab;
 
     [Tooltip("抛物线高度")]
-    private float m_jumpPower = 5f;
+    [SerializeField] private float _jumpPower = 5f;
     [Tooltip("飞行时间")]
-    private float m_duration = 1.5f;
+    [SerializeField] private float _duration = 1.5f;
     [Tooltip("飞行过程中是否旋转")]
-    private bool m_enableRotation = true;
+    [SerializeField] private bool _enableRotation = true;
     [Tooltip("旋转角度")]
-    private Vector3 m_rotateAmout = new Vector3(0, 0, -360);
+    [SerializeField] private Vector3 _rotateAmout = new Vector3(0, 0, -360);
 
     //阴影位置
-    private Transform m_shadowTran;
+    private Transform _shadowTran;
 
     //子弹数据
-    private int m_damage;
-    private Vector2 m_ammoDirection;
+    private int _damage;
+    private Vector2 _ammoDirection;
 
 
     public void Init(int damage, Vector2 ammoDirection)
     {
-        m_damage = damage;
-        m_ammoDirection = ammoDirection;
+        _damage = damage;
+        _ammoDirection = ammoDirection;
     }
     /// <summary>
     /// 
@@ -35,29 +35,29 @@ public class SlimeAmmo : MonoBehaviour
     /// <param name="onHitCallback">击中目标后执行的回调</param>
     public void Launch(Vector3 targetPosition, Action onHitCallback = null)
     {
-        m_shadowTran = Instantiate(m_shadowPrefab).transform;
+        _shadowTran = Instantiate(_shadowPrefab).transform;
         //参数3：跳跃次数
-        transform.DOJump(targetPosition, m_jumpPower, 1, m_duration)
+        transform.DOJump(targetPosition, _jumpPower, 1, _duration)
             .SetEase(Ease.Linear)//使用动画曲线
             .OnComplete(() =>
             {
                 Destroy(gameObject);
 
             });
-        if (m_enableRotation)
+        if (_enableRotation)
         {
-            transform.DORotate(m_rotateAmout, m_duration, RotateMode.FastBeyond360).SetEase(Ease.Linear);
+            transform.DORotate(_rotateAmout, _duration, RotateMode.FastBeyond360).SetEase(Ease.Linear);
         }
     }
     private void Update()
     {
-        if(m_shadowTran != null)
+        if(_shadowTran != null)
         {
             RaycastHit2D hitInfo = Physics2D.Raycast(transform.position,
                 -Vector2.up, 100, 1 << LayerMask.NameToLayer("GroundReal"));
             if(hitInfo.collider != null)
             {
-                m_shadowTran.position = new Vector3(transform.position.x, hitInfo.collider.transform.position.y, 0);
+                _shadowTran.position = new Vector3(transform.position.x, hitInfo.collider.transform.position.y, 0);
             }
         }
     }
@@ -65,7 +65,7 @@ public class SlimeAmmo : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<IDamageable>().TakeDamage(m_damage, m_ammoDirection);
+            collision.gameObject.GetComponent<IDamageable>().TakeDamage(_damage, _ammoDirection);
             Destroy(gameObject);
         }
             
@@ -73,7 +73,7 @@ public class SlimeAmmo : MonoBehaviour
     private void OnDestroy()
     {
         transform.DOKill();
-        if(m_shadowTran != null)
-            Destroy(m_shadowTran.gameObject);
+        if(_shadowTran != null)
+            Destroy(_shadowTran.gameObject);
     }
 }

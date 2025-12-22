@@ -8,8 +8,8 @@ using MapSystem.Nodes;
 using MapSystem.Graph;
 public class MapGraphView : GraphView
 {
-    private MapGraph m_mapGraph;
-    private Dictionary<MapNode, MapNodeView> m_mapNodeViewDict = new Dictionary<MapNode, MapNodeView>();
+    private MapGraph _mapGraph;
+    private Dictionary<MapNode, MapNodeView> _mapNodeViewDict = new Dictionary<MapNode, MapNodeView>();
     private MapGraphView()
     {
         //这句代码让 _graphView 撑满整个窗口
@@ -46,14 +46,14 @@ public class MapGraphView : GraphView
 
     public MapGraphView(MapGraph mapGraph) : this()
     {
-        m_mapGraph = mapGraph;
+        _mapGraph = mapGraph;
 
         viewDataKey = mapGraph.guid;
 
         //绘制所有节点
         foreach (var node in mapGraph.Nodes)
         {
-            m_mapNodeViewDict[node] = DrawNodeView(node);
+            _mapNodeViewDict[node] = DrawNodeView(node);
         }
 
         //绘制所有端口连线
@@ -93,8 +93,8 @@ public class MapGraphView : GraphView
     }
     private void DrawConnection(MapNode outputNode, E_ConnectionType outputType, MapNode inputNode, E_ConnectionType inputType)
     {
-        Port outputPort = m_mapNodeViewDict[outputNode].GetPortFromConnectionType(outputType);
-        Port inputPort = m_mapNodeViewDict[inputNode].GetPortFromConnectionType(inputType);
+        Port outputPort = _mapNodeViewDict[outputNode].GetPortFromConnectionType(outputType);
+        Port inputPort = _mapNodeViewDict[inputNode].GetPortFromConnectionType(inputType);
         Edge edge = outputPort.ConnectTo(inputPort);
         AddElement(edge);
     }
@@ -114,7 +114,7 @@ public class MapGraphView : GraphView
                 if(element is MapNodeView nodeView)//删除元素为节点
                 {
                     //删除Model端的节点信息
-                    m_mapGraph.DeleteNode(nodeView.MapNode);
+                    _mapGraph.DeleteNode(nodeView.MapNode);
                 }
                 else if(element is Edge edge)//删除元素为连线
                 {
@@ -125,7 +125,7 @@ public class MapGraphView : GraphView
                     E_ConnectionType outputConnectionType = outputNodeView.GetConnectionTypeFromPort(edge.output);
 
                     //删除Model端的连线信息
-                    m_mapGraph.DeleteConnection(outputNodeView.MapNode, outputConnectionType, inputNodeView.MapNode, inputConnectionType);
+                    _mapGraph.DeleteConnection(outputNodeView.MapNode, outputConnectionType, inputNodeView.MapNode, inputConnectionType);
                 }
             }
         }
@@ -140,7 +140,7 @@ public class MapGraphView : GraphView
                 E_ConnectionType inputConnectionType = inputNodeView.GetConnectionTypeFromPort(edge.input);
                 E_ConnectionType outputConnectionType = outputNodeView.GetConnectionTypeFromPort(edge.output);
 
-                m_mapGraph.SaveConnection(outputNodeView.MapNode, outputConnectionType, inputNodeView.MapNode, inputConnectionType);
+                _mapGraph.SaveConnection(outputNodeView.MapNode, outputConnectionType, inputNodeView.MapNode, inputConnectionType);
             }
         }
         return graphViewChange;
@@ -179,7 +179,7 @@ public class MapGraphView : GraphView
     public void CreateNode(Vector2 mousePosition)
     {
         //创建MapNode资源
-        MapNode node = m_mapGraph.CreateMapNode();
+        MapNode node = _mapGraph.CreateMapNode();
         //创建MapNodeView
         MapNodeView nodeView = new MapNodeView(node);
 

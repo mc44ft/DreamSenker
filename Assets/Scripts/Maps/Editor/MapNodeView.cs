@@ -9,12 +9,12 @@ using UnityEngine.UIElements;
 
 public class MapNodeView : Node
 {
-    private VisualElement m_topContainer;
-    private VisualElement m_middleContainer;
-    private VisualElement m_leftContainer;
+    private VisualElement _topContainer;
+    private VisualElement _middleContainer;
+    private VisualElement _leftContainer;
     public VisualElement DataContainer;
-    private VisualElement m_rightContainer;
-    private VisualElement m_bottomContainer;
+    private VisualElement _rightContainer;
+    private VisualElement _bottomContainer;
 
     //四个方向的端口
     public readonly Port TopInputPort;
@@ -38,32 +38,32 @@ public class MapNodeView : Node
         mainContainer.Add(nodeLayout);
 
         //获取UXML中的自定义容器
-        m_topContainer = nodeLayout.Q<VisualElement>("TopContainer");
-        m_middleContainer = nodeLayout.Q<VisualElement>("MiddleContainer");
-        m_leftContainer = m_middleContainer.Q<VisualElement>("LeftContainer");
-        DataContainer = m_middleContainer.Q<VisualElement>("DataContainer");
-        m_rightContainer = m_middleContainer.Q<VisualElement>("RightContainer");
-        m_bottomContainer = nodeLayout.Q<VisualElement>("BottomContainer");
+        _topContainer = nodeLayout.Q<VisualElement>("TopContainer");
+        _middleContainer = nodeLayout.Q<VisualElement>("MiddleContainer");
+        _leftContainer = _middleContainer.Q<VisualElement>("LeftContainer");
+        DataContainer = _middleContainer.Q<VisualElement>("DataContainer");
+        _rightContainer = _middleContainer.Q<VisualElement>("RightContainer");
+        _bottomContainer = nodeLayout.Q<VisualElement>("BottomContainer");
 
         //创建顶部输出端口
-        TopOutputPort = CreatePort(Orientation.Vertical, Direction.Output, Color.cyan, m_topContainer);
+        TopOutputPort = CreatePort(Orientation.Vertical, Direction.Output, Color.cyan, _topContainer);
         //创建顶部输入端口
-        TopInputPort = CreatePort(Orientation.Vertical, Direction.Input, Color.red, m_topContainer);
+        TopInputPort = CreatePort(Orientation.Vertical, Direction.Input, Color.red, _topContainer);
 
         //创建左侧输出端口
-        LeftOutputPort = CreatePort(Orientation.Horizontal, Direction.Output, Color.cyan, m_leftContainer);
+        LeftOutputPort = CreatePort(Orientation.Horizontal, Direction.Output, Color.cyan, _leftContainer);
         //创建左侧输入端口
-        LeftInputPort = CreatePort(Orientation.Horizontal, Direction.Input, Color.red, m_leftContainer);
+        LeftInputPort = CreatePort(Orientation.Horizontal, Direction.Input, Color.red, _leftContainer);
 
         //创建右侧输入端口
-        RightInputPort = CreatePort(Orientation.Horizontal, Direction.Input, Color.red, m_rightContainer);
+        RightInputPort = CreatePort(Orientation.Horizontal, Direction.Input, Color.red, _rightContainer);
         //创建右侧输出端口
-        RightOutputPort = CreatePort(Orientation.Horizontal, Direction.Output, Color.cyan, m_rightContainer);
+        RightOutputPort = CreatePort(Orientation.Horizontal, Direction.Output, Color.cyan, _rightContainer);
 
         //创建底部输入端口
-        BottomInputPort = CreatePort(Orientation.Vertical, Direction.Input, Color.red, m_bottomContainer);
+        BottomInputPort = CreatePort(Orientation.Vertical, Direction.Input, Color.red, _bottomContainer);
         //创建底部输出端口
-        BottomOutputPort = CreatePort(Orientation.Vertical, Direction.Output, Color.cyan, m_bottomContainer);
+        BottomOutputPort = CreatePort(Orientation.Vertical, Direction.Output, Color.cyan, _bottomContainer);
 
         //刷新
         RefreshExpandedState();

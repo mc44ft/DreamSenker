@@ -13,149 +13,179 @@ public class Minion : MonoBehaviour, IDamageable, ITouchDamageable
     //--------------------------------- Child Component -----------------------------------
     [Space(5)]
     [Header("POINT")]
-    [SerializeField] private Transform m_rayCheckGround;
-    [SerializeField] private Transform m_rayCheckWall;
-    [SerializeField] private Transform m_slimeAmmoFireTransform;
-    [SerializeField] private GameObject m_selectedEffect;
+    [SerializeField] private Transform _rayCheckGround;
+    [SerializeField] private Transform _rayCheckWall;
+    [SerializeField] private Transform _slimeAmmoFireTransform;
+    [SerializeField] private GameObject _selectedEffect;
+    [Header("TRIGGER")]
+    [SerializeField] private Minion_TriggerBig _triggerBig;
+    [SerializeField] private Minion_TriggerSmall _triggerSmall;
 
     //--------------------------------- Assets -----------------------------------
     [Space(5)]
     [Header("SLIME AMMO")]
-    [SerializeField] private GameObject m_slimeAmmoPrefab;
+    [SerializeField] private GameObject _slimeAmmoPrefab;
 
     //--------------------------------- Component -----------------------------------
     [Header("COMPONENT")]
-    private Rigidbody2D m_rigidbody;
-    private Health m_health;
-    private SpriteRenderer m_spriteRenderer;
+    private Rigidbody2D _rigidbody;
+    private Health _health;
+    private SpriteRenderer _spriteRenderer;
 
     //--------------------------------- Private Parameter -----------------------------------
     [Space(5)]
     [Header("BASIC DETAILS")]
-    [SerializeField] private int m_maxHealthAmount = 3;
-    [SerializeField] private int m_damage;
-    [SerializeField] private float m_moveSpeed;
-    [SerializeField] private float m_knockbackForceValue = 10f;
-    [SerializeField] private float m_deathDuration = 1f;
+    [SerializeField] private int _maxHealthAmount = 3;
+    [SerializeField] private int _damage;
+    [SerializeField] private float _moveSpeed;
+    [SerializeField] private float _knockbackForceValue = 10f;
+    [SerializeField] private float _deathDuration = 1f;
     [Tooltip("发射间隔时间")]
-    [SerializeField] private float m_launchIntervalTime = 2f;
+    [SerializeField] private float _launchIntervalTime = 2f;
 
-    private Material m_material;
+    private Material _material;
 
-    private Coroutine m_launchSlimeCoroutine;
-    private Coroutine m_chasePlayerCoroutine;
+    //private Coroutine _launchSlimeCoroutine;
+    private Coroutine _chasePlayerCoroutine;
+
+    private float _launchIntervalTimer;
     /// <summary>
     /// 是否找到了玩家
     /// 在与玩家交互状态下 
     /// 到达平台边缘不转向而是停止移动
     /// 与玩家距离过近时也停止移动
     /// </summary>
-    private bool m_isFindedPlayer;
-    private bool m_cannotMove;
-    //private bool m_deathTriggered;
-    private int m_faceRight = 1;
+    private bool _isFindedPlayer;
+    private bool _cannotMove;//找到玩家
+    private float _faceRight;
     private void Awake()
     {
-        m_rigidbody = GetComponent<Rigidbody2D>();
-        m_health = GetComponent<Health>();
-        m_spriteRenderer = GetComponent<SpriteRenderer>();
+        _rigidbody = GetComponent<Rigidbody2D>();
+        _health = GetComponent<Health>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
 
-        m_material = m_spriteRenderer.material;
+        _material = _spriteRenderer.material;
     }
     private void Start()
     {
-        m_health.Initialize(m_maxHealthAmount, m_maxHealthAmount);
+        _health.Initialize(_maxHealthAmount, _maxHealthAmount);
         //默认关闭选中特效
         Deselect();
+
+        _faceRight = transform.localScale.x;
+        _launchIntervalTimer = 0;
     }
     private void Update()
     {
-        Debug.DrawRay(m_rayCheckGround.position, -Vector2.up * 1, Color.red);
-        Debug.DrawRay(m_rayCheckWall.position, Vector2.right * m_faceRight, Color.red);
+        Debug.DrawRay(_rayCheckGround.position, -Vector2.up * 1, Color.red);
+        Debug.DrawRay(_rayCheckWall.position, Vector2.right * _faceRight, Color.red);
 
-        RaycastHit2D hitInfo_ground = Physics2D.Raycast(m_rayCheckGround.position, 
+        RaycastHit2D hitInfo_ground = Physics2D.Raycast(_rayCheckGround.position, 
             -Vector2.up, 1, 1 << LayerMask.NameToLayer("GroundReal"));
-        RaycastHit2D hitInfo_wall = Physics2D.Raycast(m_rayCheckWall.position, 
-            Vector2.right * m_faceRight, 1.5f, 1 << LayerMask.NameToLayer("GroundReal"));
+        RaycastHit2D hitInfo_wall = Physics2D.Raycast(_rayCheckWall.position, 
+            Vector2.right * _faceRight, 1.5f, 1 << LayerMask.NameToLayer("GroundReal"));
 
         if (hitInfo_ground.collider == null || hitInfo_wall.collider != null)//踩空了
         {
-            if (!m_isFindedPlayer)
+            if (!_isFindedPlayer)
             {
                 //转向
-                UpdateFace(-m_faceRight);
+                UpdateFace(-_faceRight);
             }
             else
             {
                 //在和玩家交互的过程中 遇到平台边缘或者墙 停止移动
-                m_cannotMove = true;
+                _cannotMove = true;
             }
         }
+
+        _launchIntervalTimer -= Time.deltaTime;
+
+        LaunchSlimeAmmo(GameManager.Instance.Player.transform);
     }
     private void FixedUpdate()
     {
-        if (!m_cannotMove && !m_health.IsDead)
+        if (!_cannotMove && !_health.IsDead)
         {
-            m_rigidbody.velocity = new Vector3(m_moveSpeed * m_faceRight, m_rigidbody.velocity.y);
+            _rigidbody.velocity = new Vector3(_moveSpeed * _faceRight, _rigidbody.velocity.y);
         }
     }
     public void StartChasePlayer(Transform player)
     {
         //找到玩家
-        m_isFindedPlayer = true;
+        _isFindedPlayer = true;
 
-        
-        if (m_chasePlayerCoroutine != null)
+        //开始追击玩家
+        if (_chasePlayerCoroutine != null)
         {
-            StopCoroutine(m_chasePlayerCoroutine);
+            StopCoroutine(_chasePlayerCoroutine);
         }
-        m_chasePlayerCoroutine = StartCoroutine(ChasePlayerCoroutine(player));
+        _chasePlayerCoroutine = StartCoroutine(ChasePlayerCoroutine(player));
     }
     public void StopChasePlayer()
     {
         //恢复正常
-        m_isFindedPlayer = false;
-        m_cannotMove = false;
+        _isFindedPlayer = false;
+        _cannotMove = false;
 
-        if (m_chasePlayerCoroutine != null)
+        //停止追击玩家
+        if (_chasePlayerCoroutine != null)
         {
-            StopCoroutine(m_chasePlayerCoroutine);
+            StopCoroutine(_chasePlayerCoroutine);
+            _chasePlayerCoroutine = null;
         }
     }
     public void StartLaunchSlimeAmmo(Transform player)
     {
         //停止移动
-        m_cannotMove = true;
+        _cannotMove = true;
 
-        if (m_launchSlimeCoroutine != null)
-        {
-            StopCoroutine(m_launchSlimeCoroutine);
-        }
-        m_launchSlimeCoroutine = StartCoroutine(LaunchSlimeAmmoCoroutine(player, m_launchIntervalTime));
+        //if (_launchSlimeCoroutine != null)
+        //{
+        //    StopCoroutine(_launchSlimeCoroutine);
+        //    _launchSlimeCoroutine = null;
+        //}
+        //_launchSlimeCoroutine = StartCoroutine(LaunchSlimeAmmoCoroutine(player, _launchIntervalTime));
     }
     public void StopLaunchSlimeAmmo()
     {
         //恢复移动
-        m_cannotMove = false;
+        _cannotMove = false;
 
-        if (m_launchSlimeCoroutine != null)
-        {
-            StopCoroutine(m_launchSlimeCoroutine);
-        }
+        //if (_launchSlimeCoroutine != null)
+        //{
+        //    StopCoroutine(_launchSlimeCoroutine);
+        //    _launchSlimeCoroutine = null;
+        //}
     }
-    private IEnumerator LaunchSlimeAmmoCoroutine(Transform player, float intervalTime = 2f)
+    //private IEnumerator LaunchSlimeAmmoCoroutine(Transform player, float intervalTime = 2f)
+    //{
+    //    while (true && !_health.IsDead)
+    //    {
+    //        //确定玩家位置
+    //        Vector3 targetPosition = player.position;
+    //        //实例化史莱姆
+    //        SlimeAmmo slimeAmmo = Instantiate(_slimeAmmoPrefab, _slimeAmmoFireTransform.position, Quaternion.identity).GetComponent<SlimeAmmo>();
+    //        slimeAmmo.Init(_damage, new Vector2(_faceRight, 0));
+    //        //向玩家位置抛出史莱姆
+    //        slimeAmmo.Launch(targetPosition);
+
+    //        yield return new WaitForSeconds(intervalTime);
+    //    }
+    //}
+    public void LaunchSlimeAmmo(Transform player)
     {
-        while (true && !m_health.IsDead)
+        if(_launchIntervalTimer <= 0f && _cannotMove)
         {
             //确定玩家位置
             Vector3 targetPosition = player.position;
             //实例化史莱姆
-            SlimeAmmo slimeAmmo = Instantiate(m_slimeAmmoPrefab, m_slimeAmmoFireTransform.position, Quaternion.identity).GetComponent<SlimeAmmo>();
-            slimeAmmo.Init(m_damage, new Vector2(m_faceRight, 0));
+            SlimeAmmo slimeAmmo = Instantiate(_slimeAmmoPrefab, _slimeAmmoFireTransform.position, Quaternion.identity).GetComponent<SlimeAmmo>();
+            slimeAmmo.Init(_damage, new Vector2(_faceRight, 0));
             //向玩家位置抛出史莱姆
             slimeAmmo.Launch(targetPosition);
 
-            yield return new WaitForSeconds(intervalTime);
+            _launchIntervalTimer = _launchIntervalTime;
         }
     }
     /// <summary>
@@ -168,9 +198,10 @@ public class Minion : MonoBehaviour, IDamageable, ITouchDamageable
         while(true)
         {
             //决定怪物朝向
-            int newFace = (player.position.x - transform.position.x) > 0 ? 1 : -1;
+            float value = Mathf.Abs(transform.localScale.x);
+            float newFace = (player.position.x - transform.position.x) > 0 ? value : -value;
 
-            if(m_faceRight != newFace)
+            if(_faceRight != newFace)
             {
                 UpdateFace(newFace);
             }
@@ -178,25 +209,25 @@ public class Minion : MonoBehaviour, IDamageable, ITouchDamageable
         }
     }
     
-    private void UpdateFace(int newFace)
+    private void UpdateFace(float newFace)
     {
-        m_faceRight = newFace;
-        transform.localScale = new Vector3(m_faceRight, 1, 1);
+        _faceRight = newFace;
+        transform.localScale = new Vector3(_faceRight, transform.localScale.y, transform.localScale.z);
     }
     public int GetTouchDamage()
     {
-        return m_damage;
+        return _damage;
     }
 
     public void TakeDamage(int damage, Vector2 attackDirection)
     {
-        if (m_health.IsDead) return;
+        if (_health.IsDead) return;
 
-        m_health.ApplyDamage(damage);
+        _health.ApplyDamage(damage);
 
-        if (m_health.IsDead)
+        if (_health.IsDead)
         {
-            m_material.DOFloat(1f, Settings.DissolveAmountString, m_deathDuration).
+            _material.DOFloat(1f, Settings.DissolveAmountString, _deathDuration).
                 SetEase(Ease.InOutQuad).OnComplete(() =>
                 {
                     Destroy(gameObject);
@@ -207,11 +238,11 @@ public class Minion : MonoBehaviour, IDamageable, ITouchDamageable
     }
     private IEnumerator TakeDamageRoutine(Vector2 attackDirection)
     {
-        m_spriteRenderer.color = Color.red;
+        _spriteRenderer.color = Color.red;
         yield return new WaitForSeconds(0.1f);
-        m_spriteRenderer.color = Color.white;
+        _spriteRenderer.color = Color.white;
         //被击飞
-        HelperUtilities.DoKnockback(m_rigidbody, attackDirection, m_knockbackForceValue);
+        HelperUtilities.DoKnockback(_rigidbody, attackDirection, _knockbackForceValue);
     }
     public Vector2 GetPosition()
     {
@@ -227,12 +258,12 @@ public class Minion : MonoBehaviour, IDamageable, ITouchDamageable
     public void Select()
     {
         //选中该对象
-        m_selectedEffect.SetActive(true);
+        _selectedEffect.SetActive(true);
     }
 
     public void Deselect()
     {
-        m_selectedEffect.SetActive(false);
+        _selectedEffect.SetActive(false);
     }
 
     

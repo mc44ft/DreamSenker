@@ -202,7 +202,6 @@ public class GameManager : SingletonMono<GameManager>
 
                 //根据当前游戏数据更新地图状态
                 UpdateMapFromGameSaveData();
-                Debug.Log(Application.persistentDataPath);
             });
         });
         
@@ -214,8 +213,6 @@ public class GameManager : SingletonMono<GameManager>
     {
         MapNode node = MapGraph.Nodes.Where(node => node.MapData.MapSceneName == mapName).FirstOrDefault();
         GameSaveData.CurrentMapNodeGuid = node.guid;
-
-        
 
         LoadMapScene(mapName, onFinished);
     }
