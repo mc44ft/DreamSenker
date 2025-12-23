@@ -69,10 +69,7 @@ namespace PlayArk.GraphCore.Editor
             return graphViewChange;
         }
 
-        private void RemoveNode(GraphCoreNodeView nodeView)
-        {
-            _graphCore.RemoveNode(nodeView.CoreNode);
-        }
+        
 
         public override void BuildContextualMenu(ContextualMenuPopulateEvent evt)
         {
@@ -97,7 +94,10 @@ namespace PlayArk.GraphCore.Editor
             GraphCoreNode node = _graphCore.CreateNode(nodeType, mousePosition);
             CreateNodeView(node);
         }
-
+        private void RemoveNode(GraphCoreNodeView nodeView)
+        {
+            _graphCore.RemoveNode(nodeView.CoreNode);
+        }
         private void CreateNodeView(GraphCoreNode node)
         {
             GraphCoreNodeView nodeView = new GraphCoreNodeView(node);
