@@ -1,10 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using PlayArk.GraphCore.Data;
 using UnityEditor;
-using UnityEngine;
+using UnityEditor.Callbacks;
 using UnityEngine.UIElements;
 namespace PlayArk.GraphCore.Editor
 {
+    /// <summary>
+    /// MVVM架构
+    /// 担任了VM层的角色
+    /// </summary>
     public class GraphCoreEditor : EditorWindow
     {
         private GraphCoreView _view;
@@ -13,10 +16,18 @@ namespace PlayArk.GraphCore.Editor
             //得到主容器
             VisualElement root = rootVisualElement;
 
+            //通过路径加载这个uxml资源
+            //uxml资源对应的类就是VisualTreeAsset
             VisualTreeAsset visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(GetPath() + "GraphCoreEditor.uxml");
-
+            //Unity读取 UXML 里的层级结构，
+            //把里面定义的按钮、容器等一个个创建出来，
+            //并作为子物体塞进 root 里面。
             visualTree.CloneTree(root);
-            _view = root.Q<GraphCoreView>(); 
+
+            _view = root.Q<GraphCoreView>();
+
+            //保证新创建的资源能及时绑定
+            OnSelectionChange();
 
         }
         /// <summary>
@@ -50,6 +61,35 @@ namespace PlayArk.GraphCore.Editor
             //bool参数：决定了该窗口是一个可以停靠、随意拖拽的大窗口（false）
             //还是一个始终悬浮在最前面点击空白区域立即消失的小工具窗口（true）
             GetWindow<GraphCoreEditor>(false, "GraphCore");
+        }
+        [OnOpenAsset]
+        private static bool OnStateMachineOpened(int instanceID)
+        {
+            if(EditorUtility.InstanceIDToObject(instanceID) is GraphCoreSO graphCore)
+            {
+                ShowWindow();
+                return true;
+            }
+            return false;
+        }
+        /// <summary>
+        /// 在Project窗口中切换资源时调用
+        /// 在Hierarchy窗口中切换游戏对象时调用（运行时和非运行时都会响应）
+        /// 这两个窗口中聚焦的对象是唯一的
+        /// </summary>
+        private void OnSelectionChange()
+        {
+            //activeObject 涵盖了所有资产 SO、材质、贴图、预制体、场景中的游戏对象 等 都囊括在内
+            //activeGameObject 只包括场景上的物体 和 Project中的预制体文件
+            GraphCoreSO graphCore = Selection.activeObject as GraphCoreSO;
+            //if (Selection.activeGameObject)
+            //{
+                
+            //}
+            if(graphCore != null)
+            {
+                _view.Refresh(graphCore);
+            }
         }
     }
 }

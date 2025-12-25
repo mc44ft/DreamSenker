@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Scripts/Toolkits/GraphProcessor/Editor/GraohCorePort.uss?fileID=7433441132597879392&amp;guid=e4915f3a1a739cc46b5910ed52b5fcf3&amp;type=3#GraohCorePort" />
+    <ui:VisualElement name="mainContainer" class="mainContainer">
+        <ui:VisualElement name="portSlot" class="portSlot" />
+        <ui:TextField picking-mode="Ignore" value="filler text" class="textField" />
+    </ui:VisualElement>
+</ui:UXML>
