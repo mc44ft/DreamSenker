@@ -32,10 +32,10 @@ namespace PlayArk.GraphCore.Editor
             CoreNode = data;
             _graphCore = graphCore;
 
-            viewDataKey = data.UniqueID;
+            viewDataKey = data.GetUniqueID();
 
-            style.left = data.ViewPosition.x;
-            style.top = data.ViewPosition.y;
+            style.left = data.GetViewPosition().x;
+            style.top = data.GetViewPosition().y;
 
 
             FindVisualElement();
@@ -71,11 +71,11 @@ namespace PlayArk.GraphCore.Editor
         {
             if (CoreNode != null)
             {
-                foreach (var port in CoreNode.InputPorts)
+                foreach (var port in CoreNode.GetInputPorts())
                 {
                     CreatePortView(port, Port.Capacity.Single);
                 }
-                foreach (var port in CoreNode.OutputPorts)
+                foreach (var port in CoreNode.GetOutputPorts())
                 {
                     CreatePortView(port, Port.Capacity.Single);
                 }
@@ -103,7 +103,7 @@ namespace PlayArk.GraphCore.Editor
         
         private void AddPort(Direction portDirection)
         {
-            GraphCorePort portData = CoreNode.CreatePort(portDirection);
+            GraphCorePort portData = CoreNode.CreatePortInternal(portDirection);
             CreatePortView(portData, Port.Capacity.Single);
         }
         private GraphCorePortTemplate CreatePortView(GraphCorePort portData, Port.Capacity capacity)

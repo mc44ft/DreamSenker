@@ -2,6 +2,7 @@
 using DialogueSystem.Misc;
 using MapSystem.Graph;
 using MapSystem.Nodes;
+using PlayArk.GraphCore.Data;
 using System;
 using System.Collections;
 using System.Linq;
@@ -190,7 +191,7 @@ public class GameManager : SingletonMono<GameManager>
                 //玩家初始化完成后 填充背包管理器数据
                 InventoryManager.Instance.SetupData(Player.PlayerSaveData.PackageData, PackageItemConfig);
                 //初始化玩家的阴影数据
-                Player.SetShadowDarknessStrength(MapGraph.GetMapNodeFromGuid(GameSaveData.CurrentMapNodeGuid).MapData.PlayerShadowDarknessStrength);
+                Player.SetShadowDarknessStrength(MapGraph.GetNodeByID(GameSaveData.CurrentMapNodeGuid).MapData.PlayerShadowDarknessStrength);
 
                 //加载主面板
                 UIManager.Instance.ShowPanel<GamePanel>(E_UILayer.Botton, null, (panel) =>
@@ -211,8 +212,8 @@ public class GameManager : SingletonMono<GameManager>
     /// </summary>
     private void LoadMap(string mapName, Action onFinished = null)
     {
-        MapNode node = MapGraph.Nodes.Where(node => node.MapData.MapSceneName == mapName).FirstOrDefault();
-        GameSaveData.CurrentMapNodeGuid = node.guid;
+        MapNode node = MapGraph.GetNodes().Where(node => node.MapData.MapSceneName == mapName).FirstOrDefault();
+        GameSaveData.CurrentMapNodeGuid = node.UniqueID;
 
         LoadMapScene(mapName, onFinished);
     }
@@ -240,11 +241,13 @@ public class GameManager : SingletonMono<GameManager>
         SpawnPointManager.Instance.ClearSpawnPointDict();
 
         //即将加载的MapNode
-        MapNode mapNode = MapGraph.GetMapNodeFromGuid(GameSaveData.CurrentMapNodeGuid)
-            .GetConnectionNodeFromOutputPort(exitType);
+        string portID = MapGraph.GetNodeByID(GameSaveData.CurrentMapNodeGuid).GetMapGraphPortByEnum(exitType).UniqueID;
+        GraphCoreEdge edge = MapGraph.GetEdgeByPortID(portID);
+        MapNode mapNode = MapGraph.GetNodeByID(edge.ConnectionNodeID);
+
         //更新地图信息
         GameSaveData.PreviousMapNodeGuid = GameSaveData.CurrentMapNodeGuid;
-        GameSaveData.CurrentMapNodeGuid = mapNode.guid;
+        GameSaveData.CurrentMapNodeGuid = mapNode.UniqueID;
 
         //加载新地图
         LoadMapScene(mapNode.MapData.MapSceneName, () =>
@@ -297,11 +300,11 @@ public class GameManager : SingletonMono<GameManager>
         SpawnPointManager.Instance.ClearSpawnPointDict();
 
         //即将加载的MapNode
-        MapNode mapNode = MapGraph.Nodes.Where(node => node.MapData.MapSceneName == mapSceneName).FirstOrDefault();
+        MapNode mapNode = MapGraph.GetNodes().Where(node => node.MapData.MapSceneName == mapSceneName).FirstOrDefault();
 
         //更新地图信息
         GameSaveData.PreviousMapNodeGuid = GameSaveData.CurrentMapNodeGuid;
-        GameSaveData.CurrentMapNodeGuid = mapNode.guid;
+        GameSaveData.CurrentMapNodeGuid = mapNode.UniqueID;
 
         //加载新地图
         LoadMapScene(mapNode.MapData.MapSceneName, () =>
@@ -329,7 +332,7 @@ public class GameManager : SingletonMono<GameManager>
     private void UpdateMapFromGameSaveData()
     {
 
-        string mapSceneName = MapGraph.GetMapNodeFromGuid(GameSaveData.CurrentMapNodeGuid).MapData.MapSceneName;
+        string mapSceneName = MapGraph.GetNodeByID(GameSaveData.CurrentMapNodeGuid).MapData.MapSceneName;
         //山洞地图处理
         if (mapSceneName == GetSceneNameFromEnum(E_MapSceneName.CaveMap))
         {
@@ -339,7 +342,7 @@ public class GameManager : SingletonMono<GameManager>
                 EventCenter.Instance.EventTrigger(E_EventType.Game_BossKeepDead, this, new GameBossKeepDeadEventArgs(E_BossType.Spider));
 
                 //从梦境地图回来时触发
-                if (MapGraph.GetMapNodeFromGuid(GameSaveData.PreviousMapNodeGuid).MapData.MapSceneName == "MirrorMap2")
+                if (MapGraph.GetNodeByID(GameSaveData.PreviousMapNodeGuid).MapData.MapSceneName == "MirrorMap2")
                 {
                     TimerManager.Countdown(4, () =>
                     {

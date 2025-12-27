@@ -6,7 +6,21 @@ using UnityEditor;
 
 namespace PlayArk.GraphCore.Data
 {
-    public class GraphCoreNode : ScriptableObject
+    public abstract class GraphCoreNode : ScriptableObject
+    {
+        public abstract string GetUniqueID();
+        public abstract Vector2 GetViewPosition();
+        public abstract IEnumerable<GraphCorePort> GetInputPorts();
+        public abstract IEnumerable<GraphCorePort> GetOutputPorts();
+
+        public abstract void Initialize(string uniqueID, Vector2 viewPosition);
+        public abstract void SetPosition(Vector2 viewPosition);
+
+        
+        public abstract GraphCorePort CreatePortInternal(Direction direction);
+        public abstract GraphCorePort GetPortDataInternal(string portID);
+    }
+    public class GraphCoreNode<TPort> : GraphCoreNode where TPort : GraphCorePort, new()
     {
         //屏蔽字段未使用的警告
 #pragma warning disable CS0414
@@ -26,39 +40,31 @@ namespace PlayArk.GraphCore.Data
         [field: HideInInspector, SerializeField]
         public Vector2 ViewPosition { get; private set; }//编辑器视图坐标 
 
+        [field: SerializeField]
+        public List<TPort> InputPorts { get; private set; } = new List<TPort>();
         [field: HideInInspector, SerializeField]
-        public List<GraphCorePort> InputPorts { get; private set; } = new List<GraphCorePort>();
-        [field: HideInInspector, SerializeField]
-        public List<GraphCorePort> OutputPorts {  get; private set; } = new List<GraphCorePort>();
+        public List<TPort> OutputPorts {  get; private set; } = new List<TPort>();
 
-        private Dictionary<string, GraphCorePort> _portLookup = new();
-        /// <summary>
-        /// 外部初始化
-        /// </summary>
-        public void Initialize(string uniqueID, Vector2 viewPosition)
-        {
-            UniqueID = uniqueID;
-            ViewPosition = viewPosition;
+        private Dictionary<string, TPort> _portLookup = new();
 
-            if (InputPorts.Count < 1)
-                CreatePort(Direction.Input);
-            if (OutputPorts.Count < 1)
-                CreatePort(Direction.Output);
-        }
+
+
+        //------------------------------  -----------------------------
+        public override string GetUniqueID()
+            => UniqueID;
+        public override Vector2 GetViewPosition()
+            => ViewPosition;
+        public override IEnumerable<GraphCorePort> GetInputPorts()
+            => InputPorts;
+        public override IEnumerable<GraphCorePort> GetOutputPorts()
+            => OutputPorts;
+        public override GraphCorePort CreatePortInternal(Direction direction)
+            => CreatePort(direction);
+        public override GraphCorePort GetPortDataInternal(string portID)
+            => GetGraphCorePort(portID);
+
         
-        public GraphCorePort CreatePort(Direction direction)
-        {
-            GraphCorePort portData = new GraphCorePort();
-            portData.Initialize(Guid.NewGuid().ToString(), UniqueID, direction);
-            if(direction == Direction.Input)
-                InputPorts.Add(portData);
-            else
-                OutputPorts.Add(portData);
-
-            EditorUtility.SetDirty(this);
-            return portData;
-        }
-        public GraphCorePort GetPortData(string portID)
+        public TPort GetGraphCorePort(string portID)
         {
             if(_portLookup.ContainsKey(portID))
             {
@@ -67,29 +73,58 @@ namespace PlayArk.GraphCore.Data
             return null;
         }
 #if UNITY_EDITOR
-        private void OnValidate()
+        
+        /// <summary>
+        /// 外部初始化
+        /// </summary>
+        public override void Initialize(string uniqueID, Vector2 viewPosition)
+        {
+            UniqueID = uniqueID;
+            ViewPosition = viewPosition;
+
+            if (InputPorts.Count < 1)
+                CreatePort(Direction.Input);
+            if (OutputPorts.Count < 1)
+                CreatePort(Direction.Output);
+
+            EditorUtility.SetDirty(this);
+        }
+
+        public TPort CreatePort(Direction direction)
+        {
+            TPort portData = new TPort();
+            portData.Initialize(Guid.NewGuid().ToString(), UniqueID, direction);
+            if (direction == Direction.Input)
+                InputPorts.Add(portData);
+            else
+                OutputPorts.Add(portData);
+
+            EditorUtility.SetDirty(this);
+            return portData;
+        }
+        public override void SetPosition(Vector2 viewPosition)
+        {
+            Undo.RecordObject(this, "你刚刚移动了一个GraphCoreNode");
+            ViewPosition = viewPosition;
+            EditorUtility.SetDirty(this);
+        }
+        protected virtual void OnValidate()
         {
             _portLookup.Clear();
             foreach (var portData in InputPorts)
             {
-                if(portData != null)
+                if (portData != null)
                 {
                     _portLookup[portData.UniqueID] = portData;
                 }
             }
             foreach (var portData in OutputPorts)
             {
-                if(portData != null)
+                if (portData != null)
                 {
                     _portLookup[portData.UniqueID] = portData;
                 }
             }
-        }
-        public void SetPosition(Vector2 viewPosition)
-        {
-            Undo.RecordObject(this, "你刚刚移动了一个GraphCoreNode");
-            ViewPosition = viewPosition;
-            EditorUtility.SetDirty(this);
         }
 #endif
 

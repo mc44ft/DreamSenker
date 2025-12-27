@@ -53,13 +53,13 @@ namespace PlayArk.GraphCore.Editor
             if(_graphCore != null)
             {
                 //绘制所有节点
-                foreach (var node in _graphCore.GetNodes())
+                foreach (var node in _graphCore.GetNodesInternal())
                 {
                     DrawNode(node);
                 }
 
                 //绘制所有连线
-                foreach (var edge in _graphCore.GetEdges())
+                foreach (var edge in _graphCore.GetEdgesInternal())
                 {
                     DrawEdge(edge);
                 }
@@ -111,22 +111,25 @@ namespace PlayArk.GraphCore.Editor
         }
         public override void BuildContextualMenu(ContextualMenuPopulateEvent evt)
         {
-            if (!Application.isPlaying)
-            {
-                base.BuildContextualMenu(evt);
+            if (Application.isPlaying) return;
 
-                //解决画布缩放拖拽和屏幕尺寸不同步的问题
-                Vector2 mousePosition =
-                    viewTransform.matrix.//代表了当前画布的状态
-                    inverse.//逆矩阵
-                    MultiplyPoint(evt.mousePosition);//矩阵计算
+            base.BuildContextualMenu(evt);
 
-                //添加菜单项
-                evt.menu.AppendAction("Create Node", a => CreateNode(typeof(GraphCoreNode), mousePosition));
-            }
+            //解决画布缩放拖拽和屏幕尺寸不同步的问题
+            Vector2 mousePosition =
+                viewTransform.matrix.//代表了当前画布的状态
+                inverse.//逆矩阵
+                MultiplyPoint(evt.mousePosition);//矩阵计算
+
+            //添加菜单项
+            AppendMenuAction(evt, mousePosition);
+            
         }
 
-
+        protected virtual void AppendMenuAction(ContextualMenuPopulateEvent evt, Vector2 mousePosition)
+        {
+            //evt.menu.AppendAction("Create Node", a => CreateNode(typeof(GraphCoreNode), mousePosition));
+        }
 
         /// <summary>
         /// 在视图中拉起一根线时 这个方法返回的端口即为允许连接的端口
@@ -153,7 +156,7 @@ namespace PlayArk.GraphCore.Editor
         }
         private bool AreConnected(Port startPort, Port endPort)
         {
-            foreach (var edge in _graphCore.GetEdges())
+            foreach (var edge in _graphCore.GetEdgesInternal())
             {
                 if(edge.RootPortID == startPort.viewDataKey && edge.ConnectionPortID == endPort.viewDataKey)
                 {
@@ -173,14 +176,14 @@ namespace PlayArk.GraphCore.Editor
             GraphCoreNodeView nodeView = new GraphCoreNodeView(node, _graphCore);
             AddElement(nodeView);
         }
-        private void CreateNode(Type nodeType, Vector2 mousePosition)
+        protected void CreateNode(Type nodeType, Vector2 mousePosition)
         {
-            GraphCoreNode node = _graphCore.CreateNode(nodeType, mousePosition);
+            GraphCoreNode node = _graphCore.CreateNodeInternal(nodeType, mousePosition);
             DrawNode(node);
         }
         private void DeleteNode(GraphCoreNodeView nodeView)
         {
-            _graphCore.DeleteNode(nodeView.CoreNode);
+            _graphCore.DeleteNodeInternal(nodeView.CoreNode);
 
             
         }
@@ -199,11 +202,11 @@ namespace PlayArk.GraphCore.Editor
         {
             GraphCorePort rootPort = edge.input.userData as GraphCorePort;
             GraphCorePort truePort = edge.output.userData as GraphCorePort;
-            _graphCore.CreateEdge(rootPort.SelfNodeID, rootPort.UniqueID, truePort.SelfNodeID, truePort.UniqueID);
+            _graphCore.CreateEdgeInternal(rootPort.SelfNodeID, rootPort.UniqueID, truePort.SelfNodeID, truePort.UniqueID);
         }
         private void DeleteEdge(GraphCoreEdgeView edge)
         {
-            _graphCore.DeleteEdge(edge.GraphCoreEdge);
+            _graphCore.DeleteEdgeInternal(edge.GraphCoreEdge);
         }
         
 

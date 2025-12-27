@@ -1,11 +1,14 @@
-﻿
+﻿using PlayArk.GraphCore.Data;
 using UnityEditor.Experimental.GraphView;
 
-public class GraphCoreEdgeView : Edge
+namespace PlayArk.GraphCore.Editor
 {
-    public GraphCoreEdge GraphCoreEdge { get; private set; }
-    public void BindData(GraphCoreEdge graphCoreEdge)
+    public class GraphCoreEdgeView : Edge
     {
-        GraphCoreEdge = graphCoreEdge;
+        public GraphCoreEdge GraphCoreEdge { get; private set; }
+        public void BindData(GraphCoreEdge graphCoreEdge)
+        {
+            GraphCoreEdge = graphCoreEdge;
+        }
     }
 }

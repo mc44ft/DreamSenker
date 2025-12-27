@@ -24,11 +24,20 @@ namespace PlayArk.GraphCore.Editor
             //并作为子物体塞进 root 里面。
             visualTree.CloneTree(root);
 
-            _view = root.Q<GraphCoreView>();
+            //准备一个动态的容器来动态塞入GraphView
+            VisualElement viewContainer = root.Q<VisualElement>("view-container");
 
+            _view = CreateView();
+            _view.style.flexGrow = 1;
+            viewContainer.Add(_view);
             //保证新创建的资源能及时绑定
             OnSelectionChange();
 
+        }
+        //提供虚方法由子类决定要显示的画布
+        protected virtual GraphCoreView CreateView()
+        {
+            return new GraphCoreView();
         }
         /// <summary>
         /// 得到该脚本所在的上级文件夹的路径
@@ -52,22 +61,18 @@ namespace PlayArk.GraphCore.Editor
             }
             return "Assets/";
         }
-        [MenuItem("PlayArk/Tools/GraphCore")]
-        private static void ShowWindow()
-        {
-            //查找Unity编辑器中所有打开的窗口
-            //如果有窗口的类型为 MapNodeWindow 就将其显示在最前面 并赋予其焦点
-            //如果没有该窗口 则打开一个新的该类型的编辑器窗口 并将其命名为传入的参数
-            //bool参数：决定了该窗口是一个可以停靠、随意拖拽的大窗口（false）
-            //还是一个始终悬浮在最前面点击空白区域立即消失的小工具窗口（true）
-            GetWindow<GraphCoreEditor>(false, "GraphCore");
-        }
-        [OnOpenAsset]
+        [OnOpenAsset(10)]//优先级低于子类
         private static bool OnStateMachineOpened(int instanceID)
         {
+            //这个方法 返回true表示不执行后面的方法 返回false表示执行后面的方法
             if(EditorUtility.InstanceIDToObject(instanceID) is GraphCoreSO graphCore)
             {
-                ShowWindow();
+                //查找Unity编辑器中所有打开的窗口
+                //如果有窗口的类型为 MapNodeWindow 就将其显示在最前面 并赋予其焦点
+                //如果没有该窗口 则打开一个新的该类型的编辑器窗口 并将其命名为传入的参数
+                //bool参数：决定了该窗口是一个可以停靠、随意拖拽的大窗口（false）
+                //还是一个始终悬浮在最前面点击空白区域立即消失的小工具窗口（true）
+                GetWindow<GraphCoreEditor>(false, "GraphCore");
                 return true;
             }
             return false;
@@ -82,10 +87,6 @@ namespace PlayArk.GraphCore.Editor
             //activeObject 涵盖了所有资产 SO、材质、贴图、预制体、场景中的游戏对象 等 都囊括在内
             //activeGameObject 只包括场景上的物体 和 Project中的预制体文件
             GraphCoreSO graphCore = Selection.activeObject as GraphCoreSO;
-            //if (Selection.activeGameObject)
-            //{
-                
-            //}
             if(graphCore != null)
             {
                 _view.Refresh(graphCore);
