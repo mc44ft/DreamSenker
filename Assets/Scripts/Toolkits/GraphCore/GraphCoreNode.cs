@@ -18,6 +18,7 @@ namespace PlayArk.GraphCore.Data
 
         
         public abstract GraphCorePort CreatePortInternal(Direction direction);
+        public abstract void DeletePortInternal(Direction direction);
         public abstract GraphCorePort GetPortDataInternal(string portID);
     }
     public class GraphCoreNode<TPort> : GraphCoreNode where TPort : GraphCorePort, new()
@@ -35,15 +36,15 @@ namespace PlayArk.GraphCore.Data
         //2.Unity的反序列化通常会绕过构造函数 或需要一个无参构造函数
         //  如果只有带参构造函数 某些情况下会导致数据无法正常恢复
 
-        [field: HideInInspector, SerializeField]
-        public string UniqueID { get; private set; }//唯一ID
-        [field: HideInInspector, SerializeField]
-        public Vector2 ViewPosition { get; private set; }//编辑器视图坐标 
+        [HideInInspector, SerializeField]
+        private string _uniqueID;//唯一ID
+        [HideInInspector, SerializeField]
+        private Vector2 _viewPosition;//编辑器视图坐标 
 
-        [field: SerializeField]
-        public List<TPort> InputPorts { get; private set; } = new List<TPort>();
-        [field: HideInInspector, SerializeField]
-        public List<TPort> OutputPorts {  get; private set; } = new List<TPort>();
+        [SerializeField]
+        protected List<TPort> _inputPorts = new List<TPort>();
+        [SerializeField]
+        protected List<TPort> _outputPorts = new List<TPort>();
 
         private Dictionary<string, TPort> _portLookup = new();
 
@@ -51,15 +52,17 @@ namespace PlayArk.GraphCore.Data
 
         //------------------------------  -----------------------------
         public override string GetUniqueID()
-            => UniqueID;
+            => _uniqueID;
         public override Vector2 GetViewPosition()
-            => ViewPosition;
+            => _viewPosition;
         public override IEnumerable<GraphCorePort> GetInputPorts()
-            => InputPorts;
+            => _inputPorts;
         public override IEnumerable<GraphCorePort> GetOutputPorts()
-            => OutputPorts;
+            => _outputPorts;
         public override GraphCorePort CreatePortInternal(Direction direction)
             => CreatePort(direction);
+        public override void DeletePortInternal(Direction direction)
+            => DeletePort(direction);
         public override GraphCorePort GetPortDataInternal(string portID)
             => GetGraphCorePort(portID);
 
@@ -79,12 +82,12 @@ namespace PlayArk.GraphCore.Data
         /// </summary>
         public override void Initialize(string uniqueID, Vector2 viewPosition)
         {
-            UniqueID = uniqueID;
-            ViewPosition = viewPosition;
+            _uniqueID = uniqueID;
+            _viewPosition = viewPosition;
 
-            if (InputPorts.Count < 1)
+            if (_inputPorts.Count < 1)
                 CreatePort(Direction.Input);
-            if (OutputPorts.Count < 1)
+            if (_outputPorts.Count < 1)
                 CreatePort(Direction.Output);
 
             EditorUtility.SetDirty(this);
@@ -93,36 +96,43 @@ namespace PlayArk.GraphCore.Data
         public TPort CreatePort(Direction direction)
         {
             TPort portData = new TPort();
-            portData.Initialize(Guid.NewGuid().ToString(), UniqueID, direction);
+            portData.Initialize(Guid.NewGuid().ToString(), _uniqueID, direction);
             if (direction == Direction.Input)
-                InputPorts.Add(portData);
+                _inputPorts.Add(portData);
             else
-                OutputPorts.Add(portData);
+                _outputPorts.Add(portData);
 
             EditorUtility.SetDirty(this);
             return portData;
         }
+        public void DeletePort(Direction direction)
+        {
+            if(direction == Direction.Input && _inputPorts.Count > 0)
+                _inputPorts.RemoveAt(_inputPorts.Count - 1);
+            else
+                _outputPorts.RemoveAt(_outputPorts.Count - 1);
+        }
         public override void SetPosition(Vector2 viewPosition)
         {
             Undo.RecordObject(this, "你刚刚移动了一个GraphCoreNode");
-            ViewPosition = viewPosition;
+            _viewPosition = viewPosition;
             EditorUtility.SetDirty(this);
         }
         protected virtual void OnValidate()
         {
             _portLookup.Clear();
-            foreach (var portData in InputPorts)
+            foreach (var portData in _inputPorts)
             {
                 if (portData != null)
                 {
-                    _portLookup[portData.UniqueID] = portData;
+                    _portLookup[portData.GetUniqueID()] = portData;
                 }
             }
-            foreach (var portData in OutputPorts)
+            foreach (var portData in _outputPorts)
             {
                 if (portData != null)
                 {
-                    _portLookup[portData.UniqueID] = portData;
+                    _portLookup[portData.GetUniqueID()] = portData;
                 }
             }
         }

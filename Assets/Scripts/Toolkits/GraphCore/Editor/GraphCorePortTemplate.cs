@@ -30,8 +30,8 @@ namespace PlayArk.GraphCore.Editor
         public void Initialize(GraphCorePort portData)
         {
             //创建端口
-            ComponentPort = Port.Create<GraphCoreEdgeView>(Orientation.Horizontal, portData.Direction, Port.Capacity.Single, typeof(bool));
-            ComponentPort.viewDataKey = portData.UniqueID;
+            ComponentPort = Port.Create<GraphCoreEdgeView>(Orientation.Horizontal, portData.GetDirection(), Port.Capacity.Single, typeof(bool));
+            ComponentPort.viewDataKey = portData.GetUniqueID();
             ComponentPort.userData = portData;
             ComponentPort.portName = " --- ";
 
@@ -39,14 +39,14 @@ namespace PlayArk.GraphCore.Editor
             _portSlot.Add(ComponentPort);
 
             //绑定输入框逻辑
-            _textField.value = portData.PortName;
+            _textField.value = portData.GetPortName();
             _textField.RegisterValueChangedCallback(evt =>
             {
                 portData.SetPortName(evt.newValue);
             });
 
             //更新端口排列方向
-            if (portData.Direction == Direction.Input)
+            if (portData.GetDirection() == Direction.Input)
             {
                 _mainContainer.style.flexDirection = FlexDirection.Row;
             }

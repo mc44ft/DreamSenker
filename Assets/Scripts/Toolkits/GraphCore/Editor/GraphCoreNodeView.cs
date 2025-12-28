@@ -1,8 +1,6 @@
 ﻿using PlayArk.GraphCore.Data;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor.UIElements;
@@ -20,10 +18,9 @@ namespace PlayArk.GraphCore.Editor
         private VisualElement _borderContainer;
         private VisualElement _middleContainer;
         private Button _addInputPortButton;
+        private Button _removeInputPortButton;
         private Button _addOutputPortButton;
-
-        //private List<Port> _dynamicInputs = new List<Port>();
-        //private List<Port> _dynamicOutputs = new List<Port>();
+        private Button _removeOutputPortButton;
 
         private Dictionary<string, GraphCorePortTemplate> _dynamicPortLookup = new();
 
@@ -49,7 +46,9 @@ namespace PlayArk.GraphCore.Editor
             _borderContainer = this.Q<VisualElement>("node-header");
             _middleContainer = this.Q<VisualElement>("node-middle");
             _addInputPortButton = this.Q<Button>("button-addInputPort");
+            _removeInputPortButton = this.Q<Button>("button-removeInputPort");
             _addOutputPortButton = this.Q<Button>("button-addOutputPort");
+            _removeOutputPortButton = this.Q<Button>("button-removeOutputPort");
         }
         private void SetStyle()
         {
@@ -88,30 +87,52 @@ namespace PlayArk.GraphCore.Editor
         {
             if (_addInputPortButton != null)
                 _addInputPortButton.clicked += OnAddInputPort;
+            if (_removeInputPortButton != null)
+                _removeInputPortButton.clicked += OnRemoveInputPort;
             if (_addOutputPortButton != null)
                 _addOutputPortButton.clicked += OnAddOutputPort;
+            if (_removeOutputPortButton != null)
+                _removeOutputPortButton.clicked += OnRemoveOutputPort;
         }
+
+        
+
+        
 
         private void OnAddInputPort()
         {
             AddPort(Direction.Input);
         }
+        private void OnRemoveInputPort()
+        {
+            if(inputContainer.childCount > 1)
+                RemovePort(Direction.Input);
+        }
         private void OnAddOutputPort()
         {
             AddPort(Direction.Output);
         }
-        
+        private void OnRemoveOutputPort()
+        {
+            if(outputContainer.childCount > 1)
+                RemovePort(Direction.Output);
+        }
         private void AddPort(Direction portDirection)
         {
             GraphCorePort portData = CoreNode.CreatePortInternal(portDirection);
             CreatePortView(portData, Port.Capacity.Single);
+        }
+        private void RemovePort(Direction portDirection)
+        {
+            CoreNode.DeletePortInternal(portDirection);
+            RemovePortView(portDirection);
         }
         private GraphCorePortTemplate CreatePortView(GraphCorePort portData, Port.Capacity capacity)
         {
             GraphCorePortTemplate graphCorePort = new GraphCorePortTemplate();
             graphCorePort.Initialize(portData);
 
-            if(portData.Direction == Direction.Input)
+            if(portData.GetDirection() == Direction.Input)
             {
                 inputContainer.Add(graphCorePort);
             }
@@ -122,6 +143,13 @@ namespace PlayArk.GraphCore.Editor
                 
             return graphCorePort;
         }
+        private void RemovePortView(Direction portDirection)
+        {
+            if(portDirection == Direction.Input) 
+                inputContainer.RemoveAt(inputContainer.childCount - 1);
+            else
+                outputContainer.RemoveAt(outputContainer.childCount - 1);
+        }
         public GraphCoreEdgeView ConnectTo(string rootPortID, GraphCoreNodeView trueNodeView, string truePortID)
         {
             Port rootPort = GetPortByID(rootPortID);
@@ -131,7 +159,7 @@ namespace PlayArk.GraphCore.Editor
         public Port GetPortByID(string portID)
         {
             return this.Query<GraphCorePortTemplate>().
-                Where(p => p.PortData?.UniqueID == portID).
+                Where(p => p.PortData?.GetUniqueID() == portID).
                 First().ComponentPort;
         }
         public override void OnSelected()

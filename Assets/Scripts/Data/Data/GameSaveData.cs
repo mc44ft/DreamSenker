@@ -19,8 +19,6 @@ public class GameSaveData : IRunningData
     /// </summary>
     [HideInInspector] public List<string> TriggeredDialogueGuidList;
 
-    //[Tooltip("是否打开了山洞通向法师地图的隐藏出入口 ------ 出入口解锁")]
-    //public bool IsOpenTheSlngleEnter;
     [Tooltip("是否遇到了蜘蛛Boss")]
     public bool IsMetSpiderBoss;
     [Tooltip("是否击杀了蜘蛛Boss ------ 获得切换形态的能力")]
@@ -33,13 +31,6 @@ public class GameSaveData : IRunningData
     public bool IsGotChen;
     [Tooltip("是否通关了梦境地图")]
     public bool IsClearMirrorMap;
-
-    //[Tooltip("是否触发过了晨露梦核的？？？")]
-    //public bool IsTriggeredDreamCoreDialogue;
-    //[Tooltip("是否触发过了首次访问山洞地图的？？？")]
-    //public bool IsTriggeredCaveDialogue;
-    //[Tooltip("击败的失梦者数量 ------- 击败一直后 触发??? 击败三只后 触发??? 击败5只后 触发成就")]
-    //public int KillMonsterCount;
 
 
     public bool CheckDialogueTriggered(string dialogueInfoGuid)

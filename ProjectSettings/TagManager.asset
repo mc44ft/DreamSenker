@@ -49,6 +49,9 @@ TagManager:
   - name: Instantiate
     uniqueID: 2913468099
     locked: 0
+  - name: Background_Front
+    uniqueID: 4227844089
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

@@ -212,8 +212,8 @@ public class GameManager : SingletonMono<GameManager>
     /// </summary>
     private void LoadMap(string mapName, Action onFinished = null)
     {
-        MapNode node = MapGraph.GetNodes().Where(node => node.MapData.MapSceneName == mapName).FirstOrDefault();
-        GameSaveData.CurrentMapNodeGuid = node.UniqueID;
+        MapNode node = MapGraph.GetNodes().Where(n => n.MapData.MapSceneName == mapName).FirstOrDefault();
+        GameSaveData.CurrentMapNodeGuid = node.GetUniqueID();
 
         LoadMapScene(mapName, onFinished);
     }
@@ -241,13 +241,13 @@ public class GameManager : SingletonMono<GameManager>
         SpawnPointManager.Instance.ClearSpawnPointDict();
 
         //即将加载的MapNode
-        string portID = MapGraph.GetNodeByID(GameSaveData.CurrentMapNodeGuid).GetMapGraphPortByEnum(exitType).UniqueID;
+        string portID = MapGraph.GetNodeByID(GameSaveData.CurrentMapNodeGuid).GetMapGraphPortByEnum(exitType).GetUniqueID();
         GraphCoreEdge edge = MapGraph.GetEdgeByPortID(portID);
         MapNode mapNode = MapGraph.GetNodeByID(edge.ConnectionNodeID);
 
         //更新地图信息
         GameSaveData.PreviousMapNodeGuid = GameSaveData.CurrentMapNodeGuid;
-        GameSaveData.CurrentMapNodeGuid = mapNode.UniqueID;
+        GameSaveData.CurrentMapNodeGuid = mapNode.GetUniqueID();
 
         //加载新地图
         LoadMapScene(mapNode.MapData.MapSceneName, () =>
@@ -304,7 +304,7 @@ public class GameManager : SingletonMono<GameManager>
 
         //更新地图信息
         GameSaveData.PreviousMapNodeGuid = GameSaveData.CurrentMapNodeGuid;
-        GameSaveData.CurrentMapNodeGuid = mapNode.UniqueID;
+        GameSaveData.CurrentMapNodeGuid = mapNode.GetUniqueID();
 
         //加载新地图
         LoadMapScene(mapNode.MapData.MapSceneName, () =>

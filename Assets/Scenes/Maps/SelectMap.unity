@@ -326,7 +326,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b106ebcec1c51c438e2f09ddb05b50f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MapGraph>k__BackingField: {fileID: 11400000, guid: 72607219775bf674fad482e52ec1a844, type: 2}
+  <MapGraph>k__BackingField: {fileID: 11400000, guid: 672c93c268356684cb91c039169d3809, type: 2}
   <GameConfig>k__BackingField: {fileID: 11400000, guid: 245bf98223402cc4c8964dfd2ac5b938, type: 2}
   <PlayerConfig>k__BackingField: {fileID: 11400000, guid: 6134f6c13d18a8a4899479ef73febd85, type: 2}
   PackageItemConfig: {fileID: 11400000, guid: 9074bd6963d66ce4898b3d849f5bf7e4, type: 2}

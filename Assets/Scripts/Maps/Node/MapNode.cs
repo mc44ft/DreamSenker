@@ -9,15 +9,13 @@ namespace MapSystem.Nodes
         public MapData MapData = new MapData();
 
 
-
-
         public MapGraphPort GetMapGraphPortByEnum(E_ExitType exitType)
         {
-            return InputPorts.Where(port => port.ExitType == exitType).FirstOrDefault();
+            return _inputPorts.Where(port => port.ExitType == exitType).FirstOrDefault();
         }
-        public MapGraphPort GetMapGraphPortByEnum(E_SpawnType spawnType)
+        public MapGraphPort GetMapGraphPortByEnum(E_SpawnType spawnType) 
         {
-            return InputPorts.Where(port => port.SpawnType == spawnType).FirstOrDefault();
+            return _inputPorts.Where(port => port.SpawnType == spawnType).FirstOrDefault();
         }
 #if UNITY_EDITOR
         /// <summary>

@@ -12,23 +12,32 @@ namespace PlayArk.GraphCore.Data
     [Serializable]
     public class GraphCorePort
     {
-        [field: SerializeField]
-        public string UniqueID { get; private set; }
-        [field: SerializeField]
-        public string PortName { get; private set; } = "New Port";
-        [field: SerializeField]
-        public Direction Direction { get; private set; }//端口类型
-        [field: SerializeField]
-        public string SelfNodeID {  get; private set; }
+        [HideInInspector, SerializeField]
+        private string _uniqueID;
+        [SerializeField]
+        private string _portName = "New Port";
+        [HideInInspector, SerializeField]
+        private Direction _direction;//端口类型
+        [HideInInspector, SerializeField]
+        private string _selfNodeID;
         public void Initialize(string portID, string selfNodeID, Direction direction)
         {
-            UniqueID = portID;
-            SelfNodeID = selfNodeID;
-            Direction = direction;
+            _uniqueID = portID;
+            _selfNodeID = selfNodeID;
+            _direction = direction;
         }
         public void SetPortName(string portName)
         {
-            PortName = portName;
+            _portName = portName;
         }
+
+        public string GetUniqueID()
+            => _uniqueID;
+        public string GetPortName()
+            => _portName;
+        public Direction GetDirection()
+            => _direction;
+        public string GetSeleNodeID()
+            => _selfNodeID;
     }
 }

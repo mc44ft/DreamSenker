@@ -126,10 +126,7 @@ namespace PlayArk.GraphCore.Editor
             
         }
 
-        protected virtual void AppendMenuAction(ContextualMenuPopulateEvent evt, Vector2 mousePosition)
-        {
-            //evt.menu.AppendAction("Create Node", a => CreateNode(typeof(GraphCoreNode), mousePosition));
-        }
+        protected virtual void AppendMenuAction(ContextualMenuPopulateEvent evt, Vector2 mousePosition) { }
 
         /// <summary>
         /// 在视图中拉起一根线时 这个方法返回的端口即为允许连接的端口
@@ -145,7 +142,7 @@ namespace PlayArk.GraphCore.Editor
                 if (endPort.direction == startPort.direction)
                     continue;
                 //排除自身节点
-                if ((endPort.userData as GraphCorePort)?.SelfNodeID == (startPort.userData as GraphCorePort)?.SelfNodeID)
+                if ((endPort.userData as GraphCorePort)?.GetSeleNodeID() == (startPort.userData as GraphCorePort)?.GetSeleNodeID())
                     continue;
                 //排除已经连接的节点
                 if (AreConnected(startPort, endPort))
@@ -202,7 +199,7 @@ namespace PlayArk.GraphCore.Editor
         {
             GraphCorePort rootPort = edge.input.userData as GraphCorePort;
             GraphCorePort truePort = edge.output.userData as GraphCorePort;
-            _graphCore.CreateEdgeInternal(rootPort.SelfNodeID, rootPort.UniqueID, truePort.SelfNodeID, truePort.UniqueID);
+            _graphCore.CreateEdgeInternal(rootPort.GetSeleNodeID(), rootPort.GetUniqueID(), truePort.GetSeleNodeID(), truePort.GetUniqueID());
         }
         private void DeleteEdge(GraphCoreEdgeView edge)
         {

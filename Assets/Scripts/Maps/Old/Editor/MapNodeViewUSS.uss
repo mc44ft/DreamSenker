@@ -1,6 +1,0 @@
-MapNodeView {
-    border-width: 2px;
-    border-color: rgba(255, 255, 255, 0.64);
-    background-color: rgba(255, 0, 0, 0.9);
-    -unity-slice-scale: 1px;
-}
