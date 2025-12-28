@@ -7,6 +7,7 @@ public class MapGraphView : GraphCoreView
 {
     protected override void AppendMenuAction(ContextualMenuPopulateEvent evt, Vector2 mousePosition)
     {
+        Debug.Log("zhix");
         evt.menu.AppendAction("Create MapNode", a => CreateNode(typeof(MapNode), mousePosition));
     }
 }

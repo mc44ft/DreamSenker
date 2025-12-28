@@ -12,7 +12,7 @@ namespace DialogueSystem.Data
         [Tooltip("想要显示的UI面板类型")]
         [SerializeField] private E_DialogueExternalUiPanelType m_panelType;
 
-        private int m_nextNodeIndex = 0;
+        private int _nextNodeIndex = 0;
         protected override void OnExecute()
         {
             //监听外部面板操作完成的事件
@@ -30,7 +30,7 @@ namespace DialogueSystem.Data
 
         private void OnPanelFinished(object eventSender, DialoguePanelFinishedEventArgs args)
         {
-            m_nextNodeIndex = args.Index;
+            _nextNodeIndex = args.Index;
             
 
 
@@ -49,25 +49,23 @@ namespace DialogueSystem.Data
         /// 这里简单重写了获取下一个节点的方法，用于应对策划需求 后续还需要根据自己的UIToolkit重做
         /// </summary>
         /// <returns></returns>
-        public override DialogueNodeBase GetNextNode()
-        {
-            if(m_panelType == E_DialogueExternalUiPanelType.TaskPublishPanel)
-            {
-                NodePort outputPort = GetOutputPort("Output");
-                if (outputPort == null || !outputPort.IsConnected)
-                    return null;
-                if (m_nextNodeIndex < 0 || m_nextNodeIndex >= outputPort.ConnectionCount)
-                    return null;
-                NodePort connection = outputPort.GetConnection(m_nextNodeIndex);
-                return connection.node as DialogueNodeBase;
-            }
-            else
-            {
-                return base.GetNextNode();
-            }
-                
-
-        }
+        //public override string GetNextPortID()
+        //{
+        //    if(m_panelType == E_DialogueExternalUiPanelType.TaskPublishPanel)
+        //    {
+        //        NodePort outputPort = GetOutputPort("Output");
+        //        if (outputPort == null || !outputPort.IsConnected)
+        //            return null;
+        //        if (_nextNodeIndex < 0 || _nextNodeIndex >= outputPort.ConnectionCount)
+        //            return null;
+        //        NodePort connection = outputPort.GetConnection(_nextNodeIndex);
+        //        return connection.node as DialogueNodeBase;
+        //    }
+        //    else
+        //    {
+        //        return base.GetNextPortID();
+        //    }
+        //}
     }
 }
 

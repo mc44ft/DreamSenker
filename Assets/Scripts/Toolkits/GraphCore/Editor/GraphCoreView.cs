@@ -12,7 +12,7 @@ namespace PlayArk.GraphCore.Editor
         //有了这行代码，这个 C# 脚本就变成了一个可以被拖拽的 UI 组件，出现在了 UI Builder 的零件库里
         new class UxmlFactory : UxmlFactory<GraphCoreView, UxmlTraits> { }
 
-        private GraphCoreSO _graphCore;
+        private GraphCoreGraph _graphCore;
 
         public GraphCoreView()
         {
@@ -39,7 +39,7 @@ namespace PlayArk.GraphCore.Editor
         /// 切换资源时 或者 更新当前资源时都会调用
         /// 撤销重做时
         /// </summary>
-        public void Refresh(GraphCoreSO graphCore)
+        public void Refresh(GraphCoreGraph graphCore)
         {
             _graphCore = graphCore;
 
@@ -120,10 +120,10 @@ namespace PlayArk.GraphCore.Editor
                 viewTransform.matrix.//代表了当前画布的状态
                 inverse.//逆矩阵
                 MultiplyPoint(evt.mousePosition);//矩阵计算
-
             //添加菜单项
             AppendMenuAction(evt, mousePosition);
             
+
         }
 
         protected virtual void AppendMenuAction(ContextualMenuPopulateEvent evt, Vector2 mousePosition) { }
@@ -197,8 +197,8 @@ namespace PlayArk.GraphCore.Editor
         }
         private void CreateEdge(Edge edge)
         {
-            GraphCorePort rootPort = edge.input.userData as GraphCorePort;
-            GraphCorePort truePort = edge.output.userData as GraphCorePort;
+            GraphCorePort rootPort = edge.output.userData as GraphCorePort;
+            GraphCorePort truePort = edge.input.userData as GraphCorePort;
             _graphCore.CreateEdgeInternal(rootPort.GetSeleNodeID(), rootPort.GetUniqueID(), truePort.GetSeleNodeID(), truePort.GetUniqueID());
         }
         private void DeleteEdge(GraphCoreEdgeView edge)

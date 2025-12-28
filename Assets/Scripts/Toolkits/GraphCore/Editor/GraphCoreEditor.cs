@@ -62,10 +62,10 @@ namespace PlayArk.GraphCore.Editor
             return "Assets/";
         }
         [OnOpenAsset(10)]//优先级低于子类
-        private static bool OnStateMachineOpened(int instanceID)
+        private static bool OnGraphCoreOpened(int instanceID)
         {
             //这个方法 返回true表示不执行后面的方法 返回false表示执行后面的方法
-            if(EditorUtility.InstanceIDToObject(instanceID) is GraphCoreSO graphCore)
+            if(EditorUtility.InstanceIDToObject(instanceID) is GraphCoreGraph)
             {
                 //查找Unity编辑器中所有打开的窗口
                 //如果有窗口的类型为 MapNodeWindow 就将其显示在最前面 并赋予其焦点
@@ -86,7 +86,7 @@ namespace PlayArk.GraphCore.Editor
         {
             //activeObject 涵盖了所有资产 SO、材质、贴图、预制体、场景中的游戏对象 等 都囊括在内
             //activeGameObject 只包括场景上的物体 和 Project中的预制体文件
-            GraphCoreSO graphCore = Selection.activeObject as GraphCoreSO;
+            GraphCoreGraph graphCore = Selection.activeObject as GraphCoreGraph;
             if(graphCore != null)
             {
                 _view.Refresh(graphCore);

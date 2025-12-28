@@ -13,7 +13,7 @@ namespace PlayArk.GraphCore.Data
         public abstract IEnumerable<GraphCorePort> GetInputPorts();
         public abstract IEnumerable<GraphCorePort> GetOutputPorts();
 
-        public abstract void Initialize(string uniqueID, Vector2 viewPosition);
+        public abstract void Init(string uniqueID, Vector2 viewPosition);
         public abstract void SetPosition(Vector2 viewPosition);
 
         
@@ -64,10 +64,10 @@ namespace PlayArk.GraphCore.Data
         public override void DeletePortInternal(Direction direction)
             => DeletePort(direction);
         public override GraphCorePort GetPortDataInternal(string portID)
-            => GetGraphCorePort(portID);
+            => GetPortByID(portID);
 
         
-        public TPort GetGraphCorePort(string portID)
+        public TPort GetPortByID(string portID)
         {
             if(_portLookup.ContainsKey(portID))
             {
@@ -80,7 +80,7 @@ namespace PlayArk.GraphCore.Data
         /// <summary>
         /// 外部初始化
         /// </summary>
-        public override void Initialize(string uniqueID, Vector2 viewPosition)
+        public override void Init(string uniqueID, Vector2 viewPosition)
         {
             _uniqueID = uniqueID;
             _viewPosition = viewPosition;

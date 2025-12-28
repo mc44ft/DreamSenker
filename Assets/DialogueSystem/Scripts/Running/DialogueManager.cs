@@ -7,24 +7,24 @@ namespace DialogueSystem
 {
     public class DialogueManager : SingletonMono<DialogueManager>
     {
-        private DialogueGraph m_currentRunningDialogueGraph;
+        private DialogueGraph _currentRunningDialogueGraph;
 
-        private DialogueBoxPanel m_dialogueBoxPanel;
+        private DialogueBoxPanel _dialogueBoxPanel;
 
         /// <summary>
         /// 当前聚焦的Button
         /// </summary>
-        private Selectable m_currentSelectButton;
+        private Selectable _currentSelectButton;
         public static int ClickHash = Animator.StringToHash("Click");
 
         /// <summary>
         /// 控制玩家当前能否交互
         /// </summary>
-        private bool m_canInteractable;
+        private bool _canInteractable;
         /// <summary>
         /// 玩家当前能否快速显示下一句话
         /// </summary>
-        private bool m_canQuickShow;
+        private bool _canQuickShow;
 
         /// <summary>
         /// 一切的开始 开始执行对话图
@@ -32,10 +32,10 @@ namespace DialogueSystem
         /// <param name="onFinished">bool参数 是否保存对话记录</param>
         public void PlayDialogueGraph(DialogueGraph dialogueGraph, Action<bool> onFinished = null)
         {
-            m_currentRunningDialogueGraph = dialogueGraph;
+            _currentRunningDialogueGraph = dialogueGraph;
             ShowDialogueBox(() =>
             {
-                m_currentRunningDialogueGraph.Initialize((isSuccess, shouldSave) =>
+                _currentRunningDialogueGraph.Initialize((isSuccess, shouldSave) =>
                 {
                     if (isSuccess)
                     {
@@ -49,14 +49,14 @@ namespace DialogueSystem
                         onFinished?.Invoke(false);
                     }
                 });
-                m_currentRunningDialogueGraph.Execute();
+                _currentRunningDialogueGraph.Execute();
             });
         }
         private void ShowDialogueBox(Action callback)
         {
             UIManager.Instance.ShowPanel<DialogueBoxPanel>(E_UILayer.Top, (panel) =>
             {
-                m_dialogueBoxPanel = panel;
+                _dialogueBoxPanel = panel;
             }, (panel) =>
             {
                 callback();
@@ -64,14 +64,14 @@ namespace DialogueSystem
         }
         private void HideDialogueBox()
         {
-            m_canInteractable = false;
+            _canInteractable = false;
             
 
             UIManager.Instance.HidePanel<DialogueBoxPanel>((panel) =>
             {
                 //清空对话框
                 panel.ClearContent();
-                m_dialogueBoxPanel = null;
+                _dialogueBoxPanel = null;
             }, null);
         }
         /// <summary>
@@ -79,7 +79,7 @@ namespace DialogueSystem
         /// </summary>
         public void FadeOutDialogueBox(float duration = 0.5f, Action onFinished = null)
         {
-            if(m_dialogueBoxPanel.TryGetComponent(out Widget widget))
+            if(_dialogueBoxPanel.TryGetComponent(out Widget widget))
             {
                 widget.Fade(0f, duration, onFinished);
             }
@@ -89,18 +89,18 @@ namespace DialogueSystem
         /// </summary>
         public void FadeInDialogueBox(float duration = 0.5f, Action onFinished = null)
         {
-            if(m_dialogueBoxPanel.TryGetComponent(out Widget widget))
+            if(_dialogueBoxPanel.TryGetComponent(out Widget widget))
             {
                 widget.Fade(1f, duration, onFinished);
             }
         }
         public void ShowDialogueChoicesSection(DialogueSystem.Data.DialogueNodeChoice.ChoiceData[] datas, int defaultSelectIndex)
         {
-            m_dialogueBoxPanel.ShowChoicesSection(datas, defaultSelectIndex);
+            _dialogueBoxPanel.ShowChoicesSection(datas, defaultSelectIndex);
         }
         public void HideDialogueChoicesSection()
         {
-            m_dialogueBoxPanel.HideChoicesSection();
+            _dialogueBoxPanel.HideChoicesSection();
         }
         private void Update()
         {
@@ -110,7 +110,7 @@ namespace DialogueSystem
             //    PlayDialogueGraph();
             //}
 
-            if (m_canInteractable)
+            if (_canInteractable)
                 UpdateInput();
         }
         private void UpdateInput()
@@ -127,7 +127,7 @@ namespace DialogueSystem
                 //此时对话打印完了 显示下一句话
                 #endregion
 
-                if (m_dialogueBoxPanel.IsPrintShowed)//当前打印完了才能继续打印下一句话
+                if (_dialogueBoxPanel.IsPrintShowed)//当前打印完了才能继续打印下一句话
                 {
                     //打印下一句话
                     EventCenter.Instance.EventTrigger(E_EventType.Dialogue_ContentNext, this, new EmptyEventArgs());
@@ -151,12 +151,12 @@ namespace DialogueSystem
                 //                如果下一句话不支持快速显示 则按照正常显示
                 #endregion
                 //Debug.Log("快速显示" + _canQuickShow + " " + _dialogueBoxPanel.IsPrintShowed);
-                if (m_canQuickShow && !m_dialogueBoxPanel.IsPrintShowed)//支持快速打印 并且 当前没有打印完毕
+                if (_canQuickShow && !_dialogueBoxPanel.IsPrintShowed)//支持快速打印 并且 当前没有打印完毕
                 {
                     
-                    m_dialogueBoxPanel.QuickShowRemaining();
+                    _dialogueBoxPanel.QuickShowRemaining();
                 }
-                else if(m_dialogueBoxPanel.IsPrintShowed)//如果当前打印完了 Cancel键的作用和Submit的作用一样
+                else if(_dialogueBoxPanel.IsPrintShowed)//如果当前打印完了 Cancel键的作用和Submit的作用一样
                 {
                     EventCenter.Instance.EventTrigger(E_EventType.Dialogue_ContentNext, this, new EmptyEventArgs());
                 }
@@ -169,20 +169,20 @@ namespace DialogueSystem
         public void PrintNextContent(Data.DialogueNodeNormal.DialogueData data)
         {
             //更新输入配置
-            m_canQuickShow = data.CanQuickShow;
+            _canQuickShow = data.CanQuickShow;
             if(data.DisplayType == DialogueText.E_DisplayType.Typing)
-                m_canInteractable = true;//如果是逐字打印 则开放玩家输入
+                _canInteractable = true;//如果是逐字打印 则开放玩家输入
             else
-                m_canInteractable = false;//否则禁止玩家输入
+                _canInteractable = false;//否则禁止玩家输入
 
-            m_dialogueBoxPanel.PrintContent(data);
+            _dialogueBoxPanel.PrintContent(data);
                 
         }
         public void SetCurrentSelectButton(Selectable selectable)
         {
-            m_currentSelectButton = selectable;
+            _currentSelectButton = selectable;
             if (selectable != null)
-                m_dialogueBoxPanel.SetChoiceCursorRect(selectable.transform.position);
+                _dialogueBoxPanel.SetChoiceCursorRect(selectable.transform.position);
         }
 
         private void OnEnable()
@@ -196,7 +196,7 @@ namespace DialogueSystem
 
         private void OnTextShowed(object eventSender, EmptyEventArgs args)
         {
-            m_canInteractable = true;
+            _canInteractable = true;
         }
     }
 }

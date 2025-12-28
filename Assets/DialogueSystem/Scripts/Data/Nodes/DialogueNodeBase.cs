@@ -1,49 +1,25 @@
-﻿using System;
-using UnityEngine;
-using XNode;
+﻿using PlayArk.GraphCore.Data;
+using System;
 namespace DialogueSystem.Data
 {
-    public abstract class DialogueNodeBase : Node
+    public abstract class DialogueNodeBase : GraphCoreNode<GraphCorePort>
     {
         public E_NodeState CurrentState { get; protected set; }
-        protected Action<bool> m_onFinished;
+        protected Action<bool> _onFinished;
 
-        //输入和输出点
-        //[Input] 和 [Output] 是xNode内部定义的特性
-        [Input] public Connection Input;
-        [Output] public Connection Output;
-        protected override void Init()
-        {
-            base.Init();
-            //让该节点不会显示在图的子级中 保持图的干净
-            this.hideFlags = HideFlags.HideInHierarchy;
-        }
         public virtual void Initialize(Action<bool> onFinished)
         {
-            m_onFinished = onFinished;
+            _onFinished = onFinished;
             CurrentState = E_NodeState.Wating;
         }
         /// <summary>
-        /// 输入端口为参数
-        /// 输出端口为结果
-        /// 此函数返回计算的结果 在该函数内进行计算
-        /// </summary>
-        /// <param name="port"></param>
-        /// <returns></returns>
-        public override object GetValue(NodePort port)
-        {
-            return null;
-        }
-        /// <summary>
-        /// 当前节点执行完毕后 获取下一个节点
+        /// 当前节点执行完毕后 将指定的端口ID返回给图对象
+        /// 由图对象来根据ID查找连线 并前往下一个节点
         /// </summary>
         /// <returns></returns>
-        public virtual DialogueNodeBase GetNextNode()
+        public virtual string GetNextPortID()
         {
-            NodePort outputPort = GetOutputPort("Output");
-            if (outputPort == null || !outputPort.IsConnected)
-                return null;
-            return outputPort.Connection.node as DialogueNodeBase;
+            return _outputPorts[0].GetUniqueID();
         }
         public void Execute()
         {
@@ -62,7 +38,7 @@ namespace DialogueSystem.Data
             CurrentState = E_NodeState.Finished;
 
             //执行下一个节点
-            m_onFinished?.Invoke(true);
+            _onFinished?.Invoke(true);
         }
         protected abstract void OnExecute();
         protected abstract void OnFinished();

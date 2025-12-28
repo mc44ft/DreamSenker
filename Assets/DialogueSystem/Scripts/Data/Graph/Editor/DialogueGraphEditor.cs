@@ -1,29 +1,26 @@
 ﻿
 using DialogueSystem.Data;
+using PlayArk.GraphCore.Editor;
 using System;
-using XNodeEditor;
+using UnityEditor;
+using UnityEditor.Callbacks;
 namespace DialogueSystem.Editor
 {
-    [CustomNodeGraphEditor(typeof(DialogueGraph))]
-    public class DialogueGraphEditor : NodeGraphEditor
+    public class DialogueGraphEditor : GraphCoreEditor
     {
-        /// <summary>
-        /// 控制哪些节点可以显示在右键菜单中
-        /// 将所有DialogueSystem的节点都放在了同一个命名空间下
-        /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        public override string GetNodeMenuName(Type type)
+        protected override GraphCoreView CreateView()
         {
-            if (type.Namespace == "DialogueSystem.Data")
+            return new DialogueGraphView();
+        }
+        [OnOpenAsset(0)]
+        private static bool OnDialogueGraphOpened(int instanceID)
+        {
+            if(EditorUtility.InstanceIDToObject(instanceID) is DialogueGraph)
             {
-                //正常返回菜单名
-                return base.GetNodeMenuName(type);
+                GetWindow<DialogueGraphEditor>(false, "DialogueGraph");
+                return true;
             }
-            else
-            {
-                return null;
-            }
+            return false;
         }
     }
 

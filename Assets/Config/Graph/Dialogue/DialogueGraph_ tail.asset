@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-938879335044405662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c85e04da01cff9c46824fd4a230ec43c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _title: New Node
+  _uniqueID: 85acbf4d-d138-4863-83c8-180c6342c070
+  _viewPosition: {x: 286.39996, y: 116}
+  _inputPorts:
+  - _uniqueID: 4cf01de0-a109-4216-826f-0ee080325004
+    _portName: New Port
+    _direction: 0
+    _selfNodeID: 85acbf4d-d138-4863-83c8-180c6342c070
+  _outputPorts:
+  - _uniqueID: b1644bc0-b403-45f6-8746-3489e16a0640
+    _portName: New Port
+    _direction: 1
+    _selfNodeID: 85acbf4d-d138-4863-83c8-180c6342c070
+  _dialogueDataArray:
+  - SpeakerName: "\u6D4B\u8BD5"
+    Content: "\u6D4B\u8BD5\u5FAA\u73AF"
+    DisplayType: 2
+    CanQuickShow: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d4fb09544e87d94d9c39fbdd0a65bbc, type: 3}
+  m_Name: DialogueGraph_ tail
+  m_EditorClassIdentifier: 
+  _nodes:
+  - {fileID: -938879335044405662}
+  _edges: []

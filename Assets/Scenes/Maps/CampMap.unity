@@ -258,11 +258,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6439718909683169494, guid: 3596b980a7b335e4084eaa49f2ef9d3f, type: 3}
       propertyPath: m_dialogueInfoArray.Array.size
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6439718909683169494, guid: 3596b980a7b335e4084eaa49f2ef9d3f, type: 3}
       propertyPath: m_dialogueInfoArray.Array.data[0].guid
-      value: 794fead1-73ae-481f-aae1-a378c8e504e2
+      value: 77ad44f5-5cf4-411e-848d-ece63fd7d27d
       objectReference: {fileID: 0}
     - target: {fileID: 6439718909683169494, guid: 3596b980a7b335e4084eaa49f2ef9d3f, type: 3}
       propertyPath: m_dialogueInfoArray.Array.data[1].guid
@@ -279,11 +279,11 @@ PrefabInstance:
     - target: {fileID: 6439718909683169494, guid: 3596b980a7b335e4084eaa49f2ef9d3f, type: 3}
       propertyPath: m_dialogueInfoArray.Array.data[0].GraphMain
       value: 
-      objectReference: {fileID: 11400000, guid: e3c50bc0f76cf3540b1acca703a6dfd2, type: 2}
+      objectReference: {fileID: 11400000, guid: e285346244f212144bc937b5116e0da2, type: 2}
     - target: {fileID: 6439718909683169494, guid: 3596b980a7b335e4084eaa49f2ef9d3f, type: 3}
       propertyPath: m_dialogueInfoArray.Array.data[0].GraphTail
       value: 
-      objectReference: {fileID: 11400000, guid: c287010fcdf38e94fad673e3ae94a6e3, type: 2}
+      objectReference: {fileID: 11400000, guid: ec1f912cdefed6f459462b9b15c60fe8, type: 2}
     - target: {fileID: 6439718909683169494, guid: 3596b980a7b335e4084eaa49f2ef9d3f, type: 3}
       propertyPath: m_dialogueInfoArray.Array.data[1].GraphMain
       value: 
@@ -310,7 +310,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 217aec979d1ef9f44b47e2f5191661c6, type: 2}
     - target: {fileID: 6439718909683169494, guid: 3596b980a7b335e4084eaa49f2ef9d3f, type: 3}
       propertyPath: m_dialogueInfoArray.Array.data[0].GameCondition
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6439718909683169494, guid: 3596b980a7b335e4084eaa49f2ef9d3f, type: 3}
       propertyPath: m_dialogueInfoArray.Array.data[1].GameCondition

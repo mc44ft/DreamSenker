@@ -29,7 +29,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _title: CampMap
   _uniqueID: ffb3b04a-33fa-448c-9886-87c10dc77ab4
-  _viewPosition: {x: 227.19998, y: 135.20001}
+  _viewPosition: {x: 255.2, y: 143.2}
   _inputPorts:
   - _uniqueID: c8513b4f-c216-4633-ae79-4a6eb9c43b92
     _portName: New Port

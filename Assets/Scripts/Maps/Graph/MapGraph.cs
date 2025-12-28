@@ -4,7 +4,7 @@ using UnityEngine;
 namespace MapSystem.Graph
 {
     [CreateAssetMenu(fileName = "MapGraph_", menuName = "PlayArk Assets/GraphCore/MapGraph")]
-    public class MapGraph : GraphCoreSO<MapNode, GraphCoreEdge>
+    public class MapGraph : GraphCoreGraph<MapNode, GraphCoreEdge>
     {
 
         

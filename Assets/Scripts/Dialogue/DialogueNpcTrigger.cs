@@ -66,8 +66,6 @@ namespace DialogueSystem.RunTime
                     {
                         DialogueManager.Instance.PlayDialogueGraph(m_dialogueInfoArray[i].GraphMain, (shouldSave) =>
                         {
-                            
-
                             //恢复玩家镜头
                             m_camera.SetActive(false);
                             if (shouldSave)

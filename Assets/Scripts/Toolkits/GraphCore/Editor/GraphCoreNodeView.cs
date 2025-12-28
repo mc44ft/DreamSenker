@@ -13,7 +13,7 @@ namespace PlayArk.GraphCore.Editor
         public GraphCoreNode CoreNode { get; }
 
         //持有主资源的引用
-        private GraphCoreSO _graphCore;
+        private GraphCoreGraph _graphCore;
 
         private VisualElement _borderContainer;
         private VisualElement _middleContainer;
@@ -24,7 +24,7 @@ namespace PlayArk.GraphCore.Editor
 
         private Dictionary<string, GraphCorePortTemplate> _dynamicPortLookup = new();
 
-        public GraphCoreNodeView(GraphCoreNode data, GraphCoreSO graphCore) : base(GraphCoreEditor.GetPath() + "GraphCoreNode.uxml")
+        public GraphCoreNodeView(GraphCoreNode data, GraphCoreGraph graphCore) : base(GraphCoreEditor.GetPath() + "GraphCoreNode.uxml")
         {
             CoreNode = data;
             _graphCore = graphCore;

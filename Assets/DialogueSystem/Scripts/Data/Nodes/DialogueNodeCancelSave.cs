@@ -8,15 +8,15 @@ namespace DialogueSystem.Data
     {
         protected override void OnExecute()
         {
-            DialogueGraph nowGraph = graph as DialogueGraph;
-            if(nowGraph != null)
-            {
-                nowGraph.ForceEnd(false);
-            }
-            else
-            {
-                Finished();
-            }
+            //DialogueGraph nowGraph = graph as DialogueGraph;
+            //if(nowGraph != null)
+            //{
+            //    nowGraph.ForceEnd(false);
+            //}
+            //else
+            //{
+            //    Finished();
+            //}
         }
 
         protected override void OnFinished()
