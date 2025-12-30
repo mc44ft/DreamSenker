@@ -2,6 +2,7 @@
 using PlayArk.GraphCore.Data;
 using System;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 namespace DialogueSystem.Data
 {
@@ -19,6 +20,10 @@ namespace DialogueSystem.Data
         /// </summary>
         private Action<bool, bool> _onFinished;
         private DialogueNodeBase _currentNode;
+
+        [SerializeField, HideInInspector]
+        private DialogueNodeEntry _nodeEntry;
+        
         /// <summary>
         /// 
         /// </summary>
@@ -28,7 +33,6 @@ namespace DialogueSystem.Data
             //初始化图中的全部节点
             foreach (DialogueNodeBase node in GetNodes())
             {
-                Debug.Log("初始化节点");
                 node.Initialize(OnNodeFinished);
             }
             //设置图完成之后的回调
@@ -57,13 +61,13 @@ namespace DialogueSystem.Data
                 _onFinished?.Invoke(false, false);
             }
         }
+        /// <summary>
+        /// 获取入口节点
+        /// </summary>
+        /// <returns></returns>
         private DialogueNodeBase GetEntranceNode()
         {
-            //FirstOrDefault LINQ的一个方法 意思是找和条件相同的第一个元素 如果找不到 就返回默认值 引用对象的默认值就是null
-            //GetInputPort("Input") 得到该节点上名为 Input 的输入端口
-            //并且该输入端口的连接线为0 就是没有被任何节点连接
-            //return GetNodes().FirstOrDefault(x => (x as DialogueNodeBase).GetInputPort("Input").ConnectionCount == 0) as DialogueNodeBase;
-            return GetNodes().First();
+            return _nodeEntry;
         }
         private void ExecuteCurrentNode()
         {
@@ -91,6 +95,20 @@ namespace DialogueSystem.Data
         {
             _onFinished?.Invoke(true, shouldSave);
             _currentNode = null;
+        }
+        public override void OnBeforeSerialize()
+        {
+            base.OnBeforeSerialize();
+#if UNITY_EDITOR
+            if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(this))) return;
+            //生成默认入口节点
+            if (_nodeEntry == null)
+            {
+                _nodeEntry = MakeNode(typeof(DialogueNodeEntry), Vector2.zero) as DialogueNodeEntry;
+                _nodeEntry.SetTitle("Entry");
+                AddNode(_nodeEntry);
+            }
+#endif
         }
     }
 

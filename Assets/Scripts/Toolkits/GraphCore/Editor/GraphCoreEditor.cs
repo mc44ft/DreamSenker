@@ -8,7 +8,7 @@ namespace PlayArk.GraphCore.Editor
     /// MVVM架构
     /// 担任了VM层的角色
     /// </summary>
-    public class GraphCoreEditor : EditorWindow
+    public abstract class GraphCoreEditor : EditorWindow
     {
         private GraphCoreView _view;
         private void CreateGUI()
@@ -35,17 +35,14 @@ namespace PlayArk.GraphCore.Editor
 
         }
         //提供虚方法由子类决定要显示的画布
-        protected virtual GraphCoreView CreateView()
-        {
-            return new GraphCoreView();
-        }
+        protected abstract GraphCoreView CreateView();
         /// <summary>
         /// 得到该脚本所在的上级文件夹的路径
         /// </summary>
         /// <returns></returns>
         public static string GetPath()
         {
-            //在工程中全局查找 叫StateMachineEditor 且类型为Script的文件 也就是这个脚本 的guid
+            //在工程中全局查找 叫GraphCoreEditor 且类型为Script的文件 也就是这个脚本 的guid
             //这样保证了该脚本无论放在工程中的哪个地方 都可以被准确找到
             string[] guids = AssetDatabase.FindAssets("GraphCoreEditor t:Script");
 
@@ -77,6 +74,16 @@ namespace PlayArk.GraphCore.Editor
             }
             return false;
         }
+        //private void Update()
+        //{
+        //    //未手动保存时 出现*号
+        //    var currentGraph = Selection.activeObject as GraphCoreGraph;
+        //    if(currentGraph != null)
+        //    {
+        //        this.hasUnsavedChanges = EditorUtility.IsDirty(currentGraph);
+        //    }
+
+        //}
         /// <summary>
         /// 在Project窗口中切换资源时调用
         /// 在Hierarchy窗口中切换游戏对象时调用（运行时和非运行时都会响应）
@@ -89,6 +96,7 @@ namespace PlayArk.GraphCore.Editor
             GraphCoreGraph graphCore = Selection.activeObject as GraphCoreGraph;
             if(graphCore != null)
             {
+                //Debug.Log("执行");
                 _view.Refresh(graphCore);
             }
         }

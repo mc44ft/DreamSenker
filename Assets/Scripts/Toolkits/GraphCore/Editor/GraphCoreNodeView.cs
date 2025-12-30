@@ -17,6 +17,7 @@ namespace PlayArk.GraphCore.Editor
 
         private VisualElement _borderContainer;
         private VisualElement _middleContainer;
+
         private Button _addInputPortButton;
         private Button _removeInputPortButton;
         private Button _addOutputPortButton;
@@ -86,35 +87,33 @@ namespace PlayArk.GraphCore.Editor
         private void AddEventListenenr()
         {
             if (_addInputPortButton != null)
-                _addInputPortButton.clicked += OnAddInputPort;
+                _addInputPortButton.RegisterCallback<ClickEvent>(OnAddInputPort);
             if (_removeInputPortButton != null)
-                _removeInputPortButton.clicked += OnRemoveInputPort;
+                _removeInputPortButton.RegisterCallback<ClickEvent>(OnRemoveInputPort);
             if (_addOutputPortButton != null)
-                _addOutputPortButton.clicked += OnAddOutputPort;
+                _addOutputPortButton.RegisterCallback<ClickEvent>(OnAddOutputPort);
             if (_removeOutputPortButton != null)
-                _removeOutputPortButton.clicked += OnRemoveOutputPort;
+                _removeOutputPortButton.RegisterCallback<ClickEvent>(OnRemoveOutputPort);
         }
 
         
 
-        
-
-        private void OnAddInputPort()
+        private void OnAddInputPort(ClickEvent evt)
         {
             AddPort(Direction.Input);
         }
-        private void OnRemoveInputPort()
+        private void OnRemoveInputPort(ClickEvent evt)
         {
-            if(inputContainer.childCount > 1)
+            if (inputContainer.childCount > 1)
                 RemovePort(Direction.Input);
         }
-        private void OnAddOutputPort()
+        private void OnAddOutputPort(ClickEvent evt)
         {
             AddPort(Direction.Output);
         }
-        private void OnRemoveOutputPort()
+        private void OnRemoveOutputPort(ClickEvent evt)
         {
-            if(outputContainer.childCount > 1)
+            if (outputContainer.childCount > 1)
                 RemovePort(Direction.Output);
         }
         private void AddPort(Direction portDirection)

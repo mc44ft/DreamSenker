@@ -4,7 +4,7 @@ using PlayArk.GraphCore.Editor;
 using UnityEditor;
 using UnityEditor.Callbacks;
 
-public class MapGraphEditorWindow : GraphCoreEditor
+public class MapGraphEditor : GraphCoreEditor
 {
     protected override GraphCoreView CreateView()
     {
@@ -17,7 +17,7 @@ public class MapGraphEditorWindow : GraphCoreEditor
         var obj = EditorUtility.InstanceIDToObject(instanceID);
         if(obj is MapGraph)
         {
-            GetWindow<MapGraphEditorWindow>(false, "MapGraph");
+            GetWindow<MapGraphEditor>(false, "MapGraph");
             return true;
         }
         return false;

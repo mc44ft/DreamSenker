@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using DialogueSystem.Data;
+using System.Collections.Generic;
 using UnityEngine;
 namespace DialogueSystem.UI
 {
@@ -12,7 +13,7 @@ namespace DialogueSystem.UI
         {
             _widget = GetComponent<Widget>();
         }
-        public void Init(Data.DialogueNodeChoice.ChoiceData[] datas)
+        public void Init(ChoiceData[] datas)
         {
             for (int i = 0; i < datas.Length; i++)
             {

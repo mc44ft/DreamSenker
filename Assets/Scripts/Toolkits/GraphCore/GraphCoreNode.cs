@@ -21,7 +21,7 @@ namespace PlayArk.GraphCore.Data
         public abstract void DeletePortInternal(Direction direction);
         public abstract GraphCorePort GetPortDataInternal(string portID);
     }
-    public class GraphCoreNode<TPort> : GraphCoreNode where TPort : GraphCorePort, new()
+    public abstract class GraphCoreNode<TPort> : GraphCoreNode where TPort : GraphCorePort, new()
     {
         //屏蔽字段未使用的警告
 #pragma warning disable CS0414
@@ -41,9 +41,9 @@ namespace PlayArk.GraphCore.Data
         [HideInInspector, SerializeField]
         private Vector2 _viewPosition;//编辑器视图坐标 
 
-        [SerializeField]
+        [SerializeReference]//该特性允许列表存储子类数据而不丢失
         protected List<TPort> _inputPorts = new List<TPort>();
-        [SerializeField]
+        [SerializeReference]
         protected List<TPort> _outputPorts = new List<TPort>();
 
         private Dictionary<string, TPort> _portLookup = new();
@@ -75,6 +75,10 @@ namespace PlayArk.GraphCore.Data
             }
             return null;
         }
+        public void SetTitle(string title)
+        {
+            _title = title;
+        }
 #if UNITY_EDITOR
         
         /// <summary>
@@ -92,10 +96,18 @@ namespace PlayArk.GraphCore.Data
 
             EditorUtility.SetDirty(this);
         }
-
+        /// <summary>
+        /// 一个供子类重写的虚方法 用于替换继承TPort的特殊端口类型
+        /// </summary>
+        /// <returns></returns>
+        protected virtual TPort CreatePortInstance()
+        {
+            return new TPort();
+        }
         public TPort CreatePort(Direction direction)
         {
-            TPort portData = new TPort();
+            //调用工厂方法来创建端口
+            TPort portData = CreatePortInstance();
             portData.Initialize(Guid.NewGuid().ToString(), _uniqueID, direction);
             if (direction == Direction.Input)
                 _inputPorts.Add(portData);

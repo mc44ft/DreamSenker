@@ -3,6 +3,7 @@ using UnityEngine;
 using DialogueSystem.UI;
 namespace DialogueSystem.Data
 {
+    [NodeMenuItem("DialogueNodeNormal")]
     public class DialogueNodeNormal : DialogueNodeBase
     {
         [Space(10)]
@@ -10,8 +11,12 @@ namespace DialogueSystem.Data
         [SerializeField] private DialogueData[] _dialogueDataArray;
         
         private int _index;
-        
 
+        public override void Initialize(Action<bool> onFinished)
+        {
+            base.Initialize(onFinished);
+            SetTitle("Normal");
+        }
         protected override void OnExecute()
         {
             //在节点执行时 开启事件监听

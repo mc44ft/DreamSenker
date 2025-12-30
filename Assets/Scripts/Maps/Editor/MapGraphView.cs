@@ -1,13 +1,14 @@
 ﻿using MapSystem.Nodes;
+using PlayArk.GraphCore.Data;
 using PlayArk.GraphCore.Editor;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class MapGraphView : GraphCoreView
 {
-    protected override void AppendMenuAction(ContextualMenuPopulateEvent evt, Vector2 mousePosition)
+    protected override TypeCache.TypeCollection GetMenuNodeType()
     {
-        Debug.Log("zhix");
-        evt.menu.AppendAction("Create MapNode", a => CreateNode(typeof(MapNode), mousePosition));
+        return TypeCache.GetTypesDerivedFrom<GraphCoreNode<MapGraphPort>>();
     }
 }

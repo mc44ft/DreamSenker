@@ -94,7 +94,7 @@ namespace DialogueSystem
                 widget.Fade(1f, duration, onFinished);
             }
         }
-        public void ShowDialogueChoicesSection(DialogueSystem.Data.DialogueNodeChoice.ChoiceData[] datas, int defaultSelectIndex)
+        public void ShowDialogueChoicesSection(ChoiceData[] datas, int defaultSelectIndex)
         {
             _dialogueBoxPanel.ShowChoicesSection(datas, defaultSelectIndex);
         }

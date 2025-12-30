@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using DialogueSystem.Data;
+using TMPro;
 using UnityEngine;
 namespace DialogueSystem.UI
 {
@@ -67,7 +68,7 @@ namespace DialogueSystem.UI
         /// <summary>
         /// 显示对话框部分
         /// </summary>
-        public void ShowChoicesSection(DialogueSystem.Data.DialogueNodeChoice.ChoiceData[] datas, int defaultSelectIndex)
+        public void ShowChoicesSection(ChoiceData[] datas, int defaultSelectIndex)
         {
             //显示选项光标
             m_choiceCursorRect.gameObject.SetActive(true);

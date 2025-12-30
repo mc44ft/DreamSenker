@@ -1,16 +1,17 @@
 ﻿using PlayArk.GraphCore.Data;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
 namespace PlayArk.GraphCore.Editor
 {
-    public class GraphCoreView : GraphView
+    public abstract class GraphCoreView : GraphView
     {
         //有了这行代码，这个 C# 脚本就变成了一个可以被拖拽的 UI 组件，出现在了 UI Builder 的零件库里
-        new class UxmlFactory : UxmlFactory<GraphCoreView, UxmlTraits> { }
+        //new class UxmlFactory : UxmlFactory<GraphCoreView, UxmlTraits> { }
 
         private GraphCoreGraph _graphCore;
 
@@ -122,11 +123,36 @@ namespace PlayArk.GraphCore.Editor
                 MultiplyPoint(evt.mousePosition);//矩阵计算
             //添加菜单项
             AppendMenuAction(evt, mousePosition);
-            
-
         }
 
-        protected virtual void AppendMenuAction(ContextualMenuPopulateEvent evt, Vector2 mousePosition) { }
+        private void AppendMenuAction(ContextualMenuPopulateEvent evt, Vector2 mousePosition)
+        {
+            var nodeTypes = GetMenuNodeType();
+            foreach (var type in nodeTypes)
+            {
+                //排除抽象类
+                if (type.IsAbstract) return;
+
+                //获取自定义标签特性
+                var attribute = type.GetCustomAttribute<NodeMenuItemAttribute>();
+                string menuTitle;
+                if(attribute != null && !string.IsNullOrEmpty(attribute.MenuTitle))
+                {
+                    menuTitle = attribute.MenuTitle;
+
+                    //使用临时变量防止闭包
+                    //闭包会导致所有菜单项都是同一个结果
+                    var capturedType = type;
+                    evt.menu.AppendAction("Create " + menuTitle, a => CreateNode(capturedType, mousePosition));
+                }
+            }
+        }
+        /// <summary>
+        /// 子类重写这个方法 更改返回的菜单节点类型
+        /// 获取所有GraphCoreNode的子类及其本身
+        /// return TypeCache.GetTypesDerivedFrom<GraphCoreNode>();
+        /// </summary>
+        protected abstract TypeCache.TypeCollection GetMenuNodeType();
 
         /// <summary>
         /// 在视图中拉起一根线时 这个方法返回的端口即为允许连接的端口

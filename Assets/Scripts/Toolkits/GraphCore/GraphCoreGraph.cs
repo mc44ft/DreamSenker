@@ -7,6 +7,7 @@ namespace PlayArk.GraphCore.Data
 {
     public abstract class GraphCoreGraph : ScriptableObject
     {
+        
         //给表现层返回具体的数据基类
         //给业务层返回泛型
         public abstract IEnumerable<GraphCoreNode> GetNodesInternal();
@@ -21,9 +22,9 @@ namespace PlayArk.GraphCore.Data
         where TEdge : GraphCoreEdge, new()
     {
         [SerializeField]
-        private List<TNode> _nodes = new();
+        protected List<TNode> _nodes = new();
         [SerializeField]
-        private List<TEdge> _edges = new();
+        protected List<TEdge> _edges = new();
 
         private Dictionary<string, TNode> _nodeLookup = new();
         private Dictionary<string, TEdge> _edgeLookup = new();
@@ -43,6 +44,9 @@ namespace PlayArk.GraphCore.Data
             => CreateEdge(rootNodeID, rootPortID, trueNodeID, truePortID);
         public override void DeleteEdgeInternal(GraphCoreEdge edge)
             => DeleteEdge(edge as TEdge);
+
+
+        
 
         public IEnumerable<TNode> GetNodes()
         {
@@ -132,13 +136,13 @@ namespace PlayArk.GraphCore.Data
 
             return node;
         }
-        private TNode MakeNode(Type type, Vector2 viewPosition)
+        protected TNode MakeNode(Type type, Vector2 viewPosition)
         {
             TNode node = CreateInstance(type) as TNode;
             node.Init(Guid.NewGuid().ToString(), viewPosition);
             return node;
         }
-        private void AddNode(TNode node)
+        protected void AddNode(TNode node)
         {
             _nodes.Add(node);
             OnValidate();
@@ -209,15 +213,16 @@ namespace PlayArk.GraphCore.Data
         /// 5.代码编译后
         /// 在Unity把对象数据写入文件之前触发（从内存到硬盘）
         /// </summary>
-        public void OnBeforeSerialize()
+        public virtual void OnBeforeSerialize()
         {
 #if UNITY_EDITOR
+
             //这里确保该状态机主资源已经是一个保存在硬盘当中的资源了
             //这里的意思就是获取这个类所对应的资源在硬盘中的路径
             //如果该路径不为空 说明这个类对应的资源已经保存在硬盘当中了
-            if (!string.IsNullOrEmpty(AssetDatabase.GetAssetPath(this)))
-            {
-                foreach (var node in _nodes)
+            if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(this)))
+                return;
+            foreach (var node in _nodes)
                 {
                     //跟上面一样 这里的意思就是：
                     //确保该子状态不是一个已经被保存在硬盘里的资源
@@ -226,8 +231,7 @@ namespace PlayArk.GraphCore.Data
                         AssetDatabase.AddObjectToAsset(node, this);
                     }
                 }
-            }
-
+          
             //在Project里创建新资源时
             //1.内存中先生成一个对象实例
             //2.Unity提示输入文件名

@@ -1,8 +1,10 @@
 ﻿
 using PlayArk.GraphCore.Data;
 using System.Linq;
+using UnityEngine;
 namespace MapSystem.Nodes
 {
+    [NodeMenuItem("MapNode")]
     public class MapNode : GraphCoreNode<MapGraphPort>
     {
         //在字段初始化器中初始化 防止空引用报错
@@ -24,9 +26,10 @@ namespace MapSystem.Nodes
         protected override void OnValidate()
         {
             base.OnValidate();
-
+            
             if (MapData.SceneAsset != null)
             {
+                Debug.Log("执行");
                 MapData.MapSceneName = MapData.SceneAsset.name;
             }
         }
