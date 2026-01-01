@@ -201,10 +201,11 @@ namespace PlayArk.GraphCore.Editor
         }
 
         
-        private void DrawNode(GraphCoreNode node)
+        protected virtual GraphCoreNodeView DrawNode(GraphCoreNode node)
         {
             GraphCoreNodeView nodeView = new GraphCoreNodeView(node, _graphCore);
             AddElement(nodeView);
+            return nodeView;
         }
         protected void CreateNode(Type nodeType, Vector2 mousePosition)
         {

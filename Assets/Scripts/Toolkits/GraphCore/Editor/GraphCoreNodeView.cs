@@ -14,8 +14,8 @@ namespace PlayArk.GraphCore.Editor
 
         //持有主资源的引用
         private GraphCoreGraph _graphCore;
-
-        private VisualElement _borderContainer;
+        
+        private VisualElement _headerContainer;
         private VisualElement _middleContainer;
 
         private Button _addInputPortButton;
@@ -41,10 +41,14 @@ namespace PlayArk.GraphCore.Editor
             SetTitle();
             DrawPorts();//绘制所有端口
             AddEventListenenr();
+            SetCapabilites();
         }
+
+        
+
         private void FindVisualElement()
         {
-            _borderContainer = this.Q<VisualElement>("node-header");
+            _headerContainer = this.Q<VisualElement>("node-header");
             _middleContainer = this.Q<VisualElement>("node-middle");
             _addInputPortButton = this.Q<Button>("button-addInputPort");
             _removeInputPortButton = this.Q<Button>("button-removeInputPort");
@@ -53,7 +57,7 @@ namespace PlayArk.GraphCore.Editor
         }
         private void SetStyle()
         {
-            _borderContainer.AddToClassList("node-header");
+            _headerContainer.AddToClassList("node-header");
             _middleContainer.AddToClassList("node-middle");
             inputContainer.AddToClassList("input");
             outputContainer.AddToClassList("output");
@@ -94,6 +98,14 @@ namespace PlayArk.GraphCore.Editor
                 _addOutputPortButton.RegisterCallback<ClickEvent>(OnAddOutputPort);
             if (_removeOutputPortButton != null)
                 _removeOutputPortButton.RegisterCallback<ClickEvent>(OnRemoveOutputPort);
+        }
+        /// <summary>
+        /// 用于设置一些特殊功能
+        /// 例如：关闭节点的可删除功能
+        /// </summary>
+        protected virtual void SetCapabilites()
+        {
+            
         }
         private void OnAddInputPort(ClickEvent evt)
         {
@@ -177,7 +189,11 @@ namespace PlayArk.GraphCore.Editor
             CoreNode.SetPosition(new Vector2(newPos.x, newPos.y));
             EditorUtility.SetDirty(CoreNode);
         }
-        
+
+        public void SetHeaderColor(Color color)
+        {
+            _headerContainer.style.backgroundColor = color;
+        }
     }
 }
 

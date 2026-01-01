@@ -1,7 +1,6 @@
 ﻿
 using DialogueSystem.Misc;
 using UnityEngine;
-using XNode;
 // ReSharper disable InvalidXmlDocComment
 namespace DialogueSystem.Data
 {
