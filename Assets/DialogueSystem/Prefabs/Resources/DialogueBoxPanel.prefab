@@ -603,13 +603,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3a28e18b380de948848ecd4b48f5382, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_speakerNameText: {fileID: 0}
-  m_contentText: {fileID: 0}
+  m_speakerNameText: {fileID: 7269720441766130111}
+  m_contentText: {fileID: 7182971675604483584}
   m_isShowCursor: 1
-  m_nextCursorWidget: {fileID: 0}
-  m_nextCursorAnimator: {fileID: 0}
-  m_choiceCursorRect: {fileID: 0}
-  m_choiceSection: {fileID: 0}
+  m_nextCursorWidget: {fileID: 3659797666260383034}
+  m_nextCursorAnimator: {fileID: 6810673213048258185}
+  m_choiceCursorRect: {fileID: 8299228727278409764}
+  m_choiceSection: {fileID: 8488449070802187493}
 --- !u!1 &5541586276016979289
 GameObject:
   m_ObjectHideFlags: 0

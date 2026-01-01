@@ -1,5 +1,4 @@
-﻿
-using UnityEditor.Experimental.GraphView;
+﻿// using UnityEditor.Experimental.GraphView;
 using System;
 using UnityEngine;
 
@@ -12,20 +11,18 @@ namespace PlayArk.GraphCore.Data
     [Serializable]
     public class GraphCorePort
     {
-        [HideInInspector, SerializeField]
-        private string _uniqueID;
-        [SerializeField]
-        private string _portName = "New Port";
-        [HideInInspector, SerializeField]
-        private Direction _direction;//端口类型
-        [HideInInspector, SerializeField]
-        private string _selfNodeID;
-        public void Initialize(string portID, string selfNodeID, Direction direction)
+        [HideInInspector, SerializeField] private string _uniqueID;
+        [SerializeField] private string _portName = "New Port";
+        [HideInInspector, SerializeField] private E_PortDirection _direction; //端口类型
+        [HideInInspector, SerializeField] private string _selfNodeID;
+
+        public void Initialize(string portID, string selfNodeID, E_PortDirection direction)
         {
             _uniqueID = portID;
             _selfNodeID = selfNodeID;
             _direction = direction;
         }
+
         public void SetPortName(string portName)
         {
             _portName = portName;
@@ -33,10 +30,13 @@ namespace PlayArk.GraphCore.Data
 
         public string GetUniqueID()
             => _uniqueID;
+
         public string GetPortName()
             => _portName;
-        public Direction GetDirection()
+
+        public E_PortDirection GetDirection()
             => _direction;
+
         public string GetSeleNodeID()
             => _selfNodeID;
     }

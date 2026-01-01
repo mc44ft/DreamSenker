@@ -13,8 +13,10 @@ namespace PlayArk.GraphCore.Data
         public abstract IEnumerable<GraphCoreNode> GetNodesInternal();
         public abstract IEnumerable<GraphCoreEdge> GetEdgesInternal();
         public abstract GraphCoreNode CreateNodeInternal(Type type, Vector2 viewPosition);
+        public abstract void AddNodeInternal(GraphCoreNode node);
         public abstract void DeleteNodeInternal(GraphCoreNode node);
         public abstract GraphCoreEdge CreateEdgeInternal(string rootNodeID, string rootPortID, string trueNodeID, string truePortID);
+        public abstract void AddEdgeInternal(GraphCoreEdge edge);
         public abstract void DeleteEdgeInternal(GraphCoreEdge edge);
     }
     public class GraphCoreGraph<TNode, TEdge> : GraphCoreGraph, ISerializationCallbackReceiver
@@ -38,10 +40,15 @@ namespace PlayArk.GraphCore.Data
             => GetEdges();
         public override GraphCoreNode CreateNodeInternal(Type type, Vector2 viewPosition) 
             => CreateNode(type, viewPosition);
+
+        public override void AddNodeInternal(GraphCoreNode node)
+            => AddNode(node as TNode);
         public override void DeleteNodeInternal(GraphCoreNode node) 
             => DeleteNode(node as TNode);
         public override GraphCoreEdge CreateEdgeInternal(string rootNodeID, string rootPortID, string trueNodeID, string truePortID)
             => CreateEdge(rootNodeID, rootPortID, trueNodeID, truePortID);
+        public override void AddEdgeInternal(GraphCoreEdge edge)
+            => AddEdge(edge as TEdge);
         public override void DeleteEdgeInternal(GraphCoreEdge edge)
             => DeleteEdge(edge as TEdge);
 
@@ -119,38 +126,19 @@ namespace PlayArk.GraphCore.Data
             //字典重构完毕 修改标识符
             _isLookupDirty = false;
         }
-#if UNITY_EDITOR
         public TNode CreateNode(Type type, Vector2 viewPosition)
-        {
-            TNode node = MakeNode(type, viewPosition);
-            //注册新资源的诞生
-            //将刚刚创建的资源对象注册给Undo
-            //Ondo会自动将资源标记为脏
-            //字符串参数 是这个操作的名称 在Edit选项下会显示这个
-            Undo.RegisterCreatedObjectUndo(node, "你刚刚创建了一个GraphCoreNode");
-            //记录现有资源的样子
-            //将当前StateMachine的快照记录到Undo中 撤销之后就是恢复现在的样子
-            //这个字符串的意思 就是刚才这个操作的名称
-            Undo.RecordObject(this, "你刚刚添加了一个GraphCoreNode");
-            AddNode(node);
-
-            return node;
-        }
-        protected TNode MakeNode(Type type, Vector2 viewPosition)
         {
             TNode node = CreateInstance(type) as TNode;
             node.Init(Guid.NewGuid().ToString(), viewPosition);
             return node;
         }
-        protected void AddNode(TNode node)
+        public void AddNode(TNode node)
         {
             _nodes.Add(node);
             OnValidate();
         }
         public void DeleteNode(TNode node)
         {
-            Undo.RecordObject(this, "你刚刚删除了一个GraphCoreNode");
-
             //先检查该节点相关的edge
             List<TEdge> edgesToRemove = new List<TEdge>();
             foreach (var edge in _edges)
@@ -161,16 +149,9 @@ namespace PlayArk.GraphCore.Data
                 }
             }
             foreach (var edge in edgesToRemove)
-            {
                 _edges.Remove(edge);
-            }
-
             _nodes.Remove(node);
-
             OnValidate();
-            //使用Undo操作代替
-            Undo.DestroyObjectImmediate(node);
-
             //Unity保存的时候会保存所有标记为脏的资源 如果没有标记为脏 会不进行保存
             //true是显示授权Unity销毁该资源对象 如果不传true Unity会认为你误操作 会报错
             //UnityEngine.Object.DestroyImmediate(node, true);
@@ -179,21 +160,16 @@ namespace PlayArk.GraphCore.Data
         {
             TEdge edge = new TEdge();
             edge.Initialize(Guid.NewGuid().ToString(), rootNodeID, rootPortID, trueNodeID, truePortID);
-            //记录现有资源的样子
-            //将当前StateMachine的快照记录到Undo中 撤销之后就是恢复现在的样子
-            //这个字符串的意思 就是刚才这个操作的名称
-            Undo.RecordObject(this, "你刚刚建立了一个GraphCoreEdge连接");
-            AddEdge(edge);
             return edge;
         }
-        private void AddEdge(TEdge edge)
+        public void AddEdge(TEdge edge)
         {
             _edges.Add(edge);
             OnValidate();
         }
         public void DeleteEdge(TEdge edge)
         {
-            Undo.RecordObject(this, "你刚刚删除了一个GraphCoreEdge");
+            
             _edges.Remove(edge);
             OnValidate();
         }
@@ -201,8 +177,6 @@ namespace PlayArk.GraphCore.Data
         {
             RebuildLookups();
         }
-#endif
-
         /// <summary>
         /// 在序列化的前一刻调用
         /// 在以下几种情况触发：
@@ -223,14 +197,14 @@ namespace PlayArk.GraphCore.Data
             if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(this)))
                 return;
             foreach (var node in _nodes)
+            {
+                //跟上面一样 这里的意思就是：
+                //确保该子状态不是一个已经被保存在硬盘里的资源
+                if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(node)))
                 {
-                    //跟上面一样 这里的意思就是：
-                    //确保该子状态不是一个已经被保存在硬盘里的资源
-                    if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(node)))
-                    {
-                        AssetDatabase.AddObjectToAsset(node, this);
-                    }
+                    AssetDatabase.AddObjectToAsset(node, this);
                 }
+            }
           
             //在Project里创建新资源时
             //1.内存中先生成一个对象实例

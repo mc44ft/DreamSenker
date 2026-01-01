@@ -1,8 +1,6 @@
 ﻿using System;
-using UnityEditor.Experimental.GraphView;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
 namespace PlayArk.GraphCore.Data
 {
@@ -17,8 +15,8 @@ namespace PlayArk.GraphCore.Data
         public abstract void SetPosition(Vector2 viewPosition);
 
         
-        public abstract GraphCorePort CreatePortInternal(Direction direction);
-        public abstract void DeletePortInternal(Direction direction);
+        public abstract GraphCorePort CreatePortInternal(E_PortDirection direction);
+        public abstract void DeletePortInternal(E_PortDirection direction);
         public abstract GraphCorePort GetPortDataInternal(string portID);
     }
     public abstract class GraphCoreNode<TPort> : GraphCoreNode where TPort : GraphCorePort, new()
@@ -59,9 +57,9 @@ namespace PlayArk.GraphCore.Data
             => _inputPorts;
         public override IEnumerable<GraphCorePort> GetOutputPorts()
             => _outputPorts;
-        public override GraphCorePort CreatePortInternal(Direction direction)
+        public override GraphCorePort CreatePortInternal(E_PortDirection direction)
             => CreatePort(direction);
-        public override void DeletePortInternal(Direction direction)
+        public override void DeletePortInternal(E_PortDirection direction)
             => DeletePort(direction);
         public override GraphCorePort GetPortDataInternal(string portID)
             => GetPortByID(portID);
@@ -79,8 +77,6 @@ namespace PlayArk.GraphCore.Data
         {
             _title = title;
         }
-#if UNITY_EDITOR
-        
         /// <summary>
         /// 外部初始化
         /// </summary>
@@ -90,12 +86,11 @@ namespace PlayArk.GraphCore.Data
             _viewPosition = viewPosition;
 
             if (_inputPorts.Count < 1)
-                CreatePort(Direction.Input);
+                CreatePort(E_PortDirection.Input);
             if (_outputPorts.Count < 1)
-                CreatePort(Direction.Output);
-
-            EditorUtility.SetDirty(this);
+                CreatePort(E_PortDirection.Output);
         }
+// #if UNITY_EDITOR
         /// <summary>
         /// 一个供子类重写的虚方法 用于替换继承TPort的特殊端口类型
         /// </summary>
@@ -104,31 +99,27 @@ namespace PlayArk.GraphCore.Data
         {
             return new TPort();
         }
-        public TPort CreatePort(Direction direction)
+        public TPort CreatePort(E_PortDirection direction)
         {
             //调用工厂方法来创建端口
             TPort portData = CreatePortInstance();
             portData.Initialize(Guid.NewGuid().ToString(), _uniqueID, direction);
-            if (direction == Direction.Input)
+            if (direction == E_PortDirection.Input)
                 _inputPorts.Add(portData);
             else
                 _outputPorts.Add(portData);
-
-            EditorUtility.SetDirty(this);
             return portData;
         }
-        public void DeletePort(Direction direction)
+        public void DeletePort(E_PortDirection direction)
         {
-            if(direction == Direction.Input && _inputPorts.Count > 0)
+            if(direction == E_PortDirection.Input && _inputPorts.Count > 0)
                 _inputPorts.RemoveAt(_inputPorts.Count - 1);
             else
                 _outputPorts.RemoveAt(_outputPorts.Count - 1);
         }
         public override void SetPosition(Vector2 viewPosition)
         {
-            Undo.RecordObject(this, "你刚刚移动了一个GraphCoreNode");
             _viewPosition = viewPosition;
-            EditorUtility.SetDirty(this);
         }
         protected virtual void OnValidate()
         {
@@ -148,7 +139,13 @@ namespace PlayArk.GraphCore.Data
                 }
             }
         }
-#endif
+// #endif
 
+    }
+    
+    public enum E_PortDirection
+    {
+        Input,
+        Output
     }
 }

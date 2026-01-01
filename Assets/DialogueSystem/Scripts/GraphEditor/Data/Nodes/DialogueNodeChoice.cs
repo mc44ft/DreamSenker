@@ -7,13 +7,11 @@ namespace DialogueSystem.Data
     [NodeMenuItem("DialogueNodeChoice")]
     public class DialogueNodeChoice : DialogueNodeBase
     {
-        
         [Space(10)]
         [Header("CHOICE DETAILS")]
-        /// <summary>
-        /// 默认选择的选项索引 用于显示默认的光标位置
-        /// </summary>
-        [SerializeField] private int _defaultSelectIndex = 0;
+        //默认选择的选项索引 用于显示默认的光标位置
+        [SerializeField] 
+        private int _defaultSelectIndex = 0;
 
         
         /// <summary>
@@ -51,6 +49,7 @@ namespace DialogueSystem.Data
             //替换Port为DialogueChoicePort
             return new DialogueChoicePort();
         }
+        // ReSharper disable Unity.PerformanceAnalysis
         public override string GetNextPortID()
         {
             if (_resultIndex < 0 || _resultIndex >= _outputPorts.Count)
@@ -66,7 +65,6 @@ namespace DialogueSystem.Data
             base.Init(uniqueID, viewPosition);
             SetTitle("Choice Node");
         }
-
     }
     [Serializable]
     public class DialogueChoicePort : GraphCorePort

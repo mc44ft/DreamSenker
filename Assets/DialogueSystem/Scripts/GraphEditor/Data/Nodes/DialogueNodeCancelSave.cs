@@ -23,6 +23,16 @@ namespace DialogueSystem.Data
         {
 
         }
+
+        public override void Init(string uniqueID, Vector2 viewPosition)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void SetPosition(Vector2 viewPosition)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
 

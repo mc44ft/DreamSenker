@@ -95,33 +95,31 @@ namespace PlayArk.GraphCore.Editor
             if (_removeOutputPortButton != null)
                 _removeOutputPortButton.RegisterCallback<ClickEvent>(OnRemoveOutputPort);
         }
-
-        
-
         private void OnAddInputPort(ClickEvent evt)
         {
-            AddPort(Direction.Input);
+            AddPort(E_PortDirection.Input);
         }
         private void OnRemoveInputPort(ClickEvent evt)
         {
             if (inputContainer.childCount > 1)
-                RemovePort(Direction.Input);
+                RemovePort(E_PortDirection.Input);
         }
         private void OnAddOutputPort(ClickEvent evt)
         {
-            AddPort(Direction.Output);
+            AddPort(E_PortDirection.Output);
         }
         private void OnRemoveOutputPort(ClickEvent evt)
         {
             if (outputContainer.childCount > 1)
-                RemovePort(Direction.Output);
+                RemovePort(E_PortDirection.Output);
         }
-        private void AddPort(Direction portDirection)
+        private void AddPort(E_PortDirection portDirection)
         {
             GraphCorePort portData = CoreNode.CreatePortInternal(portDirection);
+            EditorUtility.SetDirty(CoreNode);
             CreatePortView(portData, Port.Capacity.Single);
         }
-        private void RemovePort(Direction portDirection)
+        private void RemovePort(E_PortDirection portDirection)
         {
             CoreNode.DeletePortInternal(portDirection);
             RemovePortView(portDirection);
@@ -131,7 +129,7 @@ namespace PlayArk.GraphCore.Editor
             GraphCorePortTemplate graphCorePort = new GraphCorePortTemplate();
             graphCorePort.Initialize(portData);
 
-            if(portData.GetDirection() == Direction.Input)
+            if(portData.GetDirection() == E_PortDirection.Input)
             {
                 inputContainer.Add(graphCorePort);
             }
@@ -142,9 +140,9 @@ namespace PlayArk.GraphCore.Editor
                 
             return graphCorePort;
         }
-        private void RemovePortView(Direction portDirection)
+        private void RemovePortView(E_PortDirection portDirection)
         {
-            if(portDirection == Direction.Input) 
+            if(portDirection == E_PortDirection.Input) 
                 inputContainer.RemoveAt(inputContainer.childCount - 1);
             else
                 outputContainer.RemoveAt(outputContainer.childCount - 1);
@@ -175,7 +173,9 @@ namespace PlayArk.GraphCore.Editor
         public override void SetPosition(Rect newPos)
         {
             base.SetPosition(newPos);
+            Undo.RecordObject(CoreNode, "你刚刚移动了一个GraphCoreNode");
             CoreNode.SetPosition(new Vector2(newPos.x, newPos.y));
+            EditorUtility.SetDirty(CoreNode);
         }
         
     }

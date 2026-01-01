@@ -11,6 +11,7 @@ namespace PlayArk.GraphCore.Editor
     public abstract class GraphCoreView : GraphView
     {
         //有了这行代码，这个 C# 脚本就变成了一个可以被拖拽的 UI 组件，出现在了 UI Builder 的零件库里
+        //现在写成了一个抽象类 所以不需要这行了
         //new class UxmlFactory : UxmlFactory<GraphCoreView, UxmlTraits> { }
 
         private GraphCoreGraph _graphCore;
@@ -42,6 +43,8 @@ namespace PlayArk.GraphCore.Editor
         /// </summary>
         public void Refresh(GraphCoreGraph graphCore)
         {
+            if (InterCeptionGraph(graphCore))
+                return;
             _graphCore = graphCore;
 
             graphViewChanged -= OnGraphViewChanged;
@@ -66,6 +69,10 @@ namespace PlayArk.GraphCore.Editor
                 }
             }
         }
+        /// <summary>
+        /// 返回一个bool值 用于跳过不属于本资源的画布绘制
+        /// </summary>
+        protected abstract bool InterCeptionGraph(GraphCoreGraph graphCore);
         /// <summary>
         /// 当画布发生改变时调用 添加连线 删除连线或节点时
         /// 此函数被调用时，表现层的东西在Unity的GraphView系统中已经进行了处理
@@ -202,13 +209,25 @@ namespace PlayArk.GraphCore.Editor
         protected void CreateNode(Type nodeType, Vector2 mousePosition)
         {
             GraphCoreNode node = _graphCore.CreateNodeInternal(nodeType, mousePosition);
+            //注册新资源的诞生
+            //将刚刚创建的资源对象注册给Undo
+            //Ondo会自动将资源标记为脏
+            //字符串参数 是这个操作的名称 在Edit选项下会显示这个
+            Undo.RegisterCreatedObjectUndo(node, "你刚刚创建了一个GraphCoreNode");
+            //记录现有资源的样子
+            //将当前StateMachine的快照记录到Undo中 撤销之后就是恢复现在的样子
+            //这个字符串的意思 就是刚才这个操作的名称
+            Undo.RecordObject(_graphCore, "你刚刚添加了一个GraphCoreNode");
+            _graphCore.AddNodeInternal(node);
+            
             DrawNode(node);
         }
         private void DeleteNode(GraphCoreNodeView nodeView)
         {
+            Undo.RecordObject(_graphCore, "你刚刚删除了一个GraphCoreNode");
             _graphCore.DeleteNodeInternal(nodeView.CoreNode);
-
-            
+            //使用Undo操作代替
+            Undo.DestroyObjectImmediate(nodeView.CoreNode);
         }
         private void DrawEdge(GraphCoreEdge edge)
         {
@@ -225,14 +244,19 @@ namespace PlayArk.GraphCore.Editor
         {
             GraphCorePort rootPort = edge.output.userData as GraphCorePort;
             GraphCorePort truePort = edge.input.userData as GraphCorePort;
-            _graphCore.CreateEdgeInternal(rootPort.GetSeleNodeID(), rootPort.GetUniqueID(), truePort.GetSeleNodeID(), truePort.GetUniqueID());
+            GraphCoreEdge graphCoreEdge =  _graphCore.CreateEdgeInternal(
+                rootPort.GetSeleNodeID(), rootPort.GetUniqueID(), truePort.GetSeleNodeID(), truePort.GetUniqueID());
+            //记录现有资源的样子
+            //将当前StateMachine的快照记录到Undo中 撤销之后就是恢复现在的样子
+            //这个字符串的意思 就是刚才这个操作的名称
+            Undo.RecordObject(_graphCore, "你刚刚建立了一个GraphCoreEdge连接");
+            _graphCore.AddEdgeInternal(graphCoreEdge);
         }
         private void DeleteEdge(GraphCoreEdgeView edge)
         {
+            Undo.RecordObject(_graphCore, "你刚刚删除了一个GraphCoreEdge");
             _graphCore.DeleteEdgeInternal(edge.GraphCoreEdge);
         }
-        
-
         private void OnUndoRedo()
         {
             Refresh(_graphCore);

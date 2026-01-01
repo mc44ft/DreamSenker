@@ -104,7 +104,7 @@ namespace DialogueSystem.Data
             //生成默认入口节点
             if (_nodeEntry == null)
             {
-                _nodeEntry = MakeNode(typeof(DialogueNodeEntry), Vector2.zero) as DialogueNodeEntry;
+                _nodeEntry = CreateNode(typeof(DialogueNodeEntry), Vector2.zero) as DialogueNodeEntry;
                 _nodeEntry.SetTitle("Entry");
                 AddNode(_nodeEntry);
             }

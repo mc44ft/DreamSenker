@@ -2,6 +2,7 @@
 using DialogueSystem.Misc;
 using UnityEngine;
 using XNode;
+// ReSharper disable InvalidXmlDocComment
 namespace DialogueSystem.Data
 {
     /// <summary>
@@ -49,23 +50,23 @@ namespace DialogueSystem.Data
         /// 这里简单重写了获取下一个节点的方法，用于应对策划需求 后续还需要根据自己的UIToolkit重做
         /// </summary>
         /// <returns></returns>
-        //public override string GetNextPortID()
-        //{
-        //    if(m_panelType == E_DialogueExternalUiPanelType.TaskPublishPanel)
-        //    {
-        //        NodePort outputPort = GetOutputPort("Output");
-        //        if (outputPort == null || !outputPort.IsConnected)
-        //            return null;
-        //        if (_nextNodeIndex < 0 || _nextNodeIndex >= outputPort.ConnectionCount)
-        //            return null;
-        //        NodePort connection = outputPort.GetConnection(_nextNodeIndex);
-        //        return connection.node as DialogueNodeBase;
-        //    }
-        //    else
-        //    {
-        //        return base.GetNextPortID();
-        //    }
-        //}
+        // public override string GetNextPortID()
+        // {
+        //     if(m_panelType == E_DialogueExternalUiPanelType.TaskPublishPanel)
+        //     {
+        //         NodePort outputPort = GetOutputPort("Output");
+        //         if (outputPort == null || !outputPort.IsConnected)
+        //             return null;
+        //         if (_nextNodeIndex < 0 || _nextNodeIndex >= outputPort.ConnectionCount)
+        //             return null;
+        //         NodePort connection = outputPort.GetConnection(_nextNodeIndex);
+        //         return connection.node as DialogueNodeBase;
+        //     }
+        //     else
+        //     {
+        //         return base.GetNextPortID();
+        //     }
+        // }
     }
 }
 
