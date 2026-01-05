@@ -1,0 +1,32 @@
+.sm-node #node-background{
+    /*相对定位*/
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    
+}
+.sm-node #node-header{
+    width: 250px;
+    height: 100px;
+}
+.sm-node #node-middle{
+    display: none;
+}
+.sm-node Port{
+    /*单独恢复其显示方式为初始值*/
+    /*display: flex;*/
+    
+    justify-content: center;
+    align-self: center;
+    /*绝对定位*/
+    position: absolute;
+    /*宽高撑满整个header*/
+    width: 100%;
+    height: 100%;
+    /*隐藏该端口*/
+    visibility: hidden;
+}
+.sm-node Port > Label{
+    /*隐藏端口文字*/
+    display: none;
+}

@@ -12,11 +12,12 @@ namespace DialogueSystem.Data
         
         private int _index;
 
-        public override void Initialize(Action<bool> onFinished)
+        public override void Init(string uniqueID, Vector2 viewPosition)
         {
-            base.Initialize(onFinished);
+            base.Init(uniqueID, viewPosition);
             SetTitle("Normal");
         }
+
         protected override void OnExecute()
         {
             //在节点执行时 开启事件监听
@@ -33,9 +34,9 @@ namespace DialogueSystem.Data
                 _index++;
                 return;
             }
-            Finished();
+            OnFinished();
         }
-        protected override void OnFinished()
+        protected override void Finished()
         {
             //节点完成后 结束事件监听
             EventCenter.Instance.RemoveEventListener<EmptyEventArgs>(E_EventType.Dialogue_ContentNext, OnTextNext);

@@ -6,9 +6,9 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class MapGraphView : GraphCoreView
+public class MapGraphView : GraphCoreView<GraphCoreNodeView>
 {
-    protected override bool InterCeptionGraph(GraphCoreGraph graphCore)
+    protected override bool InterceptionGraph(GraphCoreGraph graphCore)
     {
         if (!(graphCore is MapGraph))
             return true;

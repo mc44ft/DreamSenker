@@ -19,7 +19,7 @@ namespace DialogueSystem.Data
             //}
         }
 
-        protected override void OnFinished()
+        protected override void Finished()
         {
 
         }

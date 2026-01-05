@@ -105,7 +105,6 @@ namespace DialogueSystem.Data
             if (_nodeEntry == null)
             {
                 _nodeEntry = CreateNode(typeof(DialogueNodeEntry), Vector2.zero) as DialogueNodeEntry;
-                _nodeEntry.SetTitle("Entry");
                 AddNode(_nodeEntry);
             }
 #endif

@@ -10,7 +10,6 @@ namespace PlayArk.GraphCore.Data
         public abstract Vector2 GetViewPosition();
         public abstract IEnumerable<GraphCorePort> GetInputPorts();
         public abstract IEnumerable<GraphCorePort> GetOutputPorts();
-
         public abstract void Init(string uniqueID, Vector2 viewPosition);
         public abstract void SetPosition(Vector2 viewPosition);
 

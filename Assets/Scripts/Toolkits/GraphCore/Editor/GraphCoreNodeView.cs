@@ -1,5 +1,4 @@
 ﻿using PlayArk.GraphCore.Data;
-using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
@@ -10,7 +9,7 @@ namespace PlayArk.GraphCore.Editor
 {
     public class GraphCoreNodeView : Node
     {
-        public GraphCoreNode CoreNode { get; }
+        public GraphCoreNode CoreNode { get; private set; }
 
         //持有主资源的引用
         private GraphCoreGraph _graphCore;
@@ -25,7 +24,11 @@ namespace PlayArk.GraphCore.Editor
 
         private Dictionary<string, GraphCorePortTemplate> _dynamicPortLookup = new();
 
-        public GraphCoreNodeView(GraphCoreNode data, GraphCoreGraph graphCore) : base(GraphCoreEditor.GetPath() + "GraphCoreNode.uxml")
+        public GraphCoreNodeView() : base(GraphCoreEditor.GetPath() + "GraphCoreNode.uxml")
+        {
+            
+        }
+        public virtual void Init(GraphCoreNode data, GraphCoreGraph graphCore)
         {
             CoreNode = data;
             _graphCore = graphCore;
@@ -35,7 +38,7 @@ namespace PlayArk.GraphCore.Editor
             style.left = data.GetViewPosition().x;
             style.top = data.GetViewPosition().y;
 
-
+            
             FindVisualElement();
             SetStyle();//添加uss类选择器
             SetTitle();
@@ -43,8 +46,6 @@ namespace PlayArk.GraphCore.Editor
             AddEventListenenr();
             SetCapabilites();
         }
-
-        
 
         private void FindVisualElement()
         {
@@ -55,7 +56,7 @@ namespace PlayArk.GraphCore.Editor
             _addOutputPortButton = this.Q<Button>("button-addOutputPort");
             _removeOutputPortButton = this.Q<Button>("button-removeOutputPort");
         }
-        private void SetStyle()
+        protected virtual void SetStyle()
         {
             _headerContainer.AddToClassList("node-header");
             _middleContainer.AddToClassList("node-middle");
@@ -77,11 +78,13 @@ namespace PlayArk.GraphCore.Editor
             {
                 foreach (var port in CoreNode.GetInputPorts())
                 {
-                    CreatePortView(port, Port.Capacity.Single);
+                    var portView = CreatePortView(port, GetPortCapacity());
+                    AddPortView(portView, port.GetDirection());
                 }
                 foreach (var port in CoreNode.GetOutputPorts())
                 {
-                    CreatePortView(port, Port.Capacity.Single);
+                    var portView = CreatePortView(port, GetPortCapacity());
+                    AddPortView(portView, port.GetDirection());
                 }
             }
         }
@@ -103,10 +106,9 @@ namespace PlayArk.GraphCore.Editor
         /// 用于设置一些特殊功能
         /// 例如：关闭节点的可删除功能
         /// </summary>
-        protected virtual void SetCapabilites()
-        {
-            
-        }
+        protected virtual void SetCapabilites() { }
+
+        protected virtual Port.Capacity GetPortCapacity() => Port.Capacity.Single;
         private void OnAddInputPort(ClickEvent evt)
         {
             AddPort(E_PortDirection.Input);
@@ -129,7 +131,8 @@ namespace PlayArk.GraphCore.Editor
         {
             GraphCorePort portData = CoreNode.CreatePortInternal(portDirection);
             EditorUtility.SetDirty(CoreNode);
-            CreatePortView(portData, Port.Capacity.Single);
+            var portView = CreatePortView(portData, GetPortCapacity());
+            AddPortView(portView, portDirection);
         }
         private void RemovePort(E_PortDirection portDirection)
         {
@@ -139,18 +142,20 @@ namespace PlayArk.GraphCore.Editor
         private GraphCorePortTemplate CreatePortView(GraphCorePort portData, Port.Capacity capacity)
         {
             GraphCorePortTemplate graphCorePort = new GraphCorePortTemplate();
-            graphCorePort.Initialize(portData);
+            graphCorePort.Initialize(portData, capacity);
+            return graphCorePort;
+        }
 
-            if(portData.GetDirection() == E_PortDirection.Input)
+        private void AddPortView(GraphCorePortTemplate portView, E_PortDirection portDirection)
+        {
+            if(portDirection == E_PortDirection.Input)
             {
-                inputContainer.Add(graphCorePort);
+                inputContainer.Add(portView);
             }
             else
             {
-                outputContainer.Add(graphCorePort);
+                outputContainer.Add(portView);
             }
-                
-            return graphCorePort;
         }
         private void RemovePortView(E_PortDirection portDirection)
         {

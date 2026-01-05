@@ -4,9 +4,9 @@ using PlayArk.GraphCore.Editor;
 using UnityEditor;
 using UnityEngine;
 
-public class DialogueGraphView : GraphCoreView
+public class DialogueGraphView : GraphCoreView<DialogueNodeView>
 {
-    protected override bool InterCeptionGraph(GraphCoreGraph graphCore)
+    protected override bool InterceptionGraph(GraphCoreGraph graphCore)
     {
         if (!(graphCore is DialogueGraph))
             return true;

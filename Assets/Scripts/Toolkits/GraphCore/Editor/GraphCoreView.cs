@@ -10,13 +10,17 @@ namespace PlayArk.GraphCore.Editor
 {
     public abstract class GraphCoreView : GraphView
     {
+        public abstract void Refresh(GraphCoreGraph graphCore);
+    }
+    public abstract class GraphCoreView<TNodeView> : GraphCoreView where TNodeView : GraphCoreNodeView, new()
+    {
         //有了这行代码，这个 C# 脚本就变成了一个可以被拖拽的 UI 组件，出现在了 UI Builder 的零件库里
         //现在写成了一个抽象类 所以不需要这行了
         //new class UxmlFactory : UxmlFactory<GraphCoreView, UxmlTraits> { }
 
         private GraphCoreGraph _graphCore;
 
-        public GraphCoreView()
+        protected GraphCoreView()
         {
             //必须有这句代码 才能显示出网格 
             //不是已经在uxml文件里添加了吗？.......
@@ -29,6 +33,9 @@ namespace PlayArk.GraphCore.Editor
             this.AddManipulator(new ContentZoomer());//鼠标滚轮缩放画布
             this.AddManipulator(new ContentDragger());//按住鼠标中键拖拽画布
             this.AddManipulator(new SelectionDragger());//左键框选并拖拽节点
+            
+            //设置画布的初始缩放比例
+            viewTransform.scale = new Vector3(0.8f, 0.8f, 1f);
 
             //这里订阅了Unity的全局撤销/重做事件
             //用于表现层和数据层同步
@@ -41,9 +48,9 @@ namespace PlayArk.GraphCore.Editor
         /// 切换资源时 或者 更新当前资源时都会调用
         /// 撤销重做时
         /// </summary>
-        public void Refresh(GraphCoreGraph graphCore)
+        public override void Refresh(GraphCoreGraph graphCore)
         {
-            if (InterCeptionGraph(graphCore))
+            if (InterceptionGraph(graphCore))
                 return;
             _graphCore = graphCore;
 
@@ -72,7 +79,8 @@ namespace PlayArk.GraphCore.Editor
         /// <summary>
         /// 返回一个bool值 用于跳过不属于本资源的画布绘制
         /// </summary>
-        protected abstract bool InterCeptionGraph(GraphCoreGraph graphCore);
+        /// <returns>true 表示拦截</returns>
+        protected abstract bool InterceptionGraph(GraphCoreGraph graphCore);
         /// <summary>
         /// 当画布发生改变时调用 添加连线 删除连线或节点时
         /// 此函数被调用时，表现层的东西在Unity的GraphView系统中已经进行了处理
@@ -85,7 +93,10 @@ namespace PlayArk.GraphCore.Editor
             {
                 foreach (var edge in edgesToCreate)
                 {
-                    CreateEdge(edge);
+                    if (edge is GraphCoreEdgeView edgeView)
+                    {
+                        CreateEdge(edgeView);
+                    }
                 }
             }
 
@@ -96,7 +107,7 @@ namespace PlayArk.GraphCore.Editor
                 foreach (var element in elementsToRemove)
                 {
                     //节点
-                    if (element is GraphCoreNodeView nodeView)
+                    if (element is TNodeView nodeView)
                     {
                         DeleteNode(nodeView);
                     }
@@ -128,8 +139,14 @@ namespace PlayArk.GraphCore.Editor
                 viewTransform.matrix.//代表了当前画布的状态
                 inverse.//逆矩阵
                 MultiplyPoint(evt.mousePosition);//矩阵计算
-            //添加菜单项
-            AppendMenuAction(evt, mousePosition);
+            
+            //只有在右键点击到画布（非节点）上 才添加菜单
+            if (evt.target is GraphCoreView<TNodeView>)
+            {
+                //添加菜单项
+                AppendMenuAction(evt, mousePosition);
+            }
+            
         }
 
         private void AppendMenuAction(ContextualMenuPopulateEvent evt, Vector2 mousePosition)
@@ -157,7 +174,6 @@ namespace PlayArk.GraphCore.Editor
         /// <summary>
         /// 子类重写这个方法 更改返回的菜单节点类型
         /// 获取所有GraphCoreNode的子类及其本身
-        /// return TypeCache.GetTypesDerivedFrom<GraphCoreNode>();
         /// </summary>
         protected abstract TypeCache.TypeCollection GetMenuNodeType();
 
@@ -171,6 +187,9 @@ namespace PlayArk.GraphCore.Editor
             //ports是整张view上所有Port类型的元素
             foreach (var endPort in ports)
             {
+                //排除被禁用的端口
+                if (!endPort.enabledSelf)
+                    continue;
                 //排除方向不同的节点
                 if (endPort.direction == startPort.direction)
                     continue;
@@ -195,19 +214,20 @@ namespace PlayArk.GraphCore.Editor
             }
             return false;
         }
-        public GraphCoreNodeView GetNodeViewByID(string nodeID)
+        public TNodeView GetNodeViewByID(string nodeID)
         {
-            return GetNodeByGuid(nodeID) as GraphCoreNodeView;
+            return GetNodeByGuid(nodeID) as TNodeView;
         }
 
         
         protected virtual GraphCoreNodeView DrawNode(GraphCoreNode node)
         {
-            GraphCoreNodeView nodeView = new GraphCoreNodeView(node, _graphCore);
+            TNodeView nodeView = new TNodeView();
+            nodeView.Init(node, _graphCore);
             AddElement(nodeView);
             return nodeView;
         }
-        protected void CreateNode(Type nodeType, Vector2 mousePosition)
+        private void CreateNode(Type nodeType, Vector2 mousePosition)
         {
             GraphCoreNode node = _graphCore.CreateNodeInternal(nodeType, mousePosition);
             //注册新资源的诞生
@@ -223,7 +243,7 @@ namespace PlayArk.GraphCore.Editor
             
             DrawNode(node);
         }
-        private void DeleteNode(GraphCoreNodeView nodeView)
+        private void DeleteNode(TNodeView nodeView)
         {
             Undo.RecordObject(_graphCore, "你刚刚删除了一个GraphCoreNode");
             _graphCore.DeleteNodeInternal(nodeView.CoreNode);
@@ -232,8 +252,8 @@ namespace PlayArk.GraphCore.Editor
         }
         private void DrawEdge(GraphCoreEdge edge)
         {
-            GraphCoreNodeView rootNodeView = GetNodeViewByID(edge.RootNodeID);
-            GraphCoreNodeView trueNodeView = GetNodeViewByID(edge.ConnectionNodeID);
+            TNodeView rootNodeView = GetNodeViewByID(edge.RootNodeID);
+            TNodeView trueNodeView = GetNodeViewByID(edge.ConnectionNodeID);
             //建立连接
             GraphCoreEdgeView edgeView = rootNodeView.ConnectTo(edge.RootPortID, trueNodeView, edge.ConnectionPortID);
             edgeView.BindData(edge);
@@ -241,17 +261,20 @@ namespace PlayArk.GraphCore.Editor
 
             AddElement(edgeView);
         }
-        private void CreateEdge(Edge edge)
+        private void CreateEdge(GraphCoreEdgeView edge)
         {
-            GraphCorePort rootPort = edge.output.userData as GraphCorePort;
-            GraphCorePort truePort = edge.input.userData as GraphCorePort;
-            GraphCoreEdge graphCoreEdge =  _graphCore.CreateEdgeInternal(
-                rootPort.GetSeleNodeID(), rootPort.GetUniqueID(), truePort.GetSeleNodeID(), truePort.GetUniqueID());
-            //记录现有资源的样子
-            //将当前StateMachine的快照记录到Undo中 撤销之后就是恢复现在的样子
-            //这个字符串的意思 就是刚才这个操作的名称
-            Undo.RecordObject(_graphCore, "你刚刚建立了一个GraphCoreEdge连接");
-            _graphCore.AddEdgeInternal(graphCoreEdge);
+            if (edge.output.userData is GraphCorePort rootPort && 
+                edge.input.userData is GraphCorePort truePort)
+            {
+                GraphCoreEdge graphCoreEdge =  _graphCore.CreateEdgeInternal(
+                    rootPort.GetSeleNodeID(), rootPort.GetUniqueID(), truePort.GetSeleNodeID(), truePort.GetUniqueID());
+                //记录现有资源的样子
+                //将当前StateMachine的快照记录到Undo中 撤销之后就是恢复现在的样子
+                //这个字符串的意思 就是刚才这个操作的名称
+                Undo.RecordObject(_graphCore, "你刚刚建立了一个GraphCoreEdge连接");
+                _graphCore.AddEdgeInternal(graphCoreEdge);
+            }
+            
         }
         private void DeleteEdge(GraphCoreEdgeView edge)
         {

@@ -96,7 +96,6 @@ namespace PlayArk.GraphCore.Editor
             GraphCoreGraph graphCore = Selection.activeObject as GraphCoreGraph;
             if(graphCore != null)
             {
-                //Debug.Log("执行");
                 _view.Refresh(graphCore);
             }
         }

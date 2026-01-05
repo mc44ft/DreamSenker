@@ -36,10 +36,10 @@ namespace DialogueSystem.Data
         private void ChoiceClick(int index)
         {
             _resultIndex = index;
-            Finished();
+            OnFinished();
         }
 
-        protected override void OnFinished()
+        protected override void Finished()
         {
             EventCenter.Instance.RemoveEventListener<IntEventArgs>(E_EventType.Dialogue_ChoiceClick, OnChoiceClick);
             DialogueManager.Instance.HideDialogueChoicesSection();

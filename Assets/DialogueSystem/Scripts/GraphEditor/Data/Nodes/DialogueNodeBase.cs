@@ -31,9 +31,9 @@ namespace DialogueSystem.Data
         /// <summary>
         /// 节点执行完成时手动调用此方法
         /// </summary>
-        public void Finished()
+        public void OnFinished()
         {
-            OnFinished();
+            Finished();
 
             CurrentState = E_NodeState.Finished;
 
@@ -41,7 +41,7 @@ namespace DialogueSystem.Data
             _onFinished?.Invoke(true);
         }
         protected abstract void OnExecute();
-        protected abstract void OnFinished();
+        protected abstract void Finished();
         [Serializable]
         public class Connection { }
     }

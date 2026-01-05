@@ -6,12 +6,18 @@ using UnityEngine;
 
 public class DialogueNodeEntry : DialogueNodeBase
 {
-    protected override void OnExecute()
+    public override void Init(string uniqueID, Vector2 viewPosition)
     {
-        Finished();
+        base.Init(uniqueID, viewPosition);
+        SetTitle("Entry");
     }
 
-    protected override void OnFinished()
+    protected override void OnExecute()
+    {
+        OnFinished();
+    }
+
+    protected override void Finished()
     {
         
     }
