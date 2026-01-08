@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using PlayArk.GraphCore.Data;
 using PlayArk.GraphCore.Editor;
 using UnityEditor;
-public class StateMachineView : GraphCoreView<StateView>
+public class StateMachineView : GraphCoreView<StateView, StateTransitionEdgeView>
 {
     protected override bool InterceptionGraph(GraphCoreGraph graphCore)
     {

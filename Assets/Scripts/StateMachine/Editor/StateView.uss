@@ -8,6 +8,7 @@
 .sm-node #node-header{
     width: 250px;
     height: 100px;
+    /*opacity: 0;*/
 }
 .sm-node #node-middle{
     display: none;

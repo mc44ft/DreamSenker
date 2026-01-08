@@ -4,7 +4,7 @@ using PlayArk.GraphCore.Editor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public class DialogueNodeView : GraphCoreNodeView
+public class DialogueNodeView : GraphCoreNodeView<GraphCoreEdgeView>
 {
     protected override void SetCapabilites()
     {

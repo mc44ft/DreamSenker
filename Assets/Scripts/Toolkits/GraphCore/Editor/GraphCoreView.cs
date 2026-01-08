@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using NUnit.Framework.Interfaces;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -12,7 +13,9 @@ namespace PlayArk.GraphCore.Editor
     {
         public abstract void Refresh(GraphCoreGraph graphCore);
     }
-    public abstract class GraphCoreView<TNodeView> : GraphCoreView where TNodeView : GraphCoreNodeView, new()
+    public abstract class GraphCoreView<TNodeView, TEdgeView> : GraphCoreView 
+        where TNodeView : GraphCoreNodeView<TEdgeView>, new()
+        where TEdgeView : GraphCoreEdgeView, new()
     {
         //有了这行代码，这个 C# 脚本就变成了一个可以被拖拽的 UI 组件，出现在了 UI Builder 的零件库里
         //现在写成了一个抽象类 所以不需要这行了
@@ -93,7 +96,7 @@ namespace PlayArk.GraphCore.Editor
             {
                 foreach (var edge in edgesToCreate)
                 {
-                    if (edge is GraphCoreEdgeView edgeView)
+                    if (edge is TEdgeView edgeView)
                     {
                         CreateEdge(edgeView);
                     }
@@ -112,7 +115,7 @@ namespace PlayArk.GraphCore.Editor
                         DeleteNode(nodeView);
                     }
                     //连线
-                    if(element is GraphCoreEdgeView edge)
+                    if(element is TEdgeView edge)
                     {
                         DeleteEdge(edge);
                     }
@@ -141,7 +144,7 @@ namespace PlayArk.GraphCore.Editor
                 MultiplyPoint(evt.mousePosition);//矩阵计算
             
             //只有在右键点击到画布（非节点）上 才添加菜单
-            if (evt.target is GraphCoreView<TNodeView>)
+            if (evt.target is GraphCoreView<TNodeView, TEdgeView>)
             {
                 //添加菜单项
                 AppendMenuAction(evt, mousePosition);
@@ -220,7 +223,7 @@ namespace PlayArk.GraphCore.Editor
         }
 
         
-        protected virtual GraphCoreNodeView DrawNode(GraphCoreNode node)
+        protected virtual TNodeView DrawNode(GraphCoreNode node)
         {
             TNodeView nodeView = new TNodeView();
             nodeView.Init(node, _graphCore);
@@ -255,13 +258,13 @@ namespace PlayArk.GraphCore.Editor
             TNodeView rootNodeView = GetNodeViewByID(edge.RootNodeID);
             TNodeView trueNodeView = GetNodeViewByID(edge.ConnectionNodeID);
             //建立连接
-            GraphCoreEdgeView edgeView = rootNodeView.ConnectTo(edge.RootPortID, trueNodeView, edge.ConnectionPortID);
+            TEdgeView edgeView = rootNodeView.ConnectTo(edge.RootPortID, trueNodeView, edge.ConnectionPortID);
             edgeView.BindData(edge);
             edgeView.viewDataKey = edge.UniqueID;
 
             AddElement(edgeView);
         }
-        private void CreateEdge(GraphCoreEdgeView edge)
+        private void CreateEdge(TEdgeView edge)
         {
             if (edge.output.userData is GraphCorePort rootPort && 
                 edge.input.userData is GraphCorePort truePort)
@@ -274,9 +277,8 @@ namespace PlayArk.GraphCore.Editor
                 Undo.RecordObject(_graphCore, "你刚刚建立了一个GraphCoreEdge连接");
                 _graphCore.AddEdgeInternal(graphCoreEdge);
             }
-            
         }
-        private void DeleteEdge(GraphCoreEdgeView edge)
+        private void DeleteEdge(TEdgeView edge)
         {
             Undo.RecordObject(_graphCore, "你刚刚删除了一个GraphCoreEdge");
             _graphCore.DeleteEdgeInternal(edge.GraphCoreEdge);

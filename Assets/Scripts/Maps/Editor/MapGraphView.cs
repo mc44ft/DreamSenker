@@ -6,7 +6,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class MapGraphView : GraphCoreView<GraphCoreNodeView>
+public class MapGraphView : GraphCoreView<GraphCoreNodeView<GraphCoreEdgeView>, GraphCoreEdgeView>
 {
     protected override bool InterceptionGraph(GraphCoreGraph graphCore)
     {

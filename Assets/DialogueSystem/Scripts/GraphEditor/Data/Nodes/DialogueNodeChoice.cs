@@ -7,6 +7,9 @@ namespace DialogueSystem.Data
     [NodeMenuItem("DialogueNodeChoice")]
     public class DialogueNodeChoice : DialogueNodeBase
     {
+        public override Color MyColor { get; protected set; } = 
+            new Color(173 / 255f, 161 / 255f, 86 / 255f);
+
         [Space(10)]
         [Header("CHOICE DETAILS")]
         //默认选择的选项索引 用于显示默认的光标位置

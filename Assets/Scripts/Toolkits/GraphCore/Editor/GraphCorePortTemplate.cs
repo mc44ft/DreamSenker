@@ -27,11 +27,12 @@ namespace PlayArk.GraphCore.Editor
             _mainContainer = this.Q<VisualElement>("mainContainer");
 
         }
-        public void Initialize(GraphCorePort portData, Port.Capacity capacity)
+        public void Initialize<TEdgeView>(GraphCorePort portData, Port.Capacity capacity)
+            where TEdgeView : GraphCoreEdgeView, new()
         {
             //创建端口
             //在这里指定了连线的类型
-            ComponentPort = Port.Create<GraphCoreEdgeView>(
+            ComponentPort = Port.Create<TEdgeView>(
                 Orientation.Horizontal,
                 portData.GetDirection() == E_PortDirection.Input ? Direction.Input : Direction.Output, 
                 capacity,

@@ -7,7 +7,8 @@ using UnityEngine;
 using UnityEngine.UIElements;
 namespace PlayArk.GraphCore.Editor
 {
-    public class GraphCoreNodeView : Node
+    public class GraphCoreNodeView<TEdgeView> : Node
+        where TEdgeView : GraphCoreEdgeView, new()
     {
         public GraphCoreNode CoreNode { get; private set; }
 
@@ -43,6 +44,7 @@ namespace PlayArk.GraphCore.Editor
             SetStyle();//添加uss类选择器
             SetTitle();
             DrawPorts();//绘制所有端口
+            SetHeaderColor();
             AddEventListenenr();
             SetCapabilites();
         }
@@ -142,7 +144,7 @@ namespace PlayArk.GraphCore.Editor
         private GraphCorePortTemplate CreatePortView(GraphCorePort portData, Port.Capacity capacity)
         {
             GraphCorePortTemplate graphCorePort = new GraphCorePortTemplate();
-            graphCorePort.Initialize(portData, capacity);
+            graphCorePort.Initialize<TEdgeView>(portData, capacity);
             return graphCorePort;
         }
 
@@ -164,11 +166,11 @@ namespace PlayArk.GraphCore.Editor
             else
                 outputContainer.RemoveAt(outputContainer.childCount - 1);
         }
-        public GraphCoreEdgeView ConnectTo(string rootPortID, GraphCoreNodeView trueNodeView, string truePortID)
+        public TEdgeView ConnectTo(string rootPortID, GraphCoreNodeView<TEdgeView> trueNodeView, string truePortID)
         {
             Port rootPort = GetPortByID(rootPortID);
             Port truePort = trueNodeView.GetPortByID(truePortID);
-            return rootPort.ConnectTo<GraphCoreEdgeView>(truePort);
+            return rootPort.ConnectTo<TEdgeView>(truePort);
         }
         public Port GetPortByID(string portID)
         {
@@ -195,9 +197,9 @@ namespace PlayArk.GraphCore.Editor
             EditorUtility.SetDirty(CoreNode);
         }
 
-        public void SetHeaderColor(Color color)
+        private void SetHeaderColor()
         {
-            _headerContainer.style.backgroundColor = color;
+            _headerContainer.style.backgroundColor = CoreNode.MyColor;
         }
     }
 }

@@ -6,7 +6,7 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class StateView : GraphCoreNodeView
+public class StateView : GraphCoreNodeView<StateTransitionEdgeView>
 {
     public override void Init(GraphCoreNode data, GraphCoreGraph graphCore)
     {
@@ -37,12 +37,6 @@ public class StateView : GraphCoreNodeView
     {
         base.SetStyle();
         this.AddToClassList("sm-node");
-        
-        // //取消middle的射线检测 避免影响header
-        // VisualElement middle = this.Q<VisualElement>("node-middle");
-        // //射线检测的判断类型
-        // //ignore是不进行射线检测
-        // middle.pickingMode = PickingMode.Ignore;
     }
 
     protected override Port.Capacity GetPortCapacity()

@@ -6,6 +6,8 @@ namespace PlayArk.GraphCore.Data
 {
     public abstract class GraphCoreNode : ScriptableObject
     {
+        public virtual Color MyColor { get; protected set; } = new Color(27/255f, 129/255f, 62/255f);
+        
         public abstract string GetUniqueID();
         public abstract Vector2 GetViewPosition();
         public abstract IEnumerable<GraphCorePort> GetInputPorts();
@@ -44,6 +46,7 @@ namespace PlayArk.GraphCore.Data
         protected List<TPort> _outputPorts = new List<TPort>();
 
         private Dictionary<string, TPort> _portLookup = new();
+        
 
 
 
