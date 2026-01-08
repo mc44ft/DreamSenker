@@ -15,25 +15,25 @@ public class ActionState : State
         SetTitle("Action State");
     }
 
-    protected override void Enter()
+    public override void Enter()
     {
         base.Enter();
         DoActions(_onEnterActions);
     }
 
-    protected override void LogicUpdate()
+    public override void LogicUpdate()
     {
         base.LogicUpdate();
         DoActions(_onLogicUpdateActions);
     }
 
-    protected override void PhysicsUpdate()
+    public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
         DoActions(_onPhysicsUpdateActions);
     }
 
-    protected override void Exit()
+    public override void Exit()
     {
         base.Exit();
         DoActions(_onExitActions);

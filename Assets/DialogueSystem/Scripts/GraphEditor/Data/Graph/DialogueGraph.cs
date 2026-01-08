@@ -96,18 +96,15 @@ namespace DialogueSystem.Data
             _onFinished?.Invoke(true, shouldSave);
             _currentNode = null;
         }
-        public override void OnBeforeSerialize()
+
+        protected override void OnCreateDefaultNode()
         {
-            base.OnBeforeSerialize();
-#if UNITY_EDITOR
-            if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(this))) return;
             //生成默认入口节点
             if (_nodeEntry == null)
             {
                 _nodeEntry = CreateNode(typeof(DialogueNodeEntry), Vector2.zero) as DialogueNodeEntry;
                 AddNode(_nodeEntry);
             }
-#endif
         }
     }
 

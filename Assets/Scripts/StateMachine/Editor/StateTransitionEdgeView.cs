@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using PlayArk.GraphCore.Data;
+
 using PlayArk.GraphCore.Editor;
-using UnityEditor.Experimental.GraphView;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -21,6 +19,21 @@ public class StateTransitionEdgeView : GraphCoreEdgeView
         //重新绘制箭头
         generateVisualContent += DrawArrow;
     }
+
+    public override void OnSelected()
+    {
+        base.OnSelected();
+        
+        //当连线被选中时 创建临时的代理对象
+        var helper = ScriptableObject.CreateInstance<EdgeInspectorHelper>();
+        helper.name = "Transition Edge";
+        helper.Data = GraphCoreEdge as StateTransitionEdge;
+        helper.StateMachine = _graphCore as StateMachine;
+
+        //偷梁换柱
+        Selection.activeObject = helper;
+    }
+
     private void OnGeometryChanged(GeometryChangedEvent evt)
     {
         //这里是为了消除连线的弧度

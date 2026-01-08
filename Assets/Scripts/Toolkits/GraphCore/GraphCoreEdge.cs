@@ -6,25 +6,25 @@ namespace PlayArk.GraphCore.Data
     [Serializable]
     public class GraphCoreEdge
     {
-        [field: SerializeField]
-        public string UniqueID { get; private set; }
-        [field: SerializeField]
-        public string RootNodeID { get; private set; }
-        [field: SerializeField]
-        public string RootPortID { get; private set; }
-        [field: SerializeField]
-        public string ConnectionNodeID { get; private set; }
-        [field: SerializeField]
-        public string ConnectionPortID { get; private set; }
-
+        [SerializeField] private string _uniqueID;
+        [SerializeField] private string _rootNodeID;
+        [SerializeField] private string _rootPortID;
+        [SerializeField] private string _connectionNodeID;
+        [SerializeField] private string _connectionPortID;
+        
+        public string UniqueID => _uniqueID;
+        public string RootNodeID => _rootNodeID;
+        public string RootPortID => _rootPortID;
+        public string ConnectionNodeID => _connectionNodeID;
+        public string ConnectionPortID => _connectionPortID;
 
         public void Initialize(string uniqueID, string rootNodeID, string rootPortID, string connectionNodeID, string connectionPortID)
         {
-            UniqueID = uniqueID; 
-            RootNodeID = rootNodeID;
-            RootPortID = rootPortID;
-            ConnectionNodeID = connectionNodeID;
-            ConnectionPortID = connectionPortID;
+            _uniqueID = uniqueID; 
+            _rootNodeID = rootNodeID;
+            _rootPortID = rootPortID;
+            _connectionNodeID = connectionNodeID;
+            _connectionPortID = connectionPortID;
         }
 
     }

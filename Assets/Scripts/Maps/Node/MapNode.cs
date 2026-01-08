@@ -29,7 +29,6 @@ namespace MapSystem.Nodes
             
             if (MapData.SceneAsset != null)
             {
-                Debug.Log("执行");
                 MapData.MapSceneName = MapData.SceneAsset.name;
             }
         }

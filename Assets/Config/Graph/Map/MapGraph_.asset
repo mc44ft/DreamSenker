@@ -1,50 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-4545939988432456058
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e626d32e001e0b6489cab21246a79a37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _title: New Node
-  _uniqueID: c118eb53-f3e6-44f6-9fa7-6b6958d68f2f
-  _viewPosition: {x: 302.39996, y: 146.40001}
-  _inputPorts:
-  - rid: 3003777397912240147
-  _outputPorts:
-  - rid: 3003777397912240148
-  MapData:
-    MapName: 
-    PlayerShadowDarknessStrength: 2.5
-    MapSceneName: CampMap
-    SceneAsset: {fileID: 102900000, guid: dc441756ac78a7e44af78c958ed7b496, type: 3}
-  references:
-    version: 2
-    RefIds:
-    - rid: 3003777397912240147
-      type: {class: MapGraphPort, ns: , asm: Assembly-CSharp}
-      data:
-        _uniqueID: 3723607f-20c5-4061-9ef8-540e21fef7b2
-        _portName: New Port
-        _direction: 0
-        _selfNodeID: c118eb53-f3e6-44f6-9fa7-6b6958d68f2f
-        ExitType: 0
-        SpawnType: 0
-    - rid: 3003777397912240148
-      type: {class: MapGraphPort, ns: , asm: Assembly-CSharp}
-      data:
-        _uniqueID: c934c4d0-ca54-4e10-8570-e23824937d6e
-        _portName: New Port
-        _direction: 1
-        _selfNodeID: c118eb53-f3e6-44f6-9fa7-6b6958d68f2f
-        ExitType: 0
-        SpawnType: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,5 +13,50 @@ MonoBehaviour:
   m_Name: MapGraph_
   m_EditorClassIdentifier: 
   _nodes:
-  - {fileID: -4545939988432456058}
+  - {fileID: 3180698850709333944}
   _edges: []
+--- !u!114 &3180698850709333944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e626d32e001e0b6489cab21246a79a37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _title: CamaMap
+  _uniqueID: 08bf9872-a1da-4fac-a006-a53db936723d
+  _viewPosition: {x: 349.99994, y: 119.99997}
+  _inputPorts:
+  - rid: 2122959203608559668
+  _outputPorts:
+  - rid: 2122959203608559669
+  MapData:
+    MapName: 
+    PlayerShadowDarknessStrength: 2.5
+    MapSceneName: CampMap
+    SceneAsset: {fileID: 102900000, guid: dc441756ac78a7e44af78c958ed7b496, type: 3}
+  references:
+    version: 2
+    RefIds:
+    - rid: 2122959203608559668
+      type: {class: MapGraphPort, ns: , asm: Assembly-CSharp}
+      data:
+        _uniqueID: 9f5bc236-f137-472d-979d-0f783e94f1ae
+        _portName: New Port
+        _direction: 0
+        _selfNodeID: 08bf9872-a1da-4fac-a006-a53db936723d
+        ExitType: 0
+        SpawnType: 0
+    - rid: 2122959203608559669
+      type: {class: MapGraphPort, ns: , asm: Assembly-CSharp}
+      data:
+        _uniqueID: 6b10b259-f8ba-474d-a60d-68c8a942fa06
+        _portName: New Port
+        _direction: 1
+        _selfNodeID: 08bf9872-a1da-4fac-a006-a53db936723d
+        ExitType: 0
+        SpawnType: 0

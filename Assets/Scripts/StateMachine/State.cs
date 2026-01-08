@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using PlayArk.GraphCore.Data;
 
 public class State : GraphCoreNode<GraphCorePort>
@@ -7,30 +9,50 @@ public class State : GraphCoreNode<GraphCorePort>
     /// </summary>
     protected bool _started = false;
     protected StateMachineController _controller;
-
+    
+    protected StateTransitionEdge[]  _transitions;
+    
+    /// <summary>
+    /// 这里不影响基础节点图的逻辑 在这里给到StateMachine的图资源
+    /// </summary>
     public void Bind(StateMachineController stateMachineController)
     {
         _controller = stateMachineController;
+        //填充节点的出度信息
+        _transitions = _controller.StateMachine.GetEdges().Where(edge => edge.RootNodeID == GetUniqueID()).ToArray();
     }
-
-    protected virtual void Enter()
+    public State Clone()
+        => Instantiate(this);
+    
+    public virtual void Enter()
     {
         _started = true;
     }
 
-    protected virtual void LogicUpdate()
+    public virtual void LogicUpdate()
     {
         //在这里进行状态轮询的条件判断
-        
+        CheckTransitions();
     }
+    
+    public virtual void PhysicsUpdate() { }
 
-    protected virtual void PhysicsUpdate()
-    {
-        
-    }
-
-    protected virtual void Exit()
+    public virtual void Exit()
     {
         _started = false;
+    }
+    /// <summary>
+    /// 检测该节点所有的转换条件 如果通过则转换到对应状态
+    /// </summary>
+    private void CheckTransitions()
+    {
+        foreach (var transition in _transitions)
+        {
+            bool success = transition.Check();
+            if (success)
+            {
+                _controller.TransitionToState(transition.ConnectionNodeID);
+            }
+        }
     }
 }

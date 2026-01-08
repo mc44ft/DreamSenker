@@ -6,10 +6,9 @@ namespace PlayArk.GraphCore.Data
 {
     public abstract class GraphCoreNode : ScriptableObject
     {
-        public virtual Color MyColor { get; protected set; } = new Color(27/255f, 129/255f, 62/255f);
-        
         public abstract string GetUniqueID();
         public abstract Vector2 GetViewPosition();
+        public abstract Color GetColor();
         public abstract IEnumerable<GraphCorePort> GetInputPorts();
         public abstract IEnumerable<GraphCorePort> GetOutputPorts();
         public abstract void Init(string uniqueID, Vector2 viewPosition);
@@ -45,16 +44,16 @@ namespace PlayArk.GraphCore.Data
         [SerializeReference]
         protected List<TPort> _outputPorts = new List<TPort>();
 
-        private Dictionary<string, TPort> _portLookup = new();
+        private readonly Dictionary<string, TPort> _portLookup = new();
         
-
-
-
         //------------------------------  -----------------------------
         public override string GetUniqueID()
             => _uniqueID;
         public override Vector2 GetViewPosition()
             => _viewPosition;
+
+        public override Color GetColor()
+            => new Color32(27, 129, 62, 255);
         public override IEnumerable<GraphCorePort> GetInputPorts()
             => _inputPorts;
         public override IEnumerable<GraphCorePort> GetOutputPorts()
@@ -69,6 +68,8 @@ namespace PlayArk.GraphCore.Data
         
         public TPort GetPortByID(string portID)
         {
+            // 用到的时候才刷新
+            RebuildLookups();
             if(_portLookup.ContainsKey(portID))
             {
                 return _portLookup[portID];
@@ -78,6 +79,11 @@ namespace PlayArk.GraphCore.Data
         public void SetTitle(string title)
         {
             _title = title;
+        }
+
+        public string GetTitle()
+        {
+            return _title;
         }
         /// <summary>
         /// 外部初始化
@@ -125,6 +131,10 @@ namespace PlayArk.GraphCore.Data
         }
         protected virtual void OnValidate()
         {
+            RebuildLookups();
+        }
+        private void RebuildLookups()
+        {
             _portLookup.Clear();
             foreach (var portData in _inputPorts)
             {
@@ -142,9 +152,7 @@ namespace PlayArk.GraphCore.Data
             }
         }
 // #endif
-
     }
-    
     public enum E_PortDirection
     {
         Input,

@@ -259,7 +259,7 @@ namespace PlayArk.GraphCore.Editor
             TNodeView trueNodeView = GetNodeViewByID(edge.ConnectionNodeID);
             //建立连接
             TEdgeView edgeView = rootNodeView.ConnectTo(edge.RootPortID, trueNodeView, edge.ConnectionPortID);
-            edgeView.BindData(edge);
+            edgeView.BindData(edge, _graphCore);
             edgeView.viewDataKey = edge.UniqueID;
 
             AddElement(edgeView);

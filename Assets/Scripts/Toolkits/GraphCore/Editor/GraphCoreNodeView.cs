@@ -199,7 +199,7 @@ namespace PlayArk.GraphCore.Editor
 
         private void SetHeaderColor()
         {
-            _headerContainer.style.backgroundColor = CoreNode.MyColor;
+            _headerContainer.style.backgroundColor = CoreNode.GetColor();
         }
     }
 }

@@ -7,7 +7,6 @@ namespace PlayArk.GraphCore.Data
 {
     public abstract class GraphCoreGraph : ScriptableObject
     {
-        
         //给表现层返回具体的数据基类
         //给业务层返回泛型
         public abstract IEnumerable<GraphCoreNode> GetNodesInternal();
@@ -28,11 +27,9 @@ namespace PlayArk.GraphCore.Data
         [SerializeField]
         protected List<TEdge> _edges = new();
 
-        private Dictionary<string, TNode> _nodeLookup = new();
-        private Dictionary<string, TEdge> _edgeLookup = new();
-        private Dictionary<string, TEdge> _portToEdgeLookup = new();//通过端口id查找该端口上的连线
-
-        private bool _isLookupDirty = true;//懒加载标识 
+        protected readonly Dictionary<string, TNode> _nodeLookup = new();
+        protected readonly Dictionary<string, TEdge> _edgeLookup = new();
+        protected readonly Dictionary<string, TEdge> _portToEdgeLookup = new();//通过端口id查找该端口上的连线
 
         public override IEnumerable<GraphCoreNode> GetNodesInternal() 
             => GetNodes();
@@ -51,9 +48,6 @@ namespace PlayArk.GraphCore.Data
             => AddEdge(edge as TEdge);
         public override void DeleteEdgeInternal(GraphCoreEdge edge)
             => DeleteEdge(edge as TEdge);
-
-
-        
 
         public IEnumerable<TNode> GetNodes()
         {
@@ -87,12 +81,11 @@ namespace PlayArk.GraphCore.Data
                 return _portToEdgeLookup[portID];
             return null;
         }
+        /// <summary>
+        /// //懒加载 主要是用到字典的时候加载
+        /// </summary>
         private void RebuildLookups()
         {
-            //懒加载（如果字典没有脏 则不重构字典）
-            if (!_isLookupDirty) 
-                return;
-
             //这里完全清除字典
             //1.是为了提升程序的鲁棒性
             //  全量重建（Clear + ForEach） 是一种极其稳健的“降维打击”手段。
@@ -122,9 +115,6 @@ namespace PlayArk.GraphCore.Data
                 _portToEdgeLookup[edge.RootPortID] = edge;
                 _portToEdgeLookup[edge.ConnectionPortID] = edge;
             }
-
-            //字典重构完毕 修改标识符
-            _isLookupDirty = false;
         }
         public TNode CreateNode(Type type, Vector2 viewPosition)
         {
@@ -135,7 +125,6 @@ namespace PlayArk.GraphCore.Data
         public void AddNode(TNode node)
         {
             _nodes.Add(node);
-            OnValidate();
         }
         public void DeleteNode(TNode node)
         {
@@ -151,7 +140,6 @@ namespace PlayArk.GraphCore.Data
             foreach (var edge in edgesToRemove)
                 _edges.Remove(edge);
             _nodes.Remove(node);
-            OnValidate();
             //Unity保存的时候会保存所有标记为脏的资源 如果没有标记为脏 会不进行保存
             //true是显示授权Unity销毁该资源对象 如果不传true Unity会认为你误操作 会报错
             //UnityEngine.Object.DestroyImmediate(node, true);
@@ -165,18 +153,18 @@ namespace PlayArk.GraphCore.Data
         public void AddEdge(TEdge edge)
         {
             _edges.Add(edge);
-            OnValidate();
         }
         public void DeleteEdge(TEdge edge)
         {
-            
             _edges.Remove(edge);
-            OnValidate();
         }
+
         private void OnValidate()
         {
+            //防御性重构字典
             RebuildLookups();
         }
+        protected virtual void OnCreateDefaultNode(){}
         /// <summary>
         /// 在序列化的前一刻调用
         /// 在以下几种情况触发：
@@ -187,7 +175,7 @@ namespace PlayArk.GraphCore.Data
         /// 5.代码编译后
         /// 在Unity把对象数据写入文件之前触发（从内存到硬盘）
         /// </summary>
-        public virtual void OnBeforeSerialize()
+        public void OnBeforeSerialize()
         {
 #if UNITY_EDITOR
 
@@ -212,20 +200,13 @@ namespace PlayArk.GraphCore.Data
             //3.按下回车后 文件正式在硬盘中生成（这个函数在文件在硬盘中序列化的前一刻执行， 这时候资源路径已经确定）
             //所以可以在这时进行默认节点的创建（如果有的话）
             //这也是为了实现“自动修复机制” ： 即保证该资源永远时完整的 不会因为误操作而崩溃
+            //生成默认节点
+            OnCreateDefaultNode();
 #endif
         }
         /// <summary>
         /// 在Unity把保存到磁盘上的二进制数据重新变成内存中的对象之后 立即执行
         /// </summary>
-        public void OnAfterDeserialize()
-        {
-            //游戏运行时重建
-            //编辑器加载时重建
-            //这里直接重建字典 可能这个时候数据还没有完全恢复，所以出现了报错，改为懒加载
-            //RebuildLookups();
-            //这里不再选择直接重构字典
-            //改为修改标识符
-            _isLookupDirty = true;
-        }
+        public void OnAfterDeserialize() { }
     }
 }
