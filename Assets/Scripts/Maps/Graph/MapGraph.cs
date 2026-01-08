@@ -1,4 +1,5 @@
 ﻿using MapSystem.Nodes;
+using PlayArk.GraphCore;
 using PlayArk.GraphCore.Data;
 using UnityEngine;
 namespace MapSystem.Graph

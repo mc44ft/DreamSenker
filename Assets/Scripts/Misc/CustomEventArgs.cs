@@ -1,5 +1,5 @@
-﻿using DialogueSystem.Misc;
-using MapSystem.Nodes;
+﻿using MapSystem.Nodes;
+using PlayArk.DialogueSystem.Runtime;
 using UnityEngine;
 
 public struct MapExitTriggerEventArgs : IEventArgs

@@ -1,6 +1,7 @@
 ﻿
 
 using DialogueSystem.Data;
+using PlayArk.DialogueSystem.Data;
 using UnityEngine;
 namespace DialogueSystem.RunTime
 {

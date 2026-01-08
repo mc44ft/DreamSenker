@@ -1,11 +1,12 @@
 ﻿using Cinemachine;
-using DialogueSystem.Misc;
 using MapSystem.Graph;
 using MapSystem.Nodes;
 using PlayArk.GraphCore.Data;
 using System;
 using System.Collections;
 using System.Linq;
+using PlayArk.DialogueSystem.Runtime;
+using PlayArk.GraphCore;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 [DisallowMultipleComponent]

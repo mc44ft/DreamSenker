@@ -1,5 +1,7 @@
 ﻿using PlayArk.GraphCore.Data;
 using System;
+using PlayArk.GraphCore;
+
 [Serializable]
 public class MapGraphPort : GraphCorePort
 {

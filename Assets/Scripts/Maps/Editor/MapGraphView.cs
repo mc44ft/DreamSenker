@@ -1,5 +1,6 @@
 ﻿using MapSystem.Graph;
 using MapSystem.Nodes;
+using PlayArk.GraphCore;
 using PlayArk.GraphCore.Data;
 using PlayArk.GraphCore.Editor;
 using UnityEditor;
