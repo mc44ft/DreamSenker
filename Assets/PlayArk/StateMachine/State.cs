@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using PlayArk.GraphCore;
 using PlayArk.GraphCore.Data;
+using UnityEngine;
 
 namespace PlayArk.StateMachine
 {
@@ -10,11 +11,15 @@ namespace PlayArk.StateMachine
         /// <summary>
         /// 用于提示该状态是否已启动
         /// </summary>
-        protected bool _started = false;
+        private bool _started = false;
         protected StateMachineController _controller;
-    
-        protected StateTransitionEdge[]  _transitions;
-    
+        /// <summary>
+        /// 存储该节点的所有连线信息
+        /// </summary>
+        private StateTransitionEdge[]  _transitions;
+        
+        public bool Started => _started;
+        public StateTransitionEdge[] Transitions => _transitions;
         /// <summary>
         /// 这里不影响基础节点图的逻辑 在这里给到StateMachine的图资源
         /// </summary>
@@ -26,7 +31,8 @@ namespace PlayArk.StateMachine
         }
         public State Clone()
             => Instantiate(this);
-    
+        
+        
         public virtual void Enter()
         {
             _started = true;
@@ -49,6 +55,7 @@ namespace PlayArk.StateMachine
         /// </summary>
         private void CheckTransitions()
         {
+            
             foreach (var transition in _transitions)
             {
                 bool success = transition.Check();

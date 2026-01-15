@@ -1,0 +1,569 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8031548477816232749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a50765f762c64889882e05fb9314d92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _title: Any State
+  _uniqueID: d53481c6-1e6d-4a81-a23d-3c65211cc87f
+  _viewPosition: {x: -3.999992, y: 278.5}
+  _inputPorts:
+  - rid: 2122959257935806476
+  _outputPorts:
+  - rid: 2122959257935806477
+  references:
+    version: 2
+    RefIds:
+    - rid: 2122959257935806476
+      type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
+      data:
+        _uniqueID: 5e6059c6-f9d7-41d7-8258-737efdea0b95
+        _portName: New Port
+        _direction: 0
+        _selfNodeID: d53481c6-1e6d-4a81-a23d-3c65211cc87f
+    - rid: 2122959257935806477
+      type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
+      data:
+        _uniqueID: d084bab3-def8-49b6-addb-04e8d9f30a5c
+        _portName: New Port
+        _direction: 1
+        _selfNodeID: d53481c6-1e6d-4a81-a23d-3c65211cc87f
+--- !u!114 &-5443846607403931119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c798ffcdc11614c339068f869ca5404e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _title: Run
+  _uniqueID: 5743a733-efc9-4213-88c5-96d92fb6498e
+  _viewPosition: {x: 790.72864, y: -65.874695}
+  _inputPorts:
+  - rid: 2122959257935806482
+  _outputPorts:
+  - rid: 2122959257935806483
+  _onEnterActions:
+  - action: 0
+    parameters:
+    - PlayerRun
+  _onLogicUpdateActions: []
+  _onPhysicsUpdateActions:
+  - action: 2
+    parameters: []
+  _onExitActions: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 2122959257935806482
+      type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
+      data:
+        _uniqueID: 2b63f2d2-ff0b-4769-ba05-45b15f0f5b67
+        _portName: New Port
+        _direction: 0
+        _selfNodeID: 5743a733-efc9-4213-88c5-96d92fb6498e
+    - rid: 2122959257935806483
+      type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
+      data:
+        _uniqueID: ce5079a0-73b4-487a-a233-b101e3ecbb1d
+        _portName: New Port
+        _direction: 1
+        _selfNodeID: 5743a733-efc9-4213-88c5-96d92fb6498e
+--- !u!114 &-5071091362030390589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c798ffcdc11614c339068f869ca5404e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _title: Jump
+  _uniqueID: 9800b4d4-3681-4a12-bcd7-0adfbb7d2641
+  _viewPosition: {x: 379, y: 339.5}
+  _inputPorts:
+  - rid: 2122959257935806484
+  _outputPorts:
+  - rid: 2122959257935806485
+  _onEnterActions:
+  - action: 0
+    parameters:
+    - PlayerJump
+  - action: 3
+    parameters: []
+  _onLogicUpdateActions: []
+  _onPhysicsUpdateActions:
+  - action: 2
+    parameters: []
+  _onExitActions: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 2122959257935806484
+      type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
+      data:
+        _uniqueID: a45f8f0f-2283-4345-8db5-1a442b20f431
+        _portName: New Port
+        _direction: 0
+        _selfNodeID: 9800b4d4-3681-4a12-bcd7-0adfbb7d2641
+    - rid: 2122959257935806485
+      type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
+      data:
+        _uniqueID: 7bacf937-237a-4a1c-8d0c-edcfdfa25573
+        _portName: New Port
+        _direction: 1
+        _selfNodeID: 9800b4d4-3681-4a12-bcd7-0adfbb7d2641
+--- !u!114 &-1661991450448361284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c798ffcdc11614c339068f869ca5404e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _title: Idle
+  _uniqueID: 5bff7131-273e-4f54-946b-6ac4b9b44c57
+  _viewPosition: {x: 379, y: -136.83163}
+  _inputPorts:
+  - rid: 2122959257935806480
+  _outputPorts:
+  - rid: 2122959257935806481
+  _onEnterActions:
+  - action: 1
+    parameters: []
+  - action: 0
+    parameters:
+    - PlayerIdle
+  _onLogicUpdateActions: []
+  _onPhysicsUpdateActions: []
+  _onExitActions: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 2122959257935806480
+      type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
+      data:
+        _uniqueID: 26bf4b7e-652b-49e0-b84c-118fcfd462d6
+        _portName: New Port
+        _direction: 0
+        _selfNodeID: 5bff7131-273e-4f54-946b-6ac4b9b44c57
+    - rid: 2122959257935806481
+      type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
+      data:
+        _uniqueID: 6632d25e-593f-406f-923f-d05944c17076
+        _portName: New Port
+        _direction: 1
+        _selfNodeID: 5bff7131-273e-4f54-946b-6ac4b9b44c57
+--- !u!114 &-1430335484796372352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c798ffcdc11614c339068f869ca5404e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _title: Attack
+  _uniqueID: c165f088-e88a-491e-934a-0032f3d3437c
+  _viewPosition: {x: 371.0454, y: 180.50003}
+  _inputPorts:
+  - rid: 2122959388822994944
+  _outputPorts:
+  - rid: 2122959388822994945
+  _onEnterActions:
+  - action: 0
+    parameters:
+    - PlayerAttack
+  _onLogicUpdateActions: []
+  _onPhysicsUpdateActions: []
+  _onExitActions: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 2122959388822994944
+      type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
+      data:
+        _uniqueID: e0ff6763-e704-4825-9c5c-571aa3278755
+        _portName: New Port
+        _direction: 0
+        _selfNodeID: c165f088-e88a-491e-934a-0032f3d3437c
+    - rid: 2122959388822994945
+      type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
+      data:
+        _uniqueID: 4fd51123-4ff0-4d1b-9278-e385ce1c9700
+        _portName: New Port
+        _direction: 1
+        _selfNodeID: c165f088-e88a-491e-934a-0032f3d3437c
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcd5227f78e0f45cb9ac4dd865605600, type: 3}
+  m_Name: StateMachine_
+  m_EditorClassIdentifier: 
+  _nodes:
+  - {fileID: 2107513943834104237}
+  - {fileID: -8031548477816232749}
+  - {fileID: -1661991450448361284}
+  - {fileID: -5443846607403931119}
+  - {fileID: -5071091362030390589}
+  - {fileID: 9184445422109299240}
+  - {fileID: -1430335484796372352}
+  - {fileID: 6937471019473552007}
+  _edges:
+  - _uniqueID: 5b0d1f17-d8f4-42c0-9bc5-623e73614b25
+    _rootNodeID: 5bff7131-273e-4f54-946b-6ac4b9b44c57
+    _rootPortID: 6632d25e-593f-406f-923f-d05944c17076
+    _connectionNodeID: 5743a733-efc9-4213-88c5-96d92fb6498e
+    _connectionPortID: 2b63f2d2-ff0b-4769-ba05-45b15f0f5b67
+    _condition:
+      _and:
+      - _or:
+        - _predicate: 2
+          _parameters: []
+          _negate: 0
+  - _uniqueID: 98dcdf39-ce65-4b97-afbc-decc2b37c870
+    _rootNodeID: 9800b4d4-3681-4a12-bcd7-0adfbb7d2641
+    _rootPortID: 7bacf937-237a-4a1c-8d0c-edcfdfa25573
+    _connectionNodeID: d90f803a-5daf-42c1-b9aa-e5387f4ecd8f
+    _connectionPortID: 0953a746-306c-4015-8438-6bed8de3717e
+    _condition:
+      _and:
+      - _or:
+        - _predicate: 3
+          _parameters: []
+          _negate: 1
+  - _uniqueID: da17e80f-d94d-4b95-b25f-f1e602ae74b6
+    _rootNodeID: d90f803a-5daf-42c1-b9aa-e5387f4ecd8f
+    _rootPortID: 58568e06-7b94-42dd-81e5-73c3d24fa9df
+    _connectionNodeID: 5bff7131-273e-4f54-946b-6ac4b9b44c57
+    _connectionPortID: 26bf4b7e-652b-49e0-b84c-118fcfd462d6
+    _condition:
+      _and:
+      - _or:
+        - _predicate: 5
+          _parameters: []
+          _negate: 0
+      - _or:
+        - _predicate: 2
+          _parameters: []
+          _negate: 1
+  - _uniqueID: e703a22b-97a1-43f3-b35e-75512b0c1be7
+    _rootNodeID: d90f803a-5daf-42c1-b9aa-e5387f4ecd8f
+    _rootPortID: 58568e06-7b94-42dd-81e5-73c3d24fa9df
+    _connectionNodeID: 5743a733-efc9-4213-88c5-96d92fb6498e
+    _connectionPortID: 2b63f2d2-ff0b-4769-ba05-45b15f0f5b67
+    _condition:
+      _and:
+      - _or:
+        - _predicate: 5
+          _parameters: []
+          _negate: 0
+      - _or:
+        - _predicate: 2
+          _parameters: []
+          _negate: 0
+  - _uniqueID: 23dbf2d1-68db-4972-acb0-e0d236802551
+    _rootNodeID: 5743a733-efc9-4213-88c5-96d92fb6498e
+    _rootPortID: ce5079a0-73b4-487a-a233-b101e3ecbb1d
+    _connectionNodeID: 5bff7131-273e-4f54-946b-6ac4b9b44c57
+    _connectionPortID: 26bf4b7e-652b-49e0-b84c-118fcfd462d6
+    _condition:
+      _and:
+      - _or:
+        - _predicate: 2
+          _parameters: []
+          _negate: 1
+  - _uniqueID: 79561782-de9c-423c-b609-58540b060a38
+    _rootNodeID: 1d7c9db8-ea2e-422b-baba-a9b84bf06d7d
+    _rootPortID: 06f3bbc9-4903-4d1d-8538-863624598b90
+    _connectionNodeID: 5bff7131-273e-4f54-946b-6ac4b9b44c57
+    _connectionPortID: 26bf4b7e-652b-49e0-b84c-118fcfd462d6
+    _condition:
+      _and: []
+  - _uniqueID: 1bb173cb-2f77-4dfc-ba63-3bdf409703e8
+    _rootNodeID: d53481c6-1e6d-4a81-a23d-3c65211cc87f
+    _rootPortID: d084bab3-def8-49b6-addb-04e8d9f30a5c
+    _connectionNodeID: 9800b4d4-3681-4a12-bcd7-0adfbb7d2641
+    _connectionPortID: a45f8f0f-2283-4345-8db5-1a442b20f431
+    _condition:
+      _and:
+      - _or:
+        - _predicate: 0
+          _parameters:
+          - JumpButtonDown
+          _negate: 0
+      - _or:
+        - _predicate: 4
+          _parameters: []
+          _negate: 0
+  - _uniqueID: dbf5a93c-2f1b-4fc9-97a0-a08d45954adc
+    _rootNodeID: d53481c6-1e6d-4a81-a23d-3c65211cc87f
+    _rootPortID: d084bab3-def8-49b6-addb-04e8d9f30a5c
+    _connectionNodeID: c165f088-e88a-491e-934a-0032f3d3437c
+    _connectionPortID: e0ff6763-e704-4825-9c5c-571aa3278755
+    _condition:
+      _and:
+      - _or:
+        - _predicate: 0
+          _parameters:
+          - AttackButtonDown
+          _negate: 0
+  - _uniqueID: af8e1733-6ba0-4ab1-a67c-a28ab16338c3
+    _rootNodeID: c165f088-e88a-491e-934a-0032f3d3437c
+    _rootPortID: 4fd51123-4ff0-4d1b-9278-e385ce1c9700
+    _connectionNodeID: d90f803a-5daf-42c1-b9aa-e5387f4ecd8f
+    _connectionPortID: 0953a746-306c-4015-8438-6bed8de3717e
+    _condition:
+      _and:
+      - _or:
+        - _predicate: 5
+          _parameters: []
+          _negate: 1
+      - _or:
+        - _predicate: 1
+          _parameters:
+          - Attack
+          _negate: 0
+  - _uniqueID: 1860b6a7-b6a9-4a2f-9975-25f903e2e522
+    _rootNodeID: c165f088-e88a-491e-934a-0032f3d3437c
+    _rootPortID: 4fd51123-4ff0-4d1b-9278-e385ce1c9700
+    _connectionNodeID: 5bff7131-273e-4f54-946b-6ac4b9b44c57
+    _connectionPortID: 26bf4b7e-652b-49e0-b84c-118fcfd462d6
+    _condition:
+      _and:
+      - _or:
+        - _predicate: 2
+          _parameters: []
+          _negate: 1
+      - _or:
+        - _predicate: 5
+          _parameters: []
+          _negate: 0
+      - _or:
+        - _predicate: 1
+          _parameters:
+          - Attack
+          _negate: 0
+  - _uniqueID: f7ffbf9d-f01a-420f-a886-2fd5da17ab32
+    _rootNodeID: c165f088-e88a-491e-934a-0032f3d3437c
+    _rootPortID: 4fd51123-4ff0-4d1b-9278-e385ce1c9700
+    _connectionNodeID: 5743a733-efc9-4213-88c5-96d92fb6498e
+    _connectionPortID: 2b63f2d2-ff0b-4769-ba05-45b15f0f5b67
+    _condition:
+      _and:
+      - _or:
+        - _predicate: 2
+          _parameters: []
+          _negate: 0
+      - _or:
+        - _predicate: 5
+          _parameters: []
+          _negate: 0
+      - _or:
+        - _predicate: 1
+          _parameters:
+          - Attack
+          _negate: 0
+  - _uniqueID: 93b714bd-0729-49f9-b8b3-4a59fb6d23da
+    _rootNodeID: d53481c6-1e6d-4a81-a23d-3c65211cc87f
+    _rootPortID: d084bab3-def8-49b6-addb-04e8d9f30a5c
+    _connectionNodeID: 4d8c9cb6-e7ef-41eb-bb08-37a9a77d4f3b
+    _connectionPortID: 67827f32-8184-47ac-b9e3-c66ac3d6c8ff
+    _condition:
+      _and:
+      - _or:
+        - _predicate: 6
+          _parameters: []
+          _negate: 0
+  - _uniqueID: b827f9c5-ec0f-4fdf-9223-17bef1f663d6
+    _rootNodeID: 4d8c9cb6-e7ef-41eb-bb08-37a9a77d4f3b
+    _rootPortID: 31ba6139-7a4b-495f-a9b7-b4e7744ad5b8
+    _connectionNodeID: d90f803a-5daf-42c1-b9aa-e5387f4ecd8f
+    _connectionPortID: 0953a746-306c-4015-8438-6bed8de3717e
+    _condition:
+      _and:
+      - _or:
+        - _predicate: 5
+          _parameters: []
+          _negate: 1
+      - _or:
+        - _predicate: 1
+          _parameters:
+          - GetHit
+          _negate: 0
+  - _uniqueID: df83ea6f-ea0d-45a5-bdf2-644b5a8648cc
+    _rootNodeID: 4d8c9cb6-e7ef-41eb-bb08-37a9a77d4f3b
+    _rootPortID: 31ba6139-7a4b-495f-a9b7-b4e7744ad5b8
+    _connectionNodeID: 5bff7131-273e-4f54-946b-6ac4b9b44c57
+    _connectionPortID: 26bf4b7e-652b-49e0-b84c-118fcfd462d6
+    _condition:
+      _and:
+      - _or:
+        - _predicate: 5
+          _parameters: []
+          _negate: 0
+      - _or:
+        - _predicate: 1
+          _parameters:
+          - GetHit
+          _negate: 0
+  _entryState: {fileID: 2107513943834104237}
+  _anyState: {fileID: -8031548477816232749}
+--- !u!114 &2107513943834104237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2deb42d65649a444d9dc5823ae556dd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _title: Entry State
+  _uniqueID: 1d7c9db8-ea2e-422b-baba-a9b84bf06d7d
+  _viewPosition: {x: -11.999896, y: 48.500004}
+  _inputPorts:
+  - rid: 2122959257935806478
+  _outputPorts:
+  - rid: 2122959257935806479
+  references:
+    version: 2
+    RefIds:
+    - rid: 2122959257935806478
+      type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
+      data:
+        _uniqueID: e539ddbe-9f14-4102-854c-ac70b9b69cf2
+        _portName: New Port
+        _direction: 0
+        _selfNodeID: 1d7c9db8-ea2e-422b-baba-a9b84bf06d7d
+    - rid: 2122959257935806479
+      type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
+      data:
+        _uniqueID: 06f3bbc9-4903-4d1d-8538-863624598b90
+        _portName: New Port
+        _direction: 1
+        _selfNodeID: 1d7c9db8-ea2e-422b-baba-a9b84bf06d7d
+--- !u!114 &6937471019473552007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c798ffcdc11614c339068f869ca5404e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _title: GetHit
+  _uniqueID: 4d8c9cb6-e7ef-41eb-bb08-37a9a77d4f3b
+  _viewPosition: {x: 386.99997, y: 490.9999}
+  _inputPorts:
+  - rid: 2122959388822994946
+  _outputPorts:
+  - rid: 2122959388822994947
+  _onEnterActions:
+  - action: 0
+    parameters:
+    - PlayerGetHit
+  - action: 5
+    parameters: []
+  _onLogicUpdateActions: []
+  _onPhysicsUpdateActions: []
+  _onExitActions:
+  - action: 6
+    parameters: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 2122959388822994946
+      type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
+      data:
+        _uniqueID: 67827f32-8184-47ac-b9e3-c66ac3d6c8ff
+        _portName: New Port
+        _direction: 0
+        _selfNodeID: 4d8c9cb6-e7ef-41eb-bb08-37a9a77d4f3b
+    - rid: 2122959388822994947
+      type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
+      data:
+        _uniqueID: 31ba6139-7a4b-495f-a9b7-b4e7744ad5b8
+        _portName: New Port
+        _direction: 1
+        _selfNodeID: 4d8c9cb6-e7ef-41eb-bb08-37a9a77d4f3b
+--- !u!114 &9184445422109299240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c798ffcdc11614c339068f869ca5404e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _title: Fall
+  _uniqueID: d90f803a-5daf-42c1-b9aa-e5387f4ecd8f
+  _viewPosition: {x: 865.0329, y: 339.49994}
+  _inputPorts:
+  - rid: 2122959257935806486
+  _outputPorts:
+  - rid: 2122959257935806487
+  _onEnterActions:
+  - action: 0
+    parameters:
+    - PlayerFall
+  - action: 4
+    parameters: []
+  _onLogicUpdateActions: []
+  _onPhysicsUpdateActions:
+  - action: 2
+    parameters: []
+  _onExitActions: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 2122959257935806486
+      type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
+      data:
+        _uniqueID: 0953a746-306c-4015-8438-6bed8de3717e
+        _portName: New Port
+        _direction: 0
+        _selfNodeID: d90f803a-5daf-42c1-b9aa-e5387f4ecd8f
+    - rid: 2122959257935806487
+      type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
+      data:
+        _uniqueID: 58568e06-7b94-42dd-81e5-73c3d24fa9df
+        _portName: New Port
+        _direction: 1
+        _selfNodeID: d90f803a-5daf-42c1-b9aa-e5387f4ecd8f

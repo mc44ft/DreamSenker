@@ -33,22 +33,22 @@ public class PlayerAmmo : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Monster"))
-        {
-            if(collision.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable))
-            {
-                //Buff脏代码
-                if(GameManager.Instance.Player.IsDebuff && Random.value < 0.4f)
-                {
-                    collision.gameObject.AddComponent<MournfulGazeDebuff>();
-                }
-
-                damageable.TakeDamage(m_ammoDamage, 
-                    (transform.position.x - collision.transform.position.x) > 0 ? -Vector2.right : Vector2.right);
-                Destroy(gameObject);
-            }
-        }
-    }
+    // private void OnTriggerEnter2D(Collider2D collision)
+    // {
+    //     if (collision.gameObject.CompareTag("Monster"))
+    //     {
+    //         if(collision.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable))
+    //         {
+    //             //Buff脏代码
+    //             if(GameManager.Instance.Player.IsDebuff && Random.value < 0.4f)
+    //             {
+    //                 collision.gameObject.AddComponent<MournfulGazeDebuff>();
+    //             }
+    //
+    //             damageable.TakeDamage(m_ammoDamage, 
+    //                 (transform.position.x - collision.transform.position.x) > 0 ? -Vector2.right : Vector2.right);
+    //             Destroy(gameObject);
+    //         }
+    //     }
+    // }
 }

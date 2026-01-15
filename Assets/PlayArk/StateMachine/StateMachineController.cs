@@ -25,7 +25,7 @@ namespace PlayArk.StateMachine
             _stateMachine.MachineEnter();
         }
 
-        private void Update()
+        protected virtual void Update()
         {
             //驱动状态轮询
             _stateMachine.LogicUpdate();

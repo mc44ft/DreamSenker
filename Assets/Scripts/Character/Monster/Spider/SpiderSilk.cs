@@ -7,44 +7,42 @@ using UnityEngine;
 public class SpiderSilk : MonoBehaviour, IDamageable
 {
 
-    private Vector3 m_targetPosition;
-    private float m_silkContinueTime;
-    private float m_silkSpeed;
-    private float m_silkClampSpeedRate;
+    private Vector3 _targetPosition;
+    private float _silkContinueTime;
+    private float _silkSpeed;
+    private float _silkClampSpeedRate;
 
 
-    private bool m_isWebSkill;
-    private PlayerController m_playerController;
+    private bool _isWebSkill;
+    private PlayerController _playerController;
 
-    private Rigidbody2D m_rb;
-    //private CircleCollider2D m_collider;
-    private Health m_health;
+    private Rigidbody2D _rb;
+    private Health _health;
     private void Awake()
     {
-        m_rb = GetComponent<Rigidbody2D>();
-        //m_collider = GetComponent<CircleCollider2D>();
-        m_health = GetComponent<Health>();
+        _rb = GetComponent<Rigidbody2D>();
+        _health = GetComponent<Health>();
     }
     public void Init(Vector3 targetPosition, float silkContinueTime, float silkSpeed, float silkClampSpeedRate, int silkHealthAmount)
     {
-        m_targetPosition = targetPosition;
-        m_silkContinueTime = silkContinueTime;
-        m_silkSpeed = silkSpeed;
-        m_silkClampSpeedRate = silkClampSpeedRate;
+        _targetPosition = targetPosition;
+        _silkContinueTime = silkContinueTime;
+        _silkSpeed = silkSpeed;
+        _silkClampSpeedRate = silkClampSpeedRate;
 
-        m_health.Initialize(silkHealthAmount, silkHealthAmount);
+        _health.Initialize(silkHealthAmount, silkHealthAmount);
     }
     private void FixedUpdate()
     {
-        if (!m_isWebSkill)
+        if (!_isWebSkill)
         {
-            Vector2 unitVector = (m_targetPosition - transform.position).normalized;
-            m_rb.MovePosition(m_rb.position + unitVector * m_silkSpeed * Time.fixedDeltaTime);
+            Vector2 unitVector = (_targetPosition - transform.position).normalized;
+            _rb.MovePosition(_rb.position + unitVector * _silkSpeed * Time.fixedDeltaTime);
 
-            if (Vector3.Distance(m_rb.position, m_targetPosition) < 0.1f)
+            if (Vector3.Distance(_rb.position, _targetPosition) < 0.1f)
             {
-                m_isWebSkill = true;
-                Destroy(gameObject, m_silkContinueTime);
+                _isWebSkill = true;
+                Destroy(gameObject, _silkContinueTime);
             }
         }
     }
@@ -53,35 +51,35 @@ public class SpiderSilk : MonoBehaviour, IDamageable
         if (collision.gameObject.CompareTag(Settings.PlayerTag))
         {
             //限制玩家速度
-            m_playerController = collision.GetComponent<PlayerController>();
-            m_playerController.MoveSpeedMultiplier = m_silkClampSpeedRate;
+            _playerController = collision.GetComponent<PlayerController>();
+            _playerController.Mover.SetMoveSpeedMultiplier(_silkClampSpeedRate);
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag(Settings.PlayerTag))
         {
-            if (m_playerController != null)
+            if (_playerController != null)
             {
                 //恢复玩家速度
-                m_playerController.MoveSpeedMultiplier = 1f;
+                _playerController.Mover.SetMoveSpeedMultiplier(1f);
             }
         }
     }
     private void OnDestroy()
     {
-        if(m_playerController != null)
+        if(_playerController != null)
         {
             //恢复玩家速度
-            m_playerController.MoveSpeedMultiplier = 1f;
+            _playerController.Mover.SetMoveSpeedMultiplier(1f);
         }
     }
 
     public void TakeDamage(int damage, Vector2 attackDirection)
     {
-        m_health.ApplyDamage(1);
+        _health.ApplyDamage(1);
 
-        if (m_health.IsDead)
+        if (_health.IsDead)
         {
             Destroy(gameObject);
         }

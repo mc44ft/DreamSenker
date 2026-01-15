@@ -15,7 +15,7 @@ public class GameManager : SingletonMono<GameManager>
     //------------------------ Config ---------------------------------
     [field: SerializeField] public MapGraph MapGraph { get; private set; }
     [field: SerializeField] public GameConfigSO GameConfig { get; private set; }
-    [field: SerializeField] public PlayerConfigSO PlayerConfig { get; private set; }
+    [field: SerializeField] public PlayerConfigSO PlayerConfigSO { get; private set; }
     [field: SerializeField] public PackageItemConfigSO PackageItemConfig;
     [field: SerializeField] public GameSaveData GameSaveData { get; private set; }
     //------------------------ public Parameter ---------------------------------
@@ -181,7 +181,7 @@ public class GameManager : SingletonMono<GameManager>
             //场景加载完毕后
             //实例化玩家
             //场景加载完毕 此时出生点已经注册完毕
-            PlayerController player = InstantiatePlayer(PlayerConfig.PlayerPrefab,
+            PlayerController player = InstantiatePlayer(PlayerConfigSO.PlayerConfig.PlayerPrefab,
                 SpawnPointManager.Instance.GetSpawnPositionFromID(GameSaveData.SavePointID));
             //防止玩家过场景移除
             DontDestroyOnLoad(player.gameObject);

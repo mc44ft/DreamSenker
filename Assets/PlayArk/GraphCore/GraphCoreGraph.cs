@@ -173,7 +173,7 @@ namespace PlayArk.GraphCore.Data
         /// <summary>
         /// 在序列化的前一刻调用
         /// 在以下几种情况触发：
-        /// 1.手动保存时 control + s
+        /// 1.手动保存时 control + s 
         /// 2.自动保存
         /// 3.打包
         /// 4.Play

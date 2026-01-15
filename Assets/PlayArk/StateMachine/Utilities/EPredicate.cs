@@ -6,6 +6,13 @@ namespace PlayArk.StateMachine.Utilities
 {
     public enum EPredicate
     {
-    
+        KeyCodePressed,
+        AnimOver,
+        HorizontalNotZero,
+        VerticalSpeedNotNegative,
+        JumpCountNotZero,
+        Grounded, 
+        TakeDamage,
+        Dead,
     }
 }

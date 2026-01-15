@@ -28,7 +28,11 @@ namespace PlayArk.StateMachine.Utilities
         /// </summary>
         private bool _wasInvoked = false;
 
-        public new IEnumerator Invoke()
+        public void StratInvoke()
+        {
+            MonoManager.Instance.StartCoroutine(Invoke());
+        }
+        private new IEnumerator Invoke()
         {
             base.Invoke();
             _wasInvoked = true;
@@ -52,8 +56,11 @@ public class LazyEvent<T> : UnityEvent<T>
     /// 记录事件刚刚是否被触发
     /// </summary>
     private bool _wasInvoked = false;
-
-    public new IEnumerator Invoke(T value)
+    public void StratInvoke(T value)
+    {
+        MonoManager.Instance.StartCoroutine(Invoke(value));
+    }
+    private new IEnumerator Invoke(T value)
     {
         base.Invoke(value);
         _wasInvoked = true;

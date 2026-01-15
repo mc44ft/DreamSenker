@@ -1,4 +1,5 @@
 ﻿using PlayArk.GraphCore.Data;
+using PlayArk.StateMachine;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEngine.UIElements;
@@ -10,7 +11,7 @@ namespace PlayArk.GraphCore.Editor
     /// </summary>
     public abstract class GraphCoreEditor : EditorWindow
     {
-        private GraphCoreView _view;
+        protected GraphCoreView _view;
         private void CreateGUI()
         {
             //得到主容器
@@ -89,11 +90,13 @@ namespace PlayArk.GraphCore.Editor
         /// 在Hierarchy窗口中切换游戏对象时调用（运行时和非运行时都会响应）
         /// 这两个窗口中聚焦的对象是唯一的
         /// </summary>
-        private void OnSelectionChange()
+        protected virtual void OnSelectionChange()
         {
             //activeObject 涵盖了所有资产 SO、材质、贴图、预制体、场景中的游戏对象 等 都囊括在内
             //activeGameObject 只包括场景上的物体 和 Project中的预制体文件
             GraphCoreGraph graphCore = Selection.activeObject as GraphCoreGraph;
+            
+            
             if(graphCore != null)
             {
                 _view.Refresh(graphCore);

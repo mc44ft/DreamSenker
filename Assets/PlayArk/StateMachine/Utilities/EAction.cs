@@ -6,6 +6,14 @@ namespace PlayArk.StateMachine.Utilities
 {
     public enum EAction
     {
-    
+        //--------------- Animation -----------
+        PlayAnimation,
+        //--------------- Move -----------
+        StopMove,
+        Move,
+        JumpEnterSetup,
+        FallEnterSetup,
+        //--------------- GetHit -----------
+        Knockback,
     }
 }

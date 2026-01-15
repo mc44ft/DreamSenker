@@ -11,18 +11,20 @@ namespace PlayArk.StateMachine.Editor
 {
     public class StateView : GraphCoreNodeView<StateTransitionEdgeView>
     {
+        private VisualElement _header;
+        // private VisualElement _runningStateStyle;
         public override void Init(GraphCoreNode data, GraphCoreGraph graphCore)
         {
             //加载状态机节点的USS样式文件
             StyleSheet styleSheet =
-                AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Scripts/StateMachine/Editor/StateView.uss");
+                AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/PlayArk/StateMachine/Editor/StateView.uss");
             styleSheets.Add(styleSheet);
         
             base.Init(data, graphCore);
         
             //在Init结束（端口绘制完之后再查找端口）
             //将端口添加到header下，直接改变其父子关系
-            VisualElement header = this.Q<VisualElement>("node-header");
+            _header = this.Q<VisualElement>("node-header");
             List<Port> ports = this.Query<Port>().ToList();
             foreach (Port port in ports)
             {
@@ -32,10 +34,26 @@ namespace PlayArk.StateMachine.Editor
                     //禁用该端口
                     port.SetEnabled(false);
                 }
-                header.Add(port);
+                _header.Add(port);
             }
+            
+            // _runningStateStyle = this.Q<VisualElement>()
         }
 
+        public void UpdateStateInRunning()
+        {
+            if (Application.isPlaying)
+            {
+                if (CoreNode is ActionState state && state.Started)
+                {
+                    _header.AddToClassList("runningState");
+                }
+                else
+                {
+                    _header.RemoveFromClassList("runningState");
+                }
+            }
+        }
         protected override void SetStyle()
         {
             base.SetStyle();

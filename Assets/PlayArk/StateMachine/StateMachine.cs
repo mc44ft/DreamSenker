@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using PlayArk.GraphCore.Data;
 using UnityEngine;
 
@@ -20,13 +19,18 @@ namespace PlayArk.StateMachine
             {
                 node.Bind(controller);
             }
+            //将状态机控制器绑定到所有连线上
+            foreach (var edge in _edges)
+            {
+                edge.Bind(controller);
+            }
         }
         /// <summary>
         /// 状态机启动入口
         /// </summary>
         public void MachineEnter()
         {
-            TransitionToState(_entryState.GetUniqueID());
+            TransitionToState(_entryState.Transitions[0].ConnectionNodeID);
         }
 
         public void LogicUpdate()

@@ -328,7 +328,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <MapGraph>k__BackingField: {fileID: 11400000, guid: 672c93c268356684cb91c039169d3809, type: 2}
   <GameConfig>k__BackingField: {fileID: 11400000, guid: 245bf98223402cc4c8964dfd2ac5b938, type: 2}
-  <PlayerConfig>k__BackingField: {fileID: 11400000, guid: 6134f6c13d18a8a4899479ef73febd85, type: 2}
+  <PlayerConfigSO>k__BackingField: {fileID: 11400000, guid: 6134f6c13d18a8a4899479ef73febd85, type: 2}
   PackageItemConfig: {fileID: 11400000, guid: 9074bd6963d66ce4898b3d849f5bf7e4, type: 2}
   <GameSaveData>k__BackingField:
     SavePointID: 

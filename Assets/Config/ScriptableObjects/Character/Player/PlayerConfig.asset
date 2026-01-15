@@ -12,51 +12,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2335b89314d8b744a5624f9588a0ba3, type: 3}
   m_Name: PlayerConfig
   m_EditorClassIdentifier: 
-  <PlayerPrefab>k__BackingField: {fileID: 8440365495553823547, guid: 627b74eb1bde3484b8ee6214fefb2327, type: 3}
-  <PlayerGroundLayerMask>k__BackingField:
-    serializedVersion: 2
-    m_Bits: 12288
-  <MaxHealthAmount>k__BackingField: 50
-  <MaxGravityScale>k__BackingField: 20
-  <RealFormConfig>k__BackingField:
-    <RuntimeAnimatorController>k__BackingField: {fileID: 22100000, guid: aa36a7ccf16e0de4eb67571e7387d509, type: 2}
-    <AttackDamage>k__BackingField: 10
-    <AttackCheckLayer>k__BackingField:
+  _playerConfig:
+    _playerPrefab: {fileID: 8440365495553823547, guid: 5461973030a4c4a9fb5aee95a8c1bdb4, type: 3}
+  _realFormConfig:
+    _maxHealthAmount: 100
+    _maxGravityScale: 10
+    _runtimeAnimatorController: {fileID: 22100000, guid: aa36a7ccf16e0de4eb67571e7387d509, type: 2}
+    _attackDamage: 10
+    _attackCheckLayer:
       serializedVersion: 2
       m_Bits: 1280
-    <RunSpeed>k__BackingField: 5
-    <JumpSpeed>k__BackingField: 12
-    <JumpCount>k__BackingField: 2
-    <GetHitStopTime>k__BackingField: 0.1
-    <GetHitKnockbackForceValue>k__BackingField: 5
-    <JumpGravityScale>k__BackingField: 5
-    <FallGravityScale>k__BackingField: 7
-    <FlyingTime>k__BackingField: 5
-    <FlyingForce>k__BackingField: 2.5
-    <AmmoPrefab>k__BackingField: {fileID: 0}
-    <AmmoSpeed>k__BackingField: 0
-    <AmmoDamage>k__BackingField: 0
-    <AmmoFireInterval>k__BackingField: 0.5
-  <MirrorFormConfig>k__BackingField:
-    <RuntimeAnimatorController>k__BackingField: {fileID: 22100000, guid: a97121ae7d174de43bc2b9b90f9c85bb, type: 2}
-    <AttackDamage>k__BackingField: 4
-    <AttackCheckLayer>k__BackingField:
+    _runSpeed: 5
+    _jumpSpeed: 12
+    _jumpCount: 2
+    _getHitStopTime: 0.1
+    _getHitKnockbackForceValue: 5
+    _playerGroundLayerMask:
+      serializedVersion: 2
+      m_Bits: 12288
+    _jumpGravityScale: 5
+    _fallGravityScale: 7
+    _flyingTime: 5
+    _flyingForce: 2.5
+    _ammoPrefab: {fileID: 0}
+    _ammoSpeed: 0
+    _ammoDamage: 0
+    _ammoFireInterval: 0.5
+  _mirrorFormConfig:
+    _maxHealthAmount: 100
+    _maxGravityScale: 10
+    _runtimeAnimatorController: {fileID: 22100000, guid: a97121ae7d174de43bc2b9b90f9c85bb, type: 2}
+    _attackDamage: 4
+    _attackCheckLayer:
       serializedVersion: 2
       m_Bits: 1024
-    <RunSpeed>k__BackingField: 8
-    <JumpSpeed>k__BackingField: 18
-    <JumpCount>k__BackingField: 2
-    <GetHitStopTime>k__BackingField: 0.3
-    <GetHitKnockbackForceValue>k__BackingField: 15
-    <JumpGravityScale>k__BackingField: 5
-    <FallGravityScale>k__BackingField: 7
-    <FlyingTime>k__BackingField: 5
-    <FlyingForce>k__BackingField: 2.5
-    <AmmoPrefab>k__BackingField: {fileID: 7783390304028953344, guid: 665e3436d53460b439caa1e46488de8b, type: 3}
-    <AmmoSpeed>k__BackingField: 3
-    <AmmoDamage>k__BackingField: 4
-    <AmmoFireInterval>k__BackingField: 0.5
-  <PlayerSaveData>k__BackingField:
+    _runSpeed: 8
+    _jumpSpeed: 18
+    _jumpCount: 2
+    _getHitStopTime: 0.3
+    _getHitKnockbackForceValue: 15
+    _playerGroundLayerMask:
+      serializedVersion: 2
+      m_Bits: 12288
+    _jumpGravityScale: 5
+    _fallGravityScale: 7
+    _flyingTime: 5
+    _flyingForce: 2.5
+    _ammoPrefab: {fileID: 7783390304028953344, guid: 665e3436d53460b439caa1e46488de8b, type: 3}
+    _ammoSpeed: 3
+    _ammoDamage: 4
+    _ammoFireInterval: 0.5
+  _playerSaveData:
     CurrentHealth: 30
     AttackMultiply: 1
     IsUnlockSwitchStateSkill: 0

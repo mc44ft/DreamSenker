@@ -12,6 +12,10 @@ public interface IDamageable
     /// <param name="damage">伤害值</param>
     /// <param name="attackDirection">击飞方向 与子弹\攻击方向一致</param>
     void TakeDamage(int damage, Vector2 attackDirection);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns>自己所在的世界位置</returns>
     Vector2 GetPosition();
     /// <summary>
     /// 被玩家镜像攻击选中时执行逻辑

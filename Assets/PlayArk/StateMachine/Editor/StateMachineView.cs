@@ -20,5 +20,15 @@ namespace PlayArk.StateMachine.Editor
             return TypeCache.GetTypesDerivedFrom<State>();
         }
 
+        public void UpdateStates()
+        {
+            foreach (var node in nodes)
+            {
+                if (node is StateView stateView)
+                {
+                    stateView.UpdateStateInRunning();
+                }
+            }
+        }
     }
 }
