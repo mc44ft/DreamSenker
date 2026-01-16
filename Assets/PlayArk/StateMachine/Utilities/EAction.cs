@@ -15,5 +15,7 @@ namespace PlayArk.StateMachine.Utilities
         FallEnterSetup,
         //--------------- GetHit -----------
         Knockback,
+        //--------------- Switch Form -----------
+        SwitchFormHandle,//监测切换形态
     }
 }

@@ -1,16 +1,18 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Serialization;
+
 [CreateAssetMenu(fileName = "PlayerConfig_", menuName = "ScriptableObject/Config/PlayerConfig")]
 public class PlayerConfigSO : ScriptableObject
 {
     [Header("BASE DETAILS")]
     [SerializeField] private PlayerConfig _playerConfig;
-
+    
     [Space(5)]
     [Header("FORM DETAILS")]
     //可以直接调用配置项中的这些数据
-    [SerializeField] private PlayerFormConfig _realFormConfig;
-    [SerializeField] private PlayerFormConfig _mirrorFormConfig;
+    [SerializeField] private PlayerFormConfig _formConfigUnarmed; 
+    [SerializeField] private PlayerFormConfig _formConfigSword;
     
     //这个数据不能被调用 仅作为覆盖用
     //如果玩家有存档 那么玩家内部的可保存数据由存档来覆盖 
@@ -22,8 +24,8 @@ public class PlayerConfigSO : ScriptableObject
     
     
     public PlayerConfig PlayerConfig => _playerConfig;
-    public PlayerFormConfig RealFormConfig => _realFormConfig;
-    public PlayerFormConfig MirrorFormConfig => _mirrorFormConfig;
+    public PlayerFormConfig FormConfigUnarmed => _formConfigUnarmed;
+    public PlayerFormConfig FormConfigSword => _formConfigSword;
     public PlayerSaveData PlayerSaveData => _playerSaveData;
 #if UNITY_EDITOR
     //private void OnValidate()
@@ -45,7 +47,7 @@ public class PlayerConfig
     
 }
 [Serializable]
-public class PlayerFormConfig : IMoveConfig, IHealthConfig
+public class PlayerFormConfig : IMoveConfig, IHealthConfig, IAttackConfig
 {
     [Header("BASIC DETAILS")] 
     [SerializeField] private int _maxHealthAmount;
@@ -53,48 +55,39 @@ public class PlayerFormConfig : IMoveConfig, IHealthConfig
     [SerializeField] private float _maxGravityScale = 10.0f;
     [Tooltip("该形态使用的动画状态机Controller")] 
     [SerializeField] private RuntimeAnimatorController _runtimeAnimatorController;
-    [Tooltip("普通攻击的伤害值")] 
-    [SerializeField] private int _attackDamage = 1;
-    [Tooltip("普通攻击的检测层级")]
-    [SerializeField] private LayerMask _attackCheckLayer;
+
+    [Space(1)]
+    [Header("Move DETAILS")]
     [SerializeField] private float _runSpeed = 8f;
     [SerializeField] private float _jumpSpeed = 18f;
-
-    [Space(1)]
-    [Header("ADVANCED DETAILS")]
     [Tooltip("跳跃次数")]
     [SerializeField] private int _jumpCount = 2;
-    [Tooltip("玩家受伤顿帧时间")]
-    [SerializeField] private float _getHitStopTime = 0.3f;
-    [Tooltip("玩家受伤击退力度")]
-    [SerializeField] private float _getHitKnockbackForceValue = 15f;
     [SerializeField] private LayerMask _playerGroundLayerMask;
-
-    [Space(1)]
-    [Header("PHYSIC DETAILS")]
     [Tooltip("跳跃重力")]
     [SerializeField] private float _jumpGravityScale = 5.0f;
     [Tooltip("下落重力")]
     [SerializeField] private float _fallGravityScale = 7.0f;
     
     [Space(1)]
-    [Header("MIRROR FORM DETAILS")]
-    [Tooltip("飞行时间")]
-    [SerializeField] private int _flyingTime = 5;
-    [Tooltip("飞行动力 0为悬浮")]
-    [SerializeField] private float _flyingForce = 2.5f;
-    [Tooltip("子弹预制体")]
-    [SerializeField] private GameObject _ammoPrefab;
-    [Tooltip("子弹速度")]
-    [SerializeField] private float _ammoSpeed;
-    [Tooltip("子弹伤害")]
-    [SerializeField] private int _ammoDamage;
-    [Tooltip("子弹射击间隔时间")]
-    [SerializeField] private float _ammoFireInterval = 0.5f;
+    [Header("HIT DETAILS")]
+    [Tooltip("玩家受伤顿帧时间")]
+    [SerializeField] private float _getHitStopTime = 0.3f;
+    [Tooltip("玩家受伤击退力度")]
+    [SerializeField] private float _getHitKnockbackForceValue = 15f;
+    
+    [Space(1)]
+    [Header("ATTACK DETAILS")]
+    [Tooltip("普通攻击的伤害值")] 
+    [SerializeField] private int _attackDamage = 1;
+    [Tooltip("普通攻击的检测层级")]
+    [SerializeField] private LayerMask _attackCheckLayer;
+    [Tooltip("普通攻击的检测中心偏移量")]
+    [SerializeField] private Vector3 _attackCheckOffset;
+    [Tooltip("普通攻击的检测盒子大小")]
+    [SerializeField] private Vector3 _attackCheckBoundsSize;
+    
     
     public RuntimeAnimatorController RuntimeAnimatorController => _runtimeAnimatorController;
-    public int AttackDamage => _attackDamage;
-    public LayerMask AttackCheckLayer => _attackCheckLayer;
     //--------------------- IMoveConfig ----------------------------
     public float RunSpeed => _runSpeed;
     public float JumpSpeed => _jumpSpeed;
@@ -105,16 +98,12 @@ public class PlayerFormConfig : IMoveConfig, IHealthConfig
     //--------------------- IHealthConfig ----------------------------
     public int MaxHealthAmount => _maxHealthAmount;
     public float GetHitKnockbackForceValue => _getHitKnockbackForceValue;
-    
-    public float MaxGravityScale => _maxGravityScale;
     public float GetHitStopTime => _getHitStopTime;
-    
-    
-    
-    public int FlyingTime => _flyingTime;
-    public float FlyingForce => _flyingForce;
-    public GameObject AmmoPrefab => _ammoPrefab;
-    public float AmmoSpeed => _ammoSpeed;
-    public int AmmoDamage => _ammoDamage;
-    public float AmmoFireInterval => _ammoFireInterval;
+    //--------------------- IAttackConfig ----------------------------
+    public LayerMask AttackCheckLayer => _attackCheckLayer;
+    public int AttackDamage => _attackDamage;
+    public Vector3 AttackCheckOffset => _attackCheckOffset;
+    public Vector3 AttackCheckBoundsSize => _attackCheckBoundsSize;
+
+    public float MaxGravityScale => _maxGravityScale;
 }

@@ -14,54 +14,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerConfig:
     _playerPrefab: {fileID: 8440365495553823547, guid: 5461973030a4c4a9fb5aee95a8c1bdb4, type: 3}
-  _realFormConfig:
+  _formConfigUnarmed:
     _maxHealthAmount: 100
     _maxGravityScale: 10
-    _runtimeAnimatorController: {fileID: 22100000, guid: aa36a7ccf16e0de4eb67571e7387d509, type: 2}
+    _runtimeAnimatorController: {fileID: 9100000, guid: 689f75b53a634f342bf88640feb30aca, type: 2}
+    _runSpeed: 5
+    _jumpSpeed: 12
+    _jumpCount: 2
+    _playerGroundLayerMask:
+      serializedVersion: 2
+      m_Bits: 12288
+    _jumpGravityScale: 5
+    _fallGravityScale: 7
+    _getHitStopTime: 0.1
+    _getHitKnockbackForceValue: 5
     _attackDamage: 10
     _attackCheckLayer:
       serializedVersion: 2
       m_Bits: 1280
-    _runSpeed: 5
+    _attackCheckOffset: {x: 0.35, y: 0.42, z: 0}
+    _attackCheckBoundsSize: {x: 0.7, y: 0.5, z: 0}
+  _formConfigSword:
+    _maxHealthAmount: 100
+    _maxGravityScale: 10
+    _runtimeAnimatorController: {fileID: 22100000, guid: a97121ae7d174de43bc2b9b90f9c85bb, type: 2}
+    _runSpeed: 8
     _jumpSpeed: 12
     _jumpCount: 2
-    _getHitStopTime: 0.1
-    _getHitKnockbackForceValue: 5
     _playerGroundLayerMask:
       serializedVersion: 2
       m_Bits: 12288
     _jumpGravityScale: 5
     _fallGravityScale: 7
-    _flyingTime: 5
-    _flyingForce: 2.5
-    _ammoPrefab: {fileID: 0}
-    _ammoSpeed: 0
-    _ammoDamage: 0
-    _ammoFireInterval: 0.5
-  _mirrorFormConfig:
-    _maxHealthAmount: 100
-    _maxGravityScale: 10
-    _runtimeAnimatorController: {fileID: 22100000, guid: a97121ae7d174de43bc2b9b90f9c85bb, type: 2}
+    _getHitStopTime: 0.3
+    _getHitKnockbackForceValue: 15
     _attackDamage: 4
     _attackCheckLayer:
       serializedVersion: 2
       m_Bits: 1024
-    _runSpeed: 8
-    _jumpSpeed: 18
-    _jumpCount: 2
-    _getHitStopTime: 0.3
-    _getHitKnockbackForceValue: 15
-    _playerGroundLayerMask:
-      serializedVersion: 2
-      m_Bits: 12288
-    _jumpGravityScale: 5
-    _fallGravityScale: 7
-    _flyingTime: 5
-    _flyingForce: 2.5
-    _ammoPrefab: {fileID: 7783390304028953344, guid: 665e3436d53460b439caa1e46488de8b, type: 3}
-    _ammoSpeed: 3
-    _ammoDamage: 4
-    _ammoFireInterval: 0.5
+    _attackCheckOffset: {x: 0.25, y: 0.3, z: 0}
+    _attackCheckBoundsSize: {x: 0.5, y: 0.7, z: 0}
   _playerSaveData:
     CurrentHealth: 30
     AttackMultiply: 1

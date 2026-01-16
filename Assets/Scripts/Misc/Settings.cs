@@ -6,16 +6,13 @@ public class Settings
 {
     //---------------------------------------- Animation Name ----------------------------------
     //Player
-    public static readonly int PlayerRealAnimNameToHash_Idle = Animator.StringToHash("PlayerIdle");
-    public static readonly int PlayerRealAnimNameToHash_Death = Animator.StringToHash("PlayerDeath");
-    public static readonly int PlayerRealAnimNameToHash_Run = Animator.StringToHash("PlayerRun");
-    public static readonly int PlayerRealAnimNameToHash_Gethit = Animator.StringToHash("PlayerGetHit");
-    public static readonly int PlayerRealAnimNameToHash_Attack = Animator.StringToHash("PlayerAttack");
-    public static readonly int PlayerRealAnimNameToHash_Jump = Animator.StringToHash("PlayerJump");
-    public static readonly int PlayerRealAnimNameToHash_Fall = Animator.StringToHash("PlayerFall");
-    public static readonly int PlayerRealAnimNameToHash_FlyEnter = Animator.StringToHash("PlayerFlyEnter");
-    public static readonly int PlayerRealAnimNameToHash_Flying = Animator.StringToHash("PlayerFlying");
-    public static readonly int PlayerRealAnimNameToHash_Transition = Animator.StringToHash("PlayerTransition");
+    public static readonly int PlayerRealAnimNameToHash_Idle = Animator.StringToHash("Idle");
+    public static readonly int PlayerRealAnimNameToHash_Death = Animator.StringToHash("Death");
+    public static readonly int PlayerRealAnimNameToHash_Run = Animator.StringToHash("Run");
+    public static readonly int PlayerRealAnimNameToHash_Gethit = Animator.StringToHash("GetHit");
+    public static readonly int PlayerRealAnimNameToHash_Attack = Animator.StringToHash("Attack");
+    public static readonly int PlayerRealAnimNameToHash_Jump = Animator.StringToHash("Jump");
+    public static readonly int PlayerRealAnimNameToHash_Fall = Animator.StringToHash("Fall");
 
     //Spider
     public static readonly int SpiderAnimNameToHash_Crawl = Animator.StringToHash("SpiderCrawl");

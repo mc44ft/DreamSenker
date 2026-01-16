@@ -58,7 +58,7 @@ MonoBehaviour:
   _onEnterActions:
   - action: 0
     parameters:
-    - PlayerRun
+    - Run
   _onLogicUpdateActions: []
   _onPhysicsUpdateActions:
   - action: 2
@@ -103,7 +103,7 @@ MonoBehaviour:
   _onEnterActions:
   - action: 0
     parameters:
-    - PlayerJump
+    - Jump
   - action: 3
     parameters: []
   _onLogicUpdateActions: []
@@ -152,8 +152,11 @@ MonoBehaviour:
     parameters: []
   - action: 0
     parameters:
-    - PlayerIdle
-  _onLogicUpdateActions: []
+    - Idle
+  _onLogicUpdateActions:
+  - action: 6
+    parameters:
+    - SwitchFormButtonDown
   _onPhysicsUpdateActions: []
   _onExitActions: []
   references:
@@ -195,7 +198,7 @@ MonoBehaviour:
   _onEnterActions:
   - action: 0
     parameters:
-    - PlayerAttack
+    - Attack
   _onLogicUpdateActions: []
   _onPhysicsUpdateActions: []
   _onExitActions: []
@@ -495,14 +498,12 @@ MonoBehaviour:
   _onEnterActions:
   - action: 0
     parameters:
-    - PlayerGetHit
+    - GetHit
   - action: 5
     parameters: []
   _onLogicUpdateActions: []
   _onPhysicsUpdateActions: []
-  _onExitActions:
-  - action: 6
-    parameters: []
+  _onExitActions: []
   references:
     version: 2
     RefIds:
@@ -542,7 +543,7 @@ MonoBehaviour:
   _onEnterActions:
   - action: 0
     parameters:
-    - PlayerFall
+    - Fall
   - action: 4
     parameters: []
   _onLogicUpdateActions: []
