@@ -22,7 +22,6 @@ namespace PlayArk.StateMachine
         {
             _controller = controller;
         }
-
         public StateTransitionEdge Clone()
         {
             StateTransitionEdge clone = new StateTransitionEdge()

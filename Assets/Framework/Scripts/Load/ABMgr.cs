@@ -9,17 +9,17 @@ using UnityEngine.Events;
 /// </summary>
 public class ABMgr : SingletonAutoMono<ABMgr>
 {
-    private AssetBundle _mainAB = null;//主包（一个平台对应一个主包，每个平台都有不同的主包）
-    private AssetBundleManifest _abManifest = null;//主包中的固定文件（AssetBundleManifest） 用于获取依赖信息
-
+    //主包（一个平台对应一个主包，每个平台都有不同的主包）
+    private AssetBundle _mainAB;
+    //主包中的固定文件（AssetBundleManifest） 用于获取依赖信息
+    private AssetBundleManifest _abManifest;
     //AB包不能重复加载
-    private Dictionary<string, AssetBundle> _abDict = new Dictionary<string, AssetBundle>();
+    private readonly Dictionary<string, AssetBundle> _abDict = new Dictionary<string, AssetBundle>();
 
     /// <summary>
     /// AB包存放路径
     /// </summary>
-    private string PathUrl => Application.streamingAssetsPath + "/";
-
+    private readonly string _pathUrl = Application.streamingAssetsPath + "/";
     /// <summary>
     /// 主包名称
     /// </summary>
@@ -41,12 +41,12 @@ public class ABMgr : SingletonAutoMono<ABMgr>
 
     #region 包加载
 
-    public void LoadMianAB()
+    private void LoadMianAB()
     {
         //加载主包
         if (_mainAB == null)
         {
-            _mainAB = AssetBundle.LoadFromFile(PathUrl + MainAB_Name);
+            _mainAB = AssetBundle.LoadFromFile(_pathUrl + MainAB_Name);
             //获取其依赖包
             _abManifest = _mainAB.LoadAsset<AssetBundleManifest>("AssetBundleManifest");
         }
@@ -67,7 +67,7 @@ public class ABMgr : SingletonAutoMono<ABMgr>
             if (!_abDict.ContainsKey(strs[i]))
             {
                 //加载依赖包
-                ab = AssetBundle.LoadFromFile(PathUrl + strs[i]);
+                ab = AssetBundle.LoadFromFile(_pathUrl + strs[i]);
                 if (ab != null)
                     _abDict.Add(strs[i], ab);
                 else
@@ -77,7 +77,7 @@ public class ABMgr : SingletonAutoMono<ABMgr>
         //加载AB包
         if (!_abDict.ContainsKey(abName))
         {
-            ab = AssetBundle.LoadFromFile(PathUrl + abName);
+            ab = AssetBundle.LoadFromFile(_pathUrl + abName);
             _abDict.Add(abName, ab);
         }
     }
@@ -125,7 +125,7 @@ public class ABMgr : SingletonAutoMono<ABMgr>
                         //避免重复加载同一个包
                         _abDict.Add(strs[i], null);
                         //加载依赖包
-                        AssetBundleCreateRequest req = AssetBundle.LoadFromFileAsync(PathUrl + strs[i]);
+                        AssetBundleCreateRequest req = AssetBundle.LoadFromFileAsync(_pathUrl + strs[i]);
                         yield return req;
                         if (req.assetBundle != null)
                             _abDict[strs[i]] = req.assetBundle;
@@ -134,7 +134,7 @@ public class ABMgr : SingletonAutoMono<ABMgr>
                     }
                     else//同步加载
                     {
-                        _abDict.Add(strs[i], AssetBundle.LoadFromFile(PathUrl + strs[i]));
+                        _abDict.Add(strs[i], AssetBundle.LoadFromFile(_pathUrl + strs[i]));
                     }
                 }
                 else
@@ -155,7 +155,7 @@ public class ABMgr : SingletonAutoMono<ABMgr>
                 if (isAsync)//异步加载
                 {
                     _abDict.Add(abName, null);//占位
-                    AssetBundleCreateRequest req = AssetBundle.LoadFromFileAsync(PathUrl + abName);
+                    AssetBundleCreateRequest req = AssetBundle.LoadFromFileAsync(_pathUrl + abName);
                     yield return req;
 
                     if (req.assetBundle != null)
@@ -165,7 +165,7 @@ public class ABMgr : SingletonAutoMono<ABMgr>
                 }
                 else//同步加载
                 {
-                    _abDict.Add(abName, AssetBundle.LoadFromFile(PathUrl + abName));//占位
+                    _abDict.Add(abName, AssetBundle.LoadFromFile(_pathUrl + abName));//占位
                 }
             }
             else
@@ -212,7 +212,7 @@ public class ABMgr : SingletonAutoMono<ABMgr>
                         //避免重复加载同一个包
                         _abDict.Add(strs[i], null);
                         //加载依赖包
-                        AssetBundleCreateRequest req = AssetBundle.LoadFromFileAsync(PathUrl + strs[i]);
+                        AssetBundleCreateRequest req = AssetBundle.LoadFromFileAsync(_pathUrl + strs[i]);
                         yield return req;
                         if (req.assetBundle != null)
                             _abDict[strs[i]] = req.assetBundle;
@@ -221,7 +221,7 @@ public class ABMgr : SingletonAutoMono<ABMgr>
                     }
                     else
                     {
-                        _abDict.Add(strs[i], AssetBundle.LoadFromFile(PathUrl + strs[i]));
+                        _abDict.Add(strs[i], AssetBundle.LoadFromFile(_pathUrl + strs[i]));
                     }
                 }
                 else
@@ -241,7 +241,7 @@ public class ABMgr : SingletonAutoMono<ABMgr>
                 if (isAsync)//异步加载
                 {
                     _abDict.Add(abName, null);//占位
-                    AssetBundleCreateRequest req = AssetBundle.LoadFromFileAsync(PathUrl + abName);
+                    AssetBundleCreateRequest req = AssetBundle.LoadFromFileAsync(_pathUrl + abName);
                     yield return req;
 
                     if (req.assetBundle != null)
@@ -251,7 +251,7 @@ public class ABMgr : SingletonAutoMono<ABMgr>
                 }
                 else//同步加载
                 {
-                    _abDict.Add(abName, AssetBundle.LoadFromFile(PathUrl + abName));//占位
+                    _abDict.Add(abName, AssetBundle.LoadFromFile(_pathUrl + abName));//占位
                 }
             }
             else

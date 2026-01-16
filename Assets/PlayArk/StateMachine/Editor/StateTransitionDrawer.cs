@@ -1,14 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using PlayArk.StateMachine.Utilities;
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEditor.UIElements;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace PlayArk.StateMachine.Editor
 {
+    /// <summary>
+    /// 为连线提供了Inspector界面
+    /// </summary>
     [CustomPropertyDrawer(typeof(StateTransitionEdge))]
     public class StateTransitionDrawer : PropertyDrawer
     {
