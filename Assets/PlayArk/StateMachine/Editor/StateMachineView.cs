@@ -17,6 +17,8 @@ namespace PlayArk.StateMachine.Editor
 
         protected override TypeCache.TypeCollection GetMenuNodeType()
         {
+            //得到所有State的派生类型的反射信息
+            //获取所有GraphCoreNode的子类及其本身
             return TypeCache.GetTypesDerivedFrom<State>();
         }
 

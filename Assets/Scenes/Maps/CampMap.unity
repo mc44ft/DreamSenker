@@ -262,7 +262,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6439718909683169494, guid: 3596b980a7b335e4084eaa49f2ef9d3f, type: 3}
       propertyPath: m_dialogueInfoArray.Array.data[0].guid
-      value: 3dbc6905-a166-4cbb-8d9d-e307df855016
+      value: 1cd77c20-4b8a-4688-ad34-bb9e277ecbb2
       objectReference: {fileID: 0}
     - target: {fileID: 6439718909683169494, guid: 3596b980a7b335e4084eaa49f2ef9d3f, type: 3}
       propertyPath: m_dialogueInfoArray.Array.data[1].guid
@@ -279,11 +279,11 @@ PrefabInstance:
     - target: {fileID: 6439718909683169494, guid: 3596b980a7b335e4084eaa49f2ef9d3f, type: 3}
       propertyPath: m_dialogueInfoArray.Array.data[0].GraphMain
       value: 
-      objectReference: {fileID: 11400000, guid: 78651fc89601c904eb0167aa7a681f00, type: 2}
+      objectReference: {fileID: 11400000, guid: a7227ee95e809446a889034bdfc03eb9, type: 2}
     - target: {fileID: 6439718909683169494, guid: 3596b980a7b335e4084eaa49f2ef9d3f, type: 3}
       propertyPath: m_dialogueInfoArray.Array.data[0].GraphTail
       value: 
-      objectReference: {fileID: 11400000, guid: 2f6a00db8427344bbaeb23e5dd8e9874, type: 2}
+      objectReference: {fileID: 11400000, guid: 42edd12f0442e488aa0253392c221a83, type: 2}
     - target: {fileID: 6439718909683169494, guid: 3596b980a7b335e4084eaa49f2ef9d3f, type: 3}
       propertyPath: m_dialogueInfoArray.Array.data[1].GraphMain
       value: 

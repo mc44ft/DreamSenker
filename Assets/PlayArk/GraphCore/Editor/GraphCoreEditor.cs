@@ -6,8 +6,8 @@ using UnityEngine.UIElements;
 namespace PlayArk.GraphCore.Editor
 {
     /// <summary>
-    /// MVVM架构
-    /// 担任了VM层的角色
+    /// 并不是纯粹的MVVM架构
+    /// 没有VM模型，数据分离的很干脆，但是View层管的太宽了，后续可以从View层分离逻辑
     /// </summary>
     public abstract class GraphCoreEditor : EditorWindow
     {
@@ -95,7 +95,6 @@ namespace PlayArk.GraphCore.Editor
             //activeObject 涵盖了所有资产 SO、材质、贴图、预制体、场景中的游戏对象 等 都囊括在内
             //activeGameObject 只包括场景上的物体 和 Project中的预制体文件
             GraphCoreGraph graphCore = Selection.activeObject as GraphCoreGraph;
-            
             
             if(graphCore != null)
             {

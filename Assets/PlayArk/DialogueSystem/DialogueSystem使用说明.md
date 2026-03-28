@@ -1,2 +1,2 @@
 #依赖包
-本系统依赖Framework框架和XNode插件
+本系统依赖Framework框架和GraphCore工具

@@ -1,4 +1,4 @@
-﻿using PlayArk.GraphCore.Data;
+﻿
 using System;
 using System.Linq;
 using DialogueSystem;
@@ -11,11 +11,6 @@ namespace PlayArk.DialogueSystem.Data.Nodes
     [NodeMenuItem("DialogueNodeChoice")]
     public class DialogueNodeChoice : DialogueNodeBase
     {
-        public override Color GetColor()
-        {
-            return new Color(173 / 255f, 161 / 255f, 86 / 255f);
-        }
-
         [Space(10)]
         [Header("CHOICE DETAILS")]
         //默认选择的选项索引 用于显示默认的光标位置
@@ -35,7 +30,7 @@ namespace PlayArk.DialogueSystem.Data.Nodes
             //获取玩家选择的选项索引
             EventCenter.Instance.AddEventListener<IntEventArgs>(E_EventType.Dialogue_ChoiceClick, OnChoiceClick);
         }
-
+        
         private void OnChoiceClick(object eventSender, IntEventArgs args)
         {
             ChoiceClick(args.Value);
@@ -52,6 +47,7 @@ namespace PlayArk.DialogueSystem.Data.Nodes
             EventCenter.Instance.RemoveEventListener<IntEventArgs>(E_EventType.Dialogue_ChoiceClick, OnChoiceClick);
             DialogueManager.Instance.HideDialogueChoicesSection();
         }
+        //只有Choice选项节点是特殊的端口类型 所以这里特殊处理
         protected override GraphCorePort CreatePortInstance()
         {
             //替换Port为DialogueChoicePort
@@ -67,6 +63,10 @@ namespace PlayArk.DialogueSystem.Data.Nodes
             }
 
             return _outputPorts[_resultIndex].GetUniqueID();
+        }
+        public override Color GetColor()
+        {
+            return new Color(173 / 255f, 161 / 255f, 86 / 255f);
         }
         public override void Init(string uniqueID, Vector2 viewPosition)
         {

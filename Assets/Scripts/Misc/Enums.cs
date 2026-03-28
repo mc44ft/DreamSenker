@@ -111,3 +111,13 @@ public enum E_BonusEffectType
     /// </summary>
     RestoreMana,
 }
+
+/// <summary>
+/// 测试枚举 - 用于演示 Claude Code 功能
+/// </summary>
+public enum E_TestEnum
+{
+    TestValue1,
+    TestValue2,
+    TestValue3,
+}

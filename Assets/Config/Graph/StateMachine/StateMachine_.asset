@@ -149,7 +149,8 @@ MonoBehaviour:
   - rid: 2122959257935806481
   _onEnterActions:
   - action: 1
-    parameters: []
+    parameters:
+    - 
   - action: 0
     parameters:
     - Idle

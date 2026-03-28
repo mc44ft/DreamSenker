@@ -1,8 +1,7 @@
-﻿using PlayArk.GraphCore.Data;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using NUnit.Framework.Interfaces;
 using PlayArk.GraphCore.Utilities;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
@@ -159,25 +158,22 @@ namespace PlayArk.GraphCore.Editor
             foreach (var type in nodeTypes)
             {
                 //排除抽象类
-                if (type.IsAbstract) return;
-
+                if (type.IsAbstract) continue;
                 //获取自定义标签特性
+                //这里利用反射获取所有添加了NodeMenuItemAttribute特性的成员信息
                 var attribute = type.GetCustomAttribute<NodeMenuItemAttribute>();
-                string menuTitle;
                 if(attribute != null && !string.IsNullOrEmpty(attribute.MenuTitle))
                 {
-                    menuTitle = attribute.MenuTitle;
-
-                    //使用临时变量防止闭包
+                    
+                    //使用临时变量接收type防止闭包
                     //闭包会导致所有菜单项都是同一个结果
                     var capturedType = type;
-                    evt.menu.AppendAction("Create " + menuTitle, a => CreateNode(capturedType, mousePosition));
+                    evt.menu.AppendAction("Create " + attribute.MenuTitle, a => CreateNode(capturedType, mousePosition));
                 }
             }
         }
         /// <summary>
         /// 子类重写这个方法 更改返回的菜单节点类型
-        /// 获取所有GraphCoreNode的子类及其本身
         /// </summary>
         protected abstract TypeCache.TypeCollection GetMenuNodeType();
 

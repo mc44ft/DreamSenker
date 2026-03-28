@@ -1,0 +1,259 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-3842131644853820301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 562767a3e4675f44babb5d9f4e7351a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _title: Choice Node
+  _uniqueID: 3c5405ce-5e9b-40ec-8825-5a6729299b1c
+  _viewPosition: {x: 747.7498, y: -50.49996}
+  _inputPorts:
+  - rid: 2122959477142716448
+  _outputPorts:
+  - rid: 2122959477142716449
+  - rid: 2122959477142716453
+  _defaultSelectIndex: 1
+  references:
+    version: 2
+    RefIds:
+    - rid: 2122959477142716448
+      type: {class: DialogueChoicePort, ns: PlayArk.DialogueSystem.Data, asm: Assembly-CSharp}
+      data:
+        _uniqueID: e339f1c0-1555-448a-982c-752ec16ced6b
+        _portName: New Port
+        _direction: 0
+        _selfNodeID: 3c5405ce-5e9b-40ec-8825-5a6729299b1c
+        ChoiceData:
+          ButtonPrefab: {fileID: 0}
+          Content: 
+    - rid: 2122959477142716449
+      type: {class: DialogueChoicePort, ns: PlayArk.DialogueSystem.Data, asm: Assembly-CSharp}
+      data:
+        _uniqueID: ffb7fffe-9cab-490f-a089-c79debc73ab2
+        _portName: "\u4E3B\u7EBF"
+        _direction: 1
+        _selfNodeID: 3c5405ce-5e9b-40ec-8825-5a6729299b1c
+        ChoiceData:
+          ButtonPrefab: {fileID: 1368191133890348968, guid: c2553a26de395cd4f864d2a70dddd763, type: 3}
+          Content: "\u6211\u4ECA\u5929\u8FC7\u5F97\u5F88\u597D"
+    - rid: 2122959477142716453
+      type: {class: DialogueChoicePort, ns: PlayArk.DialogueSystem.Data, asm: Assembly-CSharp}
+      data:
+        _uniqueID: 7d38259b-e18c-43df-9927-e24a5f83e4c9
+        _portName: "\u652F\u7EBF"
+        _direction: 1
+        _selfNodeID: 3c5405ce-5e9b-40ec-8825-5a6729299b1c
+        ChoiceData:
+          ButtonPrefab: {fileID: 1368191133890348968, guid: c2553a26de395cd4f864d2a70dddd763, type: 3}
+          Content: "\u6211\u4ECA\u5929\u5F88\u5012\u9709"
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d4fb09544e87d94d9c39fbdd0a65bbc, type: 3}
+  m_Name: DialogueGraph_Main
+  m_EditorClassIdentifier: 
+  _nodes:
+  - {fileID: 4450659579799814279}
+  - {fileID: 1744386970572741294}
+  - {fileID: -3842131644853820301}
+  - {fileID: 6602932932677643286}
+  - {fileID: 6754918199366354969}
+  _edges:
+  - _uniqueID: a0ba33a3-e354-4d59-8b19-7854b7dff172
+    _rootNodeID: 5827062c-df82-4ceb-a9d0-e19b82c6ab3e
+    _rootPortID: 1ae0aeb2-77d1-4550-bed1-cffb309c74e7
+    _connectionNodeID: 03d35a90-a94a-4fa4-a6e4-077a40aac8a3
+    _connectionPortID: 1862f96b-d0b6-40ba-a6b6-b1e933db2bc5
+  - _uniqueID: 2b3c9fb0-1b25-4171-9db6-f02066846bbd
+    _rootNodeID: 03d35a90-a94a-4fa4-a6e4-077a40aac8a3
+    _rootPortID: 6e97df79-d79e-4445-a9db-efd9fb3246ec
+    _connectionNodeID: 3c5405ce-5e9b-40ec-8825-5a6729299b1c
+    _connectionPortID: e339f1c0-1555-448a-982c-752ec16ced6b
+  - _uniqueID: 1ff92de0-cdb1-4cf3-bf32-e366ccf74da9
+    _rootNodeID: 3c5405ce-5e9b-40ec-8825-5a6729299b1c
+    _rootPortID: ffb7fffe-9cab-490f-a089-c79debc73ab2
+    _connectionNodeID: 1f828c58-3aec-4661-bc2b-00cb71fbfd10
+    _connectionPortID: bd6be578-8f0a-414e-a906-7f7a969420bd
+  - _uniqueID: 0d92268a-c28f-442c-9ef2-1f464b9450b1
+    _rootNodeID: 3c5405ce-5e9b-40ec-8825-5a6729299b1c
+    _rootPortID: 7d38259b-e18c-43df-9927-e24a5f83e4c9
+    _connectionNodeID: 24a88dcb-0364-4f4a-bd0d-f7443b6324f6
+    _connectionPortID: 30ed3ec9-ac0f-4d1d-932b-a731747fa657
+  _nodeEntry: {fileID: 4450659579799814279}
+--- !u!114 &1744386970572741294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c85e04da01cff9c46824fd4a230ec43c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _title: Normal
+  _uniqueID: 03d35a90-a94a-4fa4-a6e4-077a40aac8a3
+  _viewPosition: {x: 374.4999, y: -58.500004}
+  _inputPorts:
+  - rid: 2122959477142716446
+  _outputPorts:
+  - rid: 2122959477142716447
+  _dialogueDataArray:
+  - SpeakerName: "\u9E7F\u957F\u8001"
+    Content: "\u4F60\u597D\u5440\uFF0C<2>\u505C\u987F"
+    DisplayType: 2
+    CanQuickShow: 1
+  - SpeakerName: "\u9E7F\u957F\u8001"
+    Content: "\u4F60<r=jin tian>\u4ECA\u5929</r>\u8FC7\u5F97\u600E\u4E48\u6837\uFF1F"
+    DisplayType: 2
+    CanQuickShow: 1
+  references:
+    version: 2
+    RefIds:
+    - rid: 2122959477142716446
+      type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
+      data:
+        _uniqueID: 1862f96b-d0b6-40ba-a6b6-b1e933db2bc5
+        _portName: New Port
+        _direction: 0
+        _selfNodeID: 03d35a90-a94a-4fa4-a6e4-077a40aac8a3
+    - rid: 2122959477142716447
+      type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
+      data:
+        _uniqueID: 6e97df79-d79e-4445-a9db-efd9fb3246ec
+        _portName: New Port
+        _direction: 1
+        _selfNodeID: 03d35a90-a94a-4fa4-a6e4-077a40aac8a3
+--- !u!114 &4450659579799814279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5237d5f234834f74bb5c656ab41bb68a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _title: Entry
+  _uniqueID: 5827062c-df82-4ceb-a9d0-e19b82c6ab3e
+  _viewPosition: {x: -19.499996, y: -66.35001}
+  _inputPorts:
+  - rid: 2122959477142716444
+  _outputPorts:
+  - rid: 2122959477142716445
+  references:
+    version: 2
+    RefIds:
+    - rid: 2122959477142716444
+      type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
+      data:
+        _uniqueID: 2336b020-2d27-4c4a-a420-69b0a3e6a5f3
+        _portName: New Port
+        _direction: 0
+        _selfNodeID: 5827062c-df82-4ceb-a9d0-e19b82c6ab3e
+    - rid: 2122959477142716445
+      type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
+      data:
+        _uniqueID: 1ae0aeb2-77d1-4550-bed1-cffb309c74e7
+        _portName: New Port
+        _direction: 1
+        _selfNodeID: 5827062c-df82-4ceb-a9d0-e19b82c6ab3e
+--- !u!114 &6602932932677643286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c85e04da01cff9c46824fd4a230ec43c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _title: "\u4E3B\u7EBF"
+  _uniqueID: 1f828c58-3aec-4661-bc2b-00cb71fbfd10
+  _viewPosition: {x: 1155.4996, y: -149.99995}
+  _inputPorts:
+  - rid: 2122959477142716454
+  _outputPorts:
+  - rid: 2122959477142716455
+  _dialogueDataArray:
+  - SpeakerName: "\u9E7F\u957F\u8001"
+    Content: "\u592A\u68D2\u4E86\uFF01"
+    DisplayType: 2
+    CanQuickShow: 1
+  references:
+    version: 2
+    RefIds:
+    - rid: 2122959477142716454
+      type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
+      data:
+        _uniqueID: bd6be578-8f0a-414e-a906-7f7a969420bd
+        _portName: New Port
+        _direction: 0
+        _selfNodeID: 1f828c58-3aec-4661-bc2b-00cb71fbfd10
+    - rid: 2122959477142716455
+      type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
+      data:
+        _uniqueID: 199b8a3c-4909-452d-bf79-0df6773f1c84
+        _portName: New Port
+        _direction: 1
+        _selfNodeID: 1f828c58-3aec-4661-bc2b-00cb71fbfd10
+--- !u!114 &6754918199366354969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c85e04da01cff9c46824fd4a230ec43c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _title: "\u652F\u7EBF"
+  _uniqueID: 24a88dcb-0364-4f4a-bd0d-f7443b6324f6
+  _viewPosition: {x: 1163.4998, y: 87.100006}
+  _inputPorts:
+  - rid: 2122959477142716456
+  _outputPorts:
+  - rid: 2122959477142716457
+  _dialogueDataArray:
+  - SpeakerName: "\u9E7F\u957F\u8001"
+    Content: "\u4E0D\u592A\u5999\u54E6\uFF01"
+    DisplayType: 2
+    CanQuickShow: 1
+  references:
+    version: 2
+    RefIds:
+    - rid: 2122959477142716456
+      type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
+      data:
+        _uniqueID: 30ed3ec9-ac0f-4d1d-932b-a731747fa657
+        _portName: New Port
+        _direction: 0
+        _selfNodeID: 24a88dcb-0364-4f4a-bd0d-f7443b6324f6
+    - rid: 2122959477142716457
+      type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
+      data:
+        _uniqueID: 62206a8f-3a6a-4064-bbc1-a3dbe4e47665
+        _portName: New Port
+        _direction: 1
+        _selfNodeID: 24a88dcb-0364-4f4a-bd0d-f7443b6324f6
