@@ -42,7 +42,6 @@ namespace PlayArk.GraphCore.Data
             => GetEdges();
         public override GraphCoreNode CreateNodeInternal(Type type, Vector2 viewPosition) 
             => CreateNode(type, viewPosition);
-
         public override void AddNodeInternal(GraphCoreNode node)
             => AddNode(node as TNode);
         public override void DeleteNodeInternal(GraphCoreNode node) 
