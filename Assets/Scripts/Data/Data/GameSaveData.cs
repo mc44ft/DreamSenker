@@ -1,5 +1,4 @@
-﻿using MapSystem.Nodes;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 [Serializable]
@@ -9,10 +8,10 @@ public class GameSaveData : IRunningData
     [Tooltip("玩家最近的存档点")]
     public string SavePointID;//存档时设置
     [Tooltip("玩家存档点所在的地图")]
-    public E_MapSceneName SaveMapSceneName;
+    public string SaveMapId;
 
-    [HideInInspector] public string CurrentMapNodeGuid;
-    [HideInInspector] public string PreviousMapNodeGuid;
+    [HideInInspector] public string CurrentMapId;
+    [HideInInspector] public string PreviousMapId;
 
     /// <summary>
     /// 存储所有玩家已经触发过的对话信息

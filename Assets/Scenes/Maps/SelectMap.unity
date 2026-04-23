@@ -326,15 +326,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b106ebcec1c51c438e2f09ddb05b50f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MapGraph>k__BackingField: {fileID: 11400000, guid: 672c93c268356684cb91c039169d3809, type: 2}
+  <InitialMap>k__BackingField: {fileID: 11400000, guid: abb6d7802c9b2471b8bfd850b904ff96, type: 2}
+  <MapDefinitions>k__BackingField:
+  - {fileID: 11400000, guid: abb6d7802c9b2471b8bfd850b904ff96, type: 2}
+  - {fileID: 11400000, guid: 0c21af8c016384ff6a38230fda11e4a5, type: 2}
+  <ConnectionDatabase>k__BackingField: {fileID: 11400000, guid: eee70502dacb54d24ab110a374c61c70, type: 2}
   <GameConfig>k__BackingField: {fileID: 11400000, guid: 245bf98223402cc4c8964dfd2ac5b938, type: 2}
   <PlayerConfigSO>k__BackingField: {fileID: 11400000, guid: 6134f6c13d18a8a4899479ef73febd85, type: 2}
   PackageItemConfig: {fileID: 11400000, guid: 9074bd6963d66ce4898b3d849f5bf7e4, type: 2}
   <GameSaveData>k__BackingField:
     SavePointID: 
-    SaveMapSceneName: 2
-    CurrentMapNodeGuid: 
-    PreviousMapNodeGuid: 
+    SaveMapId: 
+    CurrentMapId: 
+    PreviousMapId: 
     TriggeredDialogueGuidList: []
     IsMetSpiderBoss: 0
     IsKilledSpiderBoss: 0

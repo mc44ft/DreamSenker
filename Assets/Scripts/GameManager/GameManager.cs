@@ -1,19 +1,19 @@
 ﻿using Cinemachine;
-using MapSystem.Graph;
-using MapSystem.Nodes;
-using PlayArk.GraphCore.Data;
+using PlayArk.DialogueSystem.Runtime;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
-using PlayArk.DialogueSystem.Runtime;
-using PlayArk.GraphCore;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
 [DisallowMultipleComponent]
 public class GameManager : SingletonMono<GameManager>
 {
     //------------------------ Config ---------------------------------
-    [field: SerializeField] public MapGraph MapGraph { get; private set; }
+    [field: SerializeField] public MapDefinitionSO InitialMap { get; private set; }
+    [field: SerializeField] public MapDefinitionSO[] MapDefinitions { get; private set; }
+    [field: SerializeField] public MapConnectionDatabaseSO ConnectionDatabase { get; private set; }
     [field: SerializeField] public GameConfigSO GameConfig { get; private set; }
     [field: SerializeField] public PlayerConfigSO PlayerConfigSO { get; private set; }
     [field: SerializeField] public PackageItemConfigSO PackageItemConfig;
@@ -22,38 +22,33 @@ public class GameManager : SingletonMono<GameManager>
     public PlayerController Player { get; private set; }
     //------------------------ Private Parameter ---------------------------------
     private CinemachineImpulseSource _impulseSource;//用于处理镜头震动的相机配置
+
     protected override void Awake()
     {
         base.Awake();
         _impulseSource = GetComponent<CinemachineImpulseSource>();
     }
+
     private void Start()
     {
-        //加载Begin UI面板
         UIManager.Instance.ShowPanel<BeginPanel>(E_UILayer.Botton);
     }
+
     #region Game Event
     private void OnEnable()
     {
-        //监听玩家离开地图事件
-        EventCenter.Instance.AddEventListener<MapExitTriggerEventArgs>(E_EventType.Map_ExitTrigger, OnMapExitTrigger);
-        //监听DialogueNodeExternalUI节点的显示面板事件
         EventCenter.Instance.AddEventListener<DialogueShowPanelEventArgs>(E_EventType.Dialogue_ShowPanel, OnDialogueNodeShowPanel);
-        //关心Boss死亡事件
         EventCenter.Instance.AddEventListener<GameBossDeadEventArgs>(E_EventType.Game_BossDead, OnGameBossDead);
         SceneManager.activeSceneChanged += OnActiveSceneChanged;
     }
+
     private void OnDisable()
     {
-        EventCenter.Instance.RemoveEventListener<MapExitTriggerEventArgs>(E_EventType.Map_ExitTrigger, OnMapExitTrigger);
         EventCenter.Instance.RemoveEventListener<DialogueShowPanelEventArgs>(E_EventType.Dialogue_ShowPanel, OnDialogueNodeShowPanel);
         EventCenter.Instance.RemoveEventListener<GameBossDeadEventArgs>(E_EventType.Game_BossDead, OnGameBossDead);
         SceneManager.activeSceneChanged -= OnActiveSceneChanged;
     }
-    private void OnMapExitTrigger(object eventSender, MapExitTriggerEventArgs args)
-    {
-        ChangeMap(args.ExitType);
-    }
+
     private void OnDialogueNodeShowPanel(object eventSender, DialogueShowPanelEventArgs args)
     {
         switch (args.UiPanelType)
@@ -80,6 +75,7 @@ public class GameManager : SingletonMono<GameManager>
                 break;
         }
     }
+
     private void OnGameBossDead(object eventSender, GameBossDeadEventArgs args)
     {
         switch (args.BossType)
@@ -89,7 +85,7 @@ public class GameManager : SingletonMono<GameManager>
                 TimerManager.Countdown(3, () =>
                 {
                     SceneTransition.Instance.ResetLoading(Resources.Load<Sprite>("LoadingMirrorMap1"), 1);
-                    TeleportMap(GetSceneNameFromEnum(E_MapSceneName.MirrorMap1));
+                    TeleportMap(GetMapIdFromEnum(E_MapSceneName.MirrorMap1));
                 });
                 break;
             case E_BossType.FoxTwo:
@@ -104,6 +100,7 @@ public class GameManager : SingletonMono<GameManager>
                 }
                 //清理出生点
                 SpawnPointManager.Instance.ClearSpawnPointDict();
+                MapLinkPointManager.Instance.Clear();
                 UIManager.Instance.HidePanel<GamePanel>();
 
                 IntroController.Instance.PlayVideo(GameResources.Instance.EndVideoClip, () =>
@@ -111,8 +108,6 @@ public class GameManager : SingletonMono<GameManager>
                     //回到主界面
                     SceneManager.LoadScene("SelectMap");
                     UIManager.Instance.ShowPanel<BeginPanel>(E_UILayer.Botton);
-
-
                 });
                 break;
             default:
@@ -142,6 +137,7 @@ public class GameManager : SingletonMono<GameManager>
         InitializeGame();
         return hasSaveData;
     }
+
     private void LoadSaveData(GameSaveData data)
     {
         if(data != null)
@@ -155,7 +151,38 @@ public class GameManager : SingletonMono<GameManager>
             //深拷贝 防止和配置数据产生引用
             GameSaveData = HelpUtilities.DeepCopy(GameConfig.SaveData);
         }
+
+        NormalizeGameSaveData();
     }
+    //将数据正常化：未初始化就执行初始化 否则什么都不干
+    private void NormalizeGameSaveData()
+    {
+        if (GameSaveData == null)
+        {
+            throw new InvalidOperationException("GameSaveData 未配置");
+        }
+
+        if (GameSaveData.TriggeredDialogueGuidList == null)
+        {
+            GameSaveData.TriggeredDialogueGuidList = new List<string>();
+        }
+
+        if (string.IsNullOrWhiteSpace(GameSaveData.SaveMapId))
+        {
+            if (InitialMap == null)
+            {
+                throw new InvalidOperationException("InitialMap 未配置");
+            }
+
+            GameSaveData.SaveMapId = InitialMap.MapId;
+        }
+
+        if (string.IsNullOrWhiteSpace(GameSaveData.CurrentMapId))
+        {
+            GameSaveData.CurrentMapId = GameSaveData.SaveMapId;
+        }
+    }
+
     public void SaveDataAll()
     {
         RunningDataManager.Instance.SaveData(GameSaveData);
@@ -170,16 +197,16 @@ public class GameManager : SingletonMono<GameManager>
         }
         //清理出生点
         SpawnPointManager.Instance.ClearSpawnPointDict();
+        MapLinkPointManager.Instance.Clear();
         UIManager.Instance.HidePanel<GamePanel>();
-        
-        //加载地图
-        //如果是读档 PreviousMapNode_guid是有值的 如果第一次进入游戏 PreviousMapNode_guid没有值
-        LoadMap(GetSceneNameFromEnum(GameSaveData.SaveMapSceneName), () =>
+
+        MapDefinitionSO saveMap = GetRequiredMapById(GameSaveData.SaveMapId);
+        GameSaveData.CurrentMapId = saveMap.MapId;
+
+        LoadMap(saveMap, () =>
         {
-            //场景加载完毕后
-            //实例化玩家
-            //场景加载完毕 此时出生点已经注册完毕
-            PlayerController player = InstantiatePlayer(PlayerConfigSO.PlayerConfig.PlayerPrefab,
+            PlayerController player = InstantiatePlayer(
+                PlayerConfigSO.PlayerConfig.PlayerPrefab,
                 SpawnPointManager.Instance.GetSpawnPositionFromID(GameSaveData.SavePointID));
             //防止玩家过场景移除
             DontDestroyOnLoad(player.gameObject);
@@ -189,14 +216,14 @@ public class GameManager : SingletonMono<GameManager>
             {
                 //玩家初始化完成后 填充背包管理器数据
                 InventoryManager.Instance.SetupData(Player.PlayerSaveData.PackageData, PackageItemConfig);
-                //初始化玩家的阴影数据
-                Player.SetShadowDarknessStrength(MapGraph.GetNodeByID(GameSaveData.CurrentMapNodeGuid).MapData.PlayerShadowDarknessStrength);
+                Player.SetShadowDarknessStrength(saveMap.PlayerShadowDarknessStrength);
 
                 //加载主面板
                 UIManager.Instance.ShowPanel<GamePanel>(E_UILayer.Botton, null, (panel) =>
                 {
-                    //刷新玩家血量
-                    EventCenter.Instance.EventTrigger(E_EventType.Player_HealthUpdate, this,
+                    EventCenter.Instance.EventTrigger(
+                        E_EventType.Player_HealthUpdate,
+                        this,
                         new PlayerHealthUpdateEventArgs(Player.Health.MaxHealthAmount, Player.Health.CurrentHealthAmount));
                 });
 
@@ -204,113 +231,64 @@ public class GameManager : SingletonMono<GameManager>
                 UpdateMapFromGameSaveData();
             });
         });
-        
     }
-    /// <summary>
-    /// 加载存档的Map
-    /// </summary>
-    private void LoadMap(string mapName, Action onFinished = null)
-    {
-        // MapNode node = MapGraph.GetNodes().Where(n => n.MapData.MapSceneName == mapName).FirstOrDefault();
-        // GameSaveData.CurrentMapNodeGuid = node.GetUniqueID();
 
-        LoadMapScene(mapName, onFinished);
+    private void LoadMap(MapDefinitionSO mapDefinition, Action onFinished = null)
+    {
+        LoadMapScene(mapDefinition.SceneName, onFinished);
     }
+
     private void LoadMapScene(string mapName, Action onFinished = null)
     {
         SceneTransition.Instance.LoadScene(mapName, null, onFinished);
     }
+
     private PlayerController InstantiatePlayer(GameObject playerPrefab, Vector3 position)
     {
         PlayerController player = Instantiate(playerPrefab, position, Quaternion.identity).GetComponent<PlayerController>();
-
         return player;
     }
+
     private void ChangePlayerPosition(Vector3 position)
     {
         Player.transform.position = position;
     }
+
     #region Change Scene
-    /// <summary>
-    /// 地图切换
-    /// </summary>
-    private void ChangeMap(E_ExitType exitType)
+    public void ChangeMap(string connectionId, string pointId)
     {
-        //清空SpawnPointDict
         SpawnPointManager.Instance.ClearSpawnPointDict();
+        MapLinkPointManager.Instance.Clear();
 
-        //即将加载的MapNode
-        string portID = MapGraph.GetNodeByID(GameSaveData.CurrentMapNodeGuid).GetMapGraphPortByEnum(exitType).GetUniqueID();
-        GraphCoreEdge edge = MapGraph.GetEdgeByPortID(portID);
-        MapNode mapNode = MapGraph.GetNodeByID(edge.ConnectionNodeID);
+        MapEndpointData targetEndpoint = GetOtherEndpointOrThrow(GameSaveData.CurrentMapId, connectionId, pointId);
+        MapDefinitionSO targetMap = GetRequiredMapById(targetEndpoint.MapId);
 
-        //更新地图信息
-        GameSaveData.PreviousMapNodeGuid = GameSaveData.CurrentMapNodeGuid;
-        GameSaveData.CurrentMapNodeGuid = mapNode.GetUniqueID();
+        GameSaveData.PreviousMapId = GameSaveData.CurrentMapId;
+        GameSaveData.CurrentMapId = targetMap.MapId;
 
-        //加载新地图
-        LoadMapScene(mapNode.MapData.MapSceneName, () =>
+        LoadMapScene(targetMap.SceneName, () =>
         {
-            //找到对应的出生点位
-            Vector3 position = Vector3.one;
-            switch (exitType)
-            {
-                case E_ExitType.East:
-                    position = SpawnPointManager.Instance.GetSpawnPositionFromSpawnType(E_SpawnType.WestPoint);
-                    break;
-                case E_ExitType.EastHidden:
-                    position = SpawnPointManager.Instance.GetSpawnPositionFromSpawnType(E_SpawnType.WestHiddenPoint);
-                    break;
-                case E_ExitType.West:
-                    position = SpawnPointManager.Instance.GetSpawnPositionFromSpawnType(E_SpawnType.EastPoint);
-                    break;
-                case E_ExitType.WestHidden:
-                    position = SpawnPointManager.Instance.GetSpawnPositionFromSpawnType(E_SpawnType.EastHiddenPoint);
-                    break;
-                case E_ExitType.South:
-                    position = SpawnPointManager.Instance.GetSpawnPositionFromSpawnType(E_SpawnType.NorthPoint);
-                    break;
-                case E_ExitType.SouthHidden:
-                    position = SpawnPointManager.Instance.GetSpawnPositionFromSpawnType(E_SpawnType.NorthHiddenPoint);
-                    break;
-                case E_ExitType.North:
-                    position = SpawnPointManager.Instance.GetSpawnPositionFromSpawnType(E_SpawnType.SouthPoint);
-                    break;
-                case E_ExitType.NorthHidden:
-                    position = SpawnPointManager.Instance.GetSpawnPositionFromSpawnType(E_SpawnType.SouthHiddenPoint);
-                    break;
-            }
-            //切换玩家位置
+            Vector3 position = MapLinkPointManager.Instance.GetPointPositionOrThrow(targetEndpoint.PointId);
             ChangePlayerPosition(position);
-
-            //更新阴影效果
-            Player.SetShadowDarknessStrength(mapNode.MapData.PlayerShadowDarknessStrength);
-
-            //根据当前游戏数据更新地图状态
+            Player.SetShadowDarknessStrength(targetMap.PlayerShadowDarknessStrength);
             UpdateMapFromGameSaveData();
         });
     }
-    /// <summary>
-    /// 地图传送
-    /// </summary>
-    public void TeleportMap(string mapSceneName, string teleportID = "")
+
+    public void TeleportMap(string mapId, string teleportID = "")
     {
-        //清空SpawnPointDict
         SpawnPointManager.Instance.ClearSpawnPointDict();
-
+        MapLinkPointManager.Instance.Clear();
         //即将加载的MapNode
-        MapNode mapNode = MapGraph.GetNodes().Where(node => node.MapData.MapSceneName == mapSceneName).FirstOrDefault();
-
+        MapDefinitionSO targetMap = GetRequiredMapById(mapId);
         //更新地图信息
-        GameSaveData.PreviousMapNodeGuid = GameSaveData.CurrentMapNodeGuid;
-        GameSaveData.CurrentMapNodeGuid = mapNode.GetUniqueID();
-
+        GameSaveData.PreviousMapId = GameSaveData.CurrentMapId;
+        GameSaveData.CurrentMapId = targetMap.MapId;
         //加载新地图
-        LoadMapScene(mapNode.MapData.MapSceneName, () =>
+        LoadMapScene(targetMap.SceneName, () =>
         {
-            //找到传送出生点位
             Vector3 position;
-            if (teleportID != "")
+            if (!string.IsNullOrWhiteSpace(teleportID))
             {
                 position = SpawnPointManager.Instance.GetSpawnPositionFromID(teleportID);
             }
@@ -318,30 +296,25 @@ public class GameManager : SingletonMono<GameManager>
             {
                 position = SpawnPointManager.Instance.GetSpawnPositionFromSpawnType(E_SpawnType.TeleportPoint);
             }
-            //切换玩家位置
+
             ChangePlayerPosition(position);
-
-            //更新阴影效果
-            Player.SetShadowDarknessStrength(mapNode.MapData.PlayerShadowDarknessStrength);
-
-            //根据当前游戏数据更新地图状态
+            Player.SetShadowDarknessStrength(targetMap.PlayerShadowDarknessStrength);
             UpdateMapFromGameSaveData();
         });
     }
+
     private void UpdateMapFromGameSaveData()
     {
-
-        string mapSceneName = MapGraph.GetNodeByID(GameSaveData.CurrentMapNodeGuid).MapData.MapSceneName;
-        //山洞地图处理
-        if (mapSceneName == GetSceneNameFromEnum(E_MapSceneName.CaveMap))
+        if (IsMapScene(GameSaveData.CurrentMapId, E_MapSceneName.CaveMap))
         {
             if (CheckGameCondition(E_GameCondition.SpiderLose))
             {
-                //让蜘蛛恢复死亡状态
-                EventCenter.Instance.EventTrigger(E_EventType.Game_BossKeepDead, this, new GameBossKeepDeadEventArgs(E_BossType.Spider));
+                EventCenter.Instance.EventTrigger(
+                    E_EventType.Game_BossKeepDead,
+                    this,
+                    new GameBossKeepDeadEventArgs(E_BossType.Spider));
 
-                //从梦境地图回来时触发
-                if (MapGraph.GetNodeByID(GameSaveData.PreviousMapNodeGuid).MapData.MapSceneName == "MirrorMap2")
+                if (IsMapScene(GameSaveData.PreviousMapId, E_MapSceneName.MirrorMap2))
                 {
                     TimerManager.Countdown(4, () =>
                     {
@@ -350,42 +323,33 @@ public class GameManager : SingletonMono<GameManager>
 
                     UIManager.Instance.ShowPanel<GamePanel>(E_UILayer.Botton);
                     GameSaveData.IsClearMirrorMap = true;
-                    //玩家切换回一形态
                     Player.SwitchForm();
-                    //玩家解锁切换形态的能力
                     Player.PlayerSaveData.IsUnlockSwitchStateSkill = true;
-
-                    //回满血
                     Player.Health.RestoreHealth(Player.Health.MaxHealthAmount);
-                    EventCenter.Instance.EventTrigger(E_EventType.Player_HealthUpdate, this,
+                    EventCenter.Instance.EventTrigger(
+                        E_EventType.Player_HealthUpdate,
+                        this,
                         new PlayerHealthUpdateEventArgs(Player.Health.MaxHealthAmount, Player.Health.CurrentHealthAmount));
                 }
             }
         }
-        //梦境地图1处理
-        if (mapSceneName == GetSceneNameFromEnum(E_MapSceneName.MirrorMap1))
+
+        if (IsMapScene(GameSaveData.CurrentMapId, E_MapSceneName.MirrorMap1))
         {
             AudioManager.Instance.PlayMusic(GameResources.Instance.MirrorMapClip);
             UIManager.Instance.HidePanel<GamePanel>();
             Player.SetMirrorActive(true);
         }
-        //梦境地图2处理
-        if (mapSceneName == GetSceneNameFromEnum(E_MapSceneName.MirrorMap2))
+
+        if (IsMapScene(GameSaveData.CurrentMapId, E_MapSceneName.MirrorMap2))
         {
             Player.SetMirrorActive(false);
             Player.SwitchForm();
-            
         }
     }
-
-
-
     #endregion
+
     #region Game Function
-    /// <summary>
-    /// ScaleTime暂停指定时间
-    /// 处理玩家受击顿帧
-    /// </summary>
     public void DoHitStop(float duration)
     {
         StartCoroutine(HitStopRoutine());
@@ -431,6 +395,7 @@ public class GameManager : SingletonMono<GameManager>
                 return false;
         }
     }
+
     public string GetSceneNameFromEnum(E_MapSceneName sceneName)
     {
         switch (sceneName)
@@ -451,7 +416,78 @@ public class GameManager : SingletonMono<GameManager>
                 return "CampMap";
         }
     }
-    #endregion
 
-    
+    public string GetMapIdFromEnum(E_MapSceneName sceneName)
+    {
+        return GetRequiredMapBySceneName(GetSceneNameFromEnum(sceneName)).MapId;
+    }
+
+    private bool IsMapScene(string mapId, E_MapSceneName sceneName)
+    {
+        if (string.IsNullOrWhiteSpace(mapId))
+        {
+            return false;
+        }
+
+        return GetRequiredMapById(mapId).SceneName == GetSceneNameFromEnum(sceneName);
+    }
+
+    private MapDefinitionSO GetRequiredMapById(string mapId)
+    {
+        MapDefinitionSO map = FindMapById(mapId);
+        if (map == null)
+        {
+            throw new InvalidOperationException($"未找到 MapDefinitionSO: {mapId}");
+        }
+
+        return map;
+    }
+
+    private MapDefinitionSO GetRequiredMapBySceneName(string sceneName)
+    {
+        MapDefinitionSO map = FindMapBySceneName(sceneName);
+        if (map == null)
+        {
+            throw new InvalidOperationException($"未找到场景对应的 MapDefinitionSO: {sceneName}");
+        }
+
+        return map;
+    }
+
+    private MapDefinitionSO FindMapById(string mapId)
+    {
+        if (InitialMap != null && InitialMap.MapId == mapId)
+        {
+            return InitialMap;
+        }
+
+        return MapDefinitions?.FirstOrDefault(map => map != null && map.MapId == mapId);
+    }
+
+    private MapDefinitionSO FindMapBySceneName(string sceneName)
+    {
+        if (InitialMap != null && InitialMap.SceneName == sceneName)
+        {
+            return InitialMap;
+        }
+
+        return MapDefinitions?.FirstOrDefault(map => map != null && map.SceneName == sceneName);
+    }
+
+    private MapEndpointData GetOtherEndpointOrThrow(string currentMapId, string connectionId, string pointId)
+    {
+        if (ConnectionDatabase == null)
+        {
+            throw new InvalidOperationException("ConnectionDatabase 未配置");
+        }
+
+        if (!ConnectionDatabase.TryGetOtherEndpoint(currentMapId, connectionId, pointId, out MapEndpointData targetEndpoint))
+        {
+            throw new InvalidOperationException(
+                $"未找到连接对端，CurrentMapId={currentMapId}, ConnectionId={connectionId}, PointId={pointId}");
+        }
+
+        return targetEndpoint;
+    }
+    #endregion
 }

@@ -9,7 +9,7 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class MapTeleport : MonoBehaviour
 {
-    [SerializeField] private E_MapSceneName _mapSceneName;
+    [SerializeField] private MapDefinitionSO _targetMap;
     [Tooltip("可指定目标传送点位的ID")]
     [SerializeField] private string _teleportPointID;
     [Tooltip("Loading图")]
@@ -20,8 +20,14 @@ public class MapTeleport : MonoBehaviour
     {
         if (collision.gameObject.CompareTag(Settings.PlayerTag))
         {
+            if (_targetMap == null)
+            {
+                Debug.LogError($"{name} 的目标地图未配置");
+                return;
+            }
+
             SceneTransition.Instance.ResetLoading(_loadingSprite, _loadingTime);
-            GameManager.Instance.TeleportMap(GameManager.Instance.GetSceneNameFromEnum(_mapSceneName), _teleportPointID);
+            GameManager.Instance.TeleportMap(_targetMap.MapId, _teleportPointID);
         }
     }
 }
