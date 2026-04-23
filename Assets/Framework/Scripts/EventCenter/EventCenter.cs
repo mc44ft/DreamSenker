@@ -18,7 +18,7 @@ public class EventInfo<T> : EventInfoBase where T : struct, IEventArgs
 }
 public class EventCenter : BaseManager<EventCenter>
 {
-    private Dictionary<E_EventType, EventInfoBase> _eventDic = new Dictionary<E_EventType, EventInfoBase>();//事件字典
+    private readonly Dictionary<E_EventType, EventInfoBase> _eventDic = new Dictionary<E_EventType, EventInfoBase>();//事件字典
 
     private EventCenter()
     { }
@@ -30,9 +30,10 @@ public class EventCenter : BaseManager<EventCenter>
     /// <param name="func"></param>
     public void AddEventListener<T>(E_EventType eventName, UnityAction<object, T> func) where T : struct, IEventArgs
     {
-        if (_eventDic.ContainsKey(eventName))
+        if (_eventDic.TryGetValue(eventName, out EventInfoBase eventInfoBase) && 
+            eventInfoBase is EventInfo<T> eventInfo)
         {
-            (_eventDic[eventName] as EventInfo<T>).Action += func; //+= 事件订阅
+            eventInfo.Action += func;
         }
         else
         {
@@ -48,9 +49,10 @@ public class EventCenter : BaseManager<EventCenter>
     /// <param name="action"></param>
     public void RemoveEventListener<T>(E_EventType eventName, UnityAction<object, T> action) where T : struct, IEventArgs
     {
-        if (_eventDic.ContainsKey(eventName))
+        if (_eventDic.TryGetValue(eventName, out EventInfoBase eventInfoBase) &&
+            eventInfoBase is EventInfo<T> eventInfo)
         {
-            (_eventDic[eventName] as EventInfo<T>).Action -= action; //-= 事件取消订阅
+            eventInfo.Action -= action;
         }
     }
     /// <summary>
@@ -62,9 +64,10 @@ public class EventCenter : BaseManager<EventCenter>
     /// <param name="info"></param>
     public void EventTrigger<T>(E_EventType eventName, object eventSender, T info) where T : struct, IEventArgs
     {
-        if (_eventDic.ContainsKey(eventName))//存在关注者才执行逻辑
+        if(_eventDic.TryGetValue(eventName, out EventInfoBase eventInfoBase) &&
+           eventInfoBase is EventInfo<T> eventInfo)
         {
-            (_eventDic[eventName] as EventInfo<T>).Action?.Invoke(eventSender, info); //调用事件
+            eventInfo.Action?.Invoke(eventSender, info);
         }
     }
     /// <summary>
@@ -80,9 +83,6 @@ public class EventCenter : BaseManager<EventCenter>
     /// <param name="eventName"></param>
     public void ClearListener(E_EventType eventName)
     {
-        if (_eventDic.ContainsKey(eventName))
-        {
-            _eventDic.Remove(eventName);
-        }
+        _eventDic.Remove(eventName);
     }
 }

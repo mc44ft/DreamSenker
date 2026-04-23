@@ -100,8 +100,8 @@ public class Minion : MonoBehaviour, IDamageable, ITouchDamageable
         }
 
         _launchIntervalTimer -= Time.deltaTime;
-
-        LaunchSlimeAmmo(GameManager.Instance.Player.transform);
+        if(GameManager.Instance.Player != null)
+            LaunchSlimeAmmo(GameManager.Instance.Player.transform);
     }
     private void FixedUpdate()
     {
@@ -175,6 +175,7 @@ public class Minion : MonoBehaviour, IDamageable, ITouchDamageable
     //}
     public void LaunchSlimeAmmo(Transform player)
     {
+        if (player == null) return;
         if(_launchIntervalTimer <= 0f && _cannotMove)
         {
             //确定玩家位置

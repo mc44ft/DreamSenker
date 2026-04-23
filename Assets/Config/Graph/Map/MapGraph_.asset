@@ -29,7 +29,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _title: CamaMap
   _uniqueID: 08bf9872-a1da-4fac-a006-a53db936723d
-  _viewPosition: {x: 349.99994, y: 119.99997}
+  _viewPosition: {x: 47.499985, y: -7.750046}
   _inputPorts:
   - rid: 2122959203608559668
   _outputPorts:

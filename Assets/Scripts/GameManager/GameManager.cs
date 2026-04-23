@@ -163,7 +163,6 @@ public class GameManager : SingletonMono<GameManager>
     }
     private void InitializeGame()
     {
-
         if (Player != null)
         {
             Destroy(Player.gameObject);
@@ -172,8 +171,7 @@ public class GameManager : SingletonMono<GameManager>
         //清理出生点
         SpawnPointManager.Instance.ClearSpawnPointDict();
         UIManager.Instance.HidePanel<GamePanel>();
-
-
+        
         //加载地图
         //如果是读档 PreviousMapNode_guid是有值的 如果第一次进入游戏 PreviousMapNode_guid没有值
         LoadMap(GetSceneNameFromEnum(GameSaveData.SaveMapSceneName), () =>
@@ -213,8 +211,8 @@ public class GameManager : SingletonMono<GameManager>
     /// </summary>
     private void LoadMap(string mapName, Action onFinished = null)
     {
-        MapNode node = MapGraph.GetNodes().Where(n => n.MapData.MapSceneName == mapName).FirstOrDefault();
-        GameSaveData.CurrentMapNodeGuid = node.GetUniqueID();
+        // MapNode node = MapGraph.GetNodes().Where(n => n.MapData.MapSceneName == mapName).FirstOrDefault();
+        // GameSaveData.CurrentMapNodeGuid = node.GetUniqueID();
 
         LoadMapScene(mapName, onFinished);
     }

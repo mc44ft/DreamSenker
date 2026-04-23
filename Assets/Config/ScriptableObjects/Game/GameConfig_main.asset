@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <SaveData>k__BackingField:
     SavePointID: Save_0
-    SaveMapSceneName: 0
+    SaveMapSceneName: 2
     CurrentMapNodeGuid: 
     PreviousMapNodeGuid: 
     TriggeredDialogueGuidList: []

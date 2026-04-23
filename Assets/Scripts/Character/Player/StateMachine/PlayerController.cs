@@ -19,7 +19,6 @@ public class PlayerController : StateMachineController, IAction
     //--------------------------------- Data ------------------------------------------
     [SerializeField] private PlayerConfigSO _playerConfig;
     private PlayerSaveData _playerSaveData;
-    
     //--------------------------------- Component ------------------------------------------
     //--------------------------------- Public Parameter ------------------------------------------
     public PlayerSaveData PlayerSaveData => _playerSaveData;
