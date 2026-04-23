@@ -1,15 +1,5 @@
-﻿using MapSystem.Nodes;
-using PlayArk.DialogueSystem.Runtime;
+﻿using PlayArk.DialogueSystem.Runtime;
 using UnityEngine;
-
-public struct MapExitTriggerEventArgs : IEventArgs
-{
-    public E_ExitType ExitType;
-    public MapExitTriggerEventArgs(E_ExitType exitType)
-    {
-        ExitType = exitType;
-    }
-}
 public struct DialogueShowPanelEventArgs : IEventArgs
 {
     public E_DialogueExternalUiPanelType UiPanelType;

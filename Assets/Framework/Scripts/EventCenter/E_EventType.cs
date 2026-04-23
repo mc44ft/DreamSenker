@@ -59,12 +59,6 @@ public enum E_EventType
 
 
     #region CUSTOM EVENT
-    #region MAP EVENT
-    /// <summary>
-    /// 关卡出口触发事件 --- 参数 int（选项的索引）
-    /// </summary>
-    Map_ExitTrigger,
-    #endregion
     #region GAME EVENT
     /// <summary>
     /// Boss死亡事件 --- 参数 GameBossDeadEventArgs（Boss类型）

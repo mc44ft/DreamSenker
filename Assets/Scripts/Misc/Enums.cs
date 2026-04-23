@@ -35,20 +35,6 @@ public enum E_SpawnType
     /// </summary>
     TeleportPoint,
 }
-/// <summary>
-/// 出口类型
-/// </summary>
-public enum E_ExitType
-{
-    East,
-    EastHidden,
-    West,
-    WestHidden,
-    South,
-    SouthHidden,
-    North,
-    NorthHidden,
-}
 public enum E_GameCondition
 {
     /// <summary>
@@ -110,14 +96,4 @@ public enum E_BonusEffectType
     /// 回蓝
     /// </summary>
     RestoreMana,
-}
-
-/// <summary>
-/// 测试枚举 - 用于演示 Claude Code 功能
-/// </summary>
-public enum E_TestEnum
-{
-    TestValue1,
-    TestValue2,
-    TestValue3,
 }
