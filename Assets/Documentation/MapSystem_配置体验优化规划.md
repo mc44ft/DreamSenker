@@ -38,9 +38,10 @@
 
 调整：
 
-1. `MapId` 自动生成
+1. `MapId` 仅在字段为空时自动生成
 2. Inspector 只读显示
-3. 不让用户手写字符串 ID
+3. 生成后不自动变化
+4. 不让用户手写字符串 ID
 
 ### 2.2 `MapLinkPoint`
 
@@ -53,10 +54,11 @@
 
 规则：
 
-1. `PointGuid` 自动生成，运行时使用
+1. `PointGuid` 仅在字段为空时自动生成，运行时使用
 2. `DisplayName` 给人看，用于 Inspector 下拉显示
 3. `DisplayName` 可以不填，但 Inspector 下拉不能显示空白
-4. 不再配置 `ConnectionId`
+4. `PointGuid` 生成后不自动变化
+5. 不再配置 `ConnectionId`
 
 下拉显示规则：
 
@@ -72,6 +74,14 @@
 建议结构：
 
 ```csharp
+[CreateAssetMenu(fileName = "MapConnectionDatabase_", menuName = "Game/Map/Map Connection Database")]
+public class MapConnectionDatabaseSO : ScriptableObject
+{
+    public MapRegistrySO MapRegistry;
+    public List<MapConnectionData> Connections;
+    public List<MapPointScanCache> PointScanCaches;
+}
+
 [Serializable]
 public class MapConnectionData
 {
@@ -86,6 +96,20 @@ public class MapEndpointData
     public string MapId;
     public string PointGuid;
 }
+
+[Serializable]
+public class MapPointScanCache
+{
+    public string MapId;
+    public List<MapPointScanData> Points;
+}
+
+[Serializable]
+public class MapPointScanData
+{
+    public string PointGuid;
+    public string DisplayName;
+}
 ```
 
 关键决策：
@@ -93,6 +117,10 @@ public class MapEndpointData
 1. 删除 `ConnectionId`
 2. 普通连接身份由 `EndA + EndB` 决定
 3. `ConnectionDisplayName` 只给人看，不参与运行时查找
+4. `MapConnectionDatabaseSO` 持有唯一的 `MapRegistrySO`
+5. `GameManager` 持有 `MapConnectionDatabaseSO`，不单独配置 `MapRegistrySO`
+6. 运行时和连接表 Inspector 都通过这份 `MapRegistrySO` 获取地图清单
+7. `PointScanCaches` 是编辑器生成缓存，用于 Inspector 下拉，不作为运行时连接身份
 
 ### 2.4 `MapRegistrySO`
 
@@ -110,6 +138,7 @@ public List<MapDefinitionSO> AllMaps;
 2. Editor 扫描工具通过它知道哪些场景是地图场景
 3. 不再依赖 `Build Settings`
 4. 不再依赖主场景里的 `GameManager.MapDefinitions`
+5. 只在 `MapConnectionDatabaseSO` 中配置一次
 
 ---
 
@@ -129,6 +158,8 @@ public List<MapDefinitionSO> AllMaps;
 2. 匹配到多条连接：直接报错
 3. 不默认返回第一条
 4. 不做 fallback
+5. 运行时加载连接表时，对致命错误再做一次防御性检查
+6. 防御性检查失败：直接报错，不继续切图
 
 原因：
 
@@ -144,23 +175,26 @@ public List<MapDefinitionSO> AllMaps;
 
 配置流程：
 
-1. 在连接端点里选择 `MapDefinitionSO`
-2. 当 `MapDefinitionSO` 首次填充或被更换时，Editor 读取 `MapDefinitionSO.SceneName`
-3. 在这个时机自动扫描对应场景里的 `MapLinkPoint`
-4. 将 `DisplayName/未命名点 + PointGuid前8位` 刷新成下拉选项
-5. Inspector 额外提供一个 `扫描点位` 按钮，供用户手动重扫
-6. 用户从下拉里选择点位
-7. 连接表保存稳定的 `MapId + PointGuid`
+1. 在连接表顶部配置一次 `MapRegistrySO`
+2. Inspector 顶部提供一个 `扫描全部点位` 按钮
+3. 用户点击 `扫描全部点位` 后，Editor 遍历 `MapRegistrySO.AllMaps`
+4. 对每个 `MapDefinitionSO`，Editor 读取 `SceneName`
+5. Editor 以 additive 方式临时加载目标场景，扫描 `MapLinkPoint`
+6. 扫描完成后立即卸载目标场景，并恢复 `active scene / selection`
+7. 所有扫描结果写入 `MapConnectionDatabaseSO.PointScanCaches`
+8. `EndA / EndB` 的地图选择是下拉框，选项来自 `MapRegistrySO.AllMaps`
+9. `EndA / EndB` 的点位选择是下拉框，选项来自当前地图对应的 `PointScanCaches`
+10. 连接表保存稳定的 `MapId + PointGuid`
 
 Inspector 预期效果：
 
 ```text
 EndA:
-  Map: MapDefinition_Camp
+  Map: [Camp]
   Point: [Camp_To_Cave_Exit (7f3a2c91)]
 
 EndB:
-  Map: MapDefinition_Cave
+  Map: [Cave]
   Point: [未命名点 (a91b44e0)]
 ```
 
@@ -176,29 +210,38 @@ EndB:
 
 扫描规则：
 
-1. `MapDefinitionSO` 为空时，不扫描，点位下拉禁用
-2. `MapDefinitionSO` 新填入时，自动扫描一次
-3. `MapDefinitionSO` 被替换时，自动扫描一次并刷新点位列表
-4. 用户点击 `扫描点位` 按钮时，可手动重新扫描
-5. 如果场景里点位后来有增删改，不依赖静默同步，用户自己点按钮刷新
+1. `MapRegistrySO` 为空时，地图下拉、点位下拉和 `扫描全部点位` 按钮禁用
+2. 扫描按钮只有一个，放在连接表 Inspector 顶部
+3. 扫描方式为 additive 临时加载，不替换当前场景
+4. 扫描完成后立即卸载目标场景，并恢复 `active scene / selection`
+5. 扫描工具只读场景，不修改场景
+6. 扫描工具不自动生成 `PointGuid`
+7. 扫描工具不自动保存场景
+8. 空 `PointGuid` 的 `MapLinkPoint` 不进入点位下拉，只显示黄色警告
+9. 如果重新扫描后，原来选中的点已不存在，保留原值并标红报错，不自动清空
+10. 如果场景里点位后来有增删改，不依赖静默同步，用户自己点击 `扫描全部点位` 刷新缓存
+11. `PointScanCaches` 是生成缓存，重新扫描时可以整体刷新
 
 ---
 
 ## 五、实施步骤
 
 1. 新增 `MapRegistrySO`
-2. 将运行时地图查找的唯一数据源收口到 `MapRegistrySO.AllMaps`
-3. 修改 `MapDefinitionSO`，让 `MapId` 自动生成并只读显示
-4. 修改 `MapLinkPoint`，将 `PointId` 改为自动生成的 `PointGuid`
-5. 删除 `MapLinkPoint.ConnectionId`
-6. 修改 `MapConnectionData`，删除 `ConnectionId`
-7. 修改普通切图逻辑，改为 `CurrentMapId + PointGuid` 反查连接
-8. 给 `MapConnectionDatabaseSO` 写自定义 Inspector
-9. 在 Inspector 中实现地图选择和点位下拉选择
-10. 加连接表校验按钮
-11. 加地图扫描按钮，基于 `MapRegistrySO.AllMaps` 扫描所有 `MapLinkPoint`
-12. 用户在 Unity 中重新配置测试数据
-13. 手动测试新游戏、普通切图、传送、存档读档
+2. 修改 `MapConnectionDatabaseSO`，让它持有一个 `MapRegistrySO`
+3. 修改 `GameManager`，让它持有 `MapConnectionDatabaseSO`
+4. 将运行时地图查找的唯一数据源收口到 `MapConnectionDatabaseSO.MapRegistry.AllMaps`
+5. 给 `MapConnectionDatabaseSO` 新增 `PointScanCaches`
+6. 修改 `MapDefinitionSO`，让 `MapId` 自动生成并只读显示
+7. 修改 `MapLinkPoint`，将 `PointId` 改为自动生成的 `PointGuid`
+8. 删除 `MapLinkPoint.ConnectionId`
+9. 修改 `MapConnectionData`，删除 `ConnectionId`
+10. 修改普通切图逻辑，改为 `CurrentMapId + PointGuid` 反查连接
+11. 给 `MapConnectionDatabaseSO` 写自定义 Inspector
+12. 在 Inspector 中实现 Registry 选择、地图下拉选择和点位下拉选择
+13. 加连接表校验按钮
+14. 加 `扫描全部点位` 按钮，用于扫描 `MapRegistrySO.AllMaps` 中所有地图的 `MapLinkPoint`
+15. 用户在 Unity 中重新配置测试数据
+16. 手动测试新游戏、普通切图、传送、存档读档
 
 ---
 
@@ -207,7 +250,7 @@ EndB:
 连接表必须检查：
 
 1. `MapRegistrySO` 是否为空
-2. `MapDefinitionSO` 是否缺失
+2. 端点保存的 `MapId` 是否能在 `MapRegistrySO.AllMaps` 中找到对应 `MapDefinitionSO`
 3. `MapId` 是否重复
 4. `PointGuid` 是否为空
 5. 同一地图内 `PointGuid` 是否重复
@@ -215,13 +258,17 @@ EndB:
 7. 一个端点是否出现在多条普通连接里
 8. 连接是否缺少 `EndA` 或 `EndB`
 9. `DisplayName` 是否为空
+10. 连接端点引用的点位是否存在于 `PointScanCaches`
+11. 扫描结果里是否存在空 `PointGuid` 的 `MapLinkPoint`
 
 校验结果：
 
-1. 致命错误：阻止保存或红色显示
-2. 普通警告：黄色显示
-3. 正常连接：绿色或默认显示
-4. `DisplayName` 为空只给警告，不影响运行
+1. 用户手动点击 `校验` 按钮后，系统执行一次连接表合法性检查
+2. 校验不通过：显示红色错误信息，提示用户修正
+3. 普通警告：显示黄色提示，不影响运行
+4. 校验通过：显示绿色或默认状态
+5. `DisplayName` 为空只给警告，不影响运行
+6. 扫描发现空 `PointGuid` 只给警告，不加入点位下拉
 
 ---
 
@@ -284,5 +331,9 @@ ConditionalMapConnection
 7. 普通切图能通过 `CurrentMapId + PointGuid` 找到唯一连接
 8. 多连接匹配直接报错
 9. 缺失连接直接报错
-10. 扫描工具从 `MapRegistrySO.AllMaps` 获取地图清单
-11. 点位没有 `DisplayName` 时，下拉显示 `未命名点 (PointGuid前8位)`，不能空白
+10. 连接表 Inspector 从 `MapRegistrySO.AllMaps` 获取地图清单
+11. 连接表顶部只需要配置一次 `MapRegistrySO`
+12. `EndA / EndB` 的地图选择来自 `MapRegistrySO.AllMaps` 下拉框
+13. 连接表顶部只需要点击一次 `扫描全部点位`
+14. `EndA / EndB` 的点位选择来自 `PointScanCaches` 下拉框
+15. 点位没有 `DisplayName` 时，下拉显示 `未命名点 (PointGuid前8位)`，不能空白
