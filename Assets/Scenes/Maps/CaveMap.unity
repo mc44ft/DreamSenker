@@ -3184,8 +3184,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f17e478cb4924669b919d8baf10c717e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ConnectionId>k__BackingField: Cave_Camp_Connection_2
-  <PointId>k__BackingField: Cave_East_Point_2
+  <PointGuid>k__BackingField: 8120acdf3ef847339c9e7bb5836128b6
+  <DisplayName>k__BackingField: "\u4E1C\u8FB9\u4E0B\u65B9\u51FA\u53E3"
 --- !u!1 &1346772255
 GameObject:
   m_ObjectHideFlags: 0
@@ -3682,8 +3682,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f17e478cb4924669b919d8baf10c717e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ConnectionId>k__BackingField: Cave_Camp_Connection_1
-  <PointId>k__BackingField: Cave_East_Point_1
+  <PointGuid>k__BackingField: a3763a47047242e78a3c01a533309ba6
+  <DisplayName>k__BackingField: "\u4E1C\u8FB9\u4E0A\u65B9\u51FA\u53E3"
 --- !u!1 &1490686514
 GameObject:
   m_ObjectHideFlags: 0
@@ -3996,7 +3996,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1535671714}
-  - component: {fileID: 1535671715}
   - component: {fileID: 1535671716}
   m_Layer: 0
   m_Name: EastHiddenBrithPoint
@@ -4020,20 +4019,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1100005109}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1535671715
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1535671713}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d48ba41bbdb77d844b71b70f32824a05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SpawnType: 2
-  ID: ChangeMap_1
 --- !u!114 &1535671716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4046,8 +4031,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f17e478cb4924669b919d8baf10c717e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ConnectionId>k__BackingField: Cave_Camp_Connection_3
-  <PointId>k__BackingField: Cave_East_Point_3
+  <PointGuid>k__BackingField: 8b6a7eb73bbb4b33b7b677d1f57b9aec
+  <DisplayName>k__BackingField: "\u4E1C\u8FB9\u5165\u53E3"
 --- !u!1 &1544205032
 GameObject:
   m_ObjectHideFlags: 0

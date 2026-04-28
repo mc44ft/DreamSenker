@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f09079f2d3b43f1b2a7f43788794ffc, type: 3}
   m_Name: MapDefinition_Camp
   m_EditorClassIdentifier: 
-  <MapId>k__BackingField: Map_Camp
+  <MapId>k__BackingField: 96e9d878cb7346e6829626cce1585e0e
   <SceneName>k__BackingField: CampMap
   <PlayerShadowDarknessStrength>k__BackingField: 2.5

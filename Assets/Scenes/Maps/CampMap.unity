@@ -506,8 +506,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f17e478cb4924669b919d8baf10c717e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ConnectionId>k__BackingField: Cave_Camp_Connection_2
-  <PointId>k__BackingField: Camp_East_Point_1
+  <PointGuid>k__BackingField: 682a2ee7ab864bea80a0153ba84f43e6
+  <DisplayName>k__BackingField: "\u4E1C\u8FB9\u5165\u53E3"
 --- !u!1 &491074279
 GameObject:
   m_ObjectHideFlags: 0
@@ -552,8 +552,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f17e478cb4924669b919d8baf10c717e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ConnectionId>k__BackingField: Cave_Camp_Connection_1
-  <PointId>k__BackingField: Camp_West_Point_1
+  <PointGuid>k__BackingField: 79bac52b48324a4a9bcb8879e6617856
+  <DisplayName>k__BackingField: "\u897F\u8FB9\u5165\u53E3"
 --- !u!1 &522273957
 GameObject:
   m_ObjectHideFlags: 0
@@ -3562,8 +3562,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f17e478cb4924669b919d8baf10c717e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ConnectionId>k__BackingField: Cave_Camp_Connection_3
-  <PointId>k__BackingField: Cave_East_Point_3
+  <PointGuid>k__BackingField: eb39820e3b7c4d829de155cd6bd1b281
+  <DisplayName>k__BackingField: "Camp\u5730\u56FE\u51FA\u53E3"
 --- !u!212 &1468507537
 SpriteRenderer:
   m_ObjectHideFlags: 0

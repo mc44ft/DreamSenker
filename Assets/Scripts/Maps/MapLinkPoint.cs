@@ -3,8 +3,24 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class MapLinkPoint : MonoBehaviour
 {
-    [field: SerializeField] public string ConnectionId { get; private set; }
-    [field: SerializeField] public string PointId { get; private set; }
+    public static bool SuppressAutoGeneratePointGuid { get; set; }
+
+    [field: SerializeField] public string PointGuid { get; private set; }
+    [field: SerializeField] public string DisplayName { get; private set; }
+
+    private void OnValidate()
+    {
+        if (SuppressAutoGeneratePointGuid)
+        {
+            return;
+        }
+
+        //运行时只认稳定 GUID，显示名只给编辑器下拉看
+        if (string.IsNullOrWhiteSpace(PointGuid))
+        {
+            PointGuid = System.Guid.NewGuid().ToString("N");
+        }
+    }
 
     private void OnEnable()
     {

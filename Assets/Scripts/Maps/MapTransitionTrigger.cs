@@ -27,6 +27,6 @@ public class MapTransitionTrigger : MonoBehaviour
         }
 
         SceneTransition.Instance.ResetLoading(_loadingSprite, _loadingTime);
-        GameManager.Instance.ChangeMap(_mapLinkPoint.ConnectionId, _mapLinkPoint.PointId);
+        GameManager.Instance.ChangeMap(_mapLinkPoint.PointGuid);
     }
 }

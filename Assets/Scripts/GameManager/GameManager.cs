@@ -12,7 +12,6 @@ public class GameManager : SingletonMono<GameManager>
 {
     //------------------------ Config ---------------------------------
     [field: SerializeField] public MapDefinitionSO InitialMap { get; private set; }
-    [field: SerializeField] public MapDefinitionSO[] MapDefinitions { get; private set; }
     [field: SerializeField] public MapConnectionDatabaseSO ConnectionDatabase { get; private set; }
     [field: SerializeField] public GameConfigSO GameConfig { get; private set; }
     [field: SerializeField] public PlayerConfigSO PlayerConfigSO { get; private set; }
@@ -255,12 +254,12 @@ public class GameManager : SingletonMono<GameManager>
     }
 
     #region Change Scene
-    public void ChangeMap(string connectionId, string pointId)
+    public void ChangeMap(string pointGuid)
     {
         SpawnPointManager.Instance.ClearSpawnPointDict();
         MapLinkPointManager.Instance.Clear();
 
-        MapEndpointData targetEndpoint = GetOtherEndpointOrThrow(GameSaveData.CurrentMapId, connectionId, pointId);
+        MapEndpointData targetEndpoint = GetOtherEndpointOrThrow(GameSaveData.CurrentMapId, pointGuid);
         MapDefinitionSO targetMap = GetRequiredMapById(targetEndpoint.MapId);
 
         GameSaveData.PreviousMapId = GameSaveData.CurrentMapId;
@@ -268,7 +267,7 @@ public class GameManager : SingletonMono<GameManager>
 
         LoadMapScene(targetMap.SceneName, () =>
         {
-            Vector3 position = MapLinkPointManager.Instance.GetPointPositionOrThrow(targetEndpoint.PointId);
+            Vector3 position = MapLinkPointManager.Instance.GetPointPositionOrThrow(targetEndpoint.PointGuid);
             ChangePlayerPosition(position);
             Player.SetShadowDarknessStrength(targetMap.PlayerShadowDarknessStrength);
             UpdateMapFromGameSaveData();
@@ -456,35 +455,41 @@ public class GameManager : SingletonMono<GameManager>
 
     private MapDefinitionSO FindMapById(string mapId)
     {
-        if (InitialMap != null && InitialMap.MapId == mapId)
-        {
-            return InitialMap;
-        }
-
-        return MapDefinitions?.FirstOrDefault(map => map != null && map.MapId == mapId);
+        return GetMapRegistryOrThrow().AllMaps?.FirstOrDefault(map => map != null && map.MapId == mapId);
     }
 
     private MapDefinitionSO FindMapBySceneName(string sceneName)
     {
-        if (InitialMap != null && InitialMap.SceneName == sceneName)
-        {
-            return InitialMap;
-        }
-
-        return MapDefinitions?.FirstOrDefault(map => map != null && map.SceneName == sceneName);
+        return GetMapRegistryOrThrow().AllMaps?.FirstOrDefault(map => map != null && map.SceneName == sceneName);
     }
 
-    private MapEndpointData GetOtherEndpointOrThrow(string currentMapId, string connectionId, string pointId)
+    private MapRegistrySO GetMapRegistryOrThrow()
     {
         if (ConnectionDatabase == null)
         {
             throw new InvalidOperationException("ConnectionDatabase 未配置");
         }
 
-        if (!ConnectionDatabase.TryGetOtherEndpoint(currentMapId, connectionId, pointId, out MapEndpointData targetEndpoint))
+        if (ConnectionDatabase.MapRegistry == null)
+        {
+            throw new InvalidOperationException("ConnectionDatabase.MapRegistry 未配置");
+        }
+
+        return ConnectionDatabase.MapRegistry;
+    }
+
+    private MapEndpointData GetOtherEndpointOrThrow(string currentMapId, string pointGuid)
+    {
+        if (ConnectionDatabase == null)
+        {
+            throw new InvalidOperationException("ConnectionDatabase 未配置");
+        }
+
+        //普通连接必须唯一，0 条和多条都不能继续切图
+        if (!ConnectionDatabase.TryGetOtherEndpoint(currentMapId, pointGuid, out MapEndpointData targetEndpoint))
         {
             throw new InvalidOperationException(
-                $"未找到连接对端，CurrentMapId={currentMapId}, ConnectionId={connectionId}, PointId={pointId}");
+                $"未找到唯一连接对端，CurrentMapId={currentMapId}, PointGuid={pointGuid}");
         }
 
         return targetEndpoint;

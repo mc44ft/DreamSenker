@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f09079f2d3b43f1b2a7f43788794ffc, type: 3}
-  m_Name: MapDefinition_Cave
+  m_Script: {fileID: 11500000, guid: a171c203d1ca34f4584c593fe4839cb7, type: 3}
+  m_Name: MapRegistry
   m_EditorClassIdentifier: 
-  <MapId>k__BackingField: 425160a605f8471d81b0ce6d57e2a1c1
-  <SceneName>k__BackingField: CaveMap
-  <PlayerShadowDarknessStrength>k__BackingField: 2.5
+  <AllMaps>k__BackingField:
+  - {fileID: 11400000, guid: abb6d7802c9b2471b8bfd850b904ff96, type: 2}
+  - {fileID: 11400000, guid: 0c21af8c016384ff6a38230fda11e4a5, type: 2}

@@ -10,44 +10,44 @@ public class MapLinkPointManager : BaseManager<MapLinkPointManager>
 
     public void Register(MapLinkPoint point)
     {
-        if (point == null || string.IsNullOrWhiteSpace(point.PointId))
+        if (point == null || string.IsNullOrWhiteSpace(point.PointGuid))
         {
-            Debug.LogError("MapLinkPoint PointId 不能为空");
+            Debug.LogError("MapLinkPoint PointGuid 不能为空");
             return;
         }
 
-        if (_mapLinkPoints.TryGetValue(point.PointId, out MapLinkPoint existingPoint) && existingPoint != point)
+        if (_mapLinkPoints.TryGetValue(point.PointGuid, out MapLinkPoint existingPoint) && existingPoint != point)
         {
-            Debug.LogError($"重复的 MapLinkPoint PointId: {point.PointId}");
+            Debug.LogError($"重复的 MapLinkPoint PointGuid: {point.PointGuid}");
             return;
         }
 
-        _mapLinkPoints[point.PointId] = point;
+        _mapLinkPoints[point.PointGuid] = point;
     }
 
     public void Unregister(MapLinkPoint point)
     {
-        if (point == null || string.IsNullOrWhiteSpace(point.PointId))
+        if (point == null || string.IsNullOrWhiteSpace(point.PointGuid))
         {
             return;
         }
 
-        if (_mapLinkPoints.TryGetValue(point.PointId, out MapLinkPoint existingPoint) && existingPoint == point)
+        if (_mapLinkPoints.TryGetValue(point.PointGuid, out MapLinkPoint existingPoint) && existingPoint == point)
         {
-            _mapLinkPoints.Remove(point.PointId);
+            _mapLinkPoints.Remove(point.PointGuid);
         }
     }
     public void Clear()
     {
         _mapLinkPoints.Clear();
     }
-    public Vector3 GetPointPositionOrThrow(string pointId)
+    public Vector3 GetPointPositionOrThrow(string pointGuid)
     {
-        if (_mapLinkPoints.TryGetValue(pointId, out MapLinkPoint point))
+        if (_mapLinkPoints.TryGetValue(pointGuid, out MapLinkPoint point))
         {
             return point.transform.position;
         }
 
-        throw new InvalidOperationException($"未找到 MapLinkPoint: {pointId}");
+        throw new InvalidOperationException($"未找到 MapLinkPoint: {pointGuid}");
     }
 }
