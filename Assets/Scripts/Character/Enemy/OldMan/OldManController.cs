@@ -1,17 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
+using PlayArk.StateMachine;
+using PlayArk.StateMachine.Utilities;
 using UnityEngine;
-
-public class OldManController : MonoBehaviour
+[RequireComponent(typeof(Animator))]
+[RequireComponent((typeof(Mover)))]
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent((typeof(AnimationPlayer)))]
+[RequireComponent(typeof(Attacker))]
+public class OldManController : StateMachineController, IAction
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    
 
-    // Update is called once per frame
-    void Update()
+    public void DoAction(EAction action, string[] parameters)
     {
         
     }
