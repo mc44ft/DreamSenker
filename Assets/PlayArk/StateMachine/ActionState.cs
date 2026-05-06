@@ -48,6 +48,10 @@ namespace PlayArk.StateMachine
         {
             foreach (var actionSender in _controller.GetComponents<IAction>())
             {
+                //保证不会执行被关闭的逻辑
+                if (actionSender is Behaviour behaviour && !behaviour.isActiveAndEnabled)
+                    continue;
+
                 foreach (ActionData action in actions)
                 {
                     actionSender.DoAction(action.action, action.parameters);

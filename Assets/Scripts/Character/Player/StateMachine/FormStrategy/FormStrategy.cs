@@ -5,6 +5,8 @@ using UnityEngine;
 /// 综合了协调者模式（导演-演员模式）和策略模式 还有依赖注入的技巧
 /// 通过具体的形态（导演）来指挥功能组件（演员）来实现玩家双形态
 /// 在InjectionConfig方法中通过依赖注入来将数据包注入到每个功能组件中
+///
+/// 玩家形态策略类
 /// </summary>
 [RequireComponent(typeof(Mover))]
 [RequireComponent(typeof(AnimationPlayer))]
@@ -15,7 +17,7 @@ public abstract class FormStrategy : MonoBehaviour, IAction
     protected PlayerConfig _playerConfig;
     protected PlayerFormConfig _formConfig;
     protected PlayerSaveData _playerSaveData;
-    //------------------ 持有玩家身上的功能组件 -----------------
+    //------------------ 持有玩家身上的基础功能组件 -----------------
     protected Mover _mover;
     protected AnimationPlayer _animationPlayer;
     protected PlayerHealth _health;

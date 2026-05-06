@@ -7,6 +7,7 @@ using UnityEngine;
 //这里是为了可以支持as运算符
 public abstract class BaseComponent<T> : MonoBehaviour, IPredicateEvaluator ,IComponent<T> where T : class, IConfig
 {
+
     public void InjectionConfigBase(IConfig config)
     {
         if (config is T componentConfig)

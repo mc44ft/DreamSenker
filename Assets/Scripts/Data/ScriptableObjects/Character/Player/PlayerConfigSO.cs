@@ -92,7 +92,7 @@ public class PlayerFormConfig : IMoveConfig, IHealthConfig, IAttackConfig
     public float RunSpeed => _runSpeed;
     public float JumpSpeed => _jumpSpeed;
     public int JumpCount => _jumpCount;
-    public LayerMask PlayerGroundLayerMask => _playerGroundLayerMask;
+    public LayerMask GroundLayerMask => _playerGroundLayerMask;
     public float JumpGravityScale => _jumpGravityScale;
     public float FallGravityScale => _fallGravityScale;
     //--------------------- IHealthConfig ----------------------------

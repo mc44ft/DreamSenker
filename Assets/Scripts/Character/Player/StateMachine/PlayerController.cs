@@ -18,33 +18,30 @@ public class PlayerController : StateMachineController, IAction
 {
     //--------------------------------- Data ------------------------------------------
     [SerializeField] private PlayerConfigSO _playerConfig;
-    private PlayerSaveData _playerSaveData;
     //--------------------------------- Component ------------------------------------------
     //--------------------------------- Public Parameter ------------------------------------------
     public PlayerSaveData PlayerSaveData => _playerSaveData;
     public PlayerHealth Health => _health;
     public Mover Mover => _mover;
-    public SpriteRenderer SpriteRenderer => _spriteRenderer;
     //--------------------------------- Private Parameter ------------------------------------------
     private PlayerHealth _health;
     private Mover _mover;
     private InputReader _inputReader;
-    private SpriteRenderer _spriteRenderer;
+
     private FormStrategy _currentForm;
     private FormUnarmed _formUnarmed;
     private FormSword _formSword;
-    
-    private void Awake()
+    private PlayerSaveData _playerSaveData;
+
+    protected override void Awake()
     {
+        base.Awake();
+
         _health = GetComponent<PlayerHealth>();
         _mover = GetComponent<Mover>();
         _inputReader = GetComponent<InputReader>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
         _formUnarmed = GetComponent<FormUnarmed>();
         _formSword = GetComponent<FormSword>();
-        
-        if(_playerConfig != null)
-            _playerSaveData = _playerConfig.PlayerSaveData;
     }
     /// <summary>
     /// 外部初始化
@@ -106,7 +103,6 @@ public class PlayerController : StateMachineController, IAction
 
     private void SwitchFormHandle(string buttomName)
     {
-        
         if (_inputReader.CheckKeyCodePressed(buttomName))
         {
             Debug.Log("Switch form handle");

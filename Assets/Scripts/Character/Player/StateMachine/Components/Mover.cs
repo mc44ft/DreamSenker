@@ -56,7 +56,7 @@ public class Mover : BaseComponent<IMoveConfig>
     {
         _previousIsGround = _isGround;
         //检测接地
-        _isGround = Physics2D.OverlapBox(transform.position, new Vector2(0.6f, 0.05f), 0, _moveConfig.PlayerGroundLayerMask);
+        _isGround = Physics2D.OverlapBox(transform.position, new Vector2(0.6f, 0.05f), 0, _moveConfig.GroundLayerMask);
     }
     public void Move()
     {

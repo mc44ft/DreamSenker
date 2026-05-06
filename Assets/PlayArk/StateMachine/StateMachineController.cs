@@ -12,7 +12,7 @@ namespace PlayArk.StateMachine
     
         public StateMachine StateMachine => _stateMachine;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             //克隆一份用于运行时的资源实例
             _stateMachine = _stateMachine.Clone();

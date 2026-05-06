@@ -33,10 +33,11 @@ namespace PlayArk.GraphCore.Editor
             //添加网格背景
             Insert(0, new GridBackground());
             //添加操纵器
-            this.AddManipulator(new ContentZoomer());//鼠标滚轮缩放画布
+
             this.AddManipulator(new ContentDragger());//按住鼠标中键拖拽画布
             this.AddManipulator(new SelectionDragger());//左键框选并拖拽节点
-            
+
+            SetupZoom(0.2f, 2f, 0.01f, 1f);//鼠标滚轮缩放画布
             //设置画布的初始缩放比例
             viewTransform.scale = new Vector3(0.8f, 0.8f, 1f);
 

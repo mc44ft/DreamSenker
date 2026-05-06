@@ -20,7 +20,7 @@ public interface IMoveConfig : IConfig
     public float RunSpeed { get; }
     public float JumpSpeed { get; }
     public int JumpCount { get; }
-    public LayerMask PlayerGroundLayerMask{ get; }
+    public LayerMask GroundLayerMask{ get; }
     public float JumpGravityScale { get; }
     public float FallGravityScale { get; }
 }

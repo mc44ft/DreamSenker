@@ -69,8 +69,11 @@ public class SpiderSkillVenomBiteState : StateBase<SpiderController>
             if(intervalTimer < 0f)
             {
                 player.Health.ApplyDamage(_controller.SpiderConfig.SkillVenomBiteContinueDamage);
-                _controller.StartCoroutine(SpriteColorRoutine(player.SpriteRenderer, _controller.SpiderConfig.SkillVenomBiteContinueDamageIntervalTime / 2));
-
+                if(player.TryGetComponent(out SpriteRenderer spriteRenderer))
+                {
+                    _controller.StartCoroutine(
+                        SpriteColorRoutine(spriteRenderer, _controller.SpiderConfig.SkillVenomBiteContinueDamageIntervalTime / 2));
+                }
                 //恢复计时项
                 intervalTimer = _controller.SpiderConfig.SkillVenomBiteContinueDamageIntervalTime;
             }
