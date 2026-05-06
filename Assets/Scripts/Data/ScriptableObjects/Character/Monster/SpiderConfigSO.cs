@@ -1,4 +1,7 @@
 ﻿using UnityEngine;
+
+namespace Data.ScriptableObjects.Character.Monster
+{
 [CreateAssetMenu(fileName = "SpiderConfig_", menuName = "ScriptableObject/Config/SpiderConfig")]
 public class SpiderConfigSO : ScriptableObject
 {
@@ -109,4 +112,5 @@ public class SpiderConfigSO : ScriptableObject
         }
     }
 #endif
+}
 }

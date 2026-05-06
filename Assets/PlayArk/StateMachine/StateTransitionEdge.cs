@@ -24,10 +24,10 @@ namespace PlayArk.StateMachine
         }
         public StateTransitionEdge Clone()
         {
-            StateTransitionEdge clone = new StateTransitionEdge()
-            {
-                _condition = this._condition.Clone(),
-            };
+            StateTransitionEdge clone = new StateTransitionEdge();
+            // 连线不是 ScriptableObject，必须手动复制 GraphCoreEdge 的连接数据。
+            clone.Initialize(UniqueID, RootNodeID, RootPortID, ConnectionNodeID, ConnectionPortID);
+            clone._condition = _condition.Clone();
             return clone;
         }
 

@@ -1,4 +1,5 @@
 ﻿
+using Data.ScriptableObjects.Character.Monster;
 using UnityEngine;
 
 public class SpiderSkillWebState : StateBase<SpiderController>

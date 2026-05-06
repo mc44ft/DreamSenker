@@ -1,4 +1,5 @@
 
+using Data.ScriptableObjects.Character.Player;
 using PlayArk.StateMachine.Utilities;
 using UnityEngine;
 /// <summary>

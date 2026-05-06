@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+namespace Data.ScriptableObjects.Character.Monster.Fox
+{
 [CreateAssetMenu(fileName = "FoxBoomFireConfig_", menuName = "ScriptableObject/Config/Fox/FoxBoomFireConfig")]
 public class FoxBoomFireConfigSO : ScriptableObject
 {
@@ -23,4 +26,5 @@ public class FoxBoomFireConfigSO : ScriptableObject
     [field: Tooltip("余波消散过渡时间")]
     [field: SerializeField] public float BoomFadeToZeroDuration { get; private set; } = 0.2f;
     
+}
 }

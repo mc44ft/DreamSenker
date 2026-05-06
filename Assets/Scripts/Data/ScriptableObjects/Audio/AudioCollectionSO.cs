@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+
+namespace Data.ScriptableObjects.Audio
+{
 [CreateAssetMenu(fileName = "AudioCollectionConfig_", menuName = "ScriptableObject/Config/Audio/AudioCollectionConfig")]
 public class AudioCollectionSO : ScriptableObject
 {
@@ -19,4 +22,5 @@ public class AudioData
     public AudioClip Clip;
     [Range(0f, 1f)] 
     public float Volume;
+}
 }

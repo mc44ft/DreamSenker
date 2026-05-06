@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using Data.ScriptableObjects.Character.Monster.Fox;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

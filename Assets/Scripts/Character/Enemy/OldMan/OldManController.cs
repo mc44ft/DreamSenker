@@ -6,10 +6,9 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent((typeof(AnimationPlayer)))]
 [RequireComponent(typeof(Attacker))]
+[RequireComponent(typeof(Health))]
 public class OldManController : StateMachineController, IAction
 {
-    
-
     public void DoAction(EAction action, string[] parameters)
     {
         

@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 
+namespace Data.ScriptableObjects.Character.Monster.Fox
+{
 [CreateAssetMenu(fileName = "FoxTwoConfig_", menuName = "ScriptableObject/Config/Fox/FoxTwoConfig")]
 public class FoxTwoConfigSO : FoxBossConfigSO
 {
@@ -135,4 +137,5 @@ public class FoxTwoConfigSO : FoxBossConfigSO
     [field: SerializeField]
     public int SkillCloneSingleRestoreHealthAmount { get; private set; } = 5;
 
+}
 }

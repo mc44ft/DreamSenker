@@ -1,4 +1,7 @@
 ﻿using UnityEngine;
+
+namespace Data.ScriptableObjects
+{
 [CreateAssetMenu(fileName = "GameConfig_", menuName = "ScriptableObject/Config/GameConfig")]
 public class GameConfigSO : ScriptableObject
 {
@@ -39,4 +42,5 @@ public class GameConfigSO : ScriptableObject
     //    }
     //}
 #endif
+}
 }

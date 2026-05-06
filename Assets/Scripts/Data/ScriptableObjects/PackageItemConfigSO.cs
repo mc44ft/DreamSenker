@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+
+namespace Data.ScriptableObjects
+{
 [CreateAssetMenu(fileName = "PackageItemConfig_", menuName = "ScriptableObject/Config/PackageItemConfig")]
 public class PackageItemConfigSO : ScriptableObject
 {
@@ -24,4 +27,5 @@ public class PackageItemInfo
     public E_BonusEffectType BonusEffectType;
     [Tooltip("物品加成数值")]
     public int BonusAmount;
+}
 }

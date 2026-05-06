@@ -2,6 +2,8 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 
+namespace Data.ScriptableObjects.Character.Player
+{
 [CreateAssetMenu(fileName = "PlayerConfig_", menuName = "ScriptableObject/Config/PlayerConfig")]
 public class PlayerConfigSO : ScriptableObject
 {
@@ -27,13 +29,6 @@ public class PlayerConfigSO : ScriptableObject
     public PlayerFormConfig FormConfigUnarmed => _formConfigUnarmed;
     public PlayerFormConfig FormConfigSword => _formConfigSword;
     public PlayerSaveData PlayerSaveData => _playerSaveData;
-#if UNITY_EDITOR
-    //private void OnValidate()
-    //{
-    //    if(MaxHealth != 0)
-    //        PlayerSaveData.CurrentHealth = MaxHealth;
-    //}
-#endif
 }
 /// <summary>
 /// 玩家通用数据
@@ -106,4 +101,5 @@ public class PlayerFormConfig : IMoveConfig, IHealthConfig, IAttackConfig
     public Vector3 AttackCheckBoundsSize => _attackCheckBoundsSize;
 
     public float MaxGravityScale => _maxGravityScale;
+}
 }

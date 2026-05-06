@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+namespace Data.ScriptableObjects.Character.Monster.Fox
+{
 //[CreateAssetMenu(fileName = "FoxBossConfig_", menuName = "ScriptableObject/Config/Fox/FoxBossConfig")]
 public class FoxBossConfigSO : ScriptableObject
 {
@@ -33,4 +36,5 @@ public class FoxBossConfigSO : ScriptableObject
     [field: Tooltip("悬浮单次循环时间")]
     [field: SerializeField]
     public float FloatingOneLoopTime { get; private set; } = 1f;
+}
 }

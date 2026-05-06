@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Data.ScriptableObjects;
 using UnityEngine;
 
 public class InventoryManager : BaseManager<InventoryManager>

@@ -1,4 +1,5 @@
 using System;
+using Data.ScriptableObjects.Character.Player;
 using PlayArk.StateMachine;
 using PlayArk.StateMachine.Utilities;
 using UnityEngine;
@@ -38,11 +39,11 @@ public class PlayerController : StateMachineController, IAction
     {
         base.Awake();
 
-        // _health = GetComponent<PlayerHealth>();
-        // _mover = GetComponent<Mover>();
-        // _inputReader = GetComponent<InputReader>();
-        // _formUnarmed = GetComponent<FormUnarmed>();
-        // _formSword = GetComponent<FormSword>();
+        _health = GetComponent<PlayerHealth>();
+        _mover = GetComponent<Mover>();
+        _inputReader = GetComponent<InputReader>();
+        _formUnarmed = GetComponent<FormUnarmed>();
+        _formSword = GetComponent<FormSword>();
     }
     /// <summary>
     /// 外部初始化
@@ -50,11 +51,6 @@ public class PlayerController : StateMachineController, IAction
     /// <param name="onFinished">初始化完成后调用</param>
     public void Initialize(Action onFinished)
     {
-        _health = GetComponent<PlayerHealth>();
-        _mover = GetComponent<Mover>();
-        _inputReader = GetComponent<InputReader>();
-        _formUnarmed = GetComponent<FormUnarmed>();
-        _formSword = GetComponent<FormSword>();
         
         LoadData();
         //切换到初始形态

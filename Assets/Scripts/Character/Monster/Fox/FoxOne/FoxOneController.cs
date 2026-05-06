@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Data.ScriptableObjects.Character.Monster.Fox;
 using UnityEngine;
 
 

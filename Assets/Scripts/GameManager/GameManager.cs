@@ -1,4 +1,6 @@
 ﻿using Cinemachine;
+using Data.ScriptableObjects;
+using Data.ScriptableObjects.Character.Player;
 using PlayArk.DialogueSystem.Runtime;
 using System;
 using System.Collections;
