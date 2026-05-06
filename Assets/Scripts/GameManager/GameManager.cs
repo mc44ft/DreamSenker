@@ -21,6 +21,7 @@ public class GameManager : SingletonMono<GameManager>
     public PlayerController Player { get; private set; }
     //------------------------ Private Parameter ---------------------------------
     private CinemachineImpulseSource _impulseSource;//用于处理镜头震动的相机配置
+    private PlayerMirrorEffect _playerMirrorEffect;//可选的镜像地图表现组件
 
     protected override void Awake()
     {
@@ -96,6 +97,7 @@ public class GameManager : SingletonMono<GameManager>
                 {
                     Destroy(Player.gameObject);
                     Player = null;
+                    _playerMirrorEffect = null;
                 }
                 //清理出生点
                 SpawnPointManager.Instance.ClearSpawnPointDict();
@@ -193,6 +195,7 @@ public class GameManager : SingletonMono<GameManager>
         {
             Destroy(Player.gameObject);
             Player = null;
+            _playerMirrorEffect = null;
         }
         //清理出生点
         SpawnPointManager.Instance.ClearSpawnPointDict();
@@ -210,12 +213,15 @@ public class GameManager : SingletonMono<GameManager>
             //防止玩家过场景移除
             DontDestroyOnLoad(player.gameObject);
             Player = player;
+            //镜像表现是特殊地图功能，玩家本体控制器不再持有它
+            _playerMirrorEffect = Player.GetComponent<PlayerMirrorEffect>();
+            _playerMirrorEffect?.SetMirrorActive(false);
 
             Player.Initialize(() =>
             {
                 //玩家初始化完成后 填充背包管理器数据
                 InventoryManager.Instance.SetupData(Player.PlayerSaveData.PackageData, PackageItemConfig);
-                Player.SetShadowDarknessStrength(saveMap.PlayerShadowDarknessStrength);
+                _playerMirrorEffect?.SetShadowDarknessStrength(saveMap.PlayerShadowDarknessStrength);
 
                 //加载主面板
                 UIManager.Instance.ShowPanel<GamePanel>(E_UILayer.Botton, null, (panel) =>
@@ -227,7 +233,7 @@ public class GameManager : SingletonMono<GameManager>
                 });
 
                 //根据当前游戏数据更新地图状态
-                UpdateMapFromGameSaveData();
+                SpecialMapInitialize();
             });
         });
     }
@@ -269,8 +275,8 @@ public class GameManager : SingletonMono<GameManager>
         {
             Vector3 position = MapLinkPointManager.Instance.GetPointPositionOrThrow(targetEndpoint.PointGuid);
             ChangePlayerPosition(position);
-            Player.SetShadowDarknessStrength(targetMap.PlayerShadowDarknessStrength);
-            UpdateMapFromGameSaveData();
+            _playerMirrorEffect?.SetShadowDarknessStrength(targetMap.PlayerShadowDarknessStrength);
+            SpecialMapInitialize();
         });
     }
 
@@ -297,12 +303,13 @@ public class GameManager : SingletonMono<GameManager>
             }
 
             ChangePlayerPosition(position);
-            Player.SetShadowDarknessStrength(targetMap.PlayerShadowDarknessStrength);
-            UpdateMapFromGameSaveData();
+            _playerMirrorEffect?.SetShadowDarknessStrength(targetMap.PlayerShadowDarknessStrength);
+            SpecialMapInitialize();
         });
     }
 
-    private void UpdateMapFromGameSaveData()
+    //特殊地图的初始化
+    private void SpecialMapInitialize()
     {
         if (IsMapScene(GameSaveData.CurrentMapId, E_MapSceneName.CaveMap))
         {
@@ -337,12 +344,12 @@ public class GameManager : SingletonMono<GameManager>
         {
             AudioManager.Instance.PlayMusic(GameResources.Instance.MirrorMapClip);
             UIManager.Instance.HidePanel<GamePanel>();
-            Player.SetMirrorActive(true);
+            _playerMirrorEffect?.SetMirrorActive(true);
         }
 
         if (IsMapScene(GameSaveData.CurrentMapId, E_MapSceneName.MirrorMap2))
         {
-            Player.SetMirrorActive(false);
+            _playerMirrorEffect?.SetMirrorActive(false);
             Player.SwitchForm();
         }
     }

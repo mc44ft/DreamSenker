@@ -26,9 +26,6 @@ public class PlayerController : StateMachineController, IAction
     public Mover Mover => _mover;
     public SpriteRenderer SpriteRenderer => _spriteRenderer;
     //--------------------------------- Private Parameter ------------------------------------------
-    //这是用于镜像地图的隐藏分身 只是个特殊的效果 也不属于镜像形态 后期可以通过外部添加而不是关闭 这里先放在这里吧
-    [SerializeField] private GameObject _mirrorGameObject;
-    [SerializeField] private SpriteRenderer _shadowSR;
     private PlayerHealth _health;
     private Mover _mover;
     private InputReader _inputReader;
@@ -36,8 +33,6 @@ public class PlayerController : StateMachineController, IAction
     private FormStrategy _currentForm;
     private FormUnarmed _formUnarmed;
     private FormSword _formSword;
-    private Material _shadowMaterial;
-    
     
     private void Awake()
     {
@@ -50,8 +45,6 @@ public class PlayerController : StateMachineController, IAction
         
         if(_playerConfig != null)
             _playerSaveData = _playerConfig.PlayerSaveData;
-        
-        _shadowMaterial = _shadowSR.material;
     }
     /// <summary>
     /// 外部初始化
@@ -60,8 +53,6 @@ public class PlayerController : StateMachineController, IAction
     public void Initialize(Action onFinished)
     {
         LoadData();
-        //关闭Mirror镜像
-        SetMirrorActive(false);
         //切换到初始形态
         SwitchForm();
         onFinished?.Invoke();
@@ -111,14 +102,6 @@ public class PlayerController : StateMachineController, IAction
             _playerConfig.PlayerConfig, 
             _playerConfig.FormConfigSword,
             _playerConfig.PlayerSaveData);
-    }
-    public void SetMirrorActive(bool isActive)
-    {
-        _mirrorGameObject.SetActive(isActive);
-    }
-    public void SetShadowDarknessStrength(float strength)
-    {
-        _shadowMaterial.SetFloat("_DarknessStrength", strength);
     }
 
     private void SwitchFormHandle(string buttomName)
