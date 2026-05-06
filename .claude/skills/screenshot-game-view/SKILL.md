@@ -1,56 +1,12 @@
 ---
 name: screenshot-game-view
-description: Captures a screenshot from the Unity Editor Game View and returns it as an image. Reads the Game View's own render texture directly via the Unity Editor API. The image size matches the current Game View resolution. Returns the image directly for visual inspection by the LLM.
+description: Captures a screenshot from the Unity Editor Game View.
 ---
 
-# Screenshot / Game View
+# Screenshot Game View
 
-## How to Call
+先读取并遵守：
 
-```bash
-unity-mcp-cli run-tool screenshot-game-view --input '{
-  "nothing": "string_value"
-}'
-```
+- @.agents/skills/screenshot-game-view/SKILL.md
 
-> For complex input (multi-line strings, code), save the JSON to a file and use:
-> ```bash
-> unity-mcp-cli run-tool screenshot-game-view --input-file args.json
-> ```
->
-> Or pipe via stdin (recommended):
-> ```bash
-> unity-mcp-cli run-tool screenshot-game-view --input-file - <<'EOF'
-> {"param": "value"}
-> EOF
-> ```
-
-
-### Troubleshooting
-
-If `unity-mcp-cli` is not found, either install it globally (`npm install -g unity-mcp-cli`) or use `npx unity-mcp-cli` instead.
-Read the /unity-initial-setup skill for detailed installation instructions.
-
-## Input
-
-| Name | Type | Required | Description |
-|------|------|----------|-------------|
-| `nothing` | `string` | No |  |
-
-### Input JSON Schema
-
-```json
-{
-  "type": "object",
-  "properties": {
-    "nothing": {
-      "type": "string"
-    }
-  }
-}
-```
-
-## Output
-
-This tool does not return structured output.
-
+本文件只作为 Claude Code 技能入口。实际规则以对应 Codex skill 为准。

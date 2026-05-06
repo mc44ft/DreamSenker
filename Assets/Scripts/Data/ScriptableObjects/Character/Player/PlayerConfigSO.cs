@@ -4,7 +4,7 @@ using UnityEngine.Serialization;
 
 namespace Data.ScriptableObjects.Character.Player
 {
-[CreateAssetMenu(fileName = "PlayerConfig_", menuName = "ScriptableObject/Config/PlayerConfig")]
+[CreateAssetMenu(fileName = "PlayerConfig", menuName = "ScriptableObject/Config/PlayerConfig")]
 public class PlayerConfigSO : ScriptableObject
 {
     [Header("BASE DETAILS")]
@@ -46,7 +46,7 @@ public class PlayerFormConfig : IMoveConfig, IHealthConfig, IAttackConfig
 {
     [Header("BASIC DETAILS")] 
     [SerializeField] private int _maxHealthAmount;
-    [Tooltip("限制玩家下落的最大速度 不会无限加速")]
+    [Tooltip("限制下落的最大速度 不会无限加速")]
     [SerializeField] private float _maxGravityScale = 10.0f;
     [Tooltip("该形态使用的动画状态机Controller")] 
     [SerializeField] private RuntimeAnimatorController _runtimeAnimatorController;
@@ -65,9 +65,9 @@ public class PlayerFormConfig : IMoveConfig, IHealthConfig, IAttackConfig
     
     [Space(1)]
     [Header("HIT DETAILS")]
-    [Tooltip("玩家受伤顿帧时间")]
+    [Tooltip("受伤顿帧时间")]
     [SerializeField] private float _getHitStopTime = 0.3f;
-    [Tooltip("玩家受伤击退力度")]
+    [Tooltip("受伤击退力度")]
     [SerializeField] private float _getHitKnockbackForceValue = 15f;
     
     [Space(1)]
