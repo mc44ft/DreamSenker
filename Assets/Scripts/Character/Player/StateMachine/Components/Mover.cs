@@ -9,9 +9,6 @@ public class Mover : BaseComponent<IMoveConfig>
     //这个数据包由外部管理器依赖注入而来
     private IMoveConfig _moveConfig;
     private float _moveSpeedMultiplier = 1f;//移动的速度乘数
-    private int _jumpCount;
-    private bool _previousIsGround;
-    private bool _isGround;
     private Rigidbody2D _rigidbody;
     
     private int _faceRight = 1;
@@ -25,8 +22,6 @@ public class Mover : BaseComponent<IMoveConfig>
 
     private void Update()
     {
-        CheckIsGround();
-        ResetJumpCounter();
         UpdateFace();
     }
     private void UpdateFace()
@@ -46,18 +41,6 @@ public class Mover : BaseComponent<IMoveConfig>
     {
         _moveSpeedMultiplier = multiplier;
     }
-    public void ResetJumpCounter()
-    {
-        if (_previousIsGround != _isGround)//接地状态改变
-            if (_isGround)
-                _jumpCount = _moveConfig.JumpCount;
-    }
-    public void CheckIsGround()
-    {
-        _previousIsGround = _isGround;
-        //检测接地
-        _isGround = Physics2D.OverlapBox(transform.position, new Vector2(0.6f, 0.05f), 0, _moveConfig.GroundLayerMask);
-    }
     public void Move()
     {
         if (_moveConfig == null) return;
@@ -66,25 +49,6 @@ public class Mover : BaseComponent<IMoveConfig>
         _rigidbody.velocity = new Vector2(
             InputManager.Instance.HorizontalValue * _moveConfig.RunSpeed * _moveSpeedMultiplier,
             _rigidbody.velocity.y);
-    }
-    /// <summary>
-    /// 跳跃的配置操作
-    /// </summary>
-    public void JumpEnterSetup()
-    {
-        //跳跃次数减一
-        _jumpCount--;
-        //设置重力
-        _rigidbody.gravityScale = _moveConfig.JumpGravityScale;
-        //设置跳跃速度
-        _rigidbody.velocity = new Vector2(
-            _rigidbody.velocity.x, _moveConfig.JumpSpeed);
-    }
-    
-    public void FallEnterSetup()
-    {
-        //设置重力
-        _rigidbody.gravityScale = _moveConfig.FallGravityScale;
     }
     public void StopMove()
     {
@@ -96,19 +60,9 @@ public class Mover : BaseComponent<IMoveConfig>
     public override void InjectionConfig(IMoveConfig moveConfig)
     {
         _moveConfig = moveConfig;
-        _jumpCount = _moveConfig.JumpCount;
     }
     public override bool? Evaluate(EPredicate predicate, string[] parameters)
     {
-        switch (predicate)
-        {
-            case EPredicate.JumpCountNotZero:
-                return _jumpCount != 0;
-            case EPredicate.VerticalSpeedNotNegative:
-                return _rigidbody.velocity.y > 0;
-            case EPredicate.Grounded:
-                return _isGround;
-        }
         return null;
     }
 }

@@ -6,13 +6,13 @@ namespace PlayArk.StateMachine.Utilities
 {
     public enum EPredicate
     {
-        KeyCodePressed,
-        AnimOver,
-        HorizontalNotZero,
-        VerticalSpeedNotNegative,
-        JumpCountNotZero,
-        Grounded, 
-        TakeDamage,
-        Dead,
+        KeyCodePressed,//按下按键
+        AnimOver,//动画播放结束
+        HorizontalNotZero,//水平输入不为0
+        VerticalSpeedNotNegative,//垂直速度不为负数
+        JumpCountNotZero,//跳跃次数不为0
+        Grounded, //接地状态
+        TakeDamage,//受到攻击
+        Dead,//触发死亡
     }
 }

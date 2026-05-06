@@ -7,6 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent((typeof(Mover)))]
+[RequireComponent(typeof(Jumper))]
 [RequireComponent((typeof(AnimationPlayer)))]
 [RequireComponent(typeof(InputReader))]
 [RequireComponent(typeof(Attacker))]

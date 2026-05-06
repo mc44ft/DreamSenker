@@ -10,6 +10,7 @@ using UnityEngine;
 /// 玩家形态策略类
 /// </summary>
 [RequireComponent(typeof(Mover))]
+[RequireComponent(typeof(Jumper))]
 [RequireComponent(typeof(AnimationPlayer))]
 [RequireComponent(typeof(PlayerHealth))]
 public abstract class FormStrategy : MonoBehaviour, IAction
@@ -20,12 +21,14 @@ public abstract class FormStrategy : MonoBehaviour, IAction
     protected PlayerSaveData _playerSaveData;
     //------------------ 持有玩家身上的基础功能组件 -----------------
     protected Mover _mover;
+    protected Jumper _jumper;
     protected AnimationPlayer _animationPlayer;
     protected PlayerHealth _health;
 
     protected virtual void Awake()
     {
         _mover = GetComponent<Mover>();
+        _jumper = GetComponent<Jumper>();
         _animationPlayer = GetComponent<AnimationPlayer>();
         _health = GetComponent<PlayerHealth>();
     }
@@ -42,7 +45,7 @@ public abstract class FormStrategy : MonoBehaviour, IAction
         //设置初始的动画状态机
         _animationPlayer.SetRuntimeAnimatorController(formConfig.RuntimeAnimatorController);
         //重置跳跃次数
-        _mover.ResetJumpCounter();
+        _jumper.ResetJumpCounter();
         // 通过 PlayerHealth 初始化底层 Health 组件。
         _health.Initialize(_formConfig.MaxHealthAmount, _playerSaveData.CurrentHealth);
     }

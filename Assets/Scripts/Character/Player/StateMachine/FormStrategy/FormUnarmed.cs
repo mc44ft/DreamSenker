@@ -21,10 +21,10 @@ public class FormUnarmed : FormStrategy
                 _mover.Move();
                 break;
             case EAction.JumpEnterSetup:
-                _mover.JumpEnterSetup();
+                _jumper.JumpEnterSetup();
                 break;
             case EAction.FallEnterSetup:
-                _mover.FallEnterSetup();
+                _jumper.FallEnterSetup();
                 break;
             case EAction.PlayAnimation:
                 _animationPlayer.PlayAnimation(parameters[0]);

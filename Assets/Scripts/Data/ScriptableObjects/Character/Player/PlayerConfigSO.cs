@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Data.ScriptableObjects.Character.Player
 {
@@ -42,49 +41,52 @@ public class PlayerConfig
     
 }
 [Serializable]
-public class PlayerFormConfig : IMoveConfig, IHealthConfig, IAttackConfig
+public class PlayerFormConfig : IMoveConfig, IJumpConfig, IHealthConfig, IAttackConfig
 {
-    [Header("BASIC DETAILS")] 
+    [Header("最大生命值")] 
     [SerializeField] private int _maxHealthAmount;
-    [Tooltip("限制下落的最大速度 不会无限加速")]
+    [Header("限制下落的最大速度 不会无限加速")]
     [SerializeField] private float _maxGravityScale = 10.0f;
-    [Tooltip("该形态使用的动画状态机Controller")] 
+    [Header("该形态使用的动画状态机Controller")] 
     [SerializeField] private RuntimeAnimatorController _runtimeAnimatorController;
 
     [Space(1)]
-    [Header("Move DETAILS")]
+    [Header("移动速度")]
     [SerializeField] private float _runSpeed = 8f;
+
+    [Space(1)]
+    [Header("Jump DETAILS")]
     [SerializeField] private float _jumpSpeed = 18f;
-    [Tooltip("跳跃次数")]
+    [Header("跳跃次数")]
     [SerializeField] private int _jumpCount = 2;
+    [Header("接地层级")]
     [SerializeField] private LayerMask _playerGroundLayerMask;
-    [Tooltip("跳跃重力")]
+    [Header("跳跃重力")]
     [SerializeField] private float _jumpGravityScale = 5.0f;
-    [Tooltip("下落重力")]
+    [Header("下落重力")]
     [SerializeField] private float _fallGravityScale = 7.0f;
     
     [Space(1)]
-    [Header("HIT DETAILS")]
-    [Tooltip("受伤顿帧时间")]
+    [Header("受伤顿帧时间")]
     [SerializeField] private float _getHitStopTime = 0.3f;
-    [Tooltip("受伤击退力度")]
+    [Header("受伤击退力度")]
     [SerializeField] private float _getHitKnockbackForceValue = 15f;
     
     [Space(1)]
-    [Header("ATTACK DETAILS")]
-    [Tooltip("普通攻击的伤害值")] 
+    [Header("普通攻击的伤害值")] 
     [SerializeField] private int _attackDamage = 1;
-    [Tooltip("普通攻击的检测层级")]
+    [Header("普通攻击的检测层级")]
     [SerializeField] private LayerMask _attackCheckLayer;
-    [Tooltip("普通攻击的检测中心偏移量")]
+    [Header("普通攻击的检测中心偏移量")]
     [SerializeField] private Vector3 _attackCheckOffset;
-    [Tooltip("普通攻击的检测盒子大小")]
+    [Header("普通攻击的检测盒子大小")]
     [SerializeField] private Vector3 _attackCheckBoundsSize;
     
     
     public RuntimeAnimatorController RuntimeAnimatorController => _runtimeAnimatorController;
     //--------------------- IMoveConfig ----------------------------
     public float RunSpeed => _runSpeed;
+    //--------------------- IJumpConfig ----------------------------
     public float JumpSpeed => _jumpSpeed;
     public int JumpCount => _jumpCount;
     public LayerMask GroundLayerMask => _playerGroundLayerMask;

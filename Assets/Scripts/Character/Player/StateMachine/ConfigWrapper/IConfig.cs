@@ -18,11 +18,6 @@ public interface IConfig
 public interface IMoveConfig : IConfig
 {
     public float RunSpeed { get; }
-    public float JumpSpeed { get; }
-    public int JumpCount { get; }
-    public LayerMask GroundLayerMask{ get; }
-    public float JumpGravityScale { get; }
-    public float FallGravityScale { get; }
 }
 
 public interface IAttackConfig : IConfig
@@ -39,9 +34,13 @@ public interface IHealthConfig : IConfig
     public float GetHitKnockbackForceValue { get; }
     public float GetHitStopTime { get; }
 }
-public interface IJumpConfig
+public interface IJumpConfig : IConfig
 {
-    
+    public float JumpSpeed { get; }
+    public int JumpCount { get; }
+    public LayerMask GroundLayerMask{ get; }
+    public float JumpGravityScale { get; }
+    public float FallGravityScale { get; }
 }
 public interface IFlyConfig
 {
