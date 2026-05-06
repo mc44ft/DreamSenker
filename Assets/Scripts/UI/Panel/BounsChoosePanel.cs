@@ -32,12 +32,6 @@ public class BounsChoosePanel : PanelBase_Mini
                     break;
                 case 1:
                     GameManager.Instance.Player.Health.Initialize((int)(GameManager.Instance.Player.Health.MaxHealthAmount * 1.2f), (int)(GameManager.Instance.Player.Health.MaxHealthAmount * 1.2f));
-                    EventCenter.Instance.EventTrigger(
-                        E_EventType.Player_HealthUpdate, 
-                        this, 
-                        new PlayerHealthUpdateEventArgs(
-                            GameManager.Instance.Player.Health.MaxHealthAmount, 
-                            GameManager.Instance.Player.Health.CurrentHealthAmount));
                     break;
                 case 2:
                     GameManager.Instance.Player.PlayerSaveData.AttackMultiply += 0.3f;

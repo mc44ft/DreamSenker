@@ -33,6 +33,7 @@ Assets/Documentation/<功能或系统名>重构方案.md
 - 把多个互斥方案混在主执行计划里。
 - 只写原则，不写具体脚本改动。
 - 在重构方案里安排修改 Prefab、Scene、ScriptableObject、`.asset`、`.unity`、`.meta` 等 Unity 资产文件，除非用户明确要求。
+- 把创建、删除、修改 `.meta` 文件写成默认执行项。
 
 如果用户没有指定文件名，按系统名自动命名。
 
@@ -103,7 +104,13 @@ Controller
 
 必须逐个列出要改的脚本，并写清楚每个脚本的改动项。
 
-只列脚本改动。不要把 Prefab、Scene、ScriptableObject 或其他 Unity 资产文件写进重构执行计划。需要组件约束时，优先写代码侧 `[RequireComponent]` 或运行时初始化策略。
+只列脚本改动。不要把 Prefab、Scene、ScriptableObject、`.meta` 或其他 Unity 资产文件写进重构执行计划。需要组件约束时，优先写代码侧 `[RequireComponent]` 或运行时初始化策略。
+
+如果脚本删除或移动可能涉及 `.cs.meta`：
+
+- 不要把处理 `.cs.meta` 写成默认执行步骤。
+- 只能写“执行前需向用户确认是否处理对应 `.cs.meta`”。
+- 不能为了保持工作区干净、引用完整或符合 Unity 常规而默认处理 `.meta`。
 
 每个脚本都要包含：
 

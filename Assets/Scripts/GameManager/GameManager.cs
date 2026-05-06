@@ -332,10 +332,6 @@ public class GameManager : SingletonMono<GameManager>
                     Player.SwitchForm();
                     Player.PlayerSaveData.IsUnlockSwitchStateSkill = true;
                     Player.Health.RestoreHealth(Player.Health.MaxHealthAmount);
-                    EventCenter.Instance.EventTrigger(
-                        E_EventType.Player_HealthUpdate,
-                        this,
-                        new PlayerHealthUpdateEventArgs(Player.Health.MaxHealthAmount, Player.Health.CurrentHealthAmount));
                 }
             }
         }

@@ -35,15 +35,15 @@ public abstract class FormStrategy : MonoBehaviour, IAction
         _formConfig ??= formConfig;
         _playerSaveData ??= playerSaveData;
         
+        //依赖注入
+        InjectionConfig(formConfig);
+        
         //设置初始的动画状态机
         _animationPlayer.SetRuntimeAnimatorController(formConfig.RuntimeAnimatorController);
         //重置跳跃次数
         _mover.ResetJumpCounter();
-        //初始化健康值组件
+        // 通过 PlayerHealth 初始化底层 Health 组件。
         _health.Initialize(_formConfig.MaxHealthAmount, _playerSaveData.CurrentHealth);
-        
-        //依赖注入
-        InjectionConfig(formConfig);
     }
     
     /// <summary>
@@ -57,7 +57,7 @@ public abstract class FormStrategy : MonoBehaviour, IAction
         
         foreach (var component in GetComponents<IComponent>())
         {
-            if (component is Attacker attacker)
+            if (component is Attacker attacker)//为Attacker组件注入制作完成的适配器
                 attacker.InjectionConfig(attackAdapter);
             else
                 component.InjectionConfigBase(config);

@@ -6,6 +6,8 @@ public class Health : MonoBehaviour
     public int CurrentHealthAmount { get; private set; }
 
     public bool IsDead { get; private set; } = false;
+    public event Action<int, int> OnHealthChanged;
+    public event Action OnDead;
 
     public void Initialize(int maxHealthAmount, int currentHealthAmount)
     {
@@ -13,14 +15,13 @@ public class Health : MonoBehaviour
 
         MaxHealthAmount = maxHealthAmount;
         CurrentHealthAmount = currentHealthAmount;
-
-        //Debug.Log("当前血量" + CurrentHealthAmount);
+        NotifyHealthChanged();
     }
     public void ApplyDamage(int damage)
     {
         CurrentHealthAmount -= damage;
-
-        //Debug.Log("当前血量" + CurrentHealthAmount + " " + "当前伤害" + damage);
+        NotifyHealthChanged();
+        
         if (CurrentHealthAmount <= 0 )
         {
             Death();
@@ -29,10 +30,20 @@ public class Health : MonoBehaviour
     public void RestoreHealth(int healthAmount)
     {
         CurrentHealthAmount = Mathf.Min(CurrentHealthAmount + healthAmount, MaxHealthAmount);
+        NotifyHealthChanged();
     }
     private void Death()
     {
+        if (IsDead) return;
+
         IsDead = true;
+        OnDead?.Invoke();
+    }
+
+    private void NotifyHealthChanged()
+    {
+        // 向外通知血量变化，具体表现仍由各自 Controller 处理。
+        OnHealthChanged?.Invoke(MaxHealthAmount, CurrentHealthAmount);
     }
     
 }

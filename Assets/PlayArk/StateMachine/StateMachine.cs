@@ -68,11 +68,14 @@ namespace PlayArk.StateMachine
 
             foreach (var state in _nodes)
             {
+                //这里State直接使用Instantiate进行拷贝，是因为State中没有任何外部引用，
+                //_transitions只是一套缓存数据而已
                 clone.AddNode(state.Clone());
             }
 
             foreach (var edge in _edges)
             {
+                //连线要手动拷贝，因为它不是SO资源 不能用Instantiate方法克隆
                 clone.AddEdge(edge.Clone());
             }
             //重新定位两个特殊状态

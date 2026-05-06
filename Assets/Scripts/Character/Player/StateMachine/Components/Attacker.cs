@@ -49,6 +49,13 @@ public class Attacker : BaseComponent<IAttackConfig>
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
+        if (_attackConfig == null)
+            return;
+
+        _mover ??= GetComponent<Mover>();
+        if (_mover == null)
+            return;
+
         //绘制玩家的攻击范围
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(

@@ -34,9 +34,15 @@ DreamSenker 是 Unity 2022.3.62f2c1 的 2D 动作游戏项目，使用 URP 14.0.
 
 ## Unity 资产规则
 
-- 不要随手生成 `.meta` 文件。
-- 不允许修改除代码外的任何Unity资产文件
+- 默认只修改代码文件和用户明确要求的文档文件。
+- 不允许修改除代码外的任何 Unity 资产文件。
+- 禁止主动创建、删除、修改 `.meta` 文件。
+- Unity、UnityMCP、Unity Editor 自动产生 `.meta` 变化时，只报告，不清理、不恢复、不补齐。
+- 删除或移动脚本时，`.cs.meta` 是否一起处理必须先问用户；只有用户明确同意才动。
+- 不允许为了“工作区干净”“引用完整”“看起来正常”而顺手处理 `.meta`。
 
 ## Git 与验证
 - 任何不可逆的Git操作必须要请示用户。
-- 涉及 Unity 代码改动时，至少做静态检查；能跑 Unity 编译或测试时再声称已验证运行正确。
+- 涉及 Unity 代码改动时，默认只做轻量验证：用 `rg` 查关键引用，用 `git diff --check` 查 diff 格式，并检查 Unity Console Error。
+- 项目里有明确测试时，才跑 UnityMCP `tests_run`。
+- 不默认跑 `dotnet build Assembly-CSharp.csproj`；只有用户明确要求时，才做额外编译或构建验证。
