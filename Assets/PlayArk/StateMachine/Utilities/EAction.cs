@@ -17,5 +17,7 @@ namespace PlayArk.StateMachine.Utilities
         Knockback,
         //--------------- Switch Form -----------
         SwitchFormHandle,//监测切换形态
+        //--------------- Attack -----------
+        Attack,//触发攻击
     }
 }

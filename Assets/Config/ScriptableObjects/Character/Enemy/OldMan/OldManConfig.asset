@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8798af4b4b942a087f2273febeebc7a, type: 3}
+  m_Name: OldManConfig
+  m_EditorClassIdentifier: 
+  _config:
+    _maxGravityScale: 10
+    _maxHealthAmount: 0
+    _getHitStopTime: 0.3
+    _getHitKnockbackForceValue: 15
+    _runSpeed: 8
+    _attackDamage: 1
+    _attackCheckLayer:
+      serializedVersion: 2
+      m_Bits: 0
+    _attackCheckOffset: {x: 0, y: 0, z: 0}
+    _attackCheckBoundsSize: {x: 0, y: 0, z: 0}
+    _attackCooldown: 0.5
+    _detectRange: 5
+    _attackRange: 1.5
+    _loseTargetRange: 8

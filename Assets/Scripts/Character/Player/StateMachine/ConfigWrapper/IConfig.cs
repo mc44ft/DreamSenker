@@ -46,3 +46,23 @@ public interface IJumpConfig : IConfig
 public interface IFlyConfig
 {
 }
+
+/// <summary>
+/// 敌人AI配置接口
+/// 提供敌人感知、追击、丢失目标等AI行为所需的配置参数
+/// </summary>
+public interface IEnemyAIConfig : IConfig
+{
+    /// <summary>
+    /// 检测到玩家的距离
+    /// </summary>
+    public float DetectRange { get; }
+    /// <summary>
+    /// 进入攻击范围的距离
+    /// </summary>
+    public float AttackRange { get; }
+    /// <summary>
+    /// 丢失目标的距离
+    /// </summary>
+    public float LoseTargetRange { get; }
+}
