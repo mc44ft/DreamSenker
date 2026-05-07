@@ -31,7 +31,7 @@ public class BounsChoosePanel : PanelBase_Mini
                     // GameManager.Instance.Player.AddDebuff(true);
                     break;
                 case 1:
-                    GameManager.Instance.Player.Health.Initialize((int)(GameManager.Instance.Player.Health.MaxHealthAmount * 1.2f), (int)(GameManager.Instance.Player.Health.MaxHealthAmount * 1.2f));
+                    GameManager.Instance.Player.DamageableHealth.Initialize((int)(GameManager.Instance.Player.DamageableHealth.MaxHealthAmount * 1.2f), (int)(GameManager.Instance.Player.DamageableHealth.MaxHealthAmount * 1.2f));
                     break;
                 case 2:
                     GameManager.Instance.Player.PlayerSaveData.AttackMultiply += 0.3f;

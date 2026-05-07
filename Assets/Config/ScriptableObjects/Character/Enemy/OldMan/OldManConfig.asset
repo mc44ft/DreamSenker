@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _config:
     _maxGravityScale: 10
-    _maxHealthAmount: 0
+    _maxHealthAmount: 100
     _getHitStopTime: 0.3
     _getHitKnockbackForceValue: 15
     _runSpeed: 8

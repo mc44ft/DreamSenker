@@ -18,7 +18,7 @@ namespace PlayArk.StateMachine
             _stateMachine = _stateMachine.Clone();
         }
 
-        private void Start()
+        protected virtual void Start()
         {
             _stateMachine.Bind(this);
             //开始执行状态机

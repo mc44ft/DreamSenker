@@ -12,7 +12,7 @@ using UnityEngine;
 [RequireComponent(typeof(InputReader))]
 [RequireComponent(typeof(Attacker))]
 [RequireComponent(typeof(Health))]
-[RequireComponent(typeof(PlayerHealth))]
+[RequireComponent(typeof(DamageableHealth))]
 [RequireComponent(typeof(FormUnarmed))]
 [RequireComponent(typeof(FormSword))]
 [DisallowMultipleComponent]
@@ -24,10 +24,10 @@ public class PlayerController : StateMachineController, IAction
     //--------------------------------- Component ------------------------------------------
     //--------------------------------- Public Parameter ------------------------------------------
     public PlayerSaveData PlayerSaveData => _playerSaveData;
-    public PlayerHealth Health => _health;
+    public DamageableHealth DamageableHealth => _damageableHealth;
     public Mover Mover => _mover;
     //--------------------------------- Private Parameter ------------------------------------------
-    private PlayerHealth _health;
+    private DamageableHealth _damageableHealth;
     private Mover _mover;
     private InputReader _inputReader;
 
@@ -40,11 +40,30 @@ public class PlayerController : StateMachineController, IAction
     {
         base.Awake();
 
-        _health = GetComponent<PlayerHealth>();
+        _damageableHealth = GetComponent<DamageableHealth>();
         _mover = GetComponent<Mover>();
         _inputReader = GetComponent<InputReader>();
         _formUnarmed = GetComponent<FormUnarmed>();
         _formSword = GetComponent<FormSword>();
+    }
+
+    private void OnEnable()
+    {
+        // 订阅Health事件，触发玩家血条UI刷新
+        _damageableHealth.Health.OnHealthChanged += OnHealthChanged;
+    }
+
+    private void OnDisable()
+    {
+        // 订阅Health事件，触发玩家血条UI刷新
+        _damageableHealth.Health.OnHealthChanged -= OnHealthChanged;
+    }
+    private void OnHealthChanged(int maxHealth, int currentHealth)
+    {
+        EventCenter.Instance.EventTrigger(
+            E_EventType.Player_HealthUpdate,
+            this,
+            new PlayerHealthUpdateEventArgs(maxHealth, currentHealth));
     }
     /// <summary>
     /// 外部初始化

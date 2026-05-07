@@ -231,7 +231,7 @@ public class GameManager : SingletonMono<GameManager>
                     EventCenter.Instance.EventTrigger(
                         E_EventType.Player_HealthUpdate,
                         this,
-                        new PlayerHealthUpdateEventArgs(Player.Health.MaxHealthAmount, Player.Health.CurrentHealthAmount));
+                        new PlayerHealthUpdateEventArgs(Player.DamageableHealth.MaxHealthAmount, Player.DamageableHealth.CurrentHealthAmount));
                 });
 
                 //根据当前游戏数据更新地图状态
@@ -333,7 +333,7 @@ public class GameManager : SingletonMono<GameManager>
                     GameSaveData.IsClearMirrorMap = true;
                     Player.SwitchForm();
                     Player.PlayerSaveData.IsUnlockSwitchStateSkill = true;
-                    Player.Health.RestoreHealth(Player.Health.MaxHealthAmount);
+                    Player.DamageableHealth.RestoreHealth(Player.DamageableHealth.MaxHealthAmount);
                 }
             }
         }

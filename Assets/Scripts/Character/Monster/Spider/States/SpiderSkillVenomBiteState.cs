@@ -68,7 +68,7 @@ public class SpiderSkillVenomBiteState : StateBase<SpiderController>
         {
             if(intervalTimer < 0f)
             {
-                player.Health.ApplyDamage(_controller.SpiderConfig.SkillVenomBiteContinueDamage);
+                player.DamageableHealth.ApplyDamage(_controller.SpiderConfig.SkillVenomBiteContinueDamage);
                 if(player.TryGetComponent(out SpriteRenderer spriteRenderer))
                 {
                     _controller.StartCoroutine(

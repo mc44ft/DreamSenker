@@ -34,6 +34,7 @@ MonoBehaviour:
       m_Bits: 1280
     _attackCheckOffset: {x: 0.35, y: 0.42, z: 0}
     _attackCheckBoundsSize: {x: 0.7, y: 0.5, z: 0}
+    _attackCooldown: 0.5
   _formConfigSword:
     _maxHealthAmount: 100
     _maxGravityScale: 10
@@ -54,6 +55,7 @@ MonoBehaviour:
       m_Bits: 1024
     _attackCheckOffset: {x: 0.25, y: 0.3, z: 0}
     _attackCheckBoundsSize: {x: 0.5, y: 0.7, z: 0}
+    _attackCooldown: 0.5
   _playerSaveData:
     CurrentHealth: 30
     AttackMultiply: 1

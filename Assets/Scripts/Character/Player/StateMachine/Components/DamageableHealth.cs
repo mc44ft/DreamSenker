@@ -1,15 +1,20 @@
 using PlayArk.StateMachine.Utilities;
 using UnityEngine;
 
+/// <summary>
+/// 通用受击组件
+/// 提供无敌时间、击退、顿帧等受击效果
+/// </summary>
 [RequireComponent(typeof(Health))]
 [RequireComponent(typeof(Rigidbody2D))]
-public class PlayerHealth : BaseComponent<IHealthConfig>, IDamageable
+public class DamageableHealth : BaseComponent<IHealthConfig>, IDamageable
 {
     [Tooltip("受击后的无敌时间")]
     [SerializeField] private float _invulnerableTime = 0.5f;
 
     public int MaxHealthAmount => _health.MaxHealthAmount;
     public int CurrentHealthAmount => _health.CurrentHealthAmount;
+    public Health Health => _health;
 
     private Health _health;
     private IHealthConfig _healthConfig;
@@ -32,24 +37,23 @@ public class PlayerHealth : BaseComponent<IHealthConfig>, IDamageable
     public void Initialize(int maxHealthAmount, int currentHealthAmount)
     {
         _health.Initialize(maxHealthAmount, currentHealthAmount);
-        TriggerPlayerHealthUpdate();
     }
 
     public void ApplyDamage(int damage)
     {
         _health.ApplyDamage(damage);
-        TriggerPlayerHealthUpdate();
     }
 
     public void RestoreHealth(int healthAmount)
     {
         _health.RestoreHealth(healthAmount);
-        TriggerPlayerHealthUpdate();
     }
 
+    /// <summary>
+    /// 受击时沿攻击方向反向击退
+    /// </summary>
     public void DoKnockback()
     {
-        // 受击时沿攻击方向反向击退。
         HelperUtilities.DoKnockback(_rb, _getHitDirection,
             _healthConfig.GetHitKnockbackForceValue);
     }
@@ -73,7 +77,7 @@ public class PlayerHealth : BaseComponent<IHealthConfig>, IDamageable
 
     public void TakeDamage(int damage, Vector2 attackDirection)
     {
-        // 防止同一段攻击在短时间内重复扣血。
+        // 防止同一段攻击在短时间内重复扣血
         if (_invulnerableTimer > 0)
             return;
 
@@ -100,21 +104,12 @@ public class PlayerHealth : BaseComponent<IHealthConfig>, IDamageable
     }
 
     /// <summary>
-    /// 把受击效果嵌入到动画内部
+    /// 受击顿帧效果，由动画事件调用
     /// </summary>
     private void GetHitAnimEvent()
     {
         if (!this.enabled) return;
         GameManager.Instance.CameraShake();
         GameManager.Instance.DoHitStop(_healthConfig.GetHitStopTime);
-    }
-
-    private void TriggerPlayerHealthUpdate()
-    {
-        // 玩家血条 UI 仍通过事件中心刷新。
-        EventCenter.Instance.EventTrigger(
-            E_EventType.Player_HealthUpdate,
-            this,
-            new PlayerHealthUpdateEventArgs(MaxHealthAmount, CurrentHealthAmount));
     }
 }

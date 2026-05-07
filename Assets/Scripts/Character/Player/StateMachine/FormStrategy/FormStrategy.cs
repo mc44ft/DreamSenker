@@ -12,7 +12,7 @@ using UnityEngine;
 [RequireComponent(typeof(Mover))]
 [RequireComponent(typeof(Jumper))]
 [RequireComponent(typeof(AnimationPlayer))]
-[RequireComponent(typeof(PlayerHealth))]
+[RequireComponent(typeof(DamageableHealth))]
 public abstract class FormStrategy : MonoBehaviour, IAction
 {
     //------------------ 持有玩家数据包 -----------------
@@ -23,14 +23,14 @@ public abstract class FormStrategy : MonoBehaviour, IAction
     protected Mover _mover;
     protected Jumper _jumper;
     protected AnimationPlayer _animationPlayer;
-    protected PlayerHealth _health;
+    protected DamageableHealth _health;
 
     protected virtual void Awake()
     {
         _mover = GetComponent<Mover>();
         _jumper = GetComponent<Jumper>();
         _animationPlayer = GetComponent<AnimationPlayer>();
-        _health = GetComponent<PlayerHealth>();
+        _health = GetComponent<DamageableHealth>();
     }
 
     public void SwitchSetup(PlayerConfig playerConfig, PlayerFormConfig formConfig, PlayerSaveData playerSaveData)
@@ -38,15 +38,15 @@ public abstract class FormStrategy : MonoBehaviour, IAction
         _playerConfig ??= playerConfig;
         _formConfig ??= formConfig;
         _playerSaveData ??= playerSaveData;
-        
+
         //依赖注入
         InjectionConfig(formConfig);
-        
+
         //设置初始的动画状态机
         _animationPlayer.SetRuntimeAnimatorController(formConfig.RuntimeAnimatorController);
         //重置跳跃次数
         _jumper.ResetJumpCounter();
-        // 通过 PlayerHealth 初始化底层 Health 组件。
+        // 通过 DamageableHealth 初始化底层 Health 组件
         _health.Initialize(_formConfig.MaxHealthAmount, _playerSaveData.CurrentHealth);
     }
     
