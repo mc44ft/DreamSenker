@@ -25,4 +25,5 @@ public class PlayerAttackConfigAdapter : IAttackConfig
     public int AttackDamage => (int)(_staticConfig.AttackDamage * _dynamicConfig.AttackMultiply);
     public Vector3 AttackCheckOffset => _staticConfig.AttackCheckOffset;
     public Vector3 AttackCheckBoundsSize => _staticConfig.AttackCheckBoundsSize;
+    public float AttackCooldown => _staticConfig.AttackCooldown;
 }

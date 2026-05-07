@@ -52,7 +52,6 @@ public class PlayerController : StateMachineController, IAction
     /// <param name="onFinished">初始化完成后调用</param>
     public void Initialize(Action onFinished)
     {
-        
         LoadData();
         //切换到初始形态
         SwitchForm();

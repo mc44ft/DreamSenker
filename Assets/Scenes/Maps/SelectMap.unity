@@ -327,9 +327,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <InitialMap>k__BackingField: {fileID: 11400000, guid: abb6d7802c9b2471b8bfd850b904ff96, type: 2}
-  <MapDefinitions>k__BackingField:
-  - {fileID: 11400000, guid: abb6d7802c9b2471b8bfd850b904ff96, type: 2}
-  - {fileID: 11400000, guid: 0c21af8c016384ff6a38230fda11e4a5, type: 2}
   <ConnectionDatabase>k__BackingField: {fileID: 11400000, guid: eee70502dacb54d24ab110a374c61c70, type: 2}
   <GameConfig>k__BackingField: {fileID: 11400000, guid: 245bf98223402cc4c8964dfd2ac5b938, type: 2}
   <PlayerConfigSO>k__BackingField: {fileID: 11400000, guid: 6134f6c13d18a8a4899479ef73febd85, type: 2}

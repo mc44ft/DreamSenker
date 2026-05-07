@@ -2,7 +2,7 @@
 name: refactor-plan-document
 description: >
   DreamSenker 重构方案文档规范。用户要求对某项功能或系统制定较大的重构方案时使用；
-  较大重构指预计涉及改动脚本大于 3 个。必须在 Assets/Documentation 下创建明确的重构方案文档。
+  较大重构指预计涉及改动脚本大于 3 个。必须在 Assets/Documentation/规划文档 下创建明确的重构方案文档。
 ---
 
 # 重构方案文档
@@ -16,7 +16,7 @@ description: >
 触发后必须创建文档：
 
 ```text
-Assets/Documentation/<功能或系统名>重构方案.md
+Assets/Documentation/规划文档/<功能或系统名>重构方案.md
 ```
 
 不要只在对话里给方案。

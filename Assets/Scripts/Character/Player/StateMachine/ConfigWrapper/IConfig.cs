@@ -26,6 +26,7 @@ public interface IAttackConfig : IConfig
     public int AttackDamage { get; }
     public Vector3 AttackCheckOffset { get; }
     public Vector3 AttackCheckBoundsSize { get; }
+    public float AttackCooldown { get; }
 }
 
 public interface IHealthConfig : IConfig

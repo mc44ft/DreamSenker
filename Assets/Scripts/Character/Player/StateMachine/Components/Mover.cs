@@ -19,15 +19,10 @@ public class Mover : BaseComponent<IMoveConfig>
     {
         _rigidbody = GetComponent<Rigidbody2D>();
     }
-
-    private void Update()
+    private void UpdateFace(float horizontalValue)
     {
-        UpdateFace();
-    }
-    private void UpdateFace()
-    {
-        if (InputManager.Instance.HorizontalValue == 0) return;
-        int newFaceRight = InputManager.Instance.HorizontalValue > 0 ? 1 : -1;
+        if (horizontalValue == 0) return;
+        int newFaceRight = horizontalValue > 0 ? 1 : -1;
 
         //玩家输入方向改变时才执行
         if(newFaceRight != _faceRight)
@@ -41,13 +36,14 @@ public class Mover : BaseComponent<IMoveConfig>
     {
         _moveSpeedMultiplier = multiplier;
     }
-    public void Move()
+    public void Move(float horizontalValue)
     {
         if (_moveConfig == null) return;
         
+        UpdateFace(horizontalValue);
         //直接写在FixedUpdate里 不管什么状态 都可以移动
         _rigidbody.velocity = new Vector2(
-            InputManager.Instance.HorizontalValue * _moveConfig.RunSpeed * _moveSpeedMultiplier,
+            horizontalValue * _moveConfig.RunSpeed * _moveSpeedMultiplier,
             _rigidbody.velocity.y);
     }
     public void StopMove()

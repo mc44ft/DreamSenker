@@ -26,15 +26,6 @@ namespace Data.ScriptableObjects.Character.Enemy
         [Space(1)]
         [Header("奔跑速度")]
         [SerializeField] private float _runSpeed = 8f;
-        [Header("跳跃力度")]
-        [SerializeField] private float _jumpSpeed = 18f;
-        [Header("跳跃次数")]
-        [SerializeField] private int _jumpCount = 2;
-        [SerializeField] private LayerMask _playerGroundLayerMask;
-        [Header("跳跃重力")]
-        [SerializeField] private float _jumpGravityScale = 5.0f;
-        [Header("下落重力")]
-        [SerializeField] private float _fallGravityScale = 7.0f;
         
         //--------------------- IAttackConfig ----------------------------
         [Space(1)]
@@ -46,14 +37,11 @@ namespace Data.ScriptableObjects.Character.Enemy
         [SerializeField] private Vector3 _attackCheckOffset;
         [Header("普通攻击的检测盒子大小")]
         [SerializeField] private Vector3 _attackCheckBoundsSize;
+        [Header("普通攻击冷却时间")]
+        [SerializeField] private float _attackCooldown = 0.5f;
         
         //--------------------- IMoveConfig ----------------------------
         public float RunSpeed => _runSpeed;
-        public float JumpSpeed => _jumpSpeed;
-        public int JumpCount => _jumpCount;
-        public LayerMask GroundLayerMask => _playerGroundLayerMask;
-        public float JumpGravityScale => _jumpGravityScale;
-        public float FallGravityScale => _fallGravityScale;
         //--------------------- IHealthConfig ----------------------------
         public int MaxHealthAmount => _maxHealthAmount;
         public float GetHitKnockbackForceValue => _getHitKnockbackForceValue;
@@ -63,6 +51,7 @@ namespace Data.ScriptableObjects.Character.Enemy
         public int AttackDamage => _attackDamage;
         public Vector3 AttackCheckOffset => _attackCheckOffset;
         public Vector3 AttackCheckBoundsSize => _attackCheckBoundsSize;
+        public float AttackCooldown => _attackCooldown;
 
         public float MaxGravityScale => _maxGravityScale;
     }

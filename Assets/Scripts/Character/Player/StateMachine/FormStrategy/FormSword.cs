@@ -28,7 +28,7 @@ public class FormSword : FormStrategy
                 _mover.StopMove();
                 break;
             case EAction.Move:
-                _mover.Move();
+                _mover.Move(InputManager.Instance.HorizontalValue);
                 break;
             case EAction.JumpEnterSetup:
                 _jumper.JumpEnterSetup();

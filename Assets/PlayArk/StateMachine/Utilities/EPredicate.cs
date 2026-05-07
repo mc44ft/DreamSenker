@@ -14,5 +14,6 @@ namespace PlayArk.StateMachine.Utilities
         Grounded, //接地状态
         TakeDamage,//受到攻击
         Dead,//触发死亡
+        AttackCooldownReady,//攻击冷却结束
     }
 }

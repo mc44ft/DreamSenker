@@ -73,7 +73,7 @@ public class PlayerFormConfig : IMoveConfig, IJumpConfig, IHealthConfig, IAttack
     [SerializeField] private float _getHitKnockbackForceValue = 15f;
     
     [Space(1)]
-    [Header("普通攻击的伤害值")] 
+    [Header("普通攻击的伤害值")]
     [SerializeField] private int _attackDamage = 1;
     [Header("普通攻击的检测层级")]
     [SerializeField] private LayerMask _attackCheckLayer;
@@ -81,6 +81,8 @@ public class PlayerFormConfig : IMoveConfig, IJumpConfig, IHealthConfig, IAttack
     [SerializeField] private Vector3 _attackCheckOffset;
     [Header("普通攻击的检测盒子大小")]
     [SerializeField] private Vector3 _attackCheckBoundsSize;
+    [Header("普通攻击冷却时间")]
+    [SerializeField] private float _attackCooldown = 0.5f;
     
     
     public RuntimeAnimatorController RuntimeAnimatorController => _runtimeAnimatorController;
@@ -101,6 +103,7 @@ public class PlayerFormConfig : IMoveConfig, IJumpConfig, IHealthConfig, IAttack
     public int AttackDamage => _attackDamage;
     public Vector3 AttackCheckOffset => _attackCheckOffset;
     public Vector3 AttackCheckBoundsSize => _attackCheckBoundsSize;
+    public float AttackCooldown => _attackCooldown;
 
     public float MaxGravityScale => _maxGravityScale;
 }

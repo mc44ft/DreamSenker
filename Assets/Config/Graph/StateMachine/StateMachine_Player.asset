@@ -191,7 +191,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _title: Attack
   _uniqueID: c165f088-e88a-491e-934a-0032f3d3437c
-  _viewPosition: {x: 371.0454, y: 180.50003}
+  _viewPosition: {x: 347.80728, y: 161.99998}
   _inputPorts:
   - rid: 2122959388822994944
   _outputPorts:
@@ -230,7 +230,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dcd5227f78e0f45cb9ac4dd865605600, type: 3}
-  m_Name: StateMachine_
+  m_Name: StateMachine_Player
   m_EditorClassIdentifier: 
   _nodes:
   - {fileID: 2107513943834104237}
@@ -339,6 +339,10 @@ MonoBehaviour:
         - _predicate: 0
           _parameters:
           - AttackButtonDown
+          _negate: 0
+      - _or:
+        - _predicate: 8
+          _parameters: []
           _negate: 0
   - _uniqueID: af8e1733-6ba0-4ab1-a67c-a28ab16338c3
     _rootNodeID: c165f088-e88a-491e-934a-0032f3d3437c
