@@ -15,12 +15,28 @@ namespace PlayArk.StateMachine.Editor
         public override VisualElement CreateInspectorGUI()
         {
             _container = new VisualElement();
-        
+
             SerializedProperty data = serializedObject.FindProperty("Data");
             PropertyField dataField = new PropertyField(data);
+
+            // 注册值变更回调，标记主资源为脏以确保持久化
+            dataField.TrackPropertyValue(data, OnDataChanged);
+
             _container.Add(dataField);
             return _container;
-        
+
+        }
+
+        /// <summary>
+        /// Condition数据变更时标记StateMachine为脏，支持持久化和撤销
+        /// </summary>
+        private void OnDataChanged(SerializedProperty property)
+        {
+            if (target is EdgeInspectorHelper edge && edge.StateMachine != null)
+            {
+                Undo.RecordObject(edge.StateMachine, "修改连线Condition");
+                EditorUtility.SetDirty(edge.StateMachine);
+            }
         }
 
         private VisualElement MakeTransitionItem()
@@ -40,7 +56,7 @@ namespace PlayArk.StateMachine.Editor
 
         private void BindTransitionItem(VisualElement element, int index)
         {
-        
+
         }
     }
 }
