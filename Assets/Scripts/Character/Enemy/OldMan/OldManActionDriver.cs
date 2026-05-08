@@ -25,21 +25,14 @@ public class OldManActionDriver : MonoBehaviour, IAction
             case EAction.Move:
                 _mover?.Move(_brain.MoveDirection);
                 break;
-
             case EAction.StopMove:
                 _mover?.StopMove();
                 break;
-
             case EAction.PlayAnimation:
                 if (parameters != null && parameters.Length > 0)
                 {
                     _animationPlayer?.PlayAnimation(parameters[0]);
                 }
-                break;
-
-            case EAction.Attack:
-                // 触发攻击动画，攻击冷却由Attacker内部维护
-                _animationPlayer?.PlayAnimation("Attack");
                 break;
         }
     }

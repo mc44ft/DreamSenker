@@ -10,14 +10,12 @@ namespace PlayArk.StateMachine.Utilities
         PlayAnimation,
         //--------------- Move -----------
         StopMove,
-        Move,
+        Move,//FixedUpdate
         JumpEnterSetup,
         FallEnterSetup,
         //--------------- GetHit -----------
         Knockback,
         //--------------- Switch Form -----------
         SwitchFormHandle,//监测切换形态
-        //--------------- Attack -----------
-        Attack,//触发攻击
     }
 }

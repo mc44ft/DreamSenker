@@ -48,6 +48,7 @@ public class AnimationPlayer : BaseComponent<IConfig>
         switch (predicate)
         {
             case EPredicate.AnimOver:
+                //检测Tag分组动画是否播放完毕
                 return CheckAnimOver(parameters[0]);
         }
         return null;

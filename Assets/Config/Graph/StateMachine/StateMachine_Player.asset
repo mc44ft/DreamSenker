@@ -191,7 +191,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _title: Attack
   _uniqueID: c165f088-e88a-491e-934a-0032f3d3437c
-  _viewPosition: {x: 347.80728, y: 161.99998}
+  _viewPosition: {x: 341.41705, y: 183.49812}
   _inputPorts:
   - rid: 2122959388822994944
   _outputPorts:
