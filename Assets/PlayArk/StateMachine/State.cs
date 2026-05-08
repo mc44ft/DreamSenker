@@ -41,7 +41,7 @@ namespace PlayArk.StateMachine
         public virtual void LogicUpdate()
         {
             //在这里进行状态轮询的条件判断
-            CheckTransitions();
+            CheckTransitions(); 
         }
     
         public virtual void PhysicsUpdate() { }

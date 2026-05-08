@@ -17,7 +17,11 @@ GameObject:
   - component: {fileID: 35477374143362630}
   - component: {fileID: 3922554278765192281}
   - component: {fileID: 946059727621525867}
-  m_Layer: 0
+  - component: {fileID: 94592251763888444}
+  - component: {fileID: 4723792663505309595}
+  - component: {fileID: 5996653706286881649}
+  - component: {fileID: 8130061809584187195}
+  m_Layer: 10
   m_Name: OldMan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,5 +203,87 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50bc5e14da6294bb6961c98f77aa5380, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stateMachine: {fileID: 0}
-  _config: {fileID: 0}
+  _stateMachine: {fileID: 11400000, guid: 6cc598daa5bce49898f39da98b97c220, type: 2}
+  _config: {fileID: 11400000, guid: 01764e3cf75ba46298c22d488e498c6f, type: 2}
+--- !u!114 &94592251763888444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5451238143350806387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8e291e8c7d8f4ac890fd730a916b17d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _invulnerableTime: 0.5
+--- !u!114 &4723792663505309595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5451238143350806387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 171fc35f0384045e29ef4cf1b1a10053, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5996653706286881649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5451238143350806387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfe60473158724bfbbcc2eeb931b5128, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!61 &8130061809584187195
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5451238143350806387}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.34766078}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.15}
+    oldSize: {x: 1.92, y: 1.92}
+    newSize: {x: 0.96, y: 0.96}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.4, y: 0.7213216}
+  m_EdgeRadius: 0

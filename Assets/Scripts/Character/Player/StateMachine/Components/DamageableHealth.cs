@@ -14,7 +14,6 @@ public class DamageableHealth : BaseComponent<IHealthConfig>, IDamageable
 
     public int MaxHealthAmount => _health.MaxHealthAmount;
     public int CurrentHealthAmount => _health.CurrentHealthAmount;
-    public Health Health => _health;
 
     private Health _health;
     private IHealthConfig _healthConfig;
@@ -61,6 +60,7 @@ public class DamageableHealth : BaseComponent<IHealthConfig>, IDamageable
     public override void InjectionConfig(IHealthConfig config)
     {
         _healthConfig = config;
+        Initialize(config.MaxHealthAmount, config.MaxHealthAmount);
     }
 
     public override bool? Evaluate(EPredicate predicate, string[] parameters)

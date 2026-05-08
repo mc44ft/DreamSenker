@@ -50,13 +50,13 @@ public class PlayerController : StateMachineController, IAction
     private void OnEnable()
     {
         // 订阅Health事件，触发玩家血条UI刷新
-        _damageableHealth.Health.OnHealthChanged += OnHealthChanged;
+        _damageableHealth.GetComponent<Health>().OnHealthChanged += OnHealthChanged;
     }
 
     private void OnDisable()
     {
         // 订阅Health事件，触发玩家血条UI刷新
-        _damageableHealth.Health.OnHealthChanged -= OnHealthChanged;
+        _damageableHealth.GetComponent<Health>().OnHealthChanged -= OnHealthChanged;
     }
     private void OnHealthChanged(int maxHealth, int currentHealth)
     {

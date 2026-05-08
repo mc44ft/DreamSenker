@@ -9,6 +9,7 @@ public class OldManBrain : MonoBehaviour, IPredicateEvaluator
 {
     private IEnemyAIConfig _aiConfig;
     private Transform _playerTransform;
+    private bool _playerFound;
     private float _moveDirection;
 
     /// <summary>
@@ -22,20 +23,6 @@ public class OldManBrain : MonoBehaviour, IPredicateEvaluator
     public void InjectionConfig(IEnemyAIConfig config)
     {
         _aiConfig = config;
-    }
-
-    private void Start()
-    {
-        // 在Start中获取玩家引用，确保玩家已生成
-        GameObject player = GameObject.FindWithTag("Player");
-        if (player != null)
-        {
-            _playerTransform = player.transform;
-        }
-        else
-        {
-            Debug.LogError("没有找到玩家！");
-        }
     }
 
     private void Update()
@@ -59,11 +46,25 @@ public class OldManBrain : MonoBehaviour, IPredicateEvaluator
     }
 
     /// <summary>
-    /// 获取到玩家的距离
+    /// 获取到玩家的距离，懒加载玩家引用
     /// </summary>
     private float GetDistanceToPlayer()
     {
-        if (_playerTransform == null) return float.MaxValue;
+        // 懒加载玩家引用
+        if (!_playerFound)
+        {
+            GameObject player = GameObject.FindWithTag("Player");
+            if (player != null)
+            {
+                _playerTransform = player.transform;
+                _playerFound = true;
+            }
+            else
+            {
+                return float.MaxValue;
+            }
+        }
+
         return Vector2.Distance(transform.position, _playerTransform.position);
     }
 
@@ -75,15 +76,15 @@ public class OldManBrain : MonoBehaviour, IPredicateEvaluator
 
         switch (predicate)
         {
-            case EPredicate.OldManCanSeePlayer:
+            case EPredicate.CanSeeTarget:
                 // 玩家在检测范围内
                 return distance <= _aiConfig.DetectRange;
 
-            case EPredicate.OldManInAttackRange:
+            case EPredicate.InAttackRange:
                 // 玩家在攻击范围内
                 return distance <= _aiConfig.AttackRange;
 
-            case EPredicate.OldManLostPlayer:
+            case EPredicate.LostTarget:
                 // 玩家超出丢失范围
                 return distance > _aiConfig.LoseTargetRange;
         }

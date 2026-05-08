@@ -15,9 +15,9 @@ namespace PlayArk.StateMachine.Utilities
         TakeDamage,//受到攻击
         Dead,//触发死亡
         AttackCooldownReady,//攻击冷却结束
-        //--------------- OldMan AI -----------
-        OldManCanSeePlayer,//OldMan发现玩家
-        OldManInAttackRange,//玩家进入OldMan攻击范围
-        OldManLostPlayer,//OldMan丢失玩家
+        //--------------- AI -----------
+        CanSeeTarget,//发现目标
+        InAttackRange,//目标进入攻击范围
+        LostTarget,//丢失目标
     }
 }
