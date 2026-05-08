@@ -45,4 +45,29 @@ public class OldManController : StateMachineController
             _damageableHealth?.InjectionConfig(config);
         }
     }
+
+#if UNITY_EDITOR
+    /// <summary>
+    /// 绘制AI检测范围可视化
+    /// </summary>
+    private void OnDrawGizmos()
+    {
+        if (_config == null)
+            return;
+
+        var config = _config.Config;
+
+        // 检测范围 - 黄色
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, config.DetectRange);
+
+        // 攻击范围 - 红色
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, config.AttackRange);
+
+        // 丢失目标范围 - 紫色
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawWireSphere(transform.position, config.LoseTargetRange);
+    }
+#endif
 }
