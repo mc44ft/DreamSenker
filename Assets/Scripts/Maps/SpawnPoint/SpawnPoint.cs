@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 public class SpawnPoint : MonoBehaviour
 {
-    public E_SpawnType SpawnType;
+    [FormerlySerializedAs("eSpawnType")] public ESpawnType SpawnType;
     [Tooltip("ChangeMap/Save/Teleport + _  + 序号")]
     public string ID;
 
@@ -19,9 +20,9 @@ public class SpawnPoint : MonoBehaviour
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        if (SpawnType == E_SpawnType.FromSavePoint)
+        if (SpawnType == ESpawnType.FromSavePoint)
             Gizmos.color = Color.green;
-        else if(SpawnType == E_SpawnType.TeleportPoint)
+        else if(SpawnType == ESpawnType.TeleportPoint)
             Gizmos.color = Color.yellow;
         else
             Gizmos.color = Color.blue;

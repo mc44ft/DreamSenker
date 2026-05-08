@@ -59,7 +59,7 @@ namespace DialogueSystem.RunTime
                 for (int i = 0; i < m_dialogueInfoArray.Length; i++)
                 {
                     //跳过不符合触发条件的对话
-                    if (!GameManager.Instance.CheckGameCondition(m_dialogueInfoArray[i].GameCondition))
+                    if (!GameManager.Instance.CheckGameCondition(m_dialogueInfoArray[i].eGameCondition))
                         continue;
 
                     //判断该触发Main对话还是Tail对话

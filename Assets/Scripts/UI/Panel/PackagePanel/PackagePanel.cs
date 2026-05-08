@@ -44,7 +44,7 @@ public class PackagePanel : PanelBase_Mini
         {
             //数据层移除
             //移除背包中该物品的数据
-            InventoryManager.Instance.RemoveItemFromPackage(_currentSelectedItem.ID);
+            InventoryManager.Instance.RemoveItemFromPackage(_currentSelectedItem.packageItemType);
             //表现层移除
             _usedItemIconList.Remove( _currentSelectedItem );
             _currentSelectedItem.PushSelfToPool();
@@ -118,7 +118,7 @@ public class PackagePanel : PanelBase_Mini
                         _currentSelectedItem = itemIcon;
                         SetDescriptionText(itemInfo.Description);
 
-                        if(itemIcon.ID == E_PackageItemID.Chen)
+                        if(itemIcon.packageItemType == EPackageItemType.Chen)
                         {
                             //晨露梦核不显示确定Button
                             _sureButton.gameObject.SetActive(false);
@@ -138,7 +138,7 @@ public class PackagePanel : PanelBase_Mini
         {
             //默认选中第一个
             _currentSelectedItem = _usedItemIconList[0];
-            SetDescriptionText(InventoryManager.Instance.GetItemInfoByID(_currentSelectedItem.ID).Description);
+            SetDescriptionText(InventoryManager.Instance.GetItemInfoByID(_currentSelectedItem.packageItemType).Description);
         }
     }
 }

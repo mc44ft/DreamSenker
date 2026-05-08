@@ -84,7 +84,7 @@ public class FoxOneController : FoxBoss
                 EventCenter.Instance.EventTrigger(
                     E_EventType.Game_BossDead, 
                     this, 
-                    new GameBossDeadEventArgs(E_BossType.FoxClone, this.gameObject));
+                    new GameBossDeadEventArgs(EBossType.FoxClone, this.gameObject));
                 _machineManager.TransitionTo(FoxOneDeathState);
             }
             

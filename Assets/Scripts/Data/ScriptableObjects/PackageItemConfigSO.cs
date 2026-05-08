@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Data.ScriptableObjects
 {
@@ -10,21 +11,21 @@ namespace Data.ScriptableObjects
 public class PackageItemConfigSO : ScriptableObject
 {
     [field: SerializeField] public PackageItemInfo[] PackageItemInfoArray;
-    public PackageItemInfo GetItemInfoByID(E_PackageItemID id)
+    public PackageItemInfo GetItemInfoByID(EPackageItemType type)
     {
-        return PackageItemInfoArray.Where(info => info.PackageItemID == id).FirstOrDefault();
+        return PackageItemInfoArray.Where(info => info.ePackageItemType == type).FirstOrDefault();
     }
 }
 [Serializable]
 public class PackageItemInfo
 {
-    public E_PackageItemID PackageItemID;
+    [FormerlySerializedAs("PackageItemID")] public EPackageItemType ePackageItemType;
     public Sprite Icon;
     [Tooltip("物品描述")]
     [Multiline]
     public string Description;
-    [Tooltip("物品加成效果")]
-    public E_BonusEffectType BonusEffectType;
+    [FormerlySerializedAs("BonusEffectType")] [Tooltip("物品加成效果")]
+    public EBonusEffectType BonusEffectType;
     [Tooltip("物品加成数值")]
     public int BonusAmount;
 }

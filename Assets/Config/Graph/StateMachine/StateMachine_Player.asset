@@ -200,6 +200,8 @@ MonoBehaviour:
   - action: 0
     parameters:
     - Attack
+  - action: 1
+    parameters: []
   _onLogicUpdateActions: []
   _onPhysicsUpdateActions: []
   _onExitActions: []

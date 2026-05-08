@@ -1,9 +1,11 @@
 ﻿
 using UnityEngine;
+using UnityEngine.Serialization;
+
 [RequireComponent(typeof(BoxCollider2D))]
 public class ItemPickUp : MonoBehaviour
 {
-    [SerializeField] private E_PackageItemID _itemID;
+    [FormerlySerializedAs("_itemID")] [SerializeField] private EPackageItemType itemType;
     [SerializeField] private GameObject _worldTips;
 
     private bool _isPlayerInside;
@@ -33,10 +35,10 @@ public class ItemPickUp : MonoBehaviour
         {
             AudioManager.Instance.PlaySound(GameResources.Instance.PickupItemClip);
             //将自己添加到玩家数据中
-            InventoryManager.Instance.AddItemToPackage(_itemID);
+            InventoryManager.Instance.AddItemToPackage(itemType);
 
             //更新游戏数据
-            if(_itemID == E_PackageItemID.Chen)
+            if(itemType == EPackageItemType.Chen)
             {
                 GameManager.Instance.GameSaveData.IsGotChen = true;
             }

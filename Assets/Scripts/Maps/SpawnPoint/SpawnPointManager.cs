@@ -77,9 +77,9 @@ public class SpawnPointManager : BaseManager<SpawnPointManager>
         
         return Vector3.zero;
     }
-    public Vector3 GetSpawnPositionFromSpawnType(E_SpawnType spawnType)
+    public Vector3 GetSpawnPositionFromSpawnType(ESpawnType eSpawnType)
     {
-        SpawnPoint spawnPoint = m_spawnPointDict_changeMap.Where(pair => pair.Value.SpawnType == spawnType).FirstOrDefault().Value;
+        SpawnPoint spawnPoint = m_spawnPointDict_changeMap.Where(pair => pair.Value.SpawnType == eSpawnType).FirstOrDefault().Value;
 
         if(spawnPoint != null)
         {

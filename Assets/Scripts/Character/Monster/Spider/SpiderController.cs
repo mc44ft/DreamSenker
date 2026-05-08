@@ -250,7 +250,7 @@ public class SpiderController : MonoBehaviour, IDamageable, ITouchDamageable
             EventCenter.Instance.EventTrigger(
                 E_EventType.Game_BossDead, 
                 this, 
-                new GameBossDeadEventArgs(E_BossType.Spider, gameObject));
+                new GameBossDeadEventArgs(EBossType.Spider, gameObject));
         }
     }
 

@@ -23,15 +23,15 @@ public class AnimationPlayer : BaseComponent<IConfig>
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="tag">每个动作可能对应多个不同的动画
+    /// <param name="animTag">每个动作可能对应多个不同的动画
     /// 只要给相同类型的动画状态打上标签，就可以实现动画分组
     /// 检测该组动画是否播放结束即可</param>
-    private bool CheckAnimOver(string tag)
+    private bool CheckAnimOver(string animTag)
     {
         AnimatorStateInfo info = _animator.GetCurrentAnimatorStateInfo(0);
         
         //如果有混合动画 第二个判断条件起作用
-        if (info.IsTag(tag) && !_animator.IsInTransition(0))
+        if (info.IsTag(animTag) && !_animator.IsInTransition(0))
         {
             return info.normalizedTime >= 1;
         }

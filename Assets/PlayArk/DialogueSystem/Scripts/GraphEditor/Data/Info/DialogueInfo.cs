@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace PlayArk.DialogueSystem.Data
 {
@@ -9,8 +10,8 @@ namespace PlayArk.DialogueSystem.Data
         public DialogueGraph GraphMain;
         public DialogueGraph GraphTail;
 
-        [Tooltip("需要判断的游戏条件")]
-        public E_GameCondition GameCondition;
+        [FormerlySerializedAs("GameCondition")] [Tooltip("需要判断的游戏条件")]
+        public EGameCondition eGameCondition;
         public string guid;
     }
     [Serializable]
@@ -18,8 +19,8 @@ namespace PlayArk.DialogueSystem.Data
     {
         public DialogueGraph GraphMain;
 
-        [Tooltip("需要判断的游戏条件")]
-        public E_GameCondition GameCondition;
+        [FormerlySerializedAs("GameCondition")] [Tooltip("需要判断的游戏条件")]
+        public EGameCondition eGameCondition;
         public string guid;
     }
 }

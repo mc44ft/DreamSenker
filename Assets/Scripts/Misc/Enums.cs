@@ -1,25 +1,8 @@
 ﻿
-public enum E_LevelExitDirection
-{
-    East,
-    South,
-    West,
-    North
-}
-public enum E_AiState
-{
-    None = 0,
-    Idle,
-    GetHit,
-    Patrol,
-    Chase,
-    Attack,
-    Death,
-}
 /// <summary>
 /// 出生点类型
 /// </summary>
-public enum E_SpawnType
+public enum ESpawnType
 {
     FromSavePoint,//读档复活 或 新游戏开始
     EastPoint,
@@ -35,7 +18,7 @@ public enum E_SpawnType
     /// </summary>
     TeleportPoint,
 }
-public enum E_GameCondition
+public enum EGameCondition
 {
     /// <summary>
     /// 不判断任何条件
@@ -62,13 +45,13 @@ public enum E_GameCondition
     /// </summary>
     ClearMirrorMap,
 }
-public enum E_PackageItemID
+public enum EPackageItemType
 {
     RedFruit,
     BlueFruit,
     Chen,
 }
-public enum E_MapSceneName
+public enum EMapSceneName
 {
     CampMap,
     MagicMap,
@@ -77,7 +60,7 @@ public enum E_MapSceneName
     MirrorMap1,
     MirrorMap2,
 }
-public enum E_BossType
+public enum EBossType
 {
     Spider,
     FoxTwo,
@@ -85,7 +68,7 @@ public enum E_BossType
     FoxOne,
 
 }
-public enum E_BonusEffectType
+public enum EBonusEffectType
 {
     None,
     /// <summary>

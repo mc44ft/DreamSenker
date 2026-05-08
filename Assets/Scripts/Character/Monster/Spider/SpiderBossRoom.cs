@@ -56,7 +56,7 @@ public class SpiderBossRoom : MonoBehaviour
     {
         switch (args.BossType)
         {
-            case E_BossType.Spider:
+            case EBossType.Spider:
 
 
                 //_spider.KeepDeathState();
@@ -64,7 +64,7 @@ public class SpiderBossRoom : MonoBehaviour
                 _leftWall.SetActive(false);
                 _rightWall.SetActive(false);
                 break;
-            case E_BossType.FoxTwo:
+            case EBossType.FoxTwo:
                 break;
             default:
                 break;

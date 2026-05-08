@@ -22,7 +22,7 @@ public class RestoreHealthPanel : PanelBase_Mini
         AudioManager.Instance.PlaySound(GameResources.Instance.UiButtonClip);
 
         //触发回血加成
-        EventCenter.Instance.EventTrigger(E_EventType.Game_BonusEffect, this, new GameBonusEffectEventArgs(E_BonusEffectType.RestoreHealth, 50));
+        EventCenter.Instance.EventTrigger(E_EventType.Game_BonusEffect, this, new GameBonusEffectEventArgs(EBonusEffectType.RestoreHealth, 50));
         //通知Dialogue
         EventCenter.Instance.EventTrigger(E_EventType.Dialogue_PanelFinished, this, new DialoguePanelFinishedEventArgs(0));
         //关闭面板

@@ -121,7 +121,7 @@ public class FoxTwoSkillCloneState : StateBase<FoxTwoController>
     }
     private void OnBossDead(object eventSender, GameBossDeadEventArgs args)
     {
-        if (args.BossType == E_BossType.FoxClone && 
+        if (args.BossType == EBossType.FoxClone && 
             args.BossGameObject.TryGetComponent(out FoxOneController cloneController) &&
             _cloneFoxList.Contains(cloneController))
         {

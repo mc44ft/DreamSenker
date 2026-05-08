@@ -69,7 +69,7 @@ public class TaskPanel : PanelBase_Mini
         AudioManager.Instance.PlaySound(GameResources.Instance.UiButtonClip);
 
         //移除晨露梦核
-        InventoryManager.Instance.RemoveItemFromPackage(E_PackageItemID.Chen);
+        InventoryManager.Instance.RemoveItemFromPackage(EPackageItemType.Chen);
         //通知外部
         EventCenter.Instance.EventTrigger(E_EventType.Dialogue_PanelFinished, this, new DialoguePanelFinishedEventArgs(0));
 

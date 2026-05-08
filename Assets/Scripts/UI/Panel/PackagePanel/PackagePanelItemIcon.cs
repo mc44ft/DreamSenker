@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 [RequireComponent(typeof(Toggle))]
 public class PackagePanelItemIcon : PoolBase
@@ -12,8 +13,8 @@ public class PackagePanelItemIcon : PoolBase
     [Tooltip("放缩曲线")]
     [SerializeField] private Ease _punchEase;
 
-    public E_PackageItemID ID;
-    public E_BonusEffectType BonusEffectType;
+    public EPackageItemType packageItemType;
+     public EBonusEffectType BonusEffectType;
     public int BonusAmount;
 
     private Toggle _toggle;
@@ -25,11 +26,11 @@ public class PackagePanelItemIcon : PoolBase
         _toggle = GetComponent<Toggle>();
         _image = GetComponent<Image>();
     }
-    public void Initialize(E_PackageItemID itemID, E_BonusEffectType bonusEffectType, int bonusAmount, 
+    public void Initialize(EPackageItemType itemType, EBonusEffectType BonusEffectType, int bonusAmount, 
         Sprite sprite, ToggleGroup group, Action<PackagePanelItemIcon> onClickCallback)
     {
-        ID = itemID;
-        BonusEffectType = bonusEffectType;
+        packageItemType = itemType;
+        this.BonusEffectType = BonusEffectType;
         BonusAmount = bonusAmount;
         _image.sprite = sprite;
         _toggle.group = group;//设置组

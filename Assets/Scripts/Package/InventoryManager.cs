@@ -15,30 +15,30 @@ public class InventoryManager : BaseManager<InventoryManager>
         this._packageItemConfig = m_packageItemConfig;
     }
 
-    public void AddItemToPackage(E_PackageItemID itemID)
+    public void AddItemToPackage(EPackageItemType itemType)
     {
-        if(PackageData.PackageDict.ContainsKey(itemID))
+        if(PackageData.PackageDict.ContainsKey(itemType))
         {
-            PackageData.PackageDict[itemID]++;
+            PackageData.PackageDict[itemType]++;
         }
         else
         {
-            PackageData.PackageDict.Add(itemID, 1);
+            PackageData.PackageDict.Add(itemType, 1);
         }
     }
-    public void RemoveItemFromPackage(E_PackageItemID itemID)
+    public void RemoveItemFromPackage(EPackageItemType itemType)
     {
-        if (PackageData.PackageDict.ContainsKey(itemID))
+        if (PackageData.PackageDict.ContainsKey(itemType))
         {
-            PackageData.PackageDict[itemID]--;
-            if (PackageData.PackageDict[itemID] == 0)
+            PackageData.PackageDict[itemType]--;
+            if (PackageData.PackageDict[itemType] == 0)
             {
-                PackageData.PackageDict.Remove(itemID);
+                PackageData.PackageDict.Remove(itemType);
             }
         }
     }
-    public PackageItemInfo GetItemInfoByID(E_PackageItemID id)
+    public PackageItemInfo GetItemInfoByID(EPackageItemType type)
     {
-        return _packageItemConfig.GetItemInfoByID(id);
+        return _packageItemConfig.GetItemInfoByID(type);
     }
 }

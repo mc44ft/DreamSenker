@@ -19,21 +19,21 @@ public struct DialoguePanelFinishedEventArgs : IEventArgs
 }
 public struct GameBossDeadEventArgs : IEventArgs
 {
-    public E_BossType BossType;
+    public EBossType BossType;
     public GameObject BossGameObject;
-    public GameBossDeadEventArgs(E_BossType bossType,  GameObject bossGameObject)
+    public GameBossDeadEventArgs(EBossType BossType,  GameObject bossGameObject)
     {
-        BossType = bossType;
+        this.BossType = BossType;
         BossGameObject = bossGameObject;
     }
 }
 
 public struct GameBossKeepDeadEventArgs : IEventArgs
 {
-    public E_BossType BossType;
-    public GameBossKeepDeadEventArgs(E_BossType bossType)
+    public EBossType BossType;
+    public GameBossKeepDeadEventArgs(EBossType BossType)
     {
-        BossType = bossType;
+        this.BossType = BossType;
     }
 }
 public struct PlayerHealthUpdateEventArgs : IEventArgs
@@ -48,11 +48,11 @@ public struct PlayerHealthUpdateEventArgs : IEventArgs
 }
 public struct GameBonusEffectEventArgs : IEventArgs
 {
-    public E_BonusEffectType BonusEffectType;
+    public EBonusEffectType BonusEffectType;
     public int RestoreAmount;
-    public GameBonusEffectEventArgs(E_BonusEffectType bonusEffectType, int restoreAmount)
+    public GameBonusEffectEventArgs(EBonusEffectType BonusEffectType, int restoreAmount)
     {
-        BonusEffectType = bonusEffectType;
+        this.BonusEffectType = BonusEffectType;
         RestoreAmount = restoreAmount;
     }
 }

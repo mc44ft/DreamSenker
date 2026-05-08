@@ -82,15 +82,15 @@ public class GameManager : SingletonMono<GameManager>
     {
         switch (args.BossType)
         {
-            case E_BossType.Spider:
+            case EBossType.Spider:
                 GameSaveData.IsKilledSpiderBoss = true;
                 TimerManager.Countdown(3, () =>
                 {
                     SceneTransition.Instance.ResetLoading(Resources.Load<Sprite>("LoadingMirrorMap1"), 1);
-                    TeleportMap(GetMapIdFromEnum(E_MapSceneName.MirrorMap1));
+                    TeleportMap(GetMapIdFromEnum(EMapSceneName.MirrorMap1));
                 });
                 break;
-            case E_BossType.FoxTwo:
+            case EBossType.FoxTwo:
                 //游戏结束
                 GameSaveData.IsKilledFoxBoss = true;
                 AudioManager.Instance.StopMusic();
@@ -301,7 +301,7 @@ public class GameManager : SingletonMono<GameManager>
             }
             else
             {
-                position = SpawnPointManager.Instance.GetSpawnPositionFromSpawnType(E_SpawnType.TeleportPoint);
+                position = SpawnPointManager.Instance.GetSpawnPositionFromSpawnType(ESpawnType.TeleportPoint);
             }
 
             ChangePlayerPosition(position);
@@ -313,16 +313,16 @@ public class GameManager : SingletonMono<GameManager>
     //特殊地图的初始化
     private void SpecialMapInitialize()
     {
-        if (IsMapScene(GameSaveData.CurrentMapId, E_MapSceneName.CaveMap))
+        if (IsMapScene(GameSaveData.CurrentMapId, EMapSceneName.CaveMap))
         {
-            if (CheckGameCondition(E_GameCondition.SpiderLose))
+            if (CheckGameCondition(EGameCondition.SpiderLose))
             {
                 EventCenter.Instance.EventTrigger(
                     E_EventType.Game_BossKeepDead,
                     this,
-                    new GameBossKeepDeadEventArgs(E_BossType.Spider));
+                    new GameBossKeepDeadEventArgs(EBossType.Spider));
 
-                if (IsMapScene(GameSaveData.PreviousMapId, E_MapSceneName.MirrorMap2))
+                if (IsMapScene(GameSaveData.PreviousMapId, EMapSceneName.MirrorMap2))
                 {
                     TimerManager.Countdown(4, () =>
                     {
@@ -338,14 +338,14 @@ public class GameManager : SingletonMono<GameManager>
             }
         }
 
-        if (IsMapScene(GameSaveData.CurrentMapId, E_MapSceneName.MirrorMap1))
+        if (IsMapScene(GameSaveData.CurrentMapId, EMapSceneName.MirrorMap1))
         {
             AudioManager.Instance.PlayMusic(GameResources.Instance.MirrorMapClip);
             UIManager.Instance.HidePanel<GamePanel>();
             _playerMirrorEffect?.SetMirrorActive(true);
         }
 
-        if (IsMapScene(GameSaveData.CurrentMapId, E_MapSceneName.MirrorMap2))
+        if (IsMapScene(GameSaveData.CurrentMapId, EMapSceneName.MirrorMap2))
         {
             _playerMirrorEffect?.SetMirrorActive(false);
             Player.SwitchForm();
@@ -379,54 +379,54 @@ public class GameManager : SingletonMono<GameManager>
     /// </summary>
     /// <param name="condition"></param>
     /// <returns></returns>
-    public bool CheckGameCondition(E_GameCondition condition)
+    public bool CheckGameCondition(EGameCondition condition)
     {
         switch (condition)
         {
-            case E_GameCondition.None:
+            case EGameCondition.None:
                 return true;
-            case E_GameCondition.SpiderWin:
+            case EGameCondition.SpiderWin:
                 return GameSaveData.IsMetSpiderBoss && !GameSaveData.IsKilledSpiderBoss;
-            case E_GameCondition.SpiderLose:
+            case EGameCondition.SpiderLose:
                 return GameSaveData.IsMetSpiderBoss && GameSaveData.IsKilledSpiderBoss;
-            case E_GameCondition.FoxWin:
+            case EGameCondition.FoxWin:
                 return GameSaveData.IsMetFoxBoss && !GameSaveData.IsKilledFoxBoss;
-            case E_GameCondition.FoundChen:
+            case EGameCondition.FoundChen:
                 return GameSaveData.IsGotChen;
-            case E_GameCondition.ClearMirrorMap:
+            case EGameCondition.ClearMirrorMap:
                 return GameSaveData.IsClearMirrorMap;
             default:
                 return false;
         }
     }
 
-    public string GetSceneNameFromEnum(E_MapSceneName sceneName)
+    public string GetSceneNameFromEnum(EMapSceneName sceneName)
     {
         switch (sceneName)
         {
-            case E_MapSceneName.CampMap:
+            case EMapSceneName.CampMap:
                 return "CampMap";
-            case E_MapSceneName.MagicMap:
+            case EMapSceneName.MagicMap:
                 return "MagicMap";
-            case E_MapSceneName.CaveMap:
+            case EMapSceneName.CaveMap:
                 return "CaveMap";
-            case E_MapSceneName.FoxMap:
+            case EMapSceneName.FoxMap:
                 return "FoxMap";
-            case E_MapSceneName.MirrorMap1:
+            case EMapSceneName.MirrorMap1:
                 return "MirrorMap1";
-            case E_MapSceneName.MirrorMap2:
+            case EMapSceneName.MirrorMap2:
                 return "MirrorMap2";
             default:
                 return "CampMap";
         }
     }
 
-    public string GetMapIdFromEnum(E_MapSceneName sceneName)
+    public string GetMapIdFromEnum(EMapSceneName sceneName)
     {
         return GetRequiredMapBySceneName(GetSceneNameFromEnum(sceneName)).MapId;
     }
 
-    private bool IsMapScene(string mapId, E_MapSceneName sceneName)
+    private bool IsMapScene(string mapId, EMapSceneName sceneName)
     {
         if (string.IsNullOrWhiteSpace(mapId))
         {

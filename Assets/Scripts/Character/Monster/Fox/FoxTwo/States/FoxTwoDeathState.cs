@@ -30,7 +30,7 @@ public class FoxTwoDeathState : StateBase<FoxTwoController>
         EventCenter.Instance.EventTrigger(
                 E_EventType.Game_BossDead,
                 this,
-                new GameBossDeadEventArgs(E_BossType.FoxTwo, _controller.gameObject));
+                new GameBossDeadEventArgs(EBossType.FoxTwo, _controller.gameObject));
 
     }
     public override void LogicUpdate()

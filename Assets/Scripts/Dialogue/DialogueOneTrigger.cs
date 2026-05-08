@@ -16,7 +16,7 @@ namespace DialogueSystem.RunTime
             {
                 //未被触发过
                 if (!GameManager.Instance.GameSaveData.CheckDialogueTriggered(m_oneTriggerInfo.guid) && 
-                    GameManager.Instance.CheckGameCondition(m_oneTriggerInfo.GameCondition))//并且满足条件
+                    GameManager.Instance.CheckGameCondition(m_oneTriggerInfo.eGameCondition))//并且满足条件
                 {
                     //隐藏游戏UI
                     UIManager.Instance.HidePanel<GamePanel>();
