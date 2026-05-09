@@ -1,9 +1,15 @@
-﻿
 
+using DialogueSystem;
 using DialogueSystem.Data;
 using PlayArk.DialogueSystem.Data;
 using UnityEngine;
-namespace DialogueSystem.RunTime
+
+using DreamSenker.Data.Runtime;
+using DreamSenker.Managers;
+using DreamSenker.Shared;
+using DreamSenker.UI.Panels;
+
+namespace DreamSenker.Dialogue
 {
     [RequireComponent(typeof(BoxCollider2D))]
     public class DialogueOneTrigger : MonoBehaviour

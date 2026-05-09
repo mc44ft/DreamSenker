@@ -5,6 +5,8 @@ using DialogueSystem.Data.Nodes;
 using PlayArk.DialogueSystem.Runtime;
 using UnityEngine;
 
+using DreamSenker.Shared;
+
 namespace PlayArk.DialogueSystem.Data.Nodes
 {
     public class DialogueNodeTaskPublish : DialogueNodeExternalUI

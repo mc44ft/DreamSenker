@@ -2,6 +2,8 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 
+using DreamSenker.Shared;
+
 namespace PlayArk.DialogueSystem.Data
 {
     [Serializable]

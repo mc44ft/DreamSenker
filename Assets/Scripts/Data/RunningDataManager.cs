@@ -1,8 +1,13 @@
 using System.IO;
 using UnityEngine;
+using DreamSenker.Data.Runtime;
+
 /// <summary>
 /// 运行时数据管理器
 /// </summary>
+
+namespace DreamSenker.Data
+{
 public class RunningDataManager : BaseManager<RunningDataManager>
 {
     private static string SAVE_DIR = Path.Combine(Application.persistentDataPath, "SaveData");
@@ -47,4 +52,5 @@ public class RunningDataManager : BaseManager<RunningDataManager>
         }
         return isSuccess;
     }
+}
 }

@@ -1,5 +1,8 @@
 ﻿using PlayArk.DialogueSystem.Data.Nodes;
 using UnityEngine;
+
+using DreamSenker.Shared;
+
 namespace DialogueSystem.Data.Nodes
 {
     /// <summary>
