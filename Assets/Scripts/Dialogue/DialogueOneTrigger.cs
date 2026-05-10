@@ -4,6 +4,7 @@ using DialogueSystem.Data;
 using PlayArk.DialogueSystem.Data;
 using UnityEngine;
 
+using DreamSenker.CameraSystem;
 using DreamSenker.Data.Runtime;
 using DreamSenker.Managers;
 using DreamSenker.Shared;
@@ -30,6 +31,8 @@ namespace DreamSenker.Dialogue
                     InputManager.Instance.SetPlayerInputAction(false);
                     //限制其他UI交互
                     InputManager.Instance.SetUiInputAction(false);
+                    //一次性触发对话时，也交给统一相机系统切镜头
+                    CameraManager.Instance?.EnterDialogue(transform);
 
                     DialogueManager.Instance.PlayDialogueGraph(m_oneTriggerInfo.GraphMain, (shouldSave) =>
                     {
@@ -38,6 +41,8 @@ namespace DreamSenker.Dialogue
                             //将该对话信息记录到数据中
                             GameManager.Instance.GameSaveData.TriggeredDialogueGuidList.Add(m_oneTriggerInfo.guid);
                         }
+                        //恢复玩家镜头
+                        CameraManager.Instance?.ExitDialogue();
                         //恢复游戏UI
                         UIManager.Instance.ShowPanel<GamePanel>(E_UILayer.Botton);
                         //恢复玩家交互

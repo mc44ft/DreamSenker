@@ -1,8 +1,9 @@
-using DialogueSystem;
+﻿using DialogueSystem;
 using DialogueSystem.Data;
 using PlayArk.DialogueSystem.Data;
 using UnityEngine;
 
+using DreamSenker.CameraSystem;
 using DreamSenker.Data.Runtime;
 using DreamSenker.Managers;
 using DreamSenker.Shared;
@@ -19,7 +20,6 @@ namespace DreamSenker.Dialogue
         [SerializeField] private DialogueNpcTriggerInfo[] m_dialogueInfoArray;
 
         [Header("OTHER")]
-        [SerializeField] private GameObject m_camera;
         [SerializeField] private GameObject _worldTips;
 
 
@@ -60,7 +60,7 @@ namespace DreamSenker.Dialogue
                 //隐藏游戏UI
                 UIManager.Instance.HidePanel<GamePanel>();
                 //切换到对话镜头
-                m_camera.SetActive(true);
+                CameraManager.Instance?.EnterDialogue(transform);
 
                 for (int i = 0; i < m_dialogueInfoArray.Length; i++)
                 {
@@ -74,7 +74,7 @@ namespace DreamSenker.Dialogue
                         DialogueManager.Instance.PlayDialogueGraph(m_dialogueInfoArray[i].GraphMain, (shouldSave) =>
                         {
                             //恢复玩家镜头
-                            m_camera.SetActive(false);
+                            CameraManager.Instance?.ExitDialogue();
                             if (shouldSave)
                             {
                                 //将该对话信息记录到数据中
@@ -101,7 +101,7 @@ namespace DreamSenker.Dialogue
                             //存档
                             GameManager.Instance.SaveDataAll();
                             //恢复玩家镜头
-                            m_camera.SetActive(false);
+                            CameraManager.Instance?.ExitDialogue();
                             //恢复玩家未对话状态
                             m_isPlayerInsideDialogue = false;
                             //恢复游戏UI

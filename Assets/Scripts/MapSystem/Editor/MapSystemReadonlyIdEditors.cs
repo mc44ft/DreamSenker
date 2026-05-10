@@ -1,6 +1,7 @@
 using UnityEditor;
 
 using DreamSenker.MapSystem;
+using DreamSenker.MapSystem.Data;
 
 namespace DreamSenker.MapSystem.Editor
 {
@@ -34,6 +35,10 @@ public class MapDefinitionSOEditor : UnityEditor.Editor
 
         EditorGUILayout.PropertyField(serializedObject.FindProperty("<SceneName>k__BackingField"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("<PlayerShadowDarknessStrength>k__BackingField"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("<FollowCameraOrthoSize>k__BackingField"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("<FollowCameraBossOrthoSize>k__BackingField"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("<DialogueCameraOrthoSize>k__BackingField"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("<DialogueCameraOffsetY>k__BackingField"));
 
         //将serializedObject中的更改写回到target中
         serializedObject.ApplyModifiedProperties();

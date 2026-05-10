@@ -1,6 +1,3 @@
-using Cinemachine;
-using DG.Tweening;
-using System;
 using UnityEngine;
 
 using DreamSenker.CameraSystem;
@@ -16,7 +13,6 @@ namespace DreamSenker.Characters.Bosses
 public class SpiderBossRoom : MonoBehaviour
 {
     [SerializeField] private SpiderController _spider;
-    [SerializeField] private CinemachineVirtualCamera _virtualCamera;
     [SerializeField] private Transform _bossCameraCenterPoint;
 
     [SerializeField] private GameObject _leftWall;
@@ -41,15 +37,19 @@ public class SpiderBossRoom : MonoBehaviour
             //关闭房间
             _animator.Play(_animNameToHash_RoomWall);
 
-            _virtualCamera.Follow = null;
-            Vector3 cameraNewPos = new Vector3(
-                _bossCameraCenterPoint.position.x, _bossCameraCenterPoint.position.y, _virtualCamera.transform.position.z);
-            _virtualCamera.transform.DOMove(cameraNewPos, 1f).
-                SetEase(Ease.InOutQuad).
-                OnComplete(() =>
-                {
-                    _spider.BindingPlayer(collision.transform);
-                });
+            if (CameraManager.Instance != null)
+            {
+                CameraManager.Instance.EnterBossFight(_bossCameraCenterPoint.position, BindSpiderPlayer);
+            }
+            else
+            {
+                BindSpiderPlayer();
+            }
+
+            void BindSpiderPlayer()
+            {
+                _spider.BindingPlayer(collision.transform);
+            }
         }
     }
     private void OnEnable()

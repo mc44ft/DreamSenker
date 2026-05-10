@@ -11,6 +11,7 @@ using DreamSenker.Data;
 using DreamSenker.Data.Configs;
 using DreamSenker.Data.Configs.Character.Player;
 using DreamSenker.Data.Runtime;
+using DreamSenker.CameraSystem;
 using DreamSenker.Inventory;
 using DreamSenker.MapSystem;
 using DreamSenker.MapSystem.SpawnPoints;
@@ -18,6 +19,7 @@ using DreamSenker.Shared;
 using DreamSenker.UI.Panels;
 
 using DreamSenker.Characters.Player;
+using DreamSenker.MapSystem.Data;
 
 namespace DreamSenker.Managers
 {
@@ -34,6 +36,7 @@ public class GameManager : SingletonMono<GameManager>
     //------------------------ public Parameter ---------------------------------
     public PlayerController Player { get; private set; }
     //------------------------ Private Parameter ---------------------------------
+    private const float DefaultFollowCameraOrthoSize = 5f;//非地图场景默认跟随相机正交视野
     private CinemachineImpulseSource _impulseSource;//用于处理镜头震动的相机配置
     private PlayerMirrorEffect _playerMirrorEffect;//可选的镜像地图表现组件
 
@@ -96,6 +99,7 @@ public class GameManager : SingletonMono<GameManager>
         {
             case EBossType.Spider:
                 GameSaveData.IsKilledSpiderBoss = true;
+                CameraManager.Instance?.ExitBossFight();
                 TimerManager.Countdown(3, () =>
                 {
                     SceneTransition.Instance.ResetLoading(Resources.Load<Sprite>("LoadingMirrorMap1"), 1);
@@ -135,6 +139,19 @@ public class GameManager : SingletonMono<GameManager>
     private void OnActiveSceneChanged(Scene current, Scene next)
     {
         PoolManager.Instance.Clear();
+        SyncFollowCameraOrthoSize(next.name);
+    }
+
+    /// <summary>
+    /// 根据当前场景同步跟随相机正交视野；非地图场景使用默认值
+    /// </summary>
+    private void SyncFollowCameraOrthoSize(string sceneName)
+    {
+        float orthoSize = TryFindMapBySceneName(sceneName, out MapDefinitionSO map)
+            ? map.FollowCameraOrthoSize
+            : DefaultFollowCameraOrthoSize;
+
+        CameraManager.Instance?.SetFollowCameraOrthoSize(orthoSize);
     }
     #endregion
     /// <summary>
@@ -227,6 +244,7 @@ public class GameManager : SingletonMono<GameManager>
             //防止玩家过场景移除
             DontDestroyOnLoad(player.gameObject);
             Player = player;
+            CameraManager.Instance?.SetupVCams();
             //镜像表现是特殊地图功能，玩家本体控制器不再持有它
             _playerMirrorEffect = Player.GetComponent<PlayerMirrorEffect>();
             _playerMirrorEffect?.SetMirrorActive(false);
@@ -270,7 +288,9 @@ public class GameManager : SingletonMono<GameManager>
 
     private void ChangePlayerPosition(Vector3 position)
     {
+        Vector3 previousPosition = Player.transform.position;
         Player.transform.position = position;
+        CameraManager.Instance?.RefreshFollowCameraAfterPlayerWarp(previousPosition, position);
     }
 
     #region Change Scene
@@ -438,6 +458,56 @@ public class GameManager : SingletonMono<GameManager>
         return GetRequiredMapBySceneName(GetSceneNameFromEnum(sceneName)).MapId;
     }
 
+    /// <summary>
+    /// 尝试获取当前地图日常跟随相机正交视野大小
+    /// </summary>
+    public bool TryGetCurrentMapFollowCameraOrthoSize(out float orthoSize)
+    {
+        orthoSize = DefaultFollowCameraOrthoSize;
+
+        if (!TryFindCurrentMap(out MapDefinitionSO map))
+        {
+            return false;
+        }
+
+        orthoSize = map.FollowCameraOrthoSize;
+        return true;
+    }
+
+    /// <summary>
+    /// 尝试获取当前地图 Boss 战跟随相机正交视野大小
+    /// </summary>
+    public bool TryGetCurrentMapBossCameraOrthoSize(out float orthoSize)
+    {
+        orthoSize = DefaultFollowCameraOrthoSize;
+
+        if (!TryFindCurrentMap(out MapDefinitionSO map))
+        {
+            return false;
+        }
+
+        orthoSize = map.FollowCameraBossOrthoSize;
+        return true;
+    }
+
+    /// <summary>
+    /// 尝试获取当前地图对话相机正交视野和Y轴偏移配置
+    /// </summary>
+    public bool TryGetCurrentMapDialogueCameraSettings(out float orthoSize, out float offsetY)
+    {
+        orthoSize = DefaultFollowCameraOrthoSize;
+        offsetY = 0f;
+
+        if (!TryFindCurrentMap(out MapDefinitionSO map))
+        {
+            return false;
+        }
+
+        orthoSize = map.DialogueCameraOrthoSize;
+        offsetY = map.DialogueCameraOffsetY;
+        return true;
+    }
+
     private bool IsMapScene(string mapId, EMapSceneName sceneName)
     {
         if (string.IsNullOrWhiteSpace(mapId))
@@ -478,6 +548,38 @@ public class GameManager : SingletonMono<GameManager>
     private MapDefinitionSO FindMapBySceneName(string sceneName)
     {
         return GetMapRegistryOrThrow().AllMaps?.FirstOrDefault(map => map != null && map.SceneName == sceneName);
+    }
+
+    /// <summary>
+    /// 尝试获取当前存档指向的地图配置
+    /// </summary>
+    private bool TryFindCurrentMap(out MapDefinitionSO map)
+    {
+        map = null;
+
+        if (GameSaveData == null || string.IsNullOrWhiteSpace(GameSaveData.CurrentMapId) || ConnectionDatabase == null || ConnectionDatabase.MapRegistry == null)
+        {
+            return false;
+        }
+
+        map = ConnectionDatabase.MapRegistry.AllMaps?.FirstOrDefault(definition => definition != null && definition.MapId == GameSaveData.CurrentMapId);
+        return map != null;
+    }
+
+    /// <summary>
+    /// 按场景名尝试查找地图配置；非地图场景返回 false，不抛异常
+    /// </summary>
+    private bool TryFindMapBySceneName(string sceneName, out MapDefinitionSO map)
+    {
+        map = null;
+
+        if (string.IsNullOrWhiteSpace(sceneName) || ConnectionDatabase == null || ConnectionDatabase.MapRegistry == null)
+        {
+            return false;
+        }
+
+        map = ConnectionDatabase.MapRegistry.AllMaps?.FirstOrDefault(definition => definition != null && definition.SceneName == sceneName);
+        return map != null;
     }
 
     private MapRegistrySO GetMapRegistryOrThrow()

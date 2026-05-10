@@ -6,7 +6,7 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-using DreamSenker.MapSystem;
+using DreamSenker.MapSystem.Data;
 
 namespace DreamSenker.MapSystem.Editor
 {

@@ -1,7 +1,8 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DreamSenker.Managers;
+using DreamSenker.MapSystem.Data;
 using DreamSenker.Shared;
 
 /// <summary>

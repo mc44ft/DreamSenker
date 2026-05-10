@@ -1,11 +1,7 @@
-using Cinemachine;
-using DG.Tweening;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+using DreamSenker.CameraSystem;
 using DreamSenker.Data.Runtime;
 using DreamSenker.Managers;
 using DreamSenker.Shared;
@@ -23,7 +19,6 @@ public class FoxBossRoom : MonoBehaviour, IFoxBossRoom
     [SerializeField] private Animator _leftWallAnimator;
 
     [Header("CAMERA DETAILS")]
-    [SerializeField] private CinemachineVirtualCamera _virtualCamera;
     [SerializeField] private Transform _cameraCenterPoint;
     [Space(5)]
     [Header("SKILL POINTS")]
@@ -61,17 +56,20 @@ public class FoxBossRoom : MonoBehaviour, IFoxBossRoom
             _leftWallAnimator.Play("FoxBossRoomLeftWall");
             _player = collision.transform;
 
-            //设置相机位置
-            _virtualCamera.Follow = null;
-            Vector3 cameraNewPos = new Vector3(
-                _cameraCenterPoint.position.x, _cameraCenterPoint.position.y, _virtualCamera.transform.position.z);
-            _virtualCamera.transform.DOMove(cameraNewPos, 1f).
-                SetEase(Ease.InOutQuad).
-                OnComplete(() =>
-                {
-                    //绑定Boss的玩家目标
-                    _foxBoss.Initialize(collision.transform, this);
-                });
+            if (CameraManager.Instance != null)
+            {
+                CameraManager.Instance.EnterBossFight(_cameraCenterPoint.position, InitializeBoss);
+            }
+            else
+            {
+                InitializeBoss();
+            }
+
+            void InitializeBoss()
+            {
+                //相机到位后再绑定Boss目标
+                _foxBoss.Initialize(collision.transform, this);
+            }
         }
     }
     ///// <summary>

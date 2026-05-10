@@ -65,8 +65,7 @@ Brain + 主 VCam 跨场景复用，场景中不再配置摄像机。
 ```
 改动：
 - 不再自己 FindGameObjectWithTag("Player")
-- 改为从 CameraManager 获取 VCam 引用后绑定 Player
-- 或者直接删除，绑定逻辑移入 CameraManager.SetupVCams()
+- 直接删除，绑定逻辑移入 CameraManager.SetupVCams()
 ```
 
 ### Step 3：改造对话系统相机切换
@@ -96,14 +95,14 @@ Brain + 主 VCam 跨场景复用，场景中不再配置摄像机。
 - DOTween 移动逻辑移入 CameraManager
 ```
 
-### Step 5：场景清理
+### Step 5：场景清理（由用户手动处理）
 
 每个场景中：
 - 删除 Main Camera 上的 CinemachineBrain（由跨场景的 CameraManager 管理）
 - 删除 VCam_Follow（由跨场景的 CameraManager 管理）
 - 保留 Boss 战特殊相机点（仅作为位置标记，不挂 VCam）
 
-### Step 6：初始场景配置
+### Step 6：初始场景配置（由用户手动处理）
 
 在起始场景（CampMap）中：
 - Main Camera 挂 CinemachineBrain + CameraManager 脚本
@@ -136,7 +135,7 @@ Brain + 主 VCam 跨场景复用，场景中不再配置摄像机。
 | X Soft Zone | 0.3 | |
 | Y Soft Zone | 0.2 | |
 
-## 验证
+## 验证（用户手动验证）
 
 1. 在 CampMap 启动，确认相机跟随 Player
 2. 切换到其他场景，确认相机继续正常跟随
