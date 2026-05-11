@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -28,8 +28,8 @@ public class PackagePanel : PanelBase_Mini
     [SerializeField] private Button _closeButton;
 
 
-    private List<PackagePanelItemIcon> _usedItemIconList = new List<PackagePanelItemIcon>();
-    private PackagePanelItemIcon _currentSelectedItem;
+    private List<PackagePanelSlot> _usedItemIconList = new List<PackagePanelSlot>();
+    private PackagePanelSlot _currentSelectedItem;
 
     private void Start()
     {
@@ -109,12 +109,12 @@ public class PackagePanel : PanelBase_Mini
             for(int i = 0; i < count; i++)
             {
                 //设置背包格子
-                PackagePanelItemIcon itemIcon = PoolManager.Instance.Pull<PackagePanelItemIcon>(_itemGridPrefab);
-                itemIcon.SetParent(_container);
+                PackagePanelSlot slot = PoolManager.Instance.Pull<PackagePanelSlot>(_itemGridPrefab);
+                slot.SetParent(_container);
 
                 //读取该道具的信息
                 PackageItemInfo itemInfo = InventoryManager.Instance.GetItemInfoByID(id);
-                itemIcon.Initialize(
+                slot.Initialize(
                     id,
                     itemInfo.BonusEffectType,
                     itemInfo.BonusAmount,
@@ -137,7 +137,7 @@ public class PackagePanel : PanelBase_Mini
                     });
 
                 //添加到列表
-                _usedItemIconList.Add(itemIcon);
+                _usedItemIconList.Add(slot);
             }
         }
 

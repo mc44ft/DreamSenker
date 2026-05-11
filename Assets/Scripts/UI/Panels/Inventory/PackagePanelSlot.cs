@@ -1,4 +1,4 @@
-using DG.Tweening;
+﻿using DG.Tweening;
 using System;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -9,7 +9,7 @@ using DreamSenker.Shared;
 namespace DreamSenker.UI.Panels.Inventory
 {
 [RequireComponent(typeof(Toggle))]
-public class PackagePanelItemIcon : PoolBase
+public class PackagePanelSlot : PoolBase
 {
     [Tooltip("放缩大小")]
     [SerializeField] private float _punchStrength = 1.1f;
@@ -25,14 +25,14 @@ public class PackagePanelItemIcon : PoolBase
     private Toggle _toggle;
     private Image _image;
     
-    private Action<PackagePanelItemIcon> _onSelectedCallback;
+    private Action<PackagePanelSlot> _onSelectedCallback;
     private void Awake()
     {
         _toggle = GetComponent<Toggle>();
         _image = GetComponent<Image>();
     }
     public void Initialize(EPackageItemType itemType, EBonusEffectType BonusEffectType, int bonusAmount, 
-        Sprite sprite, ToggleGroup group, Action<PackagePanelItemIcon> onClickCallback)
+        Sprite sprite, ToggleGroup group, Action<PackagePanelSlot> onClickCallback)
     {
         packageItemType = itemType;
         this.BonusEffectType = BonusEffectType;

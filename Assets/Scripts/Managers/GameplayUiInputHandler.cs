@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +8,7 @@ using DreamSenker.UI.Panels.Inventory;
 
 namespace DreamSenker.Managers
 {
-public class GamePlayUiController : MonoBehaviour
+public class GameplayUiInputHandler : MonoBehaviour
 {
     private void OnEnable()
     {
