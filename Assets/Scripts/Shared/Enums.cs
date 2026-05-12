@@ -54,6 +54,21 @@ public enum EPackageItemType
     BlueFruit,
     Chen,
 }
+public enum EPackageItemCategory
+{
+    /// <summary>
+    /// 未配置分类
+    /// </summary>
+    Unknown = 0,
+    /// <summary>
+    /// 可使用道具
+    /// </summary>
+    Usable = 1,
+    /// <summary>
+    /// 任务物品
+    /// </summary>
+    Quest = 2,
+}
 public enum EMapSceneName
 {
     CampMap,

@@ -39,9 +39,13 @@ public class ItemPickUp : MonoBehaviour
     {
         if (InputManager.Instance.PickupButtonDown && _isPlayerInside)
         {
+            // 将拾取物添加到背包数据中
+            if (!InventoryManager.Instance.TryAddItem(itemType))
+            {
+                return;
+            }
+
             AudioManager.Instance.PlaySound(GameResources.Instance.PickupItemClip);
-            //将自己添加到玩家数据中
-            InventoryManager.Instance.AddItemToPackage(itemType);
 
             //更新游戏数据
             if(itemType == EPackageItemType.Chen)
