@@ -13,18 +13,24 @@ MonoBehaviour:
   m_Name: PackageItemConfig_Main
   m_EditorClassIdentifier: 
   PackageItemInfoArray:
-  - PackageItemID: 0
+  - ePackageItemType: 0
+    Category: 1
     Icon: {fileID: 21300000, guid: fde30e3c7e834714a951f577a36bb9b2, type: 3}
     Description: "\u629A\u5E73\u751F\u547D\u7684\u521B\u75D5\uFF0C\u6062\u590D10\u70B9<color=green>\u751F\u547D\u503C</color>"
     BonusEffectType: 1
     BonusAmount: 10
-  - PackageItemID: 1
+    MaxStack: 99
+  - ePackageItemType: 1
+    Category: 1
     Icon: {fileID: 21300000, guid: 0baa5c9aee30f4340b4aa5eea040a803, type: 3}
     Description: "\u51DD\u805A\u9038\u6563\u7684\u7075\u601D\uFF0C\u6062\u590D20\u70B9<color=blue>\u68A6\u5883\u80FD\u91CF</color>"
     BonusEffectType: 2
     BonusAmount: 10
-  - PackageItemID: 2
+    MaxStack: 99
+  - ePackageItemType: 2
+    Category: 2
     Icon: {fileID: 21300000, guid: e42619b043f07b44a92af8ecee52dd6b, type: 3}
     Description: "\u4E00\u679A\u68A6\u5883\u7ED3\u6676\uFF0C<b>\u5E74\u8F7B\u9E7F</b>\u4F3C\u4E4E\u6B63\u5728\u7126\u6025\u7684\u5BFB\u627E\u5B83"
     BonusEffectType: 0
     BonusAmount: 0
+    MaxStack: 99
