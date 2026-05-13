@@ -159,10 +159,10 @@ public class PackagePanel : PanelBase_Mini
         {
             // 默认选中第一个格子
             _usedItemSlotList[0].SetSelected(true);
-            return;
+            SetDescriptionText("");
         }
-
-        SetDescriptionText(_currentCategory == EPackageItemCategory.Quest ? "没有任务物品" : "你的背包空空如也");
+        else
+            SetDescriptionText(_currentCategory == EPackageItemCategory.Quest ? "没有任务物品" : "你的背包空空如也");
     }
 
     /// <summary>

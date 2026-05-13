@@ -24,7 +24,6 @@ public class TaskPanel : PanelBase_Mini
         m_publishButtons.SetActive(false);
         m_deliverButtons.SetActive(false);
 
-
         switch (mode)
         {
             case E_PanelMode.Publish:
