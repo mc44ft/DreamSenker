@@ -7,7 +7,7 @@ namespace DreamSenker.MapSystem
 public class MapLinkPoint : MonoBehaviour
 {
     public static bool SuppressAutoGeneratePointGuid { get; set; }
-
+    [field: ReadOnly]
     [field: SerializeField] public string PointGuid { get; private set; }
     [field: SerializeField] public string DisplayName { get; private set; }
 

@@ -14,7 +14,7 @@ namespace PlayArk.DialogueSystem.Data
 
         [FormerlySerializedAs("GameCondition")] [Tooltip("需要判断的游戏条件")]
         public EGameCondition eGameCondition;
-        public string guid;
+        [ReadOnly] public string guid;
     }
     [Serializable]
     public class DialogueOneTriggerInfo
@@ -23,6 +23,6 @@ namespace PlayArk.DialogueSystem.Data
 
         [FormerlySerializedAs("GameCondition")] [Tooltip("需要判断的游戏条件")]
         public EGameCondition eGameCondition;
-        public string guid;
+        [ReadOnly] public string guid;
     }
 }

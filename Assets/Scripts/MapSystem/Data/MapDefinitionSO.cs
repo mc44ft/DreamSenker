@@ -6,6 +6,7 @@ namespace DreamSenker.MapSystem.Data
 [CreateAssetMenu(fileName = "MapDefinition_", menuName = "ScriptableObject/Map/MapDefinition")]
 public class MapDefinitionSO : ScriptableObject
 {
+    [field: ReadOnly]
     [field: SerializeField] public string MapId { get; private set; }
     [field: SerializeField] public string SceneName { get; private set; }
     [field: Header("玩家阴影特效系数")]
