@@ -51,13 +51,9 @@ namespace PlayArk.DialogueSystem.Data
     public class DialogueNpcTriggerInfo : DialogueTriggerInfoBase
     {
         /// <summary>
-        /// 首次触发时播放的对话图。
+        /// 条件满足时播放的对话图。
         /// </summary>
         public DialogueGraph GraphMain;
-        /// <summary>
-        /// 重复触发时播放的对话图。
-        /// </summary>
-        public DialogueGraph GraphTail;
 
         /// <summary>
         /// 需要全部满足的对话触发条件。

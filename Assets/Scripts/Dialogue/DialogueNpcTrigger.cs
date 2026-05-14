@@ -68,50 +68,22 @@ namespace DreamSenker.Dialogue
                     if (!CheckConditions(m_dialogueInfoArray[i].Conditions))
                         continue;
 
-                    //判断该触发Main对话还是Tail对话
-                    if (!GameManager.Instance.GameSaveData.CheckDialogueTriggered(m_dialogueInfoArray[i].guid))
+                    //播放第一个满足条件的对话资源
+                    DialogueManager.Instance.PlayDialogueGraph(m_dialogueInfoArray[i].GraphMain, (shouldSave) =>
                     {
-                        DialogueManager.Instance.PlayDialogueGraph(m_dialogueInfoArray[i].GraphMain, (shouldSave) =>
-                        {
-                            //恢复玩家镜头
-                            CameraManager.Instance?.ExitDialogue();
-                            if (shouldSave)
-                            {
-                                //将该对话信息记录到数据中
-                                GameManager.Instance.GameSaveData.TriggeredDialogueGuidList.Add(m_dialogueInfoArray[i].guid);
-                            }
-                            //恢复玩家未对话状态
-                            _isPlayerInsideDialogue = false;
-                            //恢复游戏UI
-                            UIManager.Instance.ShowPanel<GamePanel>(E_UILayer.Botton);
-                            //恢复玩家交互
-                            InputManager.Instance.SetPlayerInputAction(true);
-                            //恢复其他UI交互
-                            InputManager.Instance.SetUiInputAction(true);
-                            //放在最后 不能漏掉了对话信息
-                            //存档
-                            GameManager.Instance.SaveDataAll();
-                        });
-                    }
-                    else
-                    {
-                        DialogueManager.Instance.PlayDialogueGraph(m_dialogueInfoArray[i].GraphTail, (shouldSave) =>
-                        {
-
-                            //存档
-                            GameManager.Instance.SaveDataAll();
-                            //恢复玩家镜头
-                            CameraManager.Instance?.ExitDialogue();
-                            //恢复玩家未对话状态
-                            _isPlayerInsideDialogue = false;
-                            //恢复游戏UI
-                            UIManager.Instance.ShowPanel<GamePanel>(E_UILayer.Botton);
-                            //恢复玩家交互
-                            InputManager.Instance.SetPlayerInputAction(true);
-                            //恢复其他UI交互
-                            InputManager.Instance.SetUiInputAction(true);
-                        });
-                    }
+                        //恢复玩家镜头
+                        CameraManager.Instance?.ExitDialogue();
+                        //恢复玩家未对话状态
+                        _isPlayerInsideDialogue = false;
+                        //恢复游戏UI
+                        UIManager.Instance.ShowPanel<GamePanel>(E_UILayer.Botton);
+                        //恢复玩家交互
+                        InputManager.Instance.SetPlayerInputAction(true);
+                        //恢复其他UI交互
+                        InputManager.Instance.SetUiInputAction(true);
+                        //保存对话过程中产生的运行时数据
+                        GameManager.Instance.SaveDataAll();
+                    });
                     return;
                 }
             }

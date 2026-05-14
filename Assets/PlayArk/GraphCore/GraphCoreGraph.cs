@@ -188,16 +188,7 @@ namespace PlayArk.GraphCore.Data
             //如果该路径不为空 说明这个类对应的资源已经保存在硬盘当中了
             if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(this)))
                 return;
-            foreach (var node in _nodes)
-            {
-                //跟上面一样 这里的意思就是：
-                //确保该子状态不是一个已经被保存在硬盘里的资源
-                if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(node)))
-                {
-                    AssetDatabase.AddObjectToAsset(node, this);
-                }
-            }
-          
+            
             //在Project里创建新资源时
             //1.内存中先生成一个对象实例
             //2.Unity提示输入文件名
@@ -206,6 +197,17 @@ namespace PlayArk.GraphCore.Data
             //这也是为了实现“自动修复机制” ： 即保证该资源永远时完整的 不会因为误操作而崩溃
             //生成默认节点
             OnCreateDefaultNode();
+            
+            foreach (var node in _nodes)
+            {
+                if (node == null) continue;
+                //跟上面一样 这里的意思就是：
+                //确保该子状态不是一个已经被保存在硬盘里的资源
+                if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(node)))
+                {
+                    AssetDatabase.AddObjectToAsset(node, this);
+                }
+            }
 #endif
         }
         /// <summary>
