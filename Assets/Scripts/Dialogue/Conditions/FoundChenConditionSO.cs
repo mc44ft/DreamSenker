@@ -7,7 +7,7 @@ namespace DreamSenker.Dialogue.Conditions
     /// <summary>
     /// 已找到晨露梦核的对话条件。
     /// </summary>
-    [CreateAssetMenu(fileName = "FoundChenCondition_", menuName = "DreamSenker/Dialogue Conditions/Found Chen")]
+    [CreateAssetMenu(fileName = "FoundChenCondition_", menuName = "ScriptableObject/Dialogue Conditions/Found Chen")]
     public class FoundChenConditionSO : DialogueConditionSO
     {
         /// <summary>

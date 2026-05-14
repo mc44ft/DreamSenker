@@ -7,7 +7,7 @@ namespace DreamSenker.Dialogue.Conditions
     /// <summary>
     /// 梦境地图已通关的对话条件。
     /// </summary>
-    [CreateAssetMenu(fileName = "MirrorMapClearedCondition_", menuName = "DreamSenker/Dialogue Conditions/Mirror Map Cleared")]
+    [CreateAssetMenu(fileName = "MirrorMapClearedCondition_", menuName = "ScriptableObject/Dialogue Conditions/Mirror Map Cleared")]
     public class MirrorMapClearedConditionSO : DialogueConditionSO
     {
         /// <summary>

@@ -7,7 +7,7 @@ namespace DreamSenker.Dialogue.Conditions
     /// <summary>
     /// 蜘蛛Boss已遭遇且未击杀的对话条件。
     /// </summary>
-    [CreateAssetMenu(fileName = "SpiderBossAliveCondition_", menuName = "DreamSenker/Dialogue Conditions/Spider Boss Alive")]
+    [CreateAssetMenu(fileName = "SpiderBossAliveCondition_", menuName = "ScriptableObject/Dialogue Conditions/Spider Boss Alive")]
     public class SpiderBossAliveConditionSO : DialogueConditionSO
     {
         /// <summary>

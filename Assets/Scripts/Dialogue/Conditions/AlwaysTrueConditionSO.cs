@@ -6,7 +6,7 @@ namespace DreamSenker.Dialogue.Conditions
     /// <summary>
     /// 永远满足的对话条件。
     /// </summary>
-    [CreateAssetMenu(fileName = "AlwaysTrueCondition_", menuName = "DreamSenker/Dialogue Conditions/Always True")]
+    [CreateAssetMenu(fileName = "AlwaysTrueCondition_", menuName = "ScriptableObject/Dialogue Conditions/Always True")]
     public class AlwaysTrueConditionSO : DialogueConditionSO
     {
         /// <summary>
