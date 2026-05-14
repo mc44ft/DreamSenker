@@ -45,14 +45,6 @@ public enum E_EventType
     /// 选项被点击事件 --- 参数 int（选项的索引）
     /// </summary>
     Dialogue_ChoiceClick,
-    /// <summary>
-    /// 对话节点通知外部打开UI面板事件 --- 参数 DialogueShowPanelEventArgs（面板类型）
-    /// </summary>
-    Dialogue_ShowPanel,
-    /// <summary>
-    /// UI面板操作完成事件 --- 参数 Dialogue_PanelFinishedEventArgs
-    /// </summary>
-    Dialogue_PanelFinished,
     #endregion
 
     #endregion

@@ -47,12 +47,6 @@ public class ItemPickUp : MonoBehaviour
 
             AudioManager.Instance.PlaySound(GameResources.Instance.PickupItemClip);
 
-            //更新游戏数据
-            if(itemType == EPackageItemType.Chen)
-            {
-                GameManager.Instance.GameSaveData.IsGotChen = true;
-            }
-
             Destroy(gameObject);
         }
     }

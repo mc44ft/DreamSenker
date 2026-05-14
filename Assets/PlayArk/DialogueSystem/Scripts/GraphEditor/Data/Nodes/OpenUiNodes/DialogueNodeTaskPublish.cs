@@ -1,23 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
-using DialogueSystem.Data;
 using DialogueSystem.Data.Nodes;
-using PlayArk.DialogueSystem.Runtime;
+using DialogueSystem;
+using PlayArk.GraphCore.Utilities;
 using UnityEngine;
 
-using DreamSenker.Shared;
+using DreamSenker.QuestSystem.Data;
 
 namespace PlayArk.DialogueSystem.Data.Nodes
 {
+    [NodeMenuItem("DialogueNodeTaskPublish")]
     public class DialogueNodeTaskPublish : DialogueNodeExternalUI
     {
-        protected override void ShowPanel()
+        /// <summary>
+        /// 当前节点要发布的任务配置。
+        /// </summary>
+        [SerializeField] private QuestDefinitionSO _questDefinition;
+
+        /// <summary>
+        /// 打开任务发布面板。
+        /// </summary>
+        protected override void ShowPanel(System.Action<int> onFinished)
         {
-            //通知外部打开面板
-            EventCenter.Instance.EventTrigger(
-                E_EventType.Dialogue_ShowPanel, 
-                this, 
-                new DialogueShowPanelEventArgs(E_DialogueExternalUiPanelType.TaskPublishPanel));
+            DialogueManager.Instance.ExternalUIRunner.OpenTaskPanel(
+                _questDefinition,
+                DreamSenker.UI.Panels.TaskPanel.E_PanelMode.Publish,
+                onFinished);
         }
     }
 }

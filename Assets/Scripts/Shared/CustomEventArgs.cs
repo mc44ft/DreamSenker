@@ -1,25 +1,7 @@
-using PlayArk.DialogueSystem.Runtime;
 using UnityEngine;
 
 namespace DreamSenker.Shared
 {
-public struct DialogueShowPanelEventArgs : IEventArgs
-{
-    public E_DialogueExternalUiPanelType UiPanelType;
-    public DialogueShowPanelEventArgs(E_DialogueExternalUiPanelType type)
-    {
-        UiPanelType = type;
-    }
-}
-public struct DialoguePanelFinishedEventArgs : IEventArgs
-{
-    //面板选项顺序
-    public int Index;
-    public DialoguePanelFinishedEventArgs(int index)
-    {
-        Index = index;
-    }
-}
 public struct GameBossDeadEventArgs : IEventArgs
 {
     public EBossType BossType;

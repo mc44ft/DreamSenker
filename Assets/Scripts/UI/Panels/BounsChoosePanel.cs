@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +14,16 @@ public class BounsChoosePanel : PanelBase_Mini
 {
     [SerializeField] private ToggleGroup _toggleGroup;
     [SerializeField] private Button _sureButton;
+
+    private Action<int> _onFinished;//面板关闭后返回给对话节点的结果回调
+
+    /// <summary>
+    /// 注入外部 UI 完成回调。
+    /// </summary>
+    public void Initialize(Action<int> onFinished)
+    {
+        _onFinished = onFinished;
+    }
 
     private void Start()
     {
@@ -48,10 +57,21 @@ public class BounsChoosePanel : PanelBase_Mini
                     break;
             }
         }
-        //触发外部面板操作完成事件
-        EventCenter.Instance.EventTrigger(E_EventType.Dialogue_PanelFinished, this, new DialoguePanelFinishedEventArgs());
+        ClosePanel(0);
+    }
 
-        UIManager.Instance.HidePanel<BounsChoosePanel>();
+    /// <summary>
+    /// 关闭面板，并在淡出完成后通知对话节点继续执行。
+    /// </summary>
+    private void ClosePanel(int resultIndex)
+    {
+        Action<int> finishedCallback = _onFinished;
+        _onFinished = null;
+
+        UIManager.Instance.HidePanel<BounsChoosePanel>(null, () =>
+        {
+            finishedCallback?.Invoke(resultIndex);
+        });
     }
     public override void OnHideFadedComplete()
     {

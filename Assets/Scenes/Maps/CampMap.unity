@@ -262,7 +262,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6439718909683169494, guid: 3596b980a7b335e4084eaa49f2ef9d3f, type: 3}
       propertyPath: m_dialogueInfoArray.Array.data[0].guid
-      value: 1cd77c20-4b8a-4688-ad34-bb9e277ecbb2
+      value: 19d00c27-0fce-4db8-9c34-e9cf8e514c19
       objectReference: {fileID: 0}
     - target: {fileID: 6439718909683169494, guid: 3596b980a7b335e4084eaa49f2ef9d3f, type: 3}
       propertyPath: m_dialogueInfoArray.Array.data[1].guid
@@ -324,6 +324,14 @@ PrefabInstance:
       propertyPath: m_dialogueInfoArray.Array.data[3].GameCondition
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6439718909683169494, guid: 3596b980a7b335e4084eaa49f2ef9d3f, type: 3}
+      propertyPath: m_dialogueInfoArray.Array.data[0].Conditions.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6439718909683169494, guid: 3596b980a7b335e4084eaa49f2ef9d3f, type: 3}
+      propertyPath: m_dialogueInfoArray.Array.data[0].Conditions.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: a557dbae27b3947a7b2f00abf8d2ce70, type: 2}
     - target: {fileID: 6705595350714805079, guid: 3596b980a7b335e4084eaa49f2ef9d3f, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -0.09

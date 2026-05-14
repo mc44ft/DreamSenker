@@ -14,6 +14,8 @@ using DreamSenker.CameraSystem;
 using DreamSenker.Inventory;
 using DreamSenker.MapSystem;
 using DreamSenker.MapSystem.SpawnPoints;
+using DreamSenker.QuestSystem;
+using DreamSenker.QuestSystem.Data;
 using DreamSenker.Shared;
 using DreamSenker.UI.Panels;
 
@@ -31,6 +33,7 @@ public class GameManager : SingletonMono<GameManager>
     [field: SerializeField] public GameConfigSO GameConfig { get; private set; }
     [field: SerializeField] public PlayerConfigSO PlayerConfigSO { get; private set; }
     [field: SerializeField] public PackageItemConfigSO PackageItemConfig;
+    [field: SerializeField] public QuestDefinitionSO[] QuestDefinitions { get; private set; }
     [field: SerializeField] public GameSaveData GameSaveData { get; private set; }
     //------------------------ public Parameter ---------------------------------
     public PlayerController Player { get; private set; }
@@ -54,43 +57,14 @@ public class GameManager : SingletonMono<GameManager>
     #region Game Event
     private void OnEnable()
     {
-        EventCenter.Instance.AddEventListener<DialogueShowPanelEventArgs>(E_EventType.Dialogue_ShowPanel, OnDialogueNodeShowPanel);
         EventCenter.Instance.AddEventListener<GameBossDeadEventArgs>(E_EventType.Game_BossDead, OnGameBossDead);
         SceneManager.activeSceneChanged += OnActiveSceneChanged;
     }
 
     private void OnDisable()
     {
-        EventCenter.Instance.RemoveEventListener<DialogueShowPanelEventArgs>(E_EventType.Dialogue_ShowPanel, OnDialogueNodeShowPanel);
         EventCenter.Instance.RemoveEventListener<GameBossDeadEventArgs>(E_EventType.Game_BossDead, OnGameBossDead);
         SceneManager.activeSceneChanged -= OnActiveSceneChanged;
-    }
-
-    private void OnDialogueNodeShowPanel(object eventSender, DialogueShowPanelEventArgs args)
-    {
-        switch (args.UiPanelType)
-        {
-            case E_DialogueExternalUiPanelType.BounsChoosePanel:
-                UIManager.Instance.ShowPanel<BounsChoosePanel>(E_UILayer.Top);
-                break;
-            case E_DialogueExternalUiPanelType.TaskPublishPanel:
-                UIManager.Instance.ShowPanel<TaskPanel>(E_UILayer.Top, (panel) =>
-                {
-                    panel.Initialize(TaskPanel.E_PanelMode.Publish);
-                });
-                break;
-            case E_DialogueExternalUiPanelType.TaskDeliverPanel:
-                UIManager.Instance.ShowPanel<TaskPanel>(E_UILayer.Top, (panel) =>
-                {
-                    panel.Initialize(TaskPanel.E_PanelMode.Deliver);
-                });
-                break;
-            case E_DialogueExternalUiPanelType.RestoreHealthPanel:
-                UIManager.Instance.ShowPanel<RestoreHealthPanel>(E_UILayer.Top);
-                break;
-            default:
-                break;
-        }
     }
 
     private void OnGameBossDead(object eventSender, GameBossDeadEventArgs args)
@@ -199,6 +173,11 @@ public class GameManager : SingletonMono<GameManager>
             GameSaveData.TriggeredDialogueGuidList = new List<string>();
         }
 
+        if (GameSaveData.QuestRuntimeDataList == null)
+        {
+            GameSaveData.QuestRuntimeDataList = new List<QuestRuntimeData>();
+        }
+
         if (string.IsNullOrWhiteSpace(GameSaveData.SaveMapId))
         {
             if (InitialMap == null)
@@ -263,6 +242,8 @@ public class GameManager : SingletonMono<GameManager>
             {
                 //玩家初始化完成后 填充背包管理器数据
                 InventoryManager.Instance.SetupData(Player.PlayerSaveData.PackageData, PackageItemConfig);
+                //任务系统依赖背包查询，必须在背包数据注入后初始化
+                QuestManager.Instance.SetupData(QuestDefinitions, GameSaveData.QuestRuntimeDataList);
                 _playerMirrorEffect?.SetShadowDarknessStrength(saveMap.PlayerShadowDarknessStrength);
 
                 //加载主面板

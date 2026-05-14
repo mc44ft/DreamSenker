@@ -1,8 +1,6 @@
 ﻿using PlayArk.DialogueSystem.Data.Nodes;
 using UnityEngine;
 
-using DreamSenker.Shared;
-
 namespace DialogueSystem.Data.Nodes
 {
     /// <summary>
@@ -10,39 +8,54 @@ namespace DialogueSystem.Data.Nodes
     /// </summary>
     public abstract class DialogueNodeExternalUI : DialogueNodeBase
     {
-        // [Tooltip("想要显示的UI面板类型")]
-        // [SerializeField] private E_DialogueExternalUiPanelType m_panelType;
+        /// <summary>
+        /// 外部 UI 选择结果索引。
+        /// </summary>
+        private int _selectedIndex;
 
-        private int _nextNodeIndex = 0;
         protected override void OnExecute()
         {
-            //监听外部面板操作完成的事件
-            EventCenter.Instance.AddEventListener<DialoguePanelFinishedEventArgs>(E_EventType.Dialogue_PanelFinished, OnPanelFinished);
-            
             //隐藏对话框
             DialogueManager.Instance.FadeOutDialogueBox(0.5f, () =>
             {
-                ShowPanel();
+                ShowPanel(OnExternalUIFinished);
             });
-            
         }
 
-        protected abstract void ShowPanel();
-        private void OnPanelFinished(object eventSender, DialoguePanelFinishedEventArgs args)
+        /// <summary>
+        /// 打开外部 UI，并在 UI 关闭后回调结果索引。
+        /// </summary>
+        protected abstract void ShowPanel(System.Action<int> onFinished);
+
+        /// <summary>
+        /// 外部 UI 操作完成后恢复对话框并结束当前节点。
+        /// </summary>
+        private void OnExternalUIFinished(int selectedIndex)
         {
-            _nextNodeIndex = args.Index;
+            _selectedIndex = selectedIndex;
             
             //显示对话框
-            DialogueManager.Instance.FadeInDialogueBox(0.5f);
-            //外部面板操作完成后结束该节点
-            OnFinished();
+            DialogueManager.Instance.FadeInDialogueBox(0.5f, OnFinished);
         }
         
 
         protected override void Finished()
         {
-            //取消监听外部面板操作完成的事件
-            EventCenter.Instance.RemoveEventListener<DialoguePanelFinishedEventArgs>(E_EventType.Dialogue_PanelFinished, OnPanelFinished);
+
+        }
+
+        /// <summary>
+        /// 根据外部 UI 返回索引选择下一个输出端口。
+        /// </summary>
+        public override string GetNextPortID()
+        {
+            if (_selectedIndex < 0 || _selectedIndex >= _outputPorts.Count)
+            {
+                Debug.LogWarning("外部 UI 返回索引越界！");
+                return null;
+            }
+
+            return _outputPorts[_selectedIndex].GetUniqueID();
         }
         // /// <summary>
         // /// 这里简单重写了获取下一个节点的方法，用于应对策划需求 后续还需要根据自己的UIToolkit重做
@@ -67,4 +80,3 @@ namespace DialogueSystem.Data.Nodes
         // }
     }
 }
-

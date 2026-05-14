@@ -4,6 +4,9 @@ using PlayArk.DialogueSystem.Data.Nodes;
 using PlayArk.DialogueSystem.Runtime;
 using UnityEngine;
 using UnityEngine.UI;
+
+using DreamSenker.Dialogue;
+
 namespace DialogueSystem
 {
     public class DialogueManager : SingletonMono<DialogueManager>
@@ -13,10 +16,21 @@ namespace DialogueSystem
         private DialogueBoxPanel _dialogueBoxPanel;
 
         /// <summary>
+        /// 外部 UI 协调器，用于对话节点临时转交控制权。
+        /// </summary>
+        public DialogueExternalUIRunner ExternalUIRunner { get; private set; }
+
+        /// <summary>
         /// 当前聚焦的Button
         /// </summary>
         private Selectable _currentSelectButton;
         public static int ClickHash = Animator.StringToHash("Click");
+
+        protected override void Awake()
+        {
+            base.Awake();
+            ExternalUIRunner = new DialogueExternalUIRunner();
+        }
 
         /// <summary>
         /// 控制玩家当前能否交互
@@ -201,4 +215,3 @@ namespace DialogueSystem
         }
     }
 }
-
