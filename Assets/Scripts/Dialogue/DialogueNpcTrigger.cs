@@ -23,8 +23,8 @@ namespace DreamSenker.Dialogue
         [SerializeField] private GameObject _worldTips;
 
 
-        private bool m_isPlayerInsideZone = false;//玩家是否进入了检测区域
-        private bool m_isPlayerInsideDialogue = false;//玩家是否在对话当中 防止多次按W键
+        private bool _isPlayerInsideZone = false;//玩家是否进入了检测区域
+        private bool _isPlayerInsideDialogue = false;//玩家是否在对话当中 防止多次按W键
 
         private void Start()
         {
@@ -35,7 +35,7 @@ namespace DreamSenker.Dialogue
         {
             if (collision.gameObject.CompareTag(Settings.PlayerTag))
             {
-                m_isPlayerInsideZone = true;
+                _isPlayerInsideZone = true;
                 _worldTips.SetActive(true);
             }
         }
@@ -43,16 +43,16 @@ namespace DreamSenker.Dialogue
         {
             if (collision.gameObject.CompareTag(Settings.PlayerTag))
             {
-                m_isPlayerInsideZone = false;
+                _isPlayerInsideZone = false;
                 _worldTips.SetActive(false);
             }
         }
         private void Update()
         {
-            if (m_isPlayerInsideZone && InputManager.Instance.UpButtonDown && !m_isPlayerInsideDialogue)
+            if (_isPlayerInsideZone && InputManager.Instance.UpButtonDown && !_isPlayerInsideDialogue)
             {
                 //玩家进入对话状态
-                m_isPlayerInsideDialogue = true;
+                _isPlayerInsideDialogue = true;
                 //限制玩家交互
                 InputManager.Instance.SetPlayerInputAction(false);
                 //限制其他UI交互
@@ -81,7 +81,7 @@ namespace DreamSenker.Dialogue
                                 GameManager.Instance.GameSaveData.TriggeredDialogueGuidList.Add(m_dialogueInfoArray[i].guid);
                             }
                             //恢复玩家未对话状态
-                            m_isPlayerInsideDialogue = false;
+                            _isPlayerInsideDialogue = false;
                             //恢复游戏UI
                             UIManager.Instance.ShowPanel<GamePanel>(E_UILayer.Botton);
                             //恢复玩家交互
@@ -103,7 +103,7 @@ namespace DreamSenker.Dialogue
                             //恢复玩家镜头
                             CameraManager.Instance?.ExitDialogue();
                             //恢复玩家未对话状态
-                            m_isPlayerInsideDialogue = false;
+                            _isPlayerInsideDialogue = false;
                             //恢复游戏UI
                             UIManager.Instance.ShowPanel<GamePanel>(E_UILayer.Botton);
                             //恢复玩家交互
