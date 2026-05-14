@@ -144,22 +144,6 @@ namespace DreamSenker.Dialogue
 
             return true;
         }
-#if UNITY_EDITOR
-        private void OnValidate()
-        {
-            if (m_dialogueInfoArray == null) return;
-
-            foreach (var info in m_dialogueInfoArray)
-            {
-
-                if (string.IsNullOrEmpty(info.guid))
-                {
-                    //生成唯一的guid
-                    info.guid = System.Guid.NewGuid().ToString();
-                }
-            }
-        }
-#endif
     }
 
 

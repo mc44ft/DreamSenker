@@ -81,18 +81,6 @@ namespace DreamSenker.Dialogue
 
             return true;
         }
-#if UNITY_EDITOR
-        private void OnValidate()
-        {
-            if (m_oneTriggerInfo == null) return;
-
-            if (string.IsNullOrEmpty(m_oneTriggerInfo.guid))
-            {
-                //生成唯一的guid
-                m_oneTriggerInfo.guid = System.Guid.NewGuid().ToString();
-            }
-        }
-#endif
     }
 
 }
