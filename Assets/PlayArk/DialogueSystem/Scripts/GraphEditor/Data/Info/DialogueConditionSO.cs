@@ -1,5 +1,7 @@
 using UnityEngine;
 
+using DreamSenker.QuestSystem.Data;
+
 namespace PlayArk.DialogueSystem.Data
 {
     /// <summary>
@@ -11,5 +13,13 @@ namespace PlayArk.DialogueSystem.Data
         /// 判断当前对话条件是否满足。
         /// </summary>
         public abstract bool IsMet();
+
+        /// <summary>
+        /// 使用任务上下文判断当前对话条件是否满足；非任务条件默认忽略任务上下文。
+        /// </summary>
+        public virtual bool IsMet(QuestDefinitionSO questDefinition)
+        {
+            return IsMet();
+        }
     }
 }

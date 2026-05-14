@@ -65,7 +65,7 @@ namespace DreamSenker.Dialogue
                 for (int i = 0; i < m_dialogueInfoArray.Length; i++)
                 {
                     //跳过不符合触发条件的对话
-                    if (!CheckConditions(m_dialogueInfoArray[i].Conditions))
+                    if (!CheckConditions(m_dialogueInfoArray[i]))
                         continue;
 
                     //播放第一个满足条件的对话资源
@@ -91,8 +91,15 @@ namespace DreamSenker.Dialogue
         /// <summary>
         /// 检测当前对话配置的所有触发条件是否满足。
         /// </summary>
-        private bool CheckConditions(DialogueConditionSO[] conditions)
+        private bool CheckConditions(DialogueNpcTriggerInfo dialogueInfo)
         {
+            if (dialogueInfo == null)
+            {
+                return false;
+            }
+
+            DialogueConditionSO[] conditions = dialogueInfo.Conditions;
+
             //未配置条件时默认允许触发
             if (conditions == null || conditions.Length == 0)
             {
@@ -108,7 +115,7 @@ namespace DreamSenker.Dialogue
                 }
 
                 //任意条件不满足，则当前对话配置不可用
-                if (!condition.IsMet())
+                if (!condition.IsMet(dialogueInfo.QuestDefinition))
                 {
                     return false;
                 }

@@ -13,26 +13,31 @@ namespace DreamSenker.Dialogue.Conditions
 public class QuestCompletableDialogueConditionSO : DialogueConditionSO
 {
     /// <summary>
-    /// 要判断的任务配置。
-    /// </summary>
-    [SerializeField] private QuestDefinitionSO _questDefinition;
-    /// <summary>
     /// 期望的可交付结果。
     /// </summary>
     [SerializeField] private bool _expectedCanComplete = true;
 
     /// <summary>
-    /// 判断当前任务可交付结果是否等于期望结果。
+    /// 任务可交付条件必须由 NPC 对话配置传入任务上下文。
     /// </summary>
     public override bool IsMet()
     {
-        if (_questDefinition == null || string.IsNullOrWhiteSpace(_questDefinition.QuestId))
+        Debug.LogError("任务可交付对话条件缺少任务上下文：请在 DialogueNpcTriggerInfo 上配置 QuestDefinition");
+        return false;
+    }
+
+    /// <summary>
+    /// 判断传入任务当前是否可交付，并与期望结果比较。
+    /// </summary>
+    public override bool IsMet(QuestDefinitionSO questDefinition)
+    {
+        if (questDefinition == null || string.IsNullOrWhiteSpace(questDefinition.QuestId))
         {
             Debug.LogError("任务可交付对话条件配置错误：QuestDefinitionSO 或 QuestId 为空");
             return false;
         }
 
-        return QuestManager.Instance.CanCompleteQuest(_questDefinition.QuestId) == _expectedCanComplete;
+        return QuestManager.Instance.CanCompleteQuest(questDefinition.QuestId) == _expectedCanComplete;
     }
 }
 }

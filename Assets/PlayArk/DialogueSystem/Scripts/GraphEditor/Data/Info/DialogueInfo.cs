@@ -1,6 +1,8 @@
 ﻿using System;
 using UnityEngine;
 
+using DreamSenker.QuestSystem.Data;
+
 namespace PlayArk.DialogueSystem.Data
 {
     [Serializable]
@@ -21,6 +23,10 @@ namespace PlayArk.DialogueSystem.Data
     [Serializable]
     public class DialogueNpcTriggerInfo : DialogueTriggerInfoBase
     {
+        /// <summary>
+        /// 当前 NPC 对话配置使用的任务上下文，供通用任务条件判断。
+        /// </summary>
+        public QuestDefinitionSO QuestDefinition;
     }
 
     [Serializable]

@@ -13,26 +13,31 @@ namespace DreamSenker.Dialogue.Conditions
 public class QuestStateDialogueConditionSO : DialogueConditionSO
 {
     /// <summary>
-    /// 要判断的任务配置。
-    /// </summary>
-    [SerializeField] private QuestDefinitionSO _questDefinition;
-    /// <summary>
     /// 期望的任务长期状态。
     /// </summary>
     [SerializeField] private EQuestState _expectedState;
 
     /// <summary>
-    /// 判断当前任务状态是否等于期望状态。
+    /// 任务状态条件必须由 NPC 对话配置传入任务上下文。
     /// </summary>
     public override bool IsMet()
     {
-        if (_questDefinition == null || string.IsNullOrWhiteSpace(_questDefinition.QuestId))
+        Debug.LogError("任务状态对话条件缺少任务上下文：请在 DialogueNpcTriggerInfo 上配置 QuestDefinition");
+        return false;
+    }
+
+    /// <summary>
+    /// 判断传入任务的长期状态是否等于期望状态。
+    /// </summary>
+    public override bool IsMet(QuestDefinitionSO questDefinition)
+    {
+        if (questDefinition == null || string.IsNullOrWhiteSpace(questDefinition.QuestId))
         {
             Debug.LogError("任务状态对话条件配置错误：QuestDefinitionSO 或 QuestId 为空");
             return false;
         }
 
-        return QuestManager.Instance.GetQuestState(_questDefinition.QuestId) == _expectedState;
+        return QuestManager.Instance.GetQuestState(questDefinition.QuestId) == _expectedState;
     }
 }
 }
