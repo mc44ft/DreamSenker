@@ -331,17 +331,19 @@ MonoBehaviour:
   <GameConfig>k__BackingField: {fileID: 11400000, guid: 245bf98223402cc4c8964dfd2ac5b938, type: 2}
   <PlayerConfigSO>k__BackingField: {fileID: 11400000, guid: 6134f6c13d18a8a4899479ef73febd85, type: 2}
   PackageItemConfig: {fileID: 11400000, guid: 9074bd6963d66ce4898b3d849f5bf7e4, type: 2}
+  <QuestDefinitions>k__BackingField:
+  - {fileID: 11400000, guid: 56340d2df5f534c52be5a088b392ba54, type: 2}
   <GameSaveData>k__BackingField:
     SavePointID: 
     SaveMapId: 
     CurrentMapId: 
     PreviousMapId: 
     TriggeredDialogueGuidList: []
+    QuestRuntimeDataList: []
     IsMetSpiderBoss: 0
     IsKilledSpiderBoss: 0
     IsMetFoxBoss: 0
     IsKilledFoxBoss: 0
-    IsGotChen: 0
     IsClearMirrorMap: 0
 --- !u!114 &736644578
 MonoBehaviour:
