@@ -326,32 +326,6 @@ public class GameManager : SingletonMono<GameManager>
         _impulseSource.GenerateImpulseWithForce(force);
     }
     /// <summary>
-    /// 检测游戏条件是否满足
-    /// </summary>
-    /// <param name="condition"></param>
-    /// <returns></returns>
-    public bool CheckGameCondition(EGameCondition condition)
-    {
-        switch (condition)
-        {
-            case EGameCondition.None:
-                return true;
-            case EGameCondition.SpiderWin:
-                return GameSaveData.IsMetSpiderBoss && !GameSaveData.IsKilledSpiderBoss;
-            case EGameCondition.SpiderLose:
-                return GameSaveData.IsMetSpiderBoss && GameSaveData.IsKilledSpiderBoss;
-            case EGameCondition.FoxWin:
-                return GameSaveData.IsMetFoxBoss && !GameSaveData.IsKilledFoxBoss;
-            case EGameCondition.FoundChen:
-                return GameSaveData.IsGotChen;
-            case EGameCondition.ClearMirrorMap:
-                return GameSaveData.IsClearMirrorMap;
-            default:
-                return false;
-        }
-    }
-
-    /// <summary>
     /// 将地图场景枚举转换为真实场景名。
     /// </summary>
     public string GetSceneNameFromEnum(EMapSceneName sceneName)

@@ -21,33 +21,6 @@ public enum ESpawnType
     /// </summary>
     TeleportPoint,
 }
-public enum EGameCondition
-{
-    /// <summary>
-    /// 不判断任何条件
-    /// </summary>
-    None,
-    /// <summary>
-    /// 蜘蛛赢
-    /// </summary>
-    SpiderWin,
-    /// <summary>
-    /// 蜘蛛输
-    /// </summary>
-    SpiderLose,
-    /// <summary>
-    /// 狐狸赢
-    /// </summary>
-    FoxWin,
-    /// <summary>
-    /// 找到晨露梦核
-    /// </summary>
-    FoundChen,
-    /// <summary>
-    /// 通关梦境地图
-    /// </summary>
-    ClearMirrorMap,
-}
 public enum EPackageItemType
 {
     RedFruit,

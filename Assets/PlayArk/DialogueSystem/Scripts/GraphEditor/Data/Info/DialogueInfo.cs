@@ -1,28 +1,44 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.Serialization;
-
-using DreamSenker.Shared;
 
 namespace PlayArk.DialogueSystem.Data
 {
     [Serializable]
     public class DialogueNpcTriggerInfo
     {
+        /// <summary>
+        /// 首次触发时播放的对话图。
+        /// </summary>
         public DialogueGraph GraphMain;
+        /// <summary>
+        /// 重复触发时播放的对话图。
+        /// </summary>
         public DialogueGraph GraphTail;
 
-        [FormerlySerializedAs("GameCondition")] [Tooltip("需要判断的游戏条件")]
-        public EGameCondition eGameCondition;
+        /// <summary>
+        /// 需要全部满足的对话触发条件。
+        /// </summary>
+        public DialogueConditionSO[] Conditions;
+        /// <summary>
+        /// 对话触发记录ID。
+        /// </summary>
         [ReadOnly] public string guid;
     }
     [Serializable]
     public class DialogueOneTriggerInfo
     {
+        /// <summary>
+        /// 一次性触发时播放的对话图。
+        /// </summary>
         public DialogueGraph GraphMain;
 
-        [FormerlySerializedAs("GameCondition")] [Tooltip("需要判断的游戏条件")]
-        public EGameCondition eGameCondition;
+        /// <summary>
+        /// 需要全部满足的对话触发条件。
+        /// </summary>
+        public DialogueConditionSO[] Conditions;
+        /// <summary>
+        /// 对话触发记录ID。
+        /// </summary>
         [ReadOnly] public string guid;
     }
 }

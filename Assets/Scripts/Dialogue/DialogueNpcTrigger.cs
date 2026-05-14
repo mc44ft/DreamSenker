@@ -65,7 +65,7 @@ namespace DreamSenker.Dialogue
                 for (int i = 0; i < m_dialogueInfoArray.Length; i++)
                 {
                     //跳过不符合触发条件的对话
-                    if (!GameManager.Instance.CheckGameCondition(m_dialogueInfoArray[i].eGameCondition))
+                    if (!CheckConditions(m_dialogueInfoArray[i].Conditions))
                         continue;
 
                     //判断该触发Main对话还是Tail对话
@@ -115,6 +115,34 @@ namespace DreamSenker.Dialogue
                     return;
                 }
             }
+        }
+        /// <summary>
+        /// 检测当前对话配置的所有触发条件是否满足。
+        /// </summary>
+        private bool CheckConditions(DialogueConditionSO[] conditions)
+        {
+            //未配置条件时默认允许触发
+            if (conditions == null || conditions.Length == 0)
+            {
+                return true;
+            }
+
+            foreach (var condition in conditions)
+            {
+                //空条件跳过，避免单个资源缺失阻断整条对话
+                if (condition == null)
+                {
+                    continue;
+                }
+
+                //任意条件不满足，则当前对话配置不可用
+                if (!condition.IsMet())
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 #if UNITY_EDITOR
         private void OnValidate()
