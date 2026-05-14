@@ -5,37 +5,39 @@ using UnityEngine.UI;
 using DreamSenker.Inventory;
 using DreamSenker.Managers;
 using DreamSenker.Shared;
+using UnityEngine.Serialization;
 
 namespace DreamSenker.UI.Panels
 {
 public class TaskPanel : PanelBase_Mini
 {
     [Header("CONTAINER")]
-    [SerializeField] private GameObject m_publishButtons;//发布任务面板的按钮集合
-    [SerializeField] private GameObject m_deliverButtons;//提交任务面板的按钮集合
-
+    [SerializeField] private GameObject _publishButtons;//发布任务面板的按钮集合
+    [SerializeField] private GameObject _deliverButtons;//提交任务面板的按钮集合
+    
     [Header("ELEMENT")]
-    [SerializeField] private Button m_acceptButton;
-    [SerializeField] private Button m_rejectButton;
-    [SerializeField] private Button m_deliverButton;
+    [SerializeField] private Button _acceptButton;
+    [SerializeField] private Button _rejectButton;
+    [SerializeField] private Button _deliverButton;
 
     public void Initialize(E_PanelMode mode)
     {
-        m_publishButtons.SetActive(false);
-        m_deliverButtons.SetActive(false);
+        _publishButtons.SetActive(false);
+        _deliverButtons.SetActive(false);
 
         switch (mode)
         {
             case E_PanelMode.Publish:
-                m_publishButtons.SetActive(true);
-                m_acceptButton.onClick.AddListener(AcceptOnClick);
-                m_rejectButton.onClick.AddListener(RejectOnClick);
+                _publishButtons.SetActive(true);
+                _acceptButton.onClick.RemoveListener(AcceptOnClick);
+                _rejectButton.onClick.RemoveListener(RejectOnClick);
+                _acceptButton.onClick.AddListener(AcceptOnClick);
+                _rejectButton.onClick.AddListener(RejectOnClick);
                 break;
             case E_PanelMode.Deliver:
-                m_deliverButtons.SetActive(true);
-                m_deliverButton.onClick.AddListener(DeliverOnClick);
-                break;
-            default:
+                _deliverButtons.SetActive(true);
+                _deliverButton.onClick.RemoveListener(DeliverOnClick);
+                _deliverButton.onClick.AddListener(DeliverOnClick);
                 break;
         }
     }
