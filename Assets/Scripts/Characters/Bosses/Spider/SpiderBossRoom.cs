@@ -1,12 +1,12 @@
 using UnityEngine;
 
-using DreamSenker.CameraSystem;
-using DreamSenker.Combat.Health;
-using DreamSenker.Data.Runtime;
-using DreamSenker.Managers;
-using DreamSenker.Shared;
+using DreamSeeker.CameraSystem;
+using DreamSeeker.Combat.Health;
+using DreamSeeker.Data.Runtime;
+using DreamSeeker.Managers;
+using DreamSeeker.Shared;
 
-namespace DreamSenker.Characters.Bosses
+namespace DreamSeeker.Characters.Bosses
 {
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(Animator))]

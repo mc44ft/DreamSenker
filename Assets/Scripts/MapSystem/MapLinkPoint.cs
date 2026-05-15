@@ -1,7 +1,7 @@
 using UnityEngine;
 //挂载到关卡传送点上 用于配置数据
 
-namespace DreamSenker.MapSystem
+namespace DreamSeeker.MapSystem
 {
 [DisallowMultipleComponent]
 public class MapLinkPoint : MonoBehaviour

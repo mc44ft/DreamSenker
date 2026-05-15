@@ -5,11 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-using DreamSenker.Combat.Health;
-using DreamSenker.Managers;
-using DreamSenker.Shared;
+using DreamSeeker.Combat.Health;
+using DreamSeeker.Managers;
+using DreamSeeker.Shared;
 
-namespace DreamSenker.Characters.Bosses
+namespace DreamSeeker.Characters.Bosses
 {
 public class FoxTwoSkillCloneState : StateBase<FoxTwoController>
 {

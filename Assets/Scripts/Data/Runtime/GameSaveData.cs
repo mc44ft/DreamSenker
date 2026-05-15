@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-using DreamSenker.QuestSystem.Data;
+using DreamSeeker.QuestSystem.Data;
 
-namespace DreamSenker.Data.Runtime
+namespace DreamSeeker.Data.Runtime
 {
 [Serializable]
 public class GameSaveData : IRunningData

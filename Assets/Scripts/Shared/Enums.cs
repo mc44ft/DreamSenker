@@ -3,7 +3,7 @@
 /// 出生点类型
 /// </summary>
 
-namespace DreamSenker.Shared
+namespace DreamSeeker.Shared
 {
 public enum ESpawnType
 {

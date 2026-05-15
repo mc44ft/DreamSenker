@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using DreamSenker.Shared;
+using DreamSeeker.Shared;
 
-namespace DreamSenker.Characters.Bosses
+namespace DreamSeeker.Characters.Bosses
 {
 public class FoxTwoSkillBoomState : StateBase<FoxTwoController>
 {

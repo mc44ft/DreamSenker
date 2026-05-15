@@ -1,9 +1,9 @@
 
 using UnityEngine;
 
-using DreamSenker.Managers;
+using DreamSeeker.Managers;
 
-namespace DreamSenker.Traps.Buffs
+namespace DreamSeeker.Traps.Buffs
 {
 [DisallowMultipleComponent]
 public class PetrifyDebuff : MonoBehaviour

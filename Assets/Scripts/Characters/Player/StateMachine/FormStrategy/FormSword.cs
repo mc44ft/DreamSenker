@@ -3,13 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using PlayArk.StateMachine.Utilities;
 using UnityEngine;
-using DreamSenker.Managers;
+using DreamSeeker.Managers;
 
 /// <summary>
 /// 玩家持剑形态
 /// </summary>
 
-namespace DreamSenker.Characters.Player
+namespace DreamSeeker.Characters.Player
 {
 public class FormSword : FormStrategy
 {

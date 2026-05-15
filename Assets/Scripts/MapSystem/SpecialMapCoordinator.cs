@@ -1,13 +1,13 @@
 using System;
 
-using DreamSenker.Characters.Player;
-using DreamSenker.Data.Runtime;
-using DreamSenker.Managers;
-using DreamSenker.MapSystem.Data;
-using DreamSenker.Shared;
-using DreamSenker.UI.Panels;
+using DreamSeeker.Characters.Player;
+using DreamSeeker.Data.Runtime;
+using DreamSeeker.Managers;
+using DreamSeeker.MapSystem.Data;
+using DreamSeeker.Shared;
+using DreamSeeker.UI.Panels;
 
-namespace DreamSenker.MapSystem
+namespace DreamSeeker.MapSystem
 {
 /// <summary>
 /// 特殊地图协调器：只处理进入特殊地图后的表现和存档状态修正。

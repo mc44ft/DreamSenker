@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-namespace DreamSenker.Characters.Bosses
+namespace DreamSeeker.Characters.Bosses
 {
 public class SpiderIdleState : StateBase<SpiderController>
 {

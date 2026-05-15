@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace DreamSenker.Data.Configs.Audio
+namespace DreamSeeker.Data.Configs.Audio
 {
 [CreateAssetMenu(fileName = "AudioCollectionConfig_", menuName = "ScriptableObject/Config/Audio/AudioCollectionConfig")]
 public class AudioCollectionSO : ScriptableObject

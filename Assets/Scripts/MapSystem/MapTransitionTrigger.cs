@@ -1,10 +1,10 @@
 using UnityEngine;
-using DreamSenker.Managers;
-using DreamSenker.Shared;
+using DreamSeeker.Managers;
+using DreamSeeker.Shared;
 
 //挂载出口上 只有挂载了该脚本的Point才是可触发的出口
 
-namespace DreamSenker.MapSystem
+namespace DreamSeeker.MapSystem
 {
 [RequireComponent(typeof(BoxCollider2D), typeof(MapLinkPoint))]
 [DisallowMultipleComponent]

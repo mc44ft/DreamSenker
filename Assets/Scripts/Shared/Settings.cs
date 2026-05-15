@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DreamSenker.Shared
+namespace DreamSeeker.Shared
 {
 public class Settings
 {

@@ -6,7 +6,7 @@ using UnityEngine;
 /// 即Boss房间和Boss互相持有引用 但Boss只持有房间的该接口 Boss只能操作该接口 不能完全操作房间
 /// </summary>
 
-namespace DreamSenker.Characters.Bosses
+namespace DreamSeeker.Characters.Bosses
 {
 public interface IFoxBossRoom
 {

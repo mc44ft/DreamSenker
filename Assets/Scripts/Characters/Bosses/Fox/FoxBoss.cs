@@ -4,11 +4,11 @@ using DG.Tweening.Plugins.Options;
 using System.Collections;
 using UnityEngine;
 
-using DreamSenker.Combat.Health;
-using DreamSenker.Data.Configs.Character.Monster.Fox;
-using DreamSenker.Shared;
+using DreamSeeker.Combat.Health;
+using DreamSeeker.Data.Configs.Character.Monster.Fox;
+using DreamSeeker.Shared;
 
-namespace DreamSenker.Characters.Bosses
+namespace DreamSeeker.Characters.Bosses
 {
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]//自己身上的这个碰撞体是用来让玩家攻击检测的

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace DreamSenker.Shared
+namespace DreamSeeker.Shared
 {
 public struct GameBossDeadEventArgs : IEventArgs
 {

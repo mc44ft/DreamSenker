@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using DreamSenker.UI.Panels;
-using DreamSenker.UI.Panels.Inventory;
+using DreamSeeker.UI.Panels;
+using DreamSeeker.UI.Panels.Inventory;
 
-namespace DreamSenker.Managers
+namespace DreamSeeker.Managers
 {
 public class GameplayUiInputHandler : MonoBehaviour
 {

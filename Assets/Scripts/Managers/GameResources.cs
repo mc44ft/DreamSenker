@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
 
-namespace DreamSenker.Managers
+namespace DreamSeeker.Managers
 {
 public class GameResources : MonoBehaviour
 {

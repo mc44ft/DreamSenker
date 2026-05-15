@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using DreamSenker.Characters;
+using DreamSeeker.Characters;
 
 /// <summary>
 /// IComponent的最大父接口
 /// IComponent-IConfig- 和 IComponent-IMoveConfig-  没有任何关系
 /// </summary>
 
-namespace DreamSenker.Characters.Player
+namespace DreamSeeker.Characters.Player
 {
 public interface IComponent
 {

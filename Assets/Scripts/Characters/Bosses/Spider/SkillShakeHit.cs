@@ -1,12 +1,12 @@
 using UnityEngine;
-using DreamSenker.Combat.Health;
-using DreamSenker.Shared;
+using DreamSeeker.Combat.Health;
+using DreamSeeker.Shared;
 
 /// <summary>
 /// 用于蜘蛛四技能的蛛网检测伤害
 /// </summary>
 
-namespace DreamSenker.Characters.Bosses
+namespace DreamSeeker.Characters.Bosses
 {
 public class SkillShakeHit : MonoBehaviour
 {

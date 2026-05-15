@@ -1,8 +1,8 @@
 
 using UnityEngine;
-using DreamSenker.Data.Runtime;
+using DreamSeeker.Data.Runtime;
 
-using DreamSenker.Characters;
+using DreamSeeker.Characters;
 
 /// <summary>
 /// 使用 适配器模式
@@ -14,7 +14,7 @@ using DreamSenker.Characters;
 /// IAttackConfig需要两份数据 共同作为支撑 所以使用这种方法
 /// </summary>
 
-namespace DreamSenker.Characters.Player
+namespace DreamSeeker.Characters.Player
 {
 public class PlayerAttackConfigAdapter : IAttackConfig
 {

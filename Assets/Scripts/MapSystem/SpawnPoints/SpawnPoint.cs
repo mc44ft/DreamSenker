@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 
-using DreamSenker.Shared;
+using DreamSeeker.Shared;
 
-namespace DreamSenker.MapSystem.SpawnPoints
+namespace DreamSeeker.MapSystem.SpawnPoints
 {
 public class SpawnPoint : MonoBehaviour
 {

@@ -1,8 +1,8 @@
 using UnityEngine;
 
-using DreamSenker.Data.Runtime;
+using DreamSeeker.Data.Runtime;
 
-namespace DreamSenker.Data.Configs
+namespace DreamSeeker.Data.Configs
 {
 [CreateAssetMenu(fileName = "GameConfig_", menuName = "ScriptableObject/Config/GameConfig")]
 public class GameConfigSO : ScriptableObject

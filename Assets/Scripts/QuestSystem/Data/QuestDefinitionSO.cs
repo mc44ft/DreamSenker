@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace DreamSenker.QuestSystem.Data
+namespace DreamSeeker.QuestSystem.Data
 {
 /// <summary>
 /// 任务固定配置，描述任务文本和完成需求。

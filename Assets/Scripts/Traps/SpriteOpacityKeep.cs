@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DreamSenker.Traps
+namespace DreamSeeker.Traps
 {
 [RequireComponent(typeof(SpriteRenderer))]
 public class SpriteOpacityKeep : MonoBehaviour

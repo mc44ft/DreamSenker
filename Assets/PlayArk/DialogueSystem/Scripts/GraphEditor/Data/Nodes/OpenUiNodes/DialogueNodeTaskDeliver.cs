@@ -3,7 +3,7 @@ using DialogueSystem;
 using PlayArk.GraphCore.Utilities;
 using UnityEngine;
 
-using DreamSenker.QuestSystem.Data;
+using DreamSeeker.QuestSystem.Data;
 
 namespace PlayArk.DialogueSystem.Data.Nodes
 {
@@ -22,7 +22,7 @@ public class DialogueNodeTaskDeliver : DialogueNodeExternalUI
     {
         DialogueManager.Instance.ExternalUIRunner.OpenTaskPanel(
             _questDefinition,
-            DreamSenker.UI.Panels.TaskPanel.E_PanelMode.Deliver,
+            DreamSeeker.UI.Panels.TaskPanel.E_PanelMode.Deliver,
             onFinished);
     }
 }

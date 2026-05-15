@@ -3,10 +3,10 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-using DreamSenker.Managers;
-using DreamSenker.Shared;
+using DreamSeeker.Managers;
+using DreamSeeker.Shared;
 
-namespace DreamSenker.UI.Panels
+namespace DreamSeeker.UI.Panels
 {
 public class RestoreHealthPanel : PanelBase_Mini
 {

@@ -1,7 +1,7 @@
-using DreamSenker.Data.Configs;
-using DreamSenker.Shared;
+using DreamSeeker.Data.Configs;
+using DreamSeeker.Shared;
 
-namespace DreamSenker.Inventory
+namespace DreamSeeker.Inventory
 {
 /// <summary>
 /// 统一处理可使用道具的效果执行

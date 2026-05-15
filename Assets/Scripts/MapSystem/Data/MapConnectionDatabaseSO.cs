@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DreamSenker.MapSystem.Data
+namespace DreamSeeker.MapSystem.Data
 {
 [Serializable]
 public struct MapEndpointData

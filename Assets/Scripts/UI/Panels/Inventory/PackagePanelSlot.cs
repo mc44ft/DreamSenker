@@ -4,10 +4,10 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-using DreamSenker.Inventory;
-using DreamSenker.Shared;
+using DreamSeeker.Inventory;
+using DreamSeeker.Shared;
 
-namespace DreamSenker.UI.Panels.Inventory
+namespace DreamSeeker.UI.Panels.Inventory
 {
 [RequireComponent(typeof(Toggle))]
 public class PackagePanelSlot : PoolBase

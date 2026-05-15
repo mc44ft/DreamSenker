@@ -5,10 +5,10 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-using DreamSenker.Managers;
-using DreamSenker.Shared;
+using DreamSeeker.Managers;
+using DreamSeeker.Shared;
 
-namespace DreamSenker.UI.Panels
+namespace DreamSeeker.UI.Panels
 {
 public class GamePanel : PanelBase_Mini
 {

@@ -1,8 +1,8 @@
-using DreamSenker.Managers;
+using DreamSeeker.Managers;
 using PlayArk.DialogueSystem.Data;
 using UnityEngine;
 
-namespace DreamSenker.Dialogue.Conditions
+namespace DreamSeeker.Dialogue.Conditions
 {
     /// <summary>
     /// 梦境地图已通关的对话条件。

@@ -4,9 +4,9 @@ using Cinemachine;
 using DG.Tweening;
 using UnityEngine;
 
-using DreamSenker.Managers;
+using DreamSeeker.Managers;
 
-namespace DreamSenker.CameraSystem
+namespace DreamSeeker.CameraSystem
 {
 [DisallowMultipleComponent]
 public class CameraManager : SingletonMono<CameraManager>

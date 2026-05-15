@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-using DreamSenker.QuestSystem.Data;
+using DreamSeeker.QuestSystem.Data;
 
 namespace PlayArk.DialogueSystem.Data
 {

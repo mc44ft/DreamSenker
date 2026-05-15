@@ -2,11 +2,11 @@ using PlayArk.StateMachine;
 using PlayArk.StateMachine.Utilities;
 using UnityEngine;
 
-using DreamSenker.Data.Configs.Character.Enemy;
+using DreamSeeker.Data.Configs.Character.Enemy;
 
-using DreamSenker.Characters.Player;
+using DreamSeeker.Characters.Player;
 
-namespace DreamSenker.Characters.Enemies
+namespace DreamSeeker.Characters.Enemies
 {
 [RequireComponent(typeof(Animator))]
 [RequireComponent((typeof(Mover)))]

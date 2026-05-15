@@ -1,4 +1,4 @@
-namespace DreamSenker.QuestSystem
+namespace DreamSeeker.QuestSystem
 {
 /// <summary>
 /// 任务长期状态，只记录需要存档的稳定结果。

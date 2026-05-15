@@ -1,10 +1,10 @@
 using PlayArk.DialogueSystem.Data;
 using UnityEngine;
 
-using DreamSenker.QuestSystem;
-using DreamSenker.QuestSystem.Data;
+using DreamSeeker.QuestSystem;
+using DreamSeeker.QuestSystem.Data;
 
-namespace DreamSenker.Dialogue.Conditions
+namespace DreamSeeker.Dialogue.Conditions
 {
 /// <summary>
 /// 按任务长期状态判断对话分支是否满足。

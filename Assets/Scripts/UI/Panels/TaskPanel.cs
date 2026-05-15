@@ -3,11 +3,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-using DreamSenker.Managers;
-using DreamSenker.QuestSystem;
-using DreamSenker.QuestSystem.Data;
+using DreamSeeker.Managers;
+using DreamSeeker.QuestSystem;
+using DreamSeeker.QuestSystem.Data;
 
-namespace DreamSenker.UI.Panels
+namespace DreamSeeker.UI.Panels
 {
 public class TaskPanel : PanelBase_Mini
 {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace DreamSenker.Data.Configs.Character.Monster.Fox
+namespace DreamSeeker.Data.Configs.Character.Monster.Fox
 {
 [CreateAssetMenu(fileName = "FoxTwoConfig_", menuName = "ScriptableObject/Config/Fox/FoxTwoConfig")]
 public class FoxTwoConfigSO : FoxBossConfigSO

@@ -2,11 +2,11 @@
 using PlayArk.StateMachine.Utilities;
 using UnityEngine;
 
-using DreamSenker.Combat.Health;
+using DreamSeeker.Combat.Health;
 
-using DreamSenker.Characters;
+using DreamSeeker.Characters;
 
-namespace DreamSenker.Characters.Player
+namespace DreamSeeker.Characters.Player
 {
 [RequireComponent(typeof(Mover))]
 public class Attacker : BaseComponent<IAttackConfig>

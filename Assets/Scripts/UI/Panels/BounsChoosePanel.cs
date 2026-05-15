@@ -2,13 +2,13 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-using DreamSenker.Data.Runtime;
-using DreamSenker.Managers;
-using DreamSenker.Shared;
+using DreamSeeker.Data.Runtime;
+using DreamSeeker.Managers;
+using DreamSeeker.Shared;
 
-using DreamSenker.Characters.Player;
+using DreamSeeker.Characters.Player;
 
-namespace DreamSenker.UI.Panels
+namespace DreamSeeker.UI.Panels
 {
 public class BounsChoosePanel : PanelBase_Mini
 {

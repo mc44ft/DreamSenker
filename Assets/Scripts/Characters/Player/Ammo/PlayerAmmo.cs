@@ -1,7 +1,7 @@
 
 using UnityEngine;
 
-namespace DreamSenker.Characters.Player
+namespace DreamSeeker.Characters.Player
 {
 [RequireComponent(typeof(CircleCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]

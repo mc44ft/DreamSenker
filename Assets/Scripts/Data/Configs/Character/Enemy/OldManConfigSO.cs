@@ -1,9 +1,9 @@
 using UnityEngine;
 
 
-using DreamSenker.Characters;
+using DreamSeeker.Characters;
 
-namespace DreamSenker.Data.Configs.Character.Enemy
+namespace DreamSeeker.Data.Configs.Character.Enemy
 {
     [CreateAssetMenu(fileName = "OldManConfig", menuName = "ScriptableObject/Config/Enemy/OldManConfig")]
     public class OldManConfigSO :  ScriptableObject

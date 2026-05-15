@@ -1,10 +1,10 @@
 
 using UnityEngine;
 
-using DreamSenker.Data.Configs.Character.Monster;
-using DreamSenker.Managers;
+using DreamSeeker.Data.Configs.Character.Monster;
+using DreamSeeker.Managers;
 
-namespace DreamSenker.Characters.Bosses
+namespace DreamSeeker.Characters.Bosses
 {
 public class SpiderSkillWebState : StateBase<SpiderController>
 {

@@ -1,11 +1,11 @@
 using System;
 using UnityEngine;
 
-using DreamSenker.Data.Runtime;
+using DreamSeeker.Data.Runtime;
 
-using DreamSenker.Characters;
+using DreamSeeker.Characters;
 
-namespace DreamSenker.Data.Configs.Character.Player
+namespace DreamSeeker.Data.Configs.Character.Player
 {
 [CreateAssetMenu(fileName = "PlayerConfig", menuName = "ScriptableObject/Config/PlayerConfig")]
 public class PlayerConfigSO : ScriptableObject

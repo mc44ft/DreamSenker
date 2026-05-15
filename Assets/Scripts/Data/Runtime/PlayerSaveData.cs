@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace DreamSenker.Data.Runtime
+namespace DreamSeeker.Data.Runtime
 {
 [Serializable]
 public class PlayerSaveData : IRunningData

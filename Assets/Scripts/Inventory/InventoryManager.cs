@@ -2,11 +2,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-using DreamSenker.Data.Configs;
-using DreamSenker.Data.Runtime;
-using DreamSenker.Shared;
+using DreamSeeker.Data.Configs;
+using DreamSeeker.Data.Runtime;
+using DreamSeeker.Shared;
 
-namespace DreamSenker.Inventory
+namespace DreamSeeker.Inventory
 {
 public class InventoryManager : BaseManager<InventoryManager>
 {

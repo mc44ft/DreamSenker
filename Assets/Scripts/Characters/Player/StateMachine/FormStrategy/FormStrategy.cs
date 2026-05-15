@@ -1,8 +1,8 @@
 
 using PlayArk.StateMachine.Utilities;
 using UnityEngine;
-using DreamSenker.Data.Configs.Character.Player;
-using DreamSenker.Data.Runtime;
+using DreamSeeker.Data.Configs.Character.Player;
+using DreamSeeker.Data.Runtime;
 
 /// <summary>
 /// 综合了协调者模式（导演-演员模式）和策略模式 还有依赖注入的技巧
@@ -12,7 +12,7 @@ using DreamSenker.Data.Runtime;
 /// 玩家形态策略类
 /// </summary>
 
-namespace DreamSenker.Characters.Player
+namespace DreamSeeker.Characters.Player
 {
 [RequireComponent(typeof(Mover))]
 [RequireComponent(typeof(Jumper))]

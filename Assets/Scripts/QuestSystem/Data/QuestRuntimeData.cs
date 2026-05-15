@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace DreamSenker.QuestSystem.Data
+namespace DreamSeeker.QuestSystem.Data
 {
 /// <summary>
 /// 单个任务的运行时存档数据。

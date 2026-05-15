@@ -2,10 +2,10 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-using DreamSenker.Data;
-using DreamSenker.Managers;
+using DreamSeeker.Data;
+using DreamSeeker.Managers;
 
-namespace DreamSenker.UI.Panels
+namespace DreamSeeker.UI.Panels
 {
 public class BeginPanel : PanelBase_Mini
 {

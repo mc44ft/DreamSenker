@@ -5,7 +5,7 @@ using UnityEngine;
 /// 如果是场景中可以被破坏的物体 继承该接口 被攻击直接被破坏即可
 /// </summary>
 
-namespace DreamSenker.Combat.Health
+namespace DreamSeeker.Combat.Health
 {
 public interface IDamageable
 {

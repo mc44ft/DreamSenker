@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using DreamSenker.CameraSystem;
-using DreamSenker.Combat.Health;
-using DreamSenker.Data.Configs.Character.Monster;
-using DreamSenker.Shared;
+using DreamSeeker.CameraSystem;
+using DreamSeeker.Combat.Health;
+using DreamSeeker.Data.Configs.Character.Monster;
+using DreamSeeker.Shared;
 
-namespace DreamSenker.Characters.Bosses
+namespace DreamSeeker.Characters.Bosses
 {
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(SpriteRenderer))]

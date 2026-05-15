@@ -2,14 +2,14 @@ using PlayArk.StateMachine.Utilities;
 using UnityEngine;
 
 
-using DreamSenker.Characters;
+using DreamSeeker.Characters;
 
 /// <summary>
 /// OldMan的AI感知组件
 /// 负责玩家感知、移动方向计算和状态机谓词判断
 /// </summary>
 
-namespace DreamSenker.Characters.Enemies
+namespace DreamSeeker.Characters.Enemies
 {
 public class OldManBrain : MonoBehaviour, IPredicateEvaluator
 {

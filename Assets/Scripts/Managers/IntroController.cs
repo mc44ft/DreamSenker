@@ -3,7 +3,7 @@ using UnityEngine.Video;
 using UnityEngine.SceneManagement;
 using System;
 
-namespace DreamSenker.Managers
+namespace DreamSeeker.Managers
 {
 public class IntroController : SingletonMono<IntroController>
 {

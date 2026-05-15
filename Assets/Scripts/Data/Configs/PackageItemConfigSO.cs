@@ -3,9 +3,9 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-using DreamSenker.Shared;
+using DreamSeeker.Shared;
 
-namespace DreamSenker.Data.Configs
+namespace DreamSeeker.Data.Configs
 {
 [CreateAssetMenu(fileName = "PackageItemConfig_", menuName = "ScriptableObject/Config/PackageItemConfig")]
 public class PackageItemConfigSO : ScriptableObject

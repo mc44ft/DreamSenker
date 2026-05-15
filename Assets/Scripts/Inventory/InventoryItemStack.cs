@@ -1,7 +1,7 @@
-using DreamSenker.Data.Configs;
-using DreamSenker.Shared;
+using DreamSeeker.Data.Configs;
+using DreamSeeker.Shared;
 
-namespace DreamSenker.Inventory
+namespace DreamSeeker.Inventory
 {
 /// <summary>
 /// 背包单个格子的展示数据

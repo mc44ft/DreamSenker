@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-using DreamSenker.Shared;
-using DreamSenker.Traps.Buffs;
+using DreamSeeker.Shared;
+using DreamSeeker.Traps.Buffs;
 
-namespace DreamSenker.Characters.Bosses
+namespace DreamSeeker.Characters.Bosses
 {
 public class FoxOneSkillPetrifyState : StateBase<FoxTwoController>
 {

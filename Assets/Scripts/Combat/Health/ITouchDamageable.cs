@@ -1,5 +1,5 @@
 
-namespace DreamSenker.Combat.Health
+namespace DreamSeeker.Combat.Health
 {
 public interface ITouchDamageable
 {

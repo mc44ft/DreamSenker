@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DreamSenker.Traps
+namespace DreamSeeker.Traps
 {
 public class MirrorTrapController2 : MonoBehaviour
 {

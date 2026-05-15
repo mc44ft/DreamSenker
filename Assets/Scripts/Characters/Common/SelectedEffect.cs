@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DreamSenker.Characters
+namespace DreamSeeker.Characters
 {
 [RequireComponent(typeof(SpriteRenderer))]
 public class SelectedEffect : MonoBehaviour

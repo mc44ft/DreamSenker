@@ -2,11 +2,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-using DreamSenker.Data.Runtime;
-using DreamSenker.Inventory;
-using DreamSenker.QuestSystem.Data;
+using DreamSeeker.Data.Runtime;
+using DreamSeeker.Inventory;
+using DreamSeeker.QuestSystem.Data;
 
-namespace DreamSenker.QuestSystem
+namespace DreamSeeker.QuestSystem
 {
 /// <summary>
 /// 任务运行时入口，统一处理任务状态、接取、可交付判断和交付。

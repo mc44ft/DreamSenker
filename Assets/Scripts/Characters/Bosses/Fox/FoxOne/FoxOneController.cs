@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-using DreamSenker.Combat.Health;
-using DreamSenker.Data.Configs.Character.Monster.Fox;
-using DreamSenker.Shared;
+using DreamSeeker.Combat.Health;
+using DreamSeeker.Data.Configs.Character.Monster.Fox;
+using DreamSeeker.Shared;
 
-namespace DreamSenker.Characters.Bosses
+namespace DreamSeeker.Characters.Bosses
 {
 public class FoxOneController : FoxBoss
 {

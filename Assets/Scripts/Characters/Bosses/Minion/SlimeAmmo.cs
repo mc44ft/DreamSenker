@@ -2,9 +2,9 @@ using DG.Tweening;
 using System;
 using UnityEngine;
 
-using DreamSenker.Combat.Health;
+using DreamSeeker.Combat.Health;
 
-namespace DreamSenker.Characters.Bosses
+namespace DreamSeeker.Characters.Bosses
 {
 [RequireComponent(typeof(CircleCollider2D))]
 [DisallowMultipleComponent]

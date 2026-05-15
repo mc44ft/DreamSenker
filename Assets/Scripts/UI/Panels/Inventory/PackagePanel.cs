@@ -3,11 +3,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-using DreamSenker.Inventory;
-using DreamSenker.Managers;
-using DreamSenker.Shared;
+using DreamSeeker.Inventory;
+using DreamSeeker.Managers;
+using DreamSeeker.Shared;
 
-namespace DreamSenker.UI.Panels.Inventory
+namespace DreamSeeker.UI.Panels.Inventory
 {
 public class PackagePanel : PanelBase_Mini
 {

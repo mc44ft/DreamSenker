@@ -6,23 +6,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-using DreamSenker.Data;
-using DreamSenker.Data.Configs;
-using DreamSenker.Data.Configs.Character.Player;
-using DreamSenker.Data.Runtime;
-using DreamSenker.CameraSystem;
-using DreamSenker.Inventory;
-using DreamSenker.MapSystem;
-using DreamSenker.MapSystem.SpawnPoints;
-using DreamSenker.QuestSystem;
-using DreamSenker.QuestSystem.Data;
-using DreamSenker.Shared;
-using DreamSenker.UI.Panels;
+using DreamSeeker.Data;
+using DreamSeeker.Data.Configs;
+using DreamSeeker.Data.Configs.Character.Player;
+using DreamSeeker.Data.Runtime;
+using DreamSeeker.CameraSystem;
+using DreamSeeker.Inventory;
+using DreamSeeker.MapSystem;
+using DreamSeeker.MapSystem.SpawnPoints;
+using DreamSeeker.QuestSystem;
+using DreamSeeker.QuestSystem.Data;
+using DreamSeeker.Shared;
+using DreamSeeker.UI.Panels;
 
-using DreamSenker.Characters.Player;
-using DreamSenker.MapSystem.Data;
+using DreamSeeker.Characters.Player;
+using DreamSeeker.MapSystem.Data;
 
-namespace DreamSenker.Managers
+namespace DreamSeeker.Managers
 {
 [DisallowMultipleComponent]
 public class GameManager : SingletonMono<GameManager>

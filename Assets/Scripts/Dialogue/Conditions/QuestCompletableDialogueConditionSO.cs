@@ -1,10 +1,10 @@
 using PlayArk.DialogueSystem.Data;
 using UnityEngine;
 
-using DreamSenker.QuestSystem;
-using DreamSenker.QuestSystem.Data;
+using DreamSeeker.QuestSystem;
+using DreamSeeker.QuestSystem.Data;
 
-namespace DreamSenker.Dialogue.Conditions
+namespace DreamSeeker.Dialogue.Conditions
 {
 /// <summary>
 /// 按任务当前是否可交付判断对话分支是否满足。

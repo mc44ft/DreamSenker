@@ -4,10 +4,10 @@ using DG.Tweening.Plugins.Options;
 using System.Collections;
 using UnityEngine;
 
-using DreamSenker.Combat.Health;
-using DreamSenker.Data.Configs.Character.Monster.Fox;
+using DreamSeeker.Combat.Health;
+using DreamSeeker.Data.Configs.Character.Monster.Fox;
 
-namespace DreamSenker.Characters.Bosses
+namespace DreamSeeker.Characters.Bosses
 {
 public class FoxTwoController : FoxBoss
 {

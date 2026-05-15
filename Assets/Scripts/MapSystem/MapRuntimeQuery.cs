@@ -1,11 +1,11 @@
 using System;
 using System.Linq;
 
-using DreamSenker.Data.Runtime;
-using DreamSenker.MapSystem.Data;
-using DreamSenker.Shared;
+using DreamSeeker.Data.Runtime;
+using DreamSeeker.MapSystem.Data;
+using DreamSeeker.Shared;
 
-namespace DreamSenker.MapSystem
+namespace DreamSeeker.MapSystem
 {
 /// <summary>
 /// 地图运行时查询器：只负责从地图配置和连接数据库中读取数据。

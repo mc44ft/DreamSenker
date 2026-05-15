@@ -1,9 +1,9 @@
 
 using System.Collections.Generic;
 
-using DreamSenker.Shared;
+using DreamSeeker.Shared;
 
-namespace DreamSenker.Data.Runtime
+namespace DreamSeeker.Data.Runtime
 {
     public class PackageData
     {

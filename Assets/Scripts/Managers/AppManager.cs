@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DreamSenker.Managers
+namespace DreamSeeker.Managers
 {
 public class AppManager : SingletonMono<AppManager>
 {

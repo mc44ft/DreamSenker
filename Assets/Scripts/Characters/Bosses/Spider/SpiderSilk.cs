@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using DreamSenker.Combat.Health;
-using DreamSenker.Shared;
+using DreamSeeker.Combat.Health;
+using DreamSeeker.Shared;
 
-using DreamSenker.Characters.Player;
+using DreamSeeker.Characters.Player;
 
-namespace DreamSenker.Characters.Bosses
+namespace DreamSeeker.Characters.Bosses
 {
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(CircleCollider2D))]

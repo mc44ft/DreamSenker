@@ -1,12 +1,12 @@
 using System.Linq;
 using UnityEngine;
 
-using DreamSenker.CameraSystem;
-using DreamSenker.Data.Runtime;
-using DreamSenker.Managers;
-using DreamSenker.Shared;
+using DreamSeeker.CameraSystem;
+using DreamSeeker.Data.Runtime;
+using DreamSeeker.Managers;
+using DreamSeeker.Shared;
 
-namespace DreamSenker.Characters.Bosses
+namespace DreamSeeker.Characters.Bosses
 {
 public class FoxBossRoom : MonoBehaviour, IFoxBossRoom
 {

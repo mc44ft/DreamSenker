@@ -2,11 +2,11 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 
-using DreamSenker.Data.Runtime;
-using DreamSenker.Managers;
-using DreamSenker.Shared;
+using DreamSeeker.Data.Runtime;
+using DreamSeeker.Managers;
+using DreamSeeker.Shared;
 
-namespace DreamSenker.Inventory
+namespace DreamSeeker.Inventory
 {
 [RequireComponent(typeof(BoxCollider2D))]
 public class ItemPickUp : MonoBehaviour

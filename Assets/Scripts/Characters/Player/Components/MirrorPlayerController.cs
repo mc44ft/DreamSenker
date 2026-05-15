@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DreamSenker.Characters.Player
+namespace DreamSeeker.Characters.Player
 {
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Animator))]

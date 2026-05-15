@@ -1,14 +1,14 @@
 using System;
 using UnityEngine;
 
-using DreamSenker.CameraSystem;
-using DreamSenker.Characters.Player;
-using DreamSenker.Data.Runtime;
-using DreamSenker.MapSystem.Data;
-using DreamSenker.MapSystem.SpawnPoints;
-using DreamSenker.Shared;
+using DreamSeeker.CameraSystem;
+using DreamSeeker.Characters.Player;
+using DreamSeeker.Data.Runtime;
+using DreamSeeker.MapSystem.Data;
+using DreamSeeker.MapSystem.SpawnPoints;
+using DreamSeeker.Shared;
 
-namespace DreamSenker.MapSystem
+namespace DreamSeeker.MapSystem
 {
 /// <summary>
 /// 地图流程控制器：负责换图、传送、玩家落点和特殊地图初始化编排。

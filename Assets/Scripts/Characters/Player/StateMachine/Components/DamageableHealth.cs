@@ -1,18 +1,18 @@
 using PlayArk.StateMachine.Utilities;
 using UnityEngine;
 
-using DreamSenker.Combat.Health;
-using DreamSenker.Managers;
-using DreamSenker.Shared;
+using DreamSeeker.Combat.Health;
+using DreamSeeker.Managers;
+using DreamSeeker.Shared;
 
-using DreamSenker.Characters;
+using DreamSeeker.Characters;
 
 /// <summary>
 /// 通用受击组件
 /// 提供无敌时间、击退、顿帧等受击效果
 /// </summary>
 
-namespace DreamSenker.Characters.Player
+namespace DreamSeeker.Characters.Player
 {
 [RequireComponent(typeof(Health))]
 [RequireComponent(typeof(Rigidbody2D))]

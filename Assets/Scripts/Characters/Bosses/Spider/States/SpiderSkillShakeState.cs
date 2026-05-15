@@ -2,10 +2,10 @@ using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 
-using DreamSenker.Managers;
-using DreamSenker.Shared;
+using DreamSeeker.Managers;
+using DreamSeeker.Shared;
 
-namespace DreamSenker.Characters.Bosses
+namespace DreamSeeker.Characters.Bosses
 {
 public class SpiderSkillShakeState : StateBase<SpiderController>
 {

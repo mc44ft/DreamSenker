@@ -2,10 +2,10 @@ using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 
-using DreamSenker.Combat.Health;
-using DreamSenker.Shared;
+using DreamSeeker.Combat.Health;
+using DreamSeeker.Shared;
 
-namespace DreamSenker.Characters.Bosses
+namespace DreamSeeker.Characters.Bosses
 {
 public class FoxTwoSkillJumpState : StateBase<FoxTwoController>
 {

@@ -1,11 +1,11 @@
 using System;
 using UnityEngine;
 
-using DreamSenker.QuestSystem.Data;
-using DreamSenker.UI.Panels;
+using DreamSeeker.QuestSystem.Data;
+using DreamSeeker.UI.Panels;
 using PlayArk.DialogueSystem.Runtime;
 
-namespace DreamSenker.Dialogue
+namespace DreamSeeker.Dialogue
 {
 /// <summary>
 /// 对话外部 UI 协调器，负责打开面板并把面板结果回传给对话节点。

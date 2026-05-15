@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace DreamSenker.Combat.Health
+namespace DreamSeeker.Combat.Health
 {
 public class Health : MonoBehaviour
 {

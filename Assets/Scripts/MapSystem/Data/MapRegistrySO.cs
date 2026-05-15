@@ -3,7 +3,7 @@ using UnityEngine;
 
 //地图系统唯一地图清单，运行时和编辑器工具共用
 
-namespace DreamSenker.MapSystem.Data
+namespace DreamSeeker.MapSystem.Data
 {
 [CreateAssetMenu(fileName = "MapRegistry_", menuName = "ScriptableObject/Map/MapRegistry")]
 public class MapRegistrySO : ScriptableObject

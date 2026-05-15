@@ -1,9 +1,9 @@
 using UnityEngine;
 
-using DreamSenker.Combat.Health;
-using DreamSenker.Shared;
+using DreamSeeker.Combat.Health;
+using DreamSeeker.Shared;
 
-namespace DreamSenker.Characters.Bosses
+namespace DreamSeeker.Characters.Bosses
 {
 [RequireComponent(typeof(PolygonCollider2D))]
 public class TouchHit : MonoBehaviour

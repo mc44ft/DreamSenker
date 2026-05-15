@@ -6,9 +6,9 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-using DreamSenker.MapSystem.Data;
+using DreamSeeker.MapSystem.Data;
 
-namespace DreamSenker.MapSystem.Editor
+namespace DreamSeeker.MapSystem.Editor
 {
 [CustomEditor(typeof(MapConnectionDatabaseSO))]
 public class MapConnectionDatabaseSOEditor : UnityEditor.Editor

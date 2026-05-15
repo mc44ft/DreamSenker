@@ -5,7 +5,7 @@ using PlayArk.DialogueSystem.Runtime;
 using UnityEngine;
 using UnityEngine.UI;
 
-using DreamSenker.Dialogue;
+using DreamSeeker.Dialogue;
 
 namespace DialogueSystem
 {

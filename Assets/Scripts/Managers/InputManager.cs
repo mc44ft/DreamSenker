@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace DreamSenker.Managers
+namespace DreamSeeker.Managers
 {
 public class InputManager : SingletonAutoMono<InputManager>
 {

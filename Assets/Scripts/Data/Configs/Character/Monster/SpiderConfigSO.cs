@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace DreamSenker.Data.Configs.Character.Monster
+namespace DreamSeeker.Data.Configs.Character.Monster
 {
 [CreateAssetMenu(fileName = "SpiderConfig_", menuName = "ScriptableObject/Config/SpiderConfig")]
 public class SpiderConfigSO : ScriptableObject

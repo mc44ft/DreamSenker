@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using DreamSenker.Shared;
+using DreamSeeker.Shared;
 
-namespace DreamSenker.Traps
+namespace DreamSeeker.Traps
 {
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]

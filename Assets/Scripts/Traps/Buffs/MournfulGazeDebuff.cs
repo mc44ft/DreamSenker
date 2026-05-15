@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using DreamSenker.Combat.Health;
+using DreamSeeker.Combat.Health;
 
-namespace DreamSenker.Traps.Buffs
+namespace DreamSeeker.Traps.Buffs
 {
 public class MournfulGazeDebuff : MonoBehaviour
 {

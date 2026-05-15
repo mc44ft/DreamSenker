@@ -1,11 +1,11 @@
 using PlayArk.StateMachine.Utilities;
 using UnityEngine;
 
-using DreamSenker.Managers;
+using DreamSeeker.Managers;
 
-using DreamSenker.Characters;
+using DreamSeeker.Characters;
 
-namespace DreamSenker.Characters.Player
+namespace DreamSeeker.Characters.Player
 {
 public class InputReader : BaseComponent<IConfig>
 {

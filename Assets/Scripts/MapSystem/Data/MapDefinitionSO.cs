@@ -1,7 +1,7 @@
 using UnityEngine;
 //单个关卡地图的SO文件
 
-namespace DreamSenker.MapSystem.Data
+namespace DreamSeeker.MapSystem.Data
 {
 [CreateAssetMenu(fileName = "MapDefinition_", menuName = "ScriptableObject/Map/MapDefinition")]
 public class MapDefinitionSO : ScriptableObject

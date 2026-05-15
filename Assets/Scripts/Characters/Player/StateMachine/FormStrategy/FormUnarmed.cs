@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using PlayArk.StateMachine.Utilities;
 using UnityEngine;
-using DreamSenker.Managers;
+using DreamSeeker.Managers;
 
 /// <summary>
 /// 玩家赤手空拳形态
 /// </summary>
 
-namespace DreamSenker.Characters.Player
+namespace DreamSeeker.Characters.Player
 {
 public class FormUnarmed : FormStrategy
 {

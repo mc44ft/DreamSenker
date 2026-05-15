@@ -3,13 +3,13 @@ using PlayArk.StateMachine;
 using PlayArk.StateMachine.Utilities;
 using UnityEngine;
 
-using DreamSenker.Combat.Health;
-using DreamSenker.Data;
-using DreamSenker.Data.Configs.Character.Player;
-using DreamSenker.Data.Runtime;
-using DreamSenker.Shared;
+using DreamSeeker.Combat.Health;
+using DreamSeeker.Data;
+using DreamSeeker.Data.Configs.Character.Player;
+using DreamSeeker.Data.Runtime;
+using DreamSeeker.Shared;
 
-namespace DreamSenker.Characters.Player
+namespace DreamSeeker.Characters.Player
 {
 #region Attribute
 [RequireComponent(typeof(Animator))]

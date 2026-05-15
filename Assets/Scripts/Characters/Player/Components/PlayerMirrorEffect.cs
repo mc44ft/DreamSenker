@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace DreamSenker.Characters.Player
+namespace DreamSeeker.Characters.Player
 {
 [DisallowMultipleComponent]
 public class PlayerMirrorEffect : MonoBehaviour

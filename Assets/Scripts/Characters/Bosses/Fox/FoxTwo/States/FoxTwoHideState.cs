@@ -6,7 +6,7 @@ using UnityEngine;
 /// 技能释放结束后 回到Hide状态
 /// </summary>
 
-namespace DreamSenker.Characters.Bosses
+namespace DreamSeeker.Characters.Bosses
 {
 public class FoxTwoHideState : StateBase<FoxTwoController>
 {

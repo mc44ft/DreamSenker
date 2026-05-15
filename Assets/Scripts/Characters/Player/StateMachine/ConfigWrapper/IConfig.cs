@@ -11,7 +11,7 @@ using UnityEngine;
 /// 通过引入一个接口层，让业务逻辑（组件）与数据来源（存档/配置）彻底解耦
 /// </summary>
 
-namespace DreamSenker.Characters
+namespace DreamSeeker.Characters
 {
 public interface IConfig
 {

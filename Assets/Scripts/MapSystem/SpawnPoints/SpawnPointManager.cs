@@ -2,9 +2,9 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
-using DreamSenker.Shared;
+using DreamSeeker.Shared;
 
-namespace DreamSenker.MapSystem.SpawnPoints
+namespace DreamSeeker.MapSystem.SpawnPoints
 {
 public class SpawnPointManager : BaseManager<SpawnPointManager>
 {

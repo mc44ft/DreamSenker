@@ -1,7 +1,7 @@
 using PlayArk.DialogueSystem.Data;
 using UnityEngine;
 
-namespace DreamSenker.Dialogue.Conditions
+namespace DreamSeeker.Dialogue.Conditions
 {
     /// <summary>
     /// 永远满足的对话条件。

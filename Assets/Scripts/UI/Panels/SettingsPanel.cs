@@ -4,9 +4,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-using DreamSenker.Managers;
+using DreamSeeker.Managers;
 
-namespace DreamSenker.UI.Panels
+namespace DreamSeeker.UI.Panels
 {
 public class SettingsPanel : PanelBase_Mini
 {

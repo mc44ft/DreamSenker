@@ -1,16 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DreamSenker.Managers;
-using DreamSenker.MapSystem.Data;
-using DreamSenker.Shared;
+using DreamSeeker.Managers;
+using DreamSeeker.MapSystem.Data;
+using DreamSeeker.Shared;
 
 /// <summary>
 /// 这是一个特殊的任意门触发器脚本
 /// 用于传送特定地图
 /// </summary>
 
-namespace DreamSenker.MapSystem
+namespace DreamSeeker.MapSystem
 {
 [RequireComponent(typeof(BoxCollider2D))]
 [DisallowMultipleComponent]

@@ -4,13 +4,13 @@ using DialogueSystem.Data;
 using PlayArk.DialogueSystem.Data;
 using UnityEngine;
 
-using DreamSenker.CameraSystem;
-using DreamSenker.Data.Runtime;
-using DreamSenker.Managers;
-using DreamSenker.Shared;
-using DreamSenker.UI.Panels;
+using DreamSeeker.CameraSystem;
+using DreamSeeker.Data.Runtime;
+using DreamSeeker.Managers;
+using DreamSeeker.Shared;
+using DreamSeeker.UI.Panels;
 
-namespace DreamSenker.Dialogue
+namespace DreamSeeker.Dialogue
 {
     [RequireComponent(typeof(BoxCollider2D))]
     public class DialogueOneTrigger : MonoBehaviour

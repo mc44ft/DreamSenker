@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DreamSenker.Data.Configs.Character.Monster.Fox
+namespace DreamSeeker.Data.Configs.Character.Monster.Fox
 {
 //[CreateAssetMenu(fileName = "FoxBossConfig_", menuName = "ScriptableObject/Config/Fox/FoxBossConfig")]
 public class FoxBossConfigSO : ScriptableObject

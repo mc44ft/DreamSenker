@@ -4,9 +4,9 @@ using PlayArk.StateMachine.Utilities;
 using UnityEngine;
 
 
-using DreamSenker.Characters;
+using DreamSeeker.Characters;
 
-namespace DreamSenker.Characters.Player
+namespace DreamSeeker.Characters.Player
 {
 [RequireComponent(typeof(Rigidbody2D))]
 public class Mover : BaseComponent<IMoveConfig>

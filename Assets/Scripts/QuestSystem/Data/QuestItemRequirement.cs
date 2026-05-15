@@ -1,9 +1,9 @@
 using System;
 using UnityEngine;
 
-using DreamSenker.Shared;
+using DreamSeeker.Shared;
 
-namespace DreamSenker.QuestSystem.Data
+namespace DreamSeeker.QuestSystem.Data
 {
 /// <summary>
 /// 单个任务交付物品需求。
