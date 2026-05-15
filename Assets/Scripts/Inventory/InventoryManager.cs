@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 
 using DreamSeeker.Data.Configs;
-using DreamSeeker.Data.Runtime;
+using DreamSeeker.Inventory.Data;
 using DreamSeeker.Shared;
 
 namespace DreamSeeker.Inventory
@@ -71,14 +71,14 @@ public class InventoryManager : BaseManager<InventoryManager>
 
         PackageItemInfo itemInfo = GetItemInfoByID(itemType);
         int maxStack = GetSafeMaxStack(itemInfo);
-        PackageData.PackageDict.TryGetValue(itemType, out int currentCount);
+        PackageData.GetPackageDict().TryGetValue(itemType, out int currentCount);
 
         if (currentCount >= maxStack)
         {
             return false;
         }
 
-        PackageData.PackageDict[itemType] = Mathf.Min(currentCount + count, maxStack);
+        PackageData.GetPackageDict()[itemType] = Mathf.Min(currentCount + count, maxStack);
         return true;
     }
 
@@ -87,7 +87,7 @@ public class InventoryManager : BaseManager<InventoryManager>
     /// </summary>
     public bool TryRemoveItem(EPackageItemType itemType, int count = 1)
     {
-        if (!IsReady() || count <= 0 || !PackageData.PackageDict.TryGetValue(itemType, out int currentCount))
+        if (!IsReady() || count <= 0 || !PackageData.GetPackageDict().TryGetValue(itemType, out int currentCount))
         {
             return false;
         }
@@ -100,11 +100,11 @@ public class InventoryManager : BaseManager<InventoryManager>
         int nextCount = currentCount - count;
         if (nextCount <= 0)
         {
-            PackageData.PackageDict.Remove(itemType);
+            PackageData.GetPackageDict().Remove(itemType);
         }
         else
         {
-            PackageData.PackageDict[itemType] = nextCount;
+            PackageData.GetPackageDict()[itemType] = nextCount;
         }
 
         return true;
@@ -151,7 +151,7 @@ public class InventoryManager : BaseManager<InventoryManager>
             return false;
         }
 
-        return PackageData.PackageDict.TryGetValue(itemType, out int currentCount) && currentCount >= count;
+        return PackageData.GetPackageDict().TryGetValue(itemType, out int currentCount) && currentCount >= count;
     }
 
     /// <summary>
@@ -164,7 +164,7 @@ public class InventoryManager : BaseManager<InventoryManager>
             return new List<InventoryItemStack>();
         }
 
-        return PackageData.PackageDict
+        return PackageData.GetPackageDict()
             .Where(pair => pair.Value > 0)
             .Select(pair => new InventoryItemStack(pair.Key, pair.Value, GetItemInfoByID(pair.Key)))
             .Where(stack => stack.ItemInfo != null && stack.ItemInfo.Category == category)
@@ -189,7 +189,7 @@ public class InventoryManager : BaseManager<InventoryManager>
     /// </summary>
     private bool IsReady()
     {
-        return PackageData != null && PackageData.PackageDict != null && _packageItemConfig != null;
+        return PackageData != null && PackageData.GetPackageDict() != null && _packageItemConfig != null;
     }
 
     /// <summary>

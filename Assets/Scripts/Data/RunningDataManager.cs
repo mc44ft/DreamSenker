@@ -15,11 +15,11 @@ public class RunningDataManager : BaseManager<RunningDataManager>
 
     public void SaveData(IRunningData data)
     {
-        JsonManager.Instance.SaveData(data.GetType().Name, data, JsonType.LitJson, SAVE_DIR);
+        JsonManager.Instance.SaveData(data.GetType().Name, data, JsonType.JsonUtility, SAVE_DIR);
     }
     public bool LoadData<T>(out T data) where T : class, IRunningData, new()
     {
-        data = JsonManager.Instance.LoadData<T>(typeof(T).Name, JsonType.LitJson, SAVE_DIR);
+        data = JsonManager.Instance.LoadData<T>(typeof(T).Name, JsonType.JsonUtility, SAVE_DIR);
 
         if (data != null)
         {

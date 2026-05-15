@@ -1,4 +1,5 @@
 using System;
+using DreamSeeker.Inventory.Data;
 using UnityEngine;
 
 namespace DreamSeeker.Data.Runtime

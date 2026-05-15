@@ -197,6 +197,8 @@ public class GameManager : SingletonMono<GameManager>
     public void SaveDataAll()
     {
         RunningDataManager.Instance.SaveData(GameSaveData);
+        
+        Player.PlayerSaveData.PackageData.SyncItemsFromRuntimeDict();
         RunningDataManager.Instance.SaveData(Player.PlayerSaveData);
     }
     /// <summary>
