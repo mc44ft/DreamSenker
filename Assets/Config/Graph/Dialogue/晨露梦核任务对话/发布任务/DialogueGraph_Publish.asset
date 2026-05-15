@@ -215,7 +215,7 @@ MonoBehaviour:
   - rid: 2122959477142716447
   _dialogueDataArray:
   - SpeakerName: "\u9E7F\u957F\u8001"
-    Content: "\u4F60\u597D\u5440\uFF0C<2>\u505C\u987F"
+    Content: "\u4F60\u597D\u5440"
     DisplayType: 2
     CanQuickShow: 1
   - SpeakerName: "\u9E7F\u957F\u8001"
