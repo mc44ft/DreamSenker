@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: MapDefinition_Cave
   m_EditorClassIdentifier: 
   <MapId>k__BackingField: 425160a605f8471d81b0ce6d57e2a1c1
-  <SceneName>k__BackingField: CaveMap
+  <SceneName>k__BackingField: Cave
   <PlayerShadowDarknessStrength>k__BackingField: 2.5
   <FollowCameraOrthoSize>k__BackingField: 4
   <FollowCameraBossOrthoSize>k__BackingField: 6
+  <DialogueCameraOrthoSize>k__BackingField: 6
+  <DialogueCameraOffsetY>k__BackingField: 6

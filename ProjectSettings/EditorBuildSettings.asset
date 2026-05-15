@@ -6,24 +6,27 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Maps/SelectMap.unity
+    path: Assets/Scenes/Maps/Select.unity
     guid: 6160df7fc8b2ed740af15b40cb1b58df
   - enabled: 1
-    path: Assets/Scenes/Maps/CampMap.unity
+    path: Assets/Scenes/Maps/Camp.unity
     guid: dc441756ac78a7e44af78c958ed7b496
   - enabled: 1
-    path: Assets/Scenes/Maps/MagicMap.unity
+    path: Assets/Scenes/Maps/Magic.unity
     guid: da2e4a463a23ae74d809a8751ea69c53
   - enabled: 1
-    path: Assets/Scenes/Maps/CaveMap.unity
+    path: Assets/Scenes/Maps/Cave.unity
     guid: c5710f588d4d265468f27a3c2ca28bc6
   - enabled: 1
-    path: Assets/Scenes/Maps/FoxMap.unity
+    path: Assets/Scenes/Maps/Fox.unity
     guid: 0849b8f117d7d33498a11faae66234b7
   - enabled: 1
-    path: Assets/Scenes/Maps/MirrorMap1.unity
+    path: Assets/Scenes/Maps/Mirror1.unity
     guid: bc66d69ba2f149b439ef0d533e7b28ba
   - enabled: 1
-    path: Assets/Scenes/Maps/MirrorMap2.unity
+    path: Assets/Scenes/Maps/Mirror2.unity
     guid: 9706e678d6a4de44890525fd978bd975
+  - enabled: 1
+    path: Assets/Scenes/Maps/Woods.unity
+    guid: 3c44ee127f6254c058e16f820c286d19
   m_configObjects: {}

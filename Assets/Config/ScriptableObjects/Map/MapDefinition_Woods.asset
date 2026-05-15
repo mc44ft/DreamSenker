@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0f09079f2d3b43f1b2a7f43788794ffc, type: 3}
-  m_Name: MapDefinition_Camp
+  m_Name: MapDefinition_Woods
   m_EditorClassIdentifier: 
-  <MapId>k__BackingField: 96e9d878cb7346e6829626cce1585e0e
-  <SceneName>k__BackingField: Camp
+  <MapId>k__BackingField: fd4d1c12d8964fa6a108d0a6ed8bcbdc
+  <SceneName>k__BackingField: Woods
   <PlayerShadowDarknessStrength>k__BackingField: 2.5
   <FollowCameraOrthoSize>k__BackingField: 2.5
   <FollowCameraBossOrthoSize>k__BackingField: 6
-  <DialogueCameraOrthoSize>k__BackingField: 1.5
-  <DialogueCameraOffsetY>k__BackingField: 1
+  <DialogueCameraOrthoSize>k__BackingField: 6
+  <DialogueCameraOffsetY>k__BackingField: 6

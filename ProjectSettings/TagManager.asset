@@ -40,11 +40,17 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background_Back
+    uniqueID: 3400592525
+    locked: 0
   - name: Background_Far
     uniqueID: 4211054859
     locked: 0
   - name: Background_Mid
     uniqueID: 1947683173
+    locked: 0
+  - name: Decoration_Back
+    uniqueID: 3561587829
     locked: 0
   - name: Instantiate
     uniqueID: 2913468099
@@ -52,14 +58,14 @@ TagManager:
   - name: Background_Front
     uniqueID: 4227844089
     locked: 0
+  - name: Decoration
+    uniqueID: 3314985805
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
   - name: Shadow
     uniqueID: 3248525691
-    locked: 0
-  - name: Decoration
-    uniqueID: 3314985805
     locked: 0
   - name: Ammo
     uniqueID: 2476127925
