@@ -49,7 +49,7 @@ MonoBehaviour:
     _fallGravityScale: 7
     _getHitStopTime: 0.3
     _getHitKnockbackForceValue: 15
-    _attackDamage: 4
+    _attackDamage: 20
     _attackCheckLayer:
       serializedVersion: 2
       m_Bits: 1024
@@ -60,3 +60,5 @@ MonoBehaviour:
     CurrentHealth: 30
     AttackMultiply: 1
     IsUnlockSwitchStateSkill: 0
+    PackageData:
+      Items: []

@@ -23,6 +23,8 @@ MonoBehaviour:
   - action: 0
     parameters:
     - Hurt
+  - action: 5
+    parameters: []
   _onLogicUpdateActions: []
   _onPhysicsUpdateActions: []
   _onExitActions: []
@@ -93,7 +95,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _title: Run
   _uniqueID: 76e8248d-0fe3-4ec2-9684-9c80b78de6f4
-  _viewPosition: {x: 688.0001, y: 135}
+  _viewPosition: {x: 854.00006, y: 119.05606}
   _inputPorts:
   - rid: 1292938967777804294
   _outputPorts:
@@ -188,6 +190,7 @@ MonoBehaviour:
   - {fileID: -5002536038652516648}
   - {fileID: -3188132286918621292}
   - {fileID: -6111117822677795472}
+  - {fileID: 2801851504479364905}
   _edges:
   - _uniqueID: 14abd478-556d-4a42-a0c5-6a97deed255a
     _rootNodeID: 373ed908-d48d-4aa9-9376-59b963f0c193
@@ -290,8 +293,64 @@ MonoBehaviour:
           _parameters:
           - Hurt
           _negate: 0
+  - _uniqueID: 4f49d03b-9e22-40ba-8d28-c000887a38ab
+    _rootNodeID: 7e143d4e-dd12-4449-b18f-53242b23407a
+    _rootPortID: 26265f41-9388-465e-af7c-d9a165b57a4c
+    _connectionNodeID: eb4ec7b5-b54a-4e19-9ccc-83241600b6bc
+    _connectionPortID: a48680f2-0db4-43a4-b8dd-2e989d012955
+    _condition:
+      _and:
+      - _or:
+        - _predicate: 7
+          _parameters: []
+          _negate: 0
   _entryState: {fileID: -5231830620154182528}
   _anyState: {fileID: 5884770527426524240}
+--- !u!114 &2801851504479364905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c798ffcdc11614c339068f869ca5404e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _title: Death
+  _uniqueID: eb4ec7b5-b54a-4e19-9ccc-83241600b6bc
+  _viewPosition: {x: 402.49997, y: 127.000015}
+  _inputPorts:
+  - rid: 1292939158646947844
+  _outputPorts:
+  - rid: 1292939158646947845
+  _onEnterActions:
+  - action: 0
+    parameters:
+    - Death
+  - action: 1
+    parameters: []
+  _onLogicUpdateActions: []
+  _onPhysicsUpdateActions: []
+  _onExitActions: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 1292939158646947844
+      type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
+      data:
+        _uniqueID: a48680f2-0db4-43a4-b8dd-2e989d012955
+        _portName: New Port
+        _direction: 0
+        _selfNodeID: eb4ec7b5-b54a-4e19-9ccc-83241600b6bc
+    - rid: 1292939158646947845
+      type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
+      data:
+        _uniqueID: 86254587-edf9-4f11-b290-f3aece467c91
+        _portName: New Port
+        _direction: 1
+        _selfNodeID: eb4ec7b5-b54a-4e19-9ccc-83241600b6bc
 --- !u!114 &2931593334425955189
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -351,7 +410,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _title: Any State
   _uniqueID: 2f8cf73e-3e4a-41e5-b279-bf6b278741bf
-  _viewPosition: {x: 100, y: 150}
+  _viewPosition: {x: 53.72705, y: 196.00005}
   _inputPorts:
   - rid: 1292938967777804290
   _outputPorts:

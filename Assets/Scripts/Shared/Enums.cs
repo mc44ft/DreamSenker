@@ -23,8 +23,6 @@ public enum ESpawnType
 }
 public enum EPackageItemType
 {
-    RedFruit,
-    BlueFruit,
     HealthPotion_Small,//小血瓶
     HealthPotion_Big,//大血瓶
     Chen,

@@ -14,12 +14,14 @@ namespace DreamSeeker.Characters.Enemies
 public class OldManActionDriver : MonoBehaviour, IAction
 {
     private OldManBrain _brain;
+    private OldManController _controller;
     private Mover _mover;
     private AnimationPlayer _animationPlayer;
 
     private void Awake()
     {
         _brain = GetComponent<OldManBrain>();
+        _controller = GetComponent<OldManController>();
         _mover = GetComponent<Mover>();
         _animationPlayer = GetComponent<AnimationPlayer>();
     }
@@ -39,6 +41,9 @@ public class OldManActionDriver : MonoBehaviour, IAction
                 {
                     _animationPlayer?.PlayAnimation(parameters[0]);
                 }
+                break;
+            case EAction.Knockback:
+                _controller.DamageableHealth.DoKnockback();
                 break;
         }
     }
