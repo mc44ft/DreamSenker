@@ -34,6 +34,8 @@ public class PlayerController : StateMachineController, IAction
     public PlayerSaveData PlayerSaveData => _playerSaveData;
     public DamageableHealth DamageableHealth => _damageableHealth;
     public Mover Mover => _mover;
+
+    public Transform CameraFollowTran => _cameraFollow != null ? _cameraFollow.transform : null;
     //--------------------------------- Private Parameter ------------------------------------------
     private DamageableHealth _damageableHealth;
     private Mover _mover;
@@ -44,6 +46,8 @@ public class PlayerController : StateMachineController, IAction
     private FormSword _formSword;
     private PlayerSaveData _playerSaveData;
 
+    private GameObject _cameraFollow;
+
     protected override void Awake()
     {
         base.Awake();
@@ -53,6 +57,15 @@ public class PlayerController : StateMachineController, IAction
         _inputReader = GetComponent<InputReader>();
         _formUnarmed = GetComponent<FormUnarmed>();
         _formSword = GetComponent<FormSword>();
+        
+        //这里创建一个用于缓慢跟随玩家翻转的物体，使虚拟摄像机跟随此物体，能够达到一个缓动跟随的效果
+        //具体表现就是：玩家转向时，摄像机能自动跑到玩家面前一段距离
+        _cameraFollow = new GameObject("CameraFollow");
+        _cameraFollow.AddComponent<CameraFollowObject>().SetUp(this.transform);
+    }
+    private void OnDestroy()
+    {
+        Destroy(_cameraFollow);
     }
 
     private void OnEnable()
@@ -82,6 +95,9 @@ public class PlayerController : StateMachineController, IAction
         LoadData();
         //切换到初始形态
         SwitchForm();
+        
+        
+        
         onFinished?.Invoke();
     }
     private void LoadData()

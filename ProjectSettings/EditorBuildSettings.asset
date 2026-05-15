@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Maps/Select.unity
+    path: Assets/Scenes/Select.unity
     guid: 6160df7fc8b2ed740af15b40cb1b58df
   - enabled: 1
     path: Assets/Scenes/Maps/Camp.unity

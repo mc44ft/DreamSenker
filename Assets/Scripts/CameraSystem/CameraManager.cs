@@ -27,21 +27,6 @@ public class CameraManager : SingletonMono<CameraManager>
     private float _defaultDialogueCameraOffsetY;//对话相机默认跟随偏移Y值
 
     /// <summary>
-    /// 初始化跨场景相机引用，并保留相机对象
-    /// </summary>
-    protected override void Awake()
-    {
-        base.Awake();
-
-        if (Instance != this)
-        {
-            return;
-        }
-
-        SetupVCams();
-    }
-
-    /// <summary>
     /// 检查虚拟相机配置，并把虚拟相机初始化绑定到当前玩家
     /// </summary>
     public void SetupVCams()
@@ -54,7 +39,7 @@ public class CameraManager : SingletonMono<CameraManager>
 
         //初始化时两个虚拟相机都先绑定玩家，对话时再临时切到 NPC
         BindConfiguredCamerasToPlayer();
-
+        
         //缓存对话相机初始配置，用于退出对话时恢复
         CacheDefaultDialogueCameraSettings();
 
@@ -63,6 +48,8 @@ public class CameraManager : SingletonMono<CameraManager>
         {
             _dialogueCamera.gameObject.SetActive(false);
         }
+        
+        // RefreshFollowCameraAfterPlayerWarp(Vector3.zero, Vector3.zero);
     }
 
     /// <summary>
@@ -187,7 +174,9 @@ public class CameraManager : SingletonMono<CameraManager>
 
         //通知 Cinemachine 跟随目标发生瞬移，并立刻取消本帧阻尼缓存
         Vector3 positionDelta = currentPosition - previousPosition;
+        //立即刷新相机位置
         _followCamera.OnTargetObjectWarped(_playerTarget, positionDelta);
+        //取消当前帧的阻尼缓动 直接跑到目标位置
         _followCamera.CancelDamping(true);
     }
 
@@ -364,9 +353,11 @@ public class CameraManager : SingletonMono<CameraManager>
     /// </summary>
     private Transform GetCurrentPlayerTransform()
     {
-        if (GameManager.Instance != null && GameManager.Instance.Player != null)
+        if (GameManager.Instance != null && 
+            GameManager.Instance.Player != null && 
+            GameManager.Instance.Player.CameraFollowTran != null)
         {
-            return GameManager.Instance.Player.transform;
+            return GameManager.Instance.Player.CameraFollowTran.transform;
         }
 
         return _playerTarget;
@@ -390,7 +381,9 @@ public class CameraManager : SingletonMono<CameraManager>
     /// </summary>
     private IEnumerator BindPlayerRoutine()
     {
-        while (GameManager.Instance == null || GameManager.Instance.Player == null)
+        while (GameManager.Instance == null || 
+               GameManager.Instance.Player == null ||  
+               GameManager.Instance.Player.CameraFollowTran == null)
         {
             //每0.5s查找一次
             yield return new WaitForSeconds(0.5f);

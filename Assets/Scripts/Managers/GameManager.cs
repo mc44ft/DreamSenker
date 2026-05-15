@@ -235,6 +235,7 @@ public class GameManager : SingletonMono<GameManager>
             //防止玩家过场景移除
             DontDestroyOnLoad(player.gameObject);
             Player = player;
+            
             CameraManager.Instance?.SetupVCams();
             //镜像表现是特殊地图功能，玩家本体控制器不再持有它
             _playerMirrorEffect = Player.GetComponent<PlayerMirrorEffect>();

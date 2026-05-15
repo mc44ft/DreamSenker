@@ -34,7 +34,9 @@ public class Mover : BaseComponent<IMoveConfig>
         if(newFaceRight != _faceRight)
         {
             _faceRight = newFaceRight;
-            transform.localScale = new Vector3(_faceRight, 1, 1);
+            //这样的转向方式尊重玩家的x轴正方向 能保持正方向一直是面朝向
+            transform.rotation = Quaternion.Euler(0f, (_faceRight - 1) *  90f, 0f);
+            // transform.localScale = new Vector3(_faceRight, 1, 1);
         }
     }
 

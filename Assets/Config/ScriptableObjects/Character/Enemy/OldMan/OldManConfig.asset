@@ -16,7 +16,7 @@ MonoBehaviour:
     _maxGravityScale: 10
     _maxHealthAmount: 100
     _getHitStopTime: 0.3
-    _getHitKnockbackForceValue: 30
+    _getHitKnockbackForceValue: 5
     _runSpeed: 2
     _attackDamage: 1
     _attackCheckLayer:
