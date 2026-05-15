@@ -60,10 +60,6 @@ public enum E_EventType
     /// Boss保持死亡事件 --- 参数 GameBossDeadEventArgs（Boss类型）
     /// </summary>
     Game_BossKeepDead,
-    /// <summary>
-    /// 加成事件 --- 参数 int（恢复数值）
-    /// </summary>
-    Game_BonusEffect,
     #endregion
     #region PLAYER EVENT
     /// <summary>

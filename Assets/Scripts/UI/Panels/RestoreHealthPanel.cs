@@ -33,9 +33,9 @@ public class RestoreHealthPanel : PanelBase_Mini
     private void OnAppect()
     {
         AudioManager.Instance.PlaySound(GameResources.Instance.UiButtonClip);
-
+        
         //触发回血加成
-        EventCenter.Instance.EventTrigger(E_EventType.Game_BonusEffect, this, new GameBonusEffectEventArgs(EBonusEffectType.RestoreHealth, 50));
+        GameManager.Instance.Player.DamageableHealth.RestoreHealth(50);
         ClosePanel(0);
     }
     private void OnReject()

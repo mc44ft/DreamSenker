@@ -1,4 +1,5 @@
 using DreamSeeker.Data.Configs;
+using DreamSeeker.Managers;
 using DreamSeeker.Shared;
 
 namespace DreamSeeker.Inventory
@@ -18,11 +19,12 @@ public class PropEffectResolver
             return false;
         }
 
-        // 暂时沿用项目现有加成事件，后续再把具体回血/回蓝落到明确服务上。
-        EventCenter.Instance.EventTrigger(
-            E_EventType.Game_BonusEffect,
-            this,
-            new GameBonusEffectEventArgs(itemInfo.BonusEffectType, itemInfo.BonusAmount));
+        switch (itemInfo.BonusEffectType)
+        {
+            case EBonusEffectType.RestoreHealth:
+                GameManager.Instance.Player.DamageableHealth.RestoreHealth(itemInfo.BonusAmount);
+                break;
+        }
 
         return true;
     }
