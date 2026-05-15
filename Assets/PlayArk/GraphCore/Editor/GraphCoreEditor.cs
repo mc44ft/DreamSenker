@@ -75,14 +75,6 @@ namespace PlayArk.GraphCore.Editor
             }
             return false;
         }
-        //private void Update()
-        //{
-        //    //未手动保存时 出现*号
-        //    var currentGraph = Selection.activeObject as GraphCoreGraph;
-        //    if(currentGraph != null)
-        //    {
-        //        this.hasUnsavedChanges = EditorUtility.IsDirty(currentGraph);
-        //    }
 
         //}
         /// <summary>
@@ -100,6 +92,14 @@ namespace PlayArk.GraphCore.Editor
             {
                 _view.Refresh(graphCore);
             }
+            //添加一次延迟刷新，快速解决当资源创建时，创建默认节点后无法立即显示的bug（实际上并没有解决）
+            EditorApplication.delayCall += () =>
+            {
+                if (graphCore != null)
+                {
+                    _view.Refresh(graphCore);
+                }
+            };
         }
     }
 }

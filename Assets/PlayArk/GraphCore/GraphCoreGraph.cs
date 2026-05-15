@@ -184,7 +184,7 @@ namespace PlayArk.GraphCore.Data
 #if UNITY_EDITOR
 
             //这里确保该状态机主资源已经是一个保存在硬盘当中的资源了
-            //这里的意思就是获取这个类所对应的资源在硬盘中的路径
+            //这里的意思就是检查这个类所对应的资源在硬盘中的路径是否为空
             //如果该路径不为空 说明这个类对应的资源已经保存在硬盘当中了
             if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(this)))
                 return;
@@ -198,6 +198,7 @@ namespace PlayArk.GraphCore.Data
             //生成默认节点
             OnCreateDefaultNode();
             
+            //将图下的所有节点添加到子资源
             foreach (var node in _nodes)
             {
                 if (node == null) continue;
