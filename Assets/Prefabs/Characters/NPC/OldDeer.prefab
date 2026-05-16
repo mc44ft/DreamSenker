@@ -285,7 +285,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1381499197
-  m_SortingLayer: 3
+  m_SortingLayer: -3
   m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: e59c1be6ee4d09440984deabb7df68c1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -311,7 +311,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_dialogueInfoArray: []
-  m_camera: {fileID: 0}
   _worldTips: {fileID: 840758227057553218}
 --- !u!61 &327265547107034992
 BoxCollider2D:
@@ -349,7 +348,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.4991394, y: 0.3468026}
-    oldSize: {x: 5.4, y: 5.4}
+    oldSize: {x: 2, y: 2}
     newSize: {x: 5.4, y: 5.4}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -538,7 +537,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4648368095783084101, guid: 2fd969c3aef4ccc4fb219906e128fc11, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 2.01
+      value: 2.48
       objectReference: {fileID: 0}
     - target: {fileID: 4648368095783084101, guid: 2fd969c3aef4ccc4fb219906e128fc11, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

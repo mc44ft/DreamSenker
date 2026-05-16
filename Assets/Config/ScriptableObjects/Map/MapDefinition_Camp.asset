@@ -15,7 +15,7 @@ MonoBehaviour:
   <MapId>k__BackingField: 96e9d878cb7346e6829626cce1585e0e
   <SceneName>k__BackingField: Camp
   <PlayerShadowDarknessStrength>k__BackingField: 2.5
-  <FollowCameraOrthoSize>k__BackingField: 2.5
+  <FollowCameraOrthoSize>k__BackingField: 4
   <FollowCameraBossOrthoSize>k__BackingField: 6
   <DialogueCameraOrthoSize>k__BackingField: 1.5
   <DialogueCameraOffsetY>k__BackingField: 1

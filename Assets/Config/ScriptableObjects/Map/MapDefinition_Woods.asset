@@ -15,7 +15,7 @@ MonoBehaviour:
   <MapId>k__BackingField: fd4d1c12d8964fa6a108d0a6ed8bcbdc
   <SceneName>k__BackingField: Woods
   <PlayerShadowDarknessStrength>k__BackingField: 2.5
-  <FollowCameraOrthoSize>k__BackingField: 2.5
+  <FollowCameraOrthoSize>k__BackingField: 3
   <FollowCameraBossOrthoSize>k__BackingField: 6
   <DialogueCameraOrthoSize>k__BackingField: 6
   <DialogueCameraOffsetY>k__BackingField: 6

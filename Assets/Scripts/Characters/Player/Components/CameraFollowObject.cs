@@ -15,10 +15,11 @@ namespace DreamSeeker.Characters.Player
             DontDestroyOnLoad(gameObject);
         }
 
-        public void SetUp(Transform target)
+        public void SetUp(Transform player)
         {
-            _target = target;
-            
+            _target = player.Find("CameraFollowPoint");
+            _target ??= player;
+
             transform.position = _target.position;
             transform.rotation = _target.rotation;
             

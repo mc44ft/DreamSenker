@@ -18,21 +18,21 @@ MonoBehaviour:
     _maxHealthAmount: 100
     _maxGravityScale: 10
     _runtimeAnimatorController: {fileID: 9100000, guid: 689f75b53a634f342bf88640feb30aca, type: 2}
-    _runSpeed: 5
-    _jumpSpeed: 12
+    _runSpeed: 6
+    _jumpSpeed: 18
     _jumpCount: 2
     _playerGroundLayerMask:
       serializedVersion: 2
       m_Bits: 12288
-    _jumpGravityScale: 5
-    _fallGravityScale: 7
+    _jumpGravityScale: 6
+    _fallGravityScale: 6
     _getHitStopTime: 0.1
     _getHitKnockbackForceValue: 5
     _attackDamage: 10
     _attackCheckLayer:
       serializedVersion: 2
       m_Bits: 1280
-    _attackCheckOffset: {x: 0.35, y: 0.42, z: 0}
+    _attackCheckOffset: {x: 0.526, y: 0.615, z: 0}
     _attackCheckBoundsSize: {x: 0.7, y: 0.5, z: 0}
     _attackCooldown: 0.2
   _formConfigSword:
@@ -53,7 +53,7 @@ MonoBehaviour:
     _attackCheckLayer:
       serializedVersion: 2
       m_Bits: 1024
-    _attackCheckOffset: {x: 0.25, y: 0.3, z: 0}
+    _attackCheckOffset: {x: 0.531, y: 0.3, z: 0}
     _attackCheckBoundsSize: {x: 0.5, y: 0.7, z: 0}
     _attackCooldown: 0.2
   _playerSaveData:
