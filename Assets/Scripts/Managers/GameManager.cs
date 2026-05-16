@@ -20,6 +20,7 @@ using DreamSeeker.Shared;
 using DreamSeeker.UI.Panels;
 
 using DreamSeeker.Characters.Player;
+using DreamSeeker.Characters.Pet;
 using DreamSeeker.MapSystem.Data;
 
 namespace DreamSeeker.Managers
@@ -39,6 +40,7 @@ public class GameManager : SingletonMono<GameManager>
     public PlayerController Player { get; private set; }
     //------------------------ Private Parameter ---------------------------------
     private const float DefaultFollowCameraOrthoSize = 5f;//非地图场景默认跟随相机正交视野，开始UI界面是这个值
+    private const string CameraConfinerWallName = "Wall";//每张地图中用于限制 Follow 虚拟相机边界的固定物体名
     private CinemachineImpulseSource _impulseSource;//用于处理镜头震动的相机配置
     private PlayerMirrorEffect _playerMirrorEffect;//可选的镜像地图表现组件
     private MapFlowController _mapFlowController;//地图流程控制器，负责地图查询、切图和特殊地图初始化
@@ -114,6 +116,7 @@ public class GameManager : SingletonMono<GameManager>
     {
         PoolManager.Instance.Clear();
         SyncFollowCameraOrthoSize(next.name);
+        SyncFollowCameraConfinerBounds();
     }
 
     /// <summary>
@@ -126,6 +129,15 @@ public class GameManager : SingletonMono<GameManager>
             : DefaultFollowCameraOrthoSize;
 
         CameraManager.Instance?.SetFollowCameraOrthoSize(orthoSize);
+    }
+
+    /// <summary>
+    /// 按固定名称查找当前场景相机边界，并同步到 Follow 虚拟相机 Confiner2D。
+    /// </summary>
+    private void SyncFollowCameraConfinerBounds()
+    {
+        GameObject wall = GameObject.Find(CameraConfinerWallName);
+        CameraManager.Instance?.SetFollowCameraConfinerBounds(wall);
     }
     #endregion
     /// <summary>
@@ -235,6 +247,7 @@ public class GameManager : SingletonMono<GameManager>
             //防止玩家过场景移除
             DontDestroyOnLoad(player.gameObject);
             Player = player;
+            PaiMonController.SpawnForPlayer(Player);
             
             CameraManager.Instance?.SetupVCams();
             //镜像表现是特殊地图功能，玩家本体控制器不再持有它

@@ -154,6 +154,42 @@ public class CameraManager : SingletonMono<CameraManager>
     }
 
     /// <summary>
+    /// 将指定物体上的 2D 碰撞体设置为 Follow 虚拟相机的 Confiner2D 边界。
+    /// </summary>
+    public bool SetFollowCameraConfinerBounds(GameObject boundsObject)
+    {
+        if (!ValidateFollowCamera())
+        {
+            return false;
+        }
+
+        CinemachineConfiner2D confiner = GetOrAddFollowCameraConfiner();
+        if (confiner == null)
+        {
+            return false;
+        }
+
+        if (boundsObject == null)
+        {
+            //非地图场景没有 Wall 时清空旧边界，避免沿用上一张地图的相机限制
+            confiner.m_BoundingShape2D = null;
+            confiner.InvalidateCache();
+            return false;
+        }
+
+        CompositeCollider2D boundsCollider = boundsObject.GetComponent<CompositeCollider2D>();
+        if (boundsCollider == null)
+        {
+            Debug.LogError($"{boundsObject.name} 缺少用于 Follow Camera Confiner2D 的 Collider2D", boundsObject);
+            return false;
+        }
+
+        confiner.m_BoundingShape2D = boundsCollider;
+        confiner.InvalidateCache();
+        return true;
+    }
+
+    /// <summary>
     /// 玩家瞬移后刷新跟随相机状态，避免 Cinemachine 沿用旧场景缓存产生偏移
     /// </summary>
     public void RefreshFollowCameraAfterPlayerWarp(Vector3 previousPosition, Vector3 currentPosition)
@@ -295,6 +331,25 @@ public class CameraManager : SingletonMono<CameraManager>
     private CinemachineFramingTransposer GetDialogueCameraFramingTransposer()
     {
         return _dialogueCamera != null ? _dialogueCamera.GetCinemachineComponent<CinemachineFramingTransposer>() : null;
+    }
+
+    /// <summary>
+    /// 获取或创建 Follow 虚拟相机上的 Confiner2D 扩展。
+    /// </summary>
+    private CinemachineConfiner2D GetOrAddFollowCameraConfiner()
+    {
+        if (_followCamera == null)
+        {
+            return null;
+        }
+
+        CinemachineConfiner2D confiner = _followCamera.GetComponent<CinemachineConfiner2D>();
+        if (confiner == null)
+        {
+            confiner = _followCamera.gameObject.AddComponent<CinemachineConfiner2D>();
+        }
+
+        return confiner;
     }
 
     /// <summary>
