@@ -13,7 +13,7 @@ public class PaiMonController : MonoBehaviour
     [SerializeField] private float _followDuration = 0.35f;//飞向目标点的缓动时间
     [SerializeField] private float _retargetDistance = 0.05f;//目标点变化超过该距离才重定向，避免每帧重建 Tween
     [SerializeField] private Ease _followEase = Ease.OutSine;//跟随飞行动画曲线
-    [SerializeField] private bool _flipAfterMove = true;//是否在移动到另一侧后再瞬间翻转朝向
+    [SerializeField] private bool _flipAfterPassingPlayer = true;//是否在越过玩家头顶后瞬间翻转朝向
 
     [Header("Float")]
     [SerializeField] private float _floatingHeight = 0.18f;//上下浮动高度
@@ -28,8 +28,9 @@ public class PaiMonController : MonoBehaviour
     private Vector3 _currentFollowPosition;//当前跟随基础坐标，不包含浮动偏移
     private Vector3 _lastTweenTarget;//上一次提交给跟随 Tween 的基础坐标
     private float _floatingOffsetY;//DOTween 驱动的当前浮动偏移
-    private float _lastTargetYRotation;//上一次记录的目标 Y 轴朝向
-    private float _pendingTargetYRotation;//等待跟随移动完成后应用的目标 Y 轴朝向
+    private float _lastTargetYRotation;//上一次记录的目标最终 Y 轴朝向
+    private float _pendingTargetYRotation;//等待越过玩家头顶后应用的目标 Y 轴朝向
+    private float _rotationStartSide;//记录转向发生时 PaiMon 位于玩家中心点的哪一侧
     private bool _hasPendingRotation;//是否有待应用的翻转朝向
     private bool _isInitialized;//是否已经绑定目标
 
@@ -77,7 +78,7 @@ public class PaiMonController : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         _currentFollowPosition = GetBaseFollowPosition();
         _lastTweenTarget = _currentFollowPosition;
-        _lastTargetYRotation = GetTargetYRotation();
+        _lastTargetYRotation = GetNearestFinalYRotation(GetTargetYRotation());
         SnapToYRotation(_lastTargetYRotation);
         ApplyPosition();
 
@@ -187,6 +188,7 @@ public class PaiMonController : MonoBehaviour
                 {
                     _currentFollowPosition = value;
                     ApplyPosition();
+                    ApplyPendingRotationAfterPassingPlayer();
                 }, targetPosition, _followDuration)
                 .SetEase(_followEase)
                 .SetAutoKill(false)
@@ -219,24 +221,48 @@ public class PaiMonController : MonoBehaviour
     /// </summary>
     private void RecordTargetRotationChange()
     {
-        if (!_flipAfterMove || _followTarget == null)
+        if (!_flipAfterPassingPlayer || _followTarget == null)
         {
             return;
         }
 
-        float targetYRotation = GetTargetYRotation();
-        if (Mathf.Abs(Mathf.DeltaAngle(_lastTargetYRotation, targetYRotation)) < 1f)
+        if (_hasPendingRotation)
         {
             return;
         }
 
-        _lastTargetYRotation = targetYRotation;
-        _pendingTargetYRotation = targetYRotation;
+        float currentTargetYRotation = GetTargetYRotation();
+        if (Mathf.Abs(Mathf.DeltaAngle(_lastTargetYRotation, currentTargetYRotation)) < 1f)
+        {
+            return;
+        }
+
+        float finalTargetYRotation = GetOppositeFinalYRotation(_lastTargetYRotation);
+        _lastTargetYRotation = finalTargetYRotation;
+        _pendingTargetYRotation = finalTargetYRotation;
+        _rotationStartSide = GetCurrentSideFromPlayerCenter();
         _hasPendingRotation = true;
     }
 
     /// <summary>
-    /// 跟随移动完成后应用待翻转朝向。
+    /// 越过玩家头顶后应用待翻转朝向；移动方向保持原 Tween 不变。
+    /// </summary>
+    private void ApplyPendingRotationAfterPassingPlayer()
+    {
+        if (!_hasPendingRotation)
+        {
+            return;
+        }
+
+        float currentSide = GetCurrentSideFromPlayerCenter();
+        if (currentSide == 0f || !Mathf.Approximately(currentSide, _rotationStartSide))
+        {
+            ApplyPendingRotation();
+        }
+    }
+
+    /// <summary>
+    /// 兜底：如果没有越过判定，跟随移动完成后也应用待翻转朝向。
     /// </summary>
     private void ApplyPendingRotation()
     {
@@ -268,6 +294,37 @@ public class PaiMonController : MonoBehaviour
     private float GetTargetYRotation()
     {
         return _followTarget.eulerAngles.y;
+    }
+
+    /// <summary>
+    /// 根据当前朝向取最近的最终朝向，只允许 0 或 180。
+    /// </summary>
+    private float GetNearestFinalYRotation(float yRotation)
+    {
+        float normalizedY = Mathf.Repeat(yRotation, 360f);
+        return normalizedY > 90f && normalizedY < 270f ? 180f : 0f;
+    }
+
+    /// <summary>
+    /// 获取下一次翻转后的最终朝向，只允许 0 或 180。
+    /// </summary>
+    private float GetOppositeFinalYRotation(float yRotation)
+    {
+        return Mathf.Abs(Mathf.DeltaAngle(yRotation, 0f)) < 1f ? 180f : 0f;
+    }
+
+    /// <summary>
+    /// 计算 PaiMon 当前在玩家中心点 X 轴的哪一侧。
+    /// </summary>
+    private float GetCurrentSideFromPlayerCenter()
+    {
+        float distanceX = _currentFollowPosition.x - _followTarget.position.x;
+        if (Mathf.Abs(distanceX) < 0.01f)
+        {
+            return 0f;
+        }
+
+        return Mathf.Sign(distanceX);
     }
 
     /// <summary>
