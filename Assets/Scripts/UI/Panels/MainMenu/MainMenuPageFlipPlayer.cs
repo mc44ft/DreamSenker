@@ -54,7 +54,8 @@ public class MainMenuPageFlipPlayer : MonoBehaviour
         bool hasSwitchedPage = false;
         int resolvedSwitchFrameIndex = ResolveSwitchFrameIndex(frames, switchFrameIndex);
         _isPlaying = true;
-
+        
+        _spriteAnimator.gameObject.SetActive(true);
         _spriteAnimator.Play(
             frames,
             _frameRate,
@@ -78,6 +79,7 @@ public class MainMenuPageFlipPlayer : MonoBehaviour
 
                 _isPlaying = false;
                 onComplete?.Invoke();
+                _spriteAnimator.gameObject.SetActive(false);
             });
     }
 

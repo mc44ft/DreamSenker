@@ -441,25 +441,11 @@ public class PoliceLightFlickerSettings
 [Serializable]
 public class NightClubFlickerSettings
 {
-    public static readonly Color[] DefaultColors =
-    {
-        Color.red,
-        Color.yellow,
-        Color.green,
-        Color.cyan,
-        Color.blue,
-        Color.magenta,
-    };//夜店模式默认彩色循环
+    private const int DefaultColorCount = 36;//夜店模式默认颜色数量
 
-    [SerializeField] private Color[] _colors =
-    {
-        Color.red,
-        Color.yellow,
-        Color.green,
-        Color.cyan,
-        Color.blue,
-        Color.magenta,
-    };//夜店模式流转颜色列表
+    public static readonly Color[] DefaultColors = CreateDefaultColors();//夜店模式默认 36 色彩色循环
+
+    [SerializeField] private Color[] _colors = CreateDefaultColors();//夜店模式 36 色流转颜色列表
     [SerializeField, Range(0f, 1f)] private float _darkAlpha = 0.35f;//夜店模式变暗时透明度
     [SerializeField, Range(0f, 1f)] private float _brightAlpha = 1f;//夜店模式变亮时透明度
     [SerializeField] private float _colorFadeDuration = 0.08f;//切到下一个颜色的时间
@@ -480,11 +466,32 @@ public class NightClubFlickerSettings
     /// </summary>
     public void Validate()
     {
+        if (_colors == null || _colors.Length < DefaultColorCount)
+        {
+            _colors = CreateDefaultColors();
+        }
+
         _darkAlpha = Mathf.Clamp01(_darkAlpha);
         _brightAlpha = Mathf.Clamp01(_brightAlpha);
         _colorFadeDuration = Mathf.Max(0.01f, _colorFadeDuration);
         _alphaFadeDuration = Mathf.Max(0.01f, _alphaFadeDuration);
         _colorHoldDuration = Mathf.Max(0f, _colorHoldDuration);
+    }
+
+    /// <summary>
+    /// 创建均匀分布的 36 色彩虹色表。
+    /// </summary>
+    private static Color[] CreateDefaultColors()
+    {
+        Color[] colors = new Color[DefaultColorCount];
+
+        for (int i = 0; i < colors.Length; i++)
+        {
+            colors[i] = Color.HSVToRGB((float)i / colors.Length, 1f, 1f);
+            colors[i].a = 1f;
+        }
+
+        return colors;
     }
 }
 }

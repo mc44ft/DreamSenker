@@ -13,15 +13,16 @@ public class MainMenuPanel : PanelBase_Mini
     [SerializeField] private Toggle _packageToggle;//背包页 Dock Toggle
     [SerializeField] private Toggle _questToggle;//任务页 Dock Toggle
     [SerializeField] private Toggle _settingsToggle;//设置页 Dock Toggle
-    [SerializeField] private Toggle _saveToggle;//保存页 Dock Toggle（暂未绑定页面）
+    [SerializeField] private Toggle _saveToggle;//保存页 Dock Toggle
     [Header("Buttons")]
     [SerializeField] private Button _closeButton;//关闭总菜单按钮
 
     [Header("Pages")]
+    [SerializeField] private GameObject _characterPage;//人物页根物体
     [SerializeField] private GameObject _packagePage;//背包页根物体
     [SerializeField] private GameObject _questPage;//任务页根物体
-    [SerializeField] private GameObject _characterPage;//人物页根物体
     [SerializeField] private GameObject _settingsPage;//设置页根物体
+    [SerializeField] private GameObject _savePage;//保存页根物体
 
     [Header("Page Flip")]
     [SerializeField] private MainMenuPageFlipPlayer _pageFlipPlayer;//切页时播放的翻页动画
@@ -100,7 +101,7 @@ public class MainMenuPanel : PanelBase_Mini
     }
 
     /// <summary>
-    /// 保存页暂未接入，选中时恢复当前页面 Toggle。
+    /// 保存页 Toggle 选中时切换到保存页。
     /// </summary>
     private void OnSaveToggleValueChanged(bool isOn)
     {
@@ -109,7 +110,7 @@ public class MainMenuPanel : PanelBase_Mini
             return;
         }
 
-        SyncDockToggles();
+        SwitchPage(EMainMenuPage.Save);
     }
 
     /// <summary>
@@ -151,6 +152,7 @@ public class MainMenuPanel : PanelBase_Mini
         SetPageActive(_questPage, page == EMainMenuPage.Quest);
         SetPageActive(_characterPage, page == EMainMenuPage.Character);
         SetPageActive(_settingsPage, page == EMainMenuPage.Settings);
+        SetPageActive(_savePage, page == EMainMenuPage.Save);
 
         _currentPage = page;
         _isInitialized = true;
@@ -193,10 +195,11 @@ public class MainMenuPanel : PanelBase_Mini
     {
         return page switch
         {
-            EMainMenuPage.package => 0,
-            EMainMenuPage.Quest => 1,
-            EMainMenuPage.Character => 2,
+            EMainMenuPage.Character => 0,
+            EMainMenuPage.package => 1,
+            EMainMenuPage.Quest => 2,
             EMainMenuPage.Settings => 3,
+            EMainMenuPage.Save => 4,
             _ => 0
         };
     }
@@ -221,7 +224,7 @@ public class MainMenuPanel : PanelBase_Mini
         SetToggleIsOnWithoutNotify(_questToggle, _currentPage == EMainMenuPage.Quest);
         SetToggleIsOnWithoutNotify(_characterToggle, _currentPage == EMainMenuPage.Character);
         SetToggleIsOnWithoutNotify(_settingsToggle, _currentPage == EMainMenuPage.Settings);
-        SetToggleIsOnWithoutNotify(_saveToggle, false);
+        SetToggleIsOnWithoutNotify(_saveToggle, _currentPage == EMainMenuPage.Save);
     }
 
     /// <summary>
@@ -318,9 +321,10 @@ public class MainMenuPanel : PanelBase_Mini
 
 public enum EMainMenuPage
 {
+    Character,
     package,
     Quest,
-    Character,
     Settings,
+    Save,
 }
 }
