@@ -1,0 +1,326 @@
+using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
+
+using DreamSeeker.Managers;
+
+namespace DreamSeeker.UI.Panels.MainMenu
+{
+public class MainMenuPanel : PanelBase_Mini
+{
+    [Header("Dock Toggles")]
+    [SerializeField] private Toggle _characterToggle;//人物页 Dock Toggle
+    [SerializeField] private Toggle _packageToggle;//背包页 Dock Toggle
+    [SerializeField] private Toggle _questToggle;//任务页 Dock Toggle
+    [SerializeField] private Toggle _settingsToggle;//设置页 Dock Toggle
+    [SerializeField] private Toggle _saveToggle;//保存页 Dock Toggle（暂未绑定页面）
+    [Header("Buttons")]
+    [SerializeField] private Button _closeButton;//关闭总菜单按钮
+
+    [Header("Pages")]
+    [SerializeField] private GameObject _packagePage;//背包页根物体
+    [SerializeField] private GameObject _questPage;//任务页根物体
+    [SerializeField] private GameObject _characterPage;//人物页根物体
+    [SerializeField] private GameObject _settingsPage;//设置页根物体
+
+    [Header("Page Flip")]
+    [SerializeField] private MainMenuPageFlipPlayer _pageFlipPlayer;//切页时播放的翻页动画
+    [SerializeField] private EMainMenuPage _defaultPage = EMainMenuPage.package;//打开面板时默认显示的页面
+
+    private EMainMenuPage _currentPage;//当前显示的页面
+    private bool _isInitialized;//是否完成首次页面初始化
+
+    /// <summary>
+    /// 绑定 Dock Toggle 和关闭按钮事件。
+    /// </summary>
+    private void Start()
+    {
+        AddUIListeners();
+        ShowPageImmediately(_defaultPage);
+    }
+
+    /// <summary>
+    /// 清理 UI 事件，避免面板销毁后残留监听。
+    /// </summary>
+    private void OnDestroy()
+    {
+        RemoveUIListeners();
+    }
+
+    /// <summary>
+    /// 背包页 Toggle 选中时切换到背包页。
+    /// </summary>
+    private void OnBackpackToggleValueChanged(bool isOn)
+    {
+        if (!isOn)
+        {
+            return;
+        }
+
+        SwitchPage(EMainMenuPage.package);
+    }
+
+    /// <summary>
+    /// 任务页 Toggle 选中时切换到任务页。
+    /// </summary>
+    private void OnQuestToggleValueChanged(bool isOn)
+    {
+        if (!isOn)
+        {
+            return;
+        }
+
+        SwitchPage(EMainMenuPage.Quest);
+    }
+
+    /// <summary>
+    /// 人物页 Toggle 选中时切换到人物页。
+    /// </summary>
+    private void OnCharacterToggleValueChanged(bool isOn)
+    {
+        if (!isOn)
+        {
+            return;
+        }
+
+        SwitchPage(EMainMenuPage.Character);
+    }
+
+    /// <summary>
+    /// 设置页 Toggle 选中时切换到设置页。
+    /// </summary>
+    private void OnSettingsToggleValueChanged(bool isOn)
+    {
+        if (!isOn)
+        {
+            return;
+        }
+
+        SwitchPage(EMainMenuPage.Settings);
+    }
+
+    /// <summary>
+    /// 保存页暂未接入，选中时恢复当前页面 Toggle。
+    /// </summary>
+    private void OnSaveToggleValueChanged(bool isOn)
+    {
+        if (!isOn)
+        {
+            return;
+        }
+
+        SyncDockToggles();
+    }
+
+    /// <summary>
+    /// 关闭总菜单面板。
+    /// </summary>
+    private void OnCloseButtonClick()
+    {
+        AudioManager.Instance.PlaySound(GameResources.Instance.UiButtonClip);
+        UIManager.Instance.HidePanel<MainMenuPanel>();
+    }
+
+    /// <summary>
+    /// 按页面枚举切换子页面，必要时播放翻页动画。
+    /// </summary>
+    public void SwitchPage(EMainMenuPage targetPage)
+    {
+        if (!_isInitialized)
+        {
+            ShowPageImmediately(targetPage);
+            return;
+        }
+
+        if (_currentPage == targetPage || (_pageFlipPlayer != null && _pageFlipPlayer.IsPlaying))
+        {
+            SyncDockToggles();
+            return;
+        }
+
+        AudioManager.Instance.PlaySound(GameResources.Instance.UiButtonClip);
+        PlayPageFlip(targetPage);
+    }
+
+    /// <summary>
+    /// 不播放动画，直接显示指定页面。
+    /// </summary>
+    public void ShowPageImmediately(EMainMenuPage page)
+    {
+        SetPageActive(_packagePage, page == EMainMenuPage.package);
+        SetPageActive(_questPage, page == EMainMenuPage.Quest);
+        SetPageActive(_characterPage, page == EMainMenuPage.Character);
+        SetPageActive(_settingsPage, page == EMainMenuPage.Settings);
+
+        _currentPage = page;
+        _isInitialized = true;
+        SyncDockToggles();
+    }
+
+    /// <summary>
+    /// 播放翻页动画，并在翻页中段切换页面内容。
+    /// </summary>
+    private void PlayPageFlip(EMainMenuPage targetPage)
+    {
+        if (_pageFlipPlayer == null)
+        {
+            ShowPageImmediately(targetPage);
+            return;
+        }
+
+        if (IsForwardPage(targetPage))
+        {
+            _pageFlipPlayer.PlayNext(() => ShowPageImmediately(targetPage));
+        }
+        else
+        {
+            _pageFlipPlayer.PlayPrevious(() => ShowPageImmediately(targetPage));
+        }
+    }
+
+    /// <summary>
+    /// 判断目标页是否在当前页右侧，用于决定播放下一页还是上一页动画。
+    /// </summary>
+    private bool IsForwardPage(EMainMenuPage targetPage)
+    {
+        return GetPageIndex(targetPage) > GetPageIndex(_currentPage);
+    }
+
+    /// <summary>
+    /// 获取页面顺序索引。
+    /// </summary>
+    private int GetPageIndex(EMainMenuPage page)
+    {
+        return page switch
+        {
+            EMainMenuPage.package => 0,
+            EMainMenuPage.Quest => 1,
+            EMainMenuPage.Character => 2,
+            EMainMenuPage.Settings => 3,
+            _ => 0
+        };
+    }
+
+    /// <summary>
+    /// 设置页面根物体显隐。
+    /// </summary>
+    private void SetPageActive(GameObject pageRoot, bool isActive)
+    {
+        if (pageRoot != null)
+        {
+            pageRoot.SetActive(isActive);
+        }
+    }
+
+    /// <summary>
+    /// 同步 Dock Toggle 的选中状态。
+    /// </summary>
+    private void SyncDockToggles()
+    {
+        SetToggleIsOnWithoutNotify(_packageToggle, _currentPage == EMainMenuPage.package);
+        SetToggleIsOnWithoutNotify(_questToggle, _currentPage == EMainMenuPage.Quest);
+        SetToggleIsOnWithoutNotify(_characterToggle, _currentPage == EMainMenuPage.Character);
+        SetToggleIsOnWithoutNotify(_settingsToggle, _currentPage == EMainMenuPage.Settings);
+        SetToggleIsOnWithoutNotify(_saveToggle, false);
+    }
+
+    /// <summary>
+    /// 安全设置 Toggle 状态，不触发回调。
+    /// </summary>
+    private void SetToggleIsOnWithoutNotify(Toggle toggle, bool isOn)
+    {
+        if (toggle != null)
+        {
+            toggle.SetIsOnWithoutNotify(isOn);
+        }
+    }
+
+    /// <summary>
+    /// 绑定 Toggle 和按钮监听。
+    /// </summary>
+    private void AddUIListeners()
+    {
+        AddToggleListener(_packageToggle, OnBackpackToggleValueChanged);
+        AddToggleListener(_questToggle, OnQuestToggleValueChanged);
+        AddToggleListener(_characterToggle, OnCharacterToggleValueChanged);
+        AddToggleListener(_settingsToggle, OnSettingsToggleValueChanged);
+        AddToggleListener(_saveToggle, OnSaveToggleValueChanged);
+        AddButtonListener(_closeButton, OnCloseButtonClick);
+    }
+
+    /// <summary>
+    /// 移除 Toggle 和按钮监听。
+    /// </summary>
+    private void RemoveUIListeners()
+    {
+        RemoveToggleListener(_packageToggle, OnBackpackToggleValueChanged);
+        RemoveToggleListener(_questToggle, OnQuestToggleValueChanged);
+        RemoveToggleListener(_characterToggle, OnCharacterToggleValueChanged);
+        RemoveToggleListener(_settingsToggle, OnSettingsToggleValueChanged);
+        RemoveToggleListener(_saveToggle, OnSaveToggleValueChanged);
+        RemoveButtonListener(_closeButton, OnCloseButtonClick);
+    }
+
+    /// <summary>
+    /// 安全添加 Toggle 监听。
+    /// </summary>
+    private void AddToggleListener(Toggle toggle, UnityAction<bool> callback)
+    {
+        if (toggle != null)
+        {
+            toggle.onValueChanged.AddListener(callback);
+        }
+    }
+
+    /// <summary>
+    /// 安全移除 Toggle 监听。
+    /// </summary>
+    private void RemoveToggleListener(Toggle toggle, UnityAction<bool> callback)
+    {
+        if (toggle != null)
+        {
+            toggle.onValueChanged.RemoveListener(callback);
+        }
+    }
+
+    /// <summary>
+    /// 安全添加按钮监听。
+    /// </summary>
+    private void AddButtonListener(Button button, UnityAction callback)
+    {
+        if (button != null)
+        {
+            button.onClick.AddListener(callback);
+        }
+    }
+
+    /// <summary>
+    /// 安全移除按钮监听。
+    /// </summary>
+    private void RemoveButtonListener(Button button, UnityAction callback)
+    {
+        if (button != null)
+        {
+            button.onClick.RemoveListener(callback);
+        }
+    }
+
+    public override void OnHideFadedComplete()
+    {
+        
+    }
+
+    public override void OnShowFadePreComplete()
+    {
+        AudioManager.Instance.PlaySound(GameResources.Instance.UiShowPanelClip);
+    }
+}
+
+public enum EMainMenuPage
+{
+    package,
+    Quest,
+    Character,
+    Settings,
+}
+}
