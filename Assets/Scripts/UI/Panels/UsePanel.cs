@@ -1,10 +1,9 @@
 ﻿using DreamSeeker.Inventory;
-using DreamSeeker.UI.Panels.MainMenu;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace DreamSeeker.UI.Panels
+namespace DreamSeeker.UI
 {
     public class UsePanel : PanelBase_Mini
     {

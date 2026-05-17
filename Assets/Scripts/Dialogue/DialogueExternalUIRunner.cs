@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 using DreamSeeker.QuestSystem.Data;
-using DreamSeeker.UI.Panels;
+using DreamSeeker.UI;
 using PlayArk.DialogueSystem.Runtime;
 
 namespace DreamSeeker.Dialogue

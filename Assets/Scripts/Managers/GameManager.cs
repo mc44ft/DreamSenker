@@ -17,7 +17,7 @@ using DreamSeeker.MapSystem.SpawnPoints;
 using DreamSeeker.QuestSystem;
 using DreamSeeker.QuestSystem.Data;
 using DreamSeeker.Shared;
-using DreamSeeker.UI.Panels;
+using DreamSeeker.UI;
 
 using DreamSeeker.Characters.Player;
 using DreamSeeker.Characters.Pet;

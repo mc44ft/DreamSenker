@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using DreamSeeker.Managers;
 using DreamSeeker.Shared;
 
-namespace DreamSeeker.UI.Panels
+namespace DreamSeeker.UI
 {
 public class RestoreHealthPanel : PanelBase_Mini
 {

@@ -22,7 +22,7 @@ namespace PlayArk.DialogueSystem.Data.Nodes
         {
             DialogueManager.Instance.ExternalUIRunner.OpenTaskPanel(
                 _questDefinition,
-                DreamSeeker.UI.Panels.TaskPanel.E_PanelMode.Publish,
+                DreamSeeker.UI.TaskPanel.E_PanelMode.Publish,
                 onFinished);
         }
     }

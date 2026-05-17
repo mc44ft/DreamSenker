@@ -7,7 +7,7 @@ using DreamSeeker.CameraSystem;
 using DreamSeeker.Data.Runtime;
 using DreamSeeker.Managers;
 using DreamSeeker.Shared;
-using DreamSeeker.UI.Panels;
+using DreamSeeker.UI;
 
 namespace DreamSeeker.Dialogue
 {

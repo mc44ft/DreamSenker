@@ -8,7 +8,7 @@ using DreamSeeker.Shared;
 
 using DreamSeeker.Characters.Player;
 
-namespace DreamSeeker.UI.Panels
+namespace DreamSeeker.UI
 {
 public class BounsChoosePanel : PanelBase_Mini
 {

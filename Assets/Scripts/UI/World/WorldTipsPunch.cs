@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace DreamSeeker.UI.World
+namespace DreamSeeker.UI
 {
 public class WorldTipsPunch : MonoBehaviour
 {

@@ -7,7 +7,7 @@ using DreamSeeker.Managers;
 using DreamSeeker.QuestSystem;
 using DreamSeeker.QuestSystem.Data;
 
-namespace DreamSeeker.UI.Panels
+namespace DreamSeeker.UI
 {
 public class TaskPanel : PanelBase_Mini
 {

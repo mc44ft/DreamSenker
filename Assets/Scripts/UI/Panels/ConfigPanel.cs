@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 using DreamSeeker.Managers;
 
-namespace DreamSeeker.UI.Panels
+namespace DreamSeeker.UI
 {
 public class ConfigPanel : PanelBase_Mini
 {

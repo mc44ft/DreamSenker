@@ -6,11 +6,10 @@ using UnityEngine.UI;
 
 using DreamSeeker.Inventory;
 using DreamSeeker.Shared;
-using DreamSeeker.UI.Panels;
 using Unity.VisualScripting;
 using UnityEngine.EventSystems;
 
-namespace DreamSeeker.UI.Inventory
+namespace DreamSeeker.UI
 {
 [RequireComponent(typeof(Toggle))]
 public class PackagePanelSlot : PoolBase, IPointerClickHandler

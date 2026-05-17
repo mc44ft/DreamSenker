@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace DreamSeeker.UI.Panels.MainMenu
+namespace DreamSeeker.UI
 {
 public class UIIconAlphaFlicker : MonoBehaviour
 {

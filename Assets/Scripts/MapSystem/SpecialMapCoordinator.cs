@@ -5,7 +5,7 @@ using DreamSeeker.Data.Runtime;
 using DreamSeeker.Managers;
 using DreamSeeker.MapSystem.Data;
 using DreamSeeker.Shared;
-using DreamSeeker.UI.Panels;
+using DreamSeeker.UI;
 
 namespace DreamSeeker.MapSystem
 {

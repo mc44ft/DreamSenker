@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace DreamSeeker.UI.Panels.MainMenu
+namespace DreamSeeker.UI
 {
 public class MainMenuPageFlipPlayer : MonoBehaviour
 {

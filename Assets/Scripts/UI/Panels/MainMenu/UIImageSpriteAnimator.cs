@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace DreamSeeker.UI.Panels.MainMenu
+namespace DreamSeeker.UI
 {
 public class UIImageSpriteAnimator : MonoBehaviour
 {

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using DreamSeeker.QuestSystem;
-using DreamSeeker.UI.Quest;
 using UnityEngine;
 
-namespace DreamSeeker.UI.Panels.MainMenu.Page
+namespace DreamSeeker.UI
 {
     public class QuestPage : MonoManager
     {

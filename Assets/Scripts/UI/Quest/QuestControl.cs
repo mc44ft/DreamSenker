@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace DreamSeeker.UI.Quest
+namespace DreamSeeker.UI
 {
     public class QuestControl : MonoManager
     {

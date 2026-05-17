@@ -3,7 +3,7 @@ using DreamSeeker.Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace DreamSeeker.UI.Panels.MainMenu.Page
+namespace DreamSeeker.UI
 {
     public class SavePage : MonoBehaviour
     {

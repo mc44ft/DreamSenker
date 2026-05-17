@@ -5,9 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 using DreamSeeker.Managers;
-using DreamSeeker.UI.Panels.MainMenu;
 
-namespace DreamSeeker.UI.Panels
+namespace DreamSeeker.UI
 {
 public class SettingsPage : MonoBehaviour
 {

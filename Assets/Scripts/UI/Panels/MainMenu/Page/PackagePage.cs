@@ -8,7 +8,7 @@ using DreamSeeker.Inventory;
 using DreamSeeker.Managers;
 using DreamSeeker.Shared;
 
-namespace DreamSeeker.UI.Inventory
+namespace DreamSeeker.UI
 {
 public class PackagePage : MonoBehaviour
 {

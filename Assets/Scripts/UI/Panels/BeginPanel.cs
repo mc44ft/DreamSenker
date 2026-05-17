@@ -6,7 +6,7 @@ using DreamSeeker.Data;
 using DreamSeeker.Managers;
 using UnityEngine.Serialization;
 
-namespace DreamSeeker.UI.Panels
+namespace DreamSeeker.UI
 {
 public class BeginPanel : PanelBase_Mini
 {

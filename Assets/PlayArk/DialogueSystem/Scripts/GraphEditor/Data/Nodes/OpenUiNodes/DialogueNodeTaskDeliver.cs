@@ -22,7 +22,7 @@ public class DialogueNodeTaskDeliver : DialogueNodeExternalUI
     {
         DialogueManager.Instance.ExternalUIRunner.OpenTaskPanel(
             _questDefinition,
-            DreamSeeker.UI.Panels.TaskPanel.E_PanelMode.Deliver,
+            DreamSeeker.UI.TaskPanel.E_PanelMode.Deliver,
             onFinished);
     }
 }

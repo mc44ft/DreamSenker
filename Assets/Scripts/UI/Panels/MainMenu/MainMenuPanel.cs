@@ -4,9 +4,8 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 
 using DreamSeeker.Managers;
-using DreamSeeker.UI.Inventory;
 
-namespace DreamSeeker.UI.Panels.MainMenu
+namespace DreamSeeker.UI
 {
 public class MainMenuPanel : PanelBase_Mini
 {
