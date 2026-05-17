@@ -21,8 +21,6 @@ public class PackagePage : MonoBehaviour
     [SerializeField] private Toggle _usableTabToggle;
     [SerializeField] private Toggle _questTabToggle;
     [SerializeField] private TextMeshProUGUI _contentText;
-    [SerializeField] private Button _sureButton;
-    [SerializeField] private Button _cancelButton;
 
 
     /// <summary>
@@ -40,8 +38,6 @@ public class PackagePage : MonoBehaviour
 
     private void Start()
     {
-        _sureButton.onClick.AddListener(SureButtonOnClick);
-        _cancelButton.onClick.AddListener(CancelButtonOnClick);
         if (_usableTabToggle != null)
         {
             _usableTabToggle.onValueChanged.AddListener(OnUsableTabValueChanged);
@@ -53,8 +49,6 @@ public class PackagePage : MonoBehaviour
     }
     private void OnDestroy()
     {
-        _sureButton.onClick.RemoveListener(SureButtonOnClick);
-        _cancelButton.onClick.RemoveListener(CancelButtonOnClick);
         if (_usableTabToggle != null)
         {
             _usableTabToggle.onValueChanged.RemoveListener(OnUsableTabValueChanged);
@@ -81,14 +75,6 @@ public class PackagePage : MonoBehaviour
         {
             Refresh();
         }
-    }
-
-    /// <summary>
-    /// 关闭背包面板
-    /// </summary>
-    private void CancelButtonOnClick()
-    {
-        AudioManager.Instance.PlaySound(GameResources.Instance.UiButtonClip);
     }
 
     /// <summary>
@@ -130,7 +116,6 @@ public class PackagePage : MonoBehaviour
     {
         RecycleSlots();
         _currentSelectedSlot = null;
-        SetSureButtonActive(false);
 
         List<InventoryItemStack> stacks = InventoryManager.Instance.GetItemStacks(_currentCategory);
         foreach (InventoryItemStack stack in stacks)
@@ -159,7 +144,6 @@ public class PackagePage : MonoBehaviour
     {
         _currentSelectedSlot = slot;
         SetDescriptionText(slot.Stack.ItemInfo.Description);
-        SetSureButtonActive(InventoryManager.Instance.CanUseItem(slot.ItemType));
     }
 
     /// <summary>
@@ -186,17 +170,6 @@ public class PackagePage : MonoBehaviour
         if (_questTabToggle != null)
         {
             _questTabToggle.SetIsOnWithoutNotify(_currentCategory == EPackageItemCategory.Quest);
-        }
-    }
-
-    /// <summary>
-    /// 设置确定按钮是否可见
-    /// </summary>
-    private void SetSureButtonActive(bool active)
-    {
-        if (_sureButton != null)
-        {
-            _sureButton.gameObject.SetActive(active);
         }
     }
 
