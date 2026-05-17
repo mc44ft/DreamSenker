@@ -39,24 +39,16 @@ public class PackagePage : MonoBehaviour
     private void Start()
     {
         if (_usableTabToggle != null)
-        {
             _usableTabToggle.onValueChanged.AddListener(OnUsableTabValueChanged);
-        }
         if (_questTabToggle != null)
-        {
             _questTabToggle.onValueChanged.AddListener(OnQuestTabValueChanged);
-        }
     }
     private void OnDestroy()
     {
         if (_usableTabToggle != null)
-        {
             _usableTabToggle.onValueChanged.RemoveListener(OnUsableTabValueChanged);
-        }
         if (_questTabToggle != null)
-        {
             _questTabToggle.onValueChanged.RemoveListener(OnQuestTabValueChanged);
-        }
     }
 
     /// <summary>

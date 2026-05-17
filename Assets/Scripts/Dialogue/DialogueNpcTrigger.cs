@@ -81,8 +81,8 @@ namespace DreamSeeker.Dialogue
                         InputManager.Instance.SetPlayerInputAction(true);
                         //恢复其他UI交互
                         InputManager.Instance.SetUiInputAction(true);
-                        //保存对话过程中产生的运行时数据
-                        GameManager.Instance.SaveDataAll();
+                        // //保存对话过程中产生的运行时数据
+                        // GameManager.Instance.SaveDataAll();
                     });
                     return;
                 }
