@@ -14,8 +14,6 @@ public class SettingsPanel : PanelBase_Mini
     [SerializeField] private Button _configPanelButton;
     [SerializeField] private Button _quitButton;
     [SerializeField] private Button _closeButton;
-
-    
     
     private void Start()
     {
