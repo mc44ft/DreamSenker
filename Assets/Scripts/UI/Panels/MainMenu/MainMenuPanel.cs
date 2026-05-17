@@ -1,8 +1,10 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
 using DreamSeeker.Managers;
+using DreamSeeker.UI.Panels.Inventory;
 
 namespace DreamSeeker.UI.Panels.MainMenu
 {
@@ -21,6 +23,8 @@ public class MainMenuPanel : PanelBase_Mini
     [Header("Effects")]
     [SerializeField] private UIIconAlphaFlicker _iconAlphaFlicker;//由 Toggle 控制显隐的 Icon 闪烁组件
 
+    
+    
     [Header("Pages")]
     [SerializeField] private GameObject _characterPage;//人物页根物体
     [SerializeField] private GameObject _packagePage;//背包页根物体
@@ -32,8 +36,20 @@ public class MainMenuPanel : PanelBase_Mini
     [SerializeField] private MainMenuPageFlipPlayer _pageFlipPlayer;//切页时播放的翻页动画
     [SerializeField] private EMainMenuPage _defaultPage = EMainMenuPage.package;//打开面板时默认显示的页面
 
+    public PackagePage PackagePage => _packagePageComponent;
+    public SettingsPage SettingsPage => _settingsPageComponent;
+
+    private PackagePage _packagePageComponent;
+    private SettingsPage _settingsPageComponent;
+    
     private EMainMenuPage _currentPage;//当前显示的页面
     private bool _isInitialized;//是否完成首次页面初始化
+
+    private void Awake()
+    {
+        _packagePageComponent = _packagePage != null ? _packagePage.GetComponent<PackagePage>() : null;
+        _settingsPageComponent = _settingsPage != null ? _settingsPage.GetComponent<SettingsPage>() : null;
+    }
 
     /// <summary>
     /// 绑定 Dock Toggle 和关闭按钮事件。

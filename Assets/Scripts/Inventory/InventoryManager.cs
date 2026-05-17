@@ -44,22 +44,6 @@ public class InventoryManager : BaseManager<InventoryManager>
     }
 
     /// <summary>
-    /// 兼容旧调用：向背包添加一个物品
-    /// </summary>
-    public void AddItemToPackage(EPackageItemType itemType)
-    {
-        TryAddItem(itemType);
-    }
-
-    /// <summary>
-    /// 兼容旧调用：从背包移除一个物品
-    /// </summary>
-    public void RemoveItemFromPackage(EPackageItemType itemType)
-    {
-        TryRemoveItem(itemType);
-    }
-
-    /// <summary>
     /// 尝试向背包添加指定数量物品
     /// </summary>
     public bool TryAddItem(EPackageItemType itemType, int count = 1)

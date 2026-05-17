@@ -6,11 +6,13 @@ using UnityEngine.UI;
 
 using DreamSeeker.Inventory;
 using DreamSeeker.Shared;
+using Unity.VisualScripting;
+using UnityEngine.EventSystems;
 
 namespace DreamSeeker.UI.Panels.Inventory
 {
 [RequireComponent(typeof(Toggle))]
-public class PackagePanelSlot : PoolBase
+public class PackagePanelSlot : PoolBase, IPointerClickHandler
 {
     [Tooltip("放缩大小")]
     [SerializeField] private float _punchStrength = 1.1f;
@@ -59,14 +61,6 @@ public class PackagePanelSlot : PoolBase
     }
 
     /// <summary>
-    /// 设置当前格子的选中状态
-    /// </summary>
-    public void SetSelected(bool isSelected)
-    {
-        _toggle.isOn = isSelected;
-    }
-
-    /// <summary>
     /// 设置数量文本
     /// </summary>
     private void SetCount(int count)
@@ -79,7 +73,6 @@ public class PackagePanelSlot : PoolBase
         _countText.gameObject.SetActive(count > 1);
         _countText.text = count > 1 ? count.ToString() : string.Empty;
     }
-
     /// <summary>
     /// 响应 Toggle 选中状态变化
     /// </summary>
@@ -98,7 +91,19 @@ public class PackagePanelSlot : PoolBase
             transform.DOScale(1f, _punchDuration).SetEase(_punchEase);
         }
     }
-
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left && 
+            eventData.clickCount == 2 &&
+            InventoryManager.Instance.CanUseItem(ItemType))
+        {
+            //双击使用物品
+            UIManager.Instance.ShowPanel<UsePanel>(E_UILayer.Top, (panel) =>
+            {
+                panel.SetUp(_stack);
+            });
+        }
+    }
     public override void OnPull()
     {
         transform.localScale = Vector3.one;
@@ -116,5 +121,7 @@ public class PackagePanelSlot : PoolBase
         _stack = default;
         SetCount(0);
     }
+
+    
 }
 }

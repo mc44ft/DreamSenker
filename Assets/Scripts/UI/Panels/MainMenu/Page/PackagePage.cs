@@ -60,24 +60,6 @@ public class PackagePage : MonoBehaviour
     }
 
     /// <summary>
-    /// 使用当前选中的可使用道具
-    /// </summary>
-    private void SureButtonOnClick()
-    {
-        AudioManager.Instance.PlaySound(GameResources.Instance.UiButtonClip);
-
-        if (_currentSelectedSlot == null)
-        {
-            return;
-        }
-
-        if (InventoryManager.Instance.TryUseItem(_currentSelectedSlot.ItemType))
-        {
-            Refresh();
-        }
-    }
-
-    /// <summary>
     /// 切换到道具标签页
     /// </summary>
     private void OnUsableTabValueChanged(bool isOn)
@@ -112,7 +94,7 @@ public class PackagePage : MonoBehaviour
     /// <summary>
     /// 刷新当前标签页下的背包格子
     /// </summary>
-    private void Refresh()
+    public void Refresh()
     {
         RecycleSlots();
         _currentSelectedSlot = null;
@@ -127,14 +109,14 @@ public class PackagePage : MonoBehaviour
             _usedItemSlotList.Add(slot);
         }
 
-        if (_usedItemSlotList.Count > 0)
+        if (_usedItemSlotList.Count <= 0)
         {
-            // 默认选中第一个格子
-            _usedItemSlotList[0].SetSelected(true);
-            SetDescriptionText("");
+            SetDescriptionText(_currentCategory == EPackageItemCategory.Quest ? "没有任务物品" : "你的背包空空如也");
         }
         else
-            SetDescriptionText(_currentCategory == EPackageItemCategory.Quest ? "没有任务物品" : "你的背包空空如也");
+        {
+            SetDescriptionText(_currentCategory == EPackageItemCategory.Quest ? "单击查看" : "单击查看 双击使用");
+        }
     }
 
     /// <summary>

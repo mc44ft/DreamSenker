@@ -21,8 +21,9 @@ public class InputManager : SingletonAutoMono<InputManager>
     public bool PickupButtonDown { get; private set; }
     public bool UpButtonDown { get; private set; }
     
-    //-------- UI输入 事件驱动 --------------
-
+    
+    //-------- UI输入 --------------
+    
     //-------- Private Parameter -------------
     private bool _upButtonDownPre;
     private void Update()
@@ -78,12 +79,13 @@ public class InputManager : SingletonAutoMono<InputManager>
     }
     private void UiInput()
     {
-        if (Input.GetButtonDown("Package"))
+        if (Input.GetButtonDown("MainMenuPanel"))
         {
             //通知外部背包键按下
             EventCenter.Instance.EventTrigger(E_EventType.InputUI_MainMenuPanel, this, new EmptyEventArgs());
         }
     }
+    
     public void SetPlayerInputAction(bool action)
     {
         _playerInputAction = action;
