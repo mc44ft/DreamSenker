@@ -81,7 +81,7 @@ public class InputManager : SingletonAutoMono<InputManager>
         if (Input.GetButtonDown("Package"))
         {
             //通知外部背包键按下
-            EventCenter.Instance.EventTrigger(E_EventType.InputUI_PackagePanel, this, new EmptyEventArgs());
+            EventCenter.Instance.EventTrigger(E_EventType.InputUI_MainMenuPanel, this, new EmptyEventArgs());
         }
     }
     public void SetPlayerInputAction(bool action)

@@ -341,12 +341,20 @@ public class MainMenuPanel : PanelBase_Mini
 
     public override void OnHideFadedComplete()
     {
-        
+        //启用玩家输入
+        InputManager.Instance.SetPlayerInputAction(true);
+        //恢复游戏
+        Time.timeScale = 1f;
     }
 
     public override void OnShowFadePreComplete()
     {
         AudioManager.Instance.PlaySound(GameResources.Instance.UiShowPanelClip);
+
+        //禁用玩家输入
+        InputManager.Instance.SetPlayerInputAction(false);
+        //暂停游戏
+        Time.timeScale = 0f;
     }
 }
 

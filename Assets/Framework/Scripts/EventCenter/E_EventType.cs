@@ -23,7 +23,7 @@ public enum E_EventType
     /// <summary>
     /// 打开背包面板
     /// </summary>
-    InputUI_PackagePanel,
+    InputUI_MainMenuPanel,
 
     #endregion InputAction
     #region INPUT AXIS EVENT

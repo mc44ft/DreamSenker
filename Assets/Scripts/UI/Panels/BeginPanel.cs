@@ -4,20 +4,21 @@ using UnityEngine.UI;
 
 using DreamSeeker.Data;
 using DreamSeeker.Managers;
+using UnityEngine.Serialization;
 
 namespace DreamSeeker.UI.Panels
 {
 public class BeginPanel : PanelBase_Mini
 {
 
-    [SerializeField] private Button _playerButton;
+    [FormerlySerializedAs("_playerButton")] [SerializeField] private Button _playButton;
     [SerializeField] private Button _configButton;
     [SerializeField] private Button _aboutButton;
     [SerializeField] private Button _quitButton;
     [SerializeField] private Button _deleteDataButton;
     public override void OnShowFadePreComplete()
     {
-        _playerButton.onClick.AddListener(OnPlay);
+        _playButton.onClick.AddListener(OnPlay);
         _configButton.onClick.AddListener(OnConfig);
         _aboutButton.onClick.AddListener(OnAbout);
         _quitButton.onClick.AddListener(OnQuit);
@@ -28,7 +29,7 @@ public class BeginPanel : PanelBase_Mini
 
     public override void OnHideFadedComplete()
     {
-        _playerButton.onClick.RemoveListener(OnPlay);
+        _playButton.onClick.RemoveListener(OnPlay);
         _configButton.onClick.RemoveListener(OnConfig);
         _aboutButton.onClick.RemoveListener(OnAbout);
         _quitButton.onClick.RemoveListener(OnQuit);

@@ -13,21 +13,10 @@ namespace DreamSeeker.UI.Panels
 public class GamePanel : PanelBase_Mini
 {
     [SerializeField] private Image _hpImage;
-    [SerializeField] private Button _settingsButton;
+    // [SerializeField] private Button _settingsButton;
     [SerializeField] private GameObject _topBar;
     [SerializeField] private TextMeshProUGUI _topBarText;
-
-    private void Start()
-    {
-        _settingsButton.onClick.AddListener(OnSettings);
-    }
-
-    private void OnSettings()
-    {
-        AudioManager.Instance.PlaySound(GameResources.Instance.UiButtonClip);
-
-        UIManager.Instance.ShowPanel<SettingsPanel>(E_UILayer.Middle);
-    }
+    
 
     private void OnEnable()
     {
