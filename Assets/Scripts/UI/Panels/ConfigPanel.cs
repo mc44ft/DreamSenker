@@ -12,11 +12,6 @@ public class ConfigPanel : PanelBase_Mini
 {
     [SerializeField] private Button _closeButton;
 
-    private void Start()
-    {
-        _closeButton.onClick.AddListener(OnClose);
-    }
-
     private void OnClose()
     {
         AudioManager.Instance.PlaySound(GameResources.Instance.UiButtonClip);
@@ -26,11 +21,13 @@ public class ConfigPanel : PanelBase_Mini
 
     public override void OnHideFadedComplete()
     {
-        
+        _closeButton.onClick.RemoveListener(OnClose);
     }
 
     public override void OnShowFadePreComplete()
     {
+        _closeButton.onClick.RemoveListener(OnClose);
+        _closeButton.onClick.AddListener(OnClose);
         AudioManager.Instance.PlaySound(GameResources.Instance.UiShowPanelClip);
     }
 }

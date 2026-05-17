@@ -18,15 +18,6 @@ public class GamePanel : PanelBase_Mini
     [SerializeField] private TextMeshProUGUI _topBarText;
     
 
-    private void OnEnable()
-    {
-        EventCenter.Instance.AddEventListener<PlayerHealthUpdateEventArgs>(E_EventType.Player_HealthUpdate, OnPlayerGetHit);
-    }
-    private void OnDisable()
-    {
-        EventCenter.Instance.RemoveEventListener<PlayerHealthUpdateEventArgs>(E_EventType.Player_HealthUpdate, OnPlayerGetHit);
-    }
-
     private void OnPlayerGetHit(object eventSender, PlayerHealthUpdateEventArgs args)
     {
         UpdateHpBar(args.MaxHealthAmount, args.CurrentHealthAmount);
@@ -46,12 +37,13 @@ public class GamePanel : PanelBase_Mini
     }
     public override void OnHideFadedComplete()
     {
-        
+        EventCenter.Instance.RemoveEventListener<PlayerHealthUpdateEventArgs>(E_EventType.Player_HealthUpdate, OnPlayerGetHit);
     }
 
     public override void OnShowFadePreComplete()
     {
-        
+        EventCenter.Instance.RemoveEventListener<PlayerHealthUpdateEventArgs>(E_EventType.Player_HealthUpdate, OnPlayerGetHit);
+        EventCenter.Instance.AddEventListener<PlayerHealthUpdateEventArgs>(E_EventType.Player_HealthUpdate, OnPlayerGetHit);
     }
 }
 }

@@ -16,11 +16,28 @@ namespace DreamSeeker.UI.Panels
         
         public override void OnShowFadePreComplete()
         {
+            RemoveButtonListeners();
+            AddButtonListeners();
+        }
+
+        public override void OnHideFadedComplete()
+        {
+            RemoveButtonListeners();
+        }
+
+        /// <summary>
+        /// 绑定确认使用面板按钮监听。
+        /// </summary>
+        private void AddButtonListeners()
+        {
             _sureButton.onClick.AddListener(OnSureButtonClick);
             _closeButton.onClick.AddListener(OnCloseButtonClick);
         }
 
-        public override void OnHideFadedComplete()
+        /// <summary>
+        /// 移除确认使用面板按钮监听。
+        /// </summary>
+        private void RemoveButtonListeners()
         {
             _sureButton.onClick.RemoveListener(OnSureButtonClick);
             _closeButton.onClick.RemoveListener(OnCloseButtonClick);

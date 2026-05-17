@@ -23,13 +23,6 @@ public class RestoreHealthPanel : PanelBase_Mini
         _onFinished = onFinished;
     }
 
-    private void Start()
-    {
-        _appectButton.onClick.AddListener(OnAppect);
-        _rejectButton.onClick.AddListener(OnReject);
-    }
-
-    
     private void OnAppect()
     {
         AudioManager.Instance.PlaySound(GameResources.Instance.UiButtonClip);
@@ -61,6 +54,8 @@ public class RestoreHealthPanel : PanelBase_Mini
 
     public override void OnShowFadePreComplete()
     {
+        AddButtonListeners();
+
         if(_appectButton != null)
         {
             EventSystem.current.SetSelectedGameObject(null);
@@ -69,9 +64,31 @@ public class RestoreHealthPanel : PanelBase_Mini
     }
     public override void OnHideFadedComplete()
     {
-        
+        RemoveButtonListeners();
     }
 
-    
+    /// <summary>
+    /// 绑定回血选择按钮监听。
+    /// </summary>
+    private void AddButtonListeners()
+    {
+        RemoveButtonListeners();
+
+        if (_appectButton != null)
+            _appectButton.onClick.AddListener(OnAppect);
+        if (_rejectButton != null)
+            _rejectButton.onClick.AddListener(OnReject);
+    }
+
+    /// <summary>
+    /// 移除回血选择按钮监听。
+    /// </summary>
+    private void RemoveButtonListeners()
+    {
+        if (_appectButton != null)
+            _appectButton.onClick.RemoveListener(OnAppect);
+        if (_rejectButton != null)
+            _rejectButton.onClick.RemoveListener(OnReject);
+    }
 }
 }

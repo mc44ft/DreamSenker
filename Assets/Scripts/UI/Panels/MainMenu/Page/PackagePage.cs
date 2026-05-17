@@ -36,21 +36,6 @@ public class PackagePage : MonoBehaviour
     /// </summary>
     private EPackageItemCategory _currentCategory = EPackageItemCategory.Usable;
 
-    private void Start()
-    {
-        if (_usableTabToggle != null)
-            _usableTabToggle.onValueChanged.AddListener(OnUsableTabValueChanged);
-        if (_questTabToggle != null)
-            _questTabToggle.onValueChanged.AddListener(OnQuestTabValueChanged);
-    }
-    private void OnDestroy()
-    {
-        if (_usableTabToggle != null)
-            _usableTabToggle.onValueChanged.RemoveListener(OnUsableTabValueChanged);
-        if (_questTabToggle != null)
-            _questTabToggle.onValueChanged.RemoveListener(OnQuestTabValueChanged);
-    }
-
     /// <summary>
     /// 切换到道具标签页
     /// </summary>
@@ -157,6 +142,7 @@ public class PackagePage : MonoBehaviour
 
     private void OnEnable()
     {
+        AddToggleListeners();
         _currentCategory = EPackageItemCategory.Usable;
         SyncCategoryToggles();
         Refresh();
@@ -164,7 +150,32 @@ public class PackagePage : MonoBehaviour
 
     private void OnDisable()
     {
+        RemoveToggleListeners();
         RecycleSlots();
+    }
+
+    /// <summary>
+    /// 绑定标签页 Toggle 监听。
+    /// </summary>
+    private void AddToggleListeners()
+    {
+        RemoveToggleListeners();
+
+        if (_usableTabToggle != null)
+            _usableTabToggle.onValueChanged.AddListener(OnUsableTabValueChanged);
+        if (_questTabToggle != null)
+            _questTabToggle.onValueChanged.AddListener(OnQuestTabValueChanged);
+    }
+
+    /// <summary>
+    /// 移除标签页 Toggle 监听。
+    /// </summary>
+    private void RemoveToggleListeners()
+    {
+        if (_usableTabToggle != null)
+            _usableTabToggle.onValueChanged.RemoveListener(OnUsableTabValueChanged);
+        if (_questTabToggle != null)
+            _questTabToggle.onValueChanged.RemoveListener(OnQuestTabValueChanged);
     }
 }
 }

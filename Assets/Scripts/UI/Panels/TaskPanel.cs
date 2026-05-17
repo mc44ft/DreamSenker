@@ -26,6 +26,7 @@ public class TaskPanel : PanelBase_Mini
     [SerializeField] private TextMeshProUGUI _targetDescriptionText;//任务目标文本，可为空
 
     private QuestDefinitionSO _questDefinition;//当前面板展示的任务配置
+    private E_PanelMode _mode;//当前面板按钮模式
     private Action<int> _onFinished;//面板关闭后返回给对话节点的结果回调
 
     /// <summary>
@@ -34,6 +35,7 @@ public class TaskPanel : PanelBase_Mini
     public void Initialize(QuestDefinitionSO questDefinition, E_PanelMode mode, Action<int> onFinished)
     {
         _questDefinition = questDefinition;
+        _mode = mode;
         _onFinished = onFinished;
 
         RefreshText();
@@ -45,15 +47,9 @@ public class TaskPanel : PanelBase_Mini
         {
             case E_PanelMode.Publish:
                 _publishButtons.SetActive(true);
-                _acceptButton.onClick.RemoveListener(AcceptOnClick);
-                _rejectButton.onClick.RemoveListener(RejectOnClick);
-                _acceptButton.onClick.AddListener(AcceptOnClick);
-                _rejectButton.onClick.AddListener(RejectOnClick);
                 break;
             case E_PanelMode.Deliver:
                 _deliverButtons.SetActive(true);
-                _deliverButton.onClick.RemoveListener(DeliverOnClick);
-                _deliverButton.onClick.AddListener(DeliverOnClick);
                 break;
         }
     }
@@ -63,9 +59,34 @@ public class TaskPanel : PanelBase_Mini
     /// </summary>
     private void ClearButtonListeners()
     {
-        _acceptButton.onClick.RemoveListener(AcceptOnClick);
-        _rejectButton.onClick.RemoveListener(RejectOnClick);
-        _deliverButton.onClick.RemoveListener(DeliverOnClick);
+        if (_acceptButton != null)
+            _acceptButton.onClick.RemoveListener(AcceptOnClick);
+        if (_rejectButton != null)
+            _rejectButton.onClick.RemoveListener(RejectOnClick);
+        if (_deliverButton != null)
+            _deliverButton.onClick.RemoveListener(DeliverOnClick);
+    }
+
+    /// <summary>
+    /// 按当前任务模式绑定按钮监听。
+    /// </summary>
+    private void AddButtonListenersByMode()
+    {
+        ClearButtonListeners();
+
+        switch (_mode)
+        {
+            case E_PanelMode.Publish:
+                if (_acceptButton != null)
+                    _acceptButton.onClick.AddListener(AcceptOnClick);
+                if (_rejectButton != null)
+                    _rejectButton.onClick.AddListener(RejectOnClick);
+                break;
+            case E_PanelMode.Deliver:
+                if (_deliverButton != null)
+                    _deliverButton.onClick.AddListener(DeliverOnClick);
+                break;
+        }
     }
 
     /// <summary>
@@ -190,12 +211,12 @@ public class TaskPanel : PanelBase_Mini
     }
     public override void OnHideFadedComplete()
     {
-        
+        ClearButtonListeners();
     }
 
     public override void OnShowFadePreComplete()
     {
-        
+        AddButtonListenersByMode();
     }
 
 

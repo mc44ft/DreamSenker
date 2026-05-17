@@ -11,17 +11,6 @@ namespace DreamSeeker.UI.Panels
 public class AboutPanel : PanelBase_Mini
 {
     [SerializeField] private Button _closeButton;
-    private void OnEnable()
-    {
-        _closeButton.onClick.AddListener(OnClose);
-    }
-
-    
-
-    private void OnDisable()
-    {
-        _closeButton.onClick.RemoveListener(OnClose);
-    }
     private void OnClose()
     {
         AudioManager.Instance.PlaySound(GameResources.Instance.UiButtonClip);
@@ -30,11 +19,13 @@ public class AboutPanel : PanelBase_Mini
     }
     public override void OnHideFadedComplete()
     {
-        
+        _closeButton.onClick.RemoveListener(OnClose);
     }
 
     public override void OnShowFadePreComplete()
     {
+        _closeButton.onClick.RemoveListener(OnClose);
+        _closeButton.onClick.AddListener(OnClose);
         AudioManager.Instance.PlaySound(GameResources.Instance.UiShowPanelClip);
     }
 }

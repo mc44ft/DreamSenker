@@ -52,24 +52,6 @@ public class MainMenuPanel : PanelBase_Mini
     }
 
     /// <summary>
-    /// 绑定 Dock Toggle 和关闭按钮事件。
-    /// </summary>
-    private void Start()
-    {
-        AddUIListeners();
-        ShowPageImmediately(_defaultPage);
-        SyncIconFlickerSwitchToggle();
-    }
-
-    /// <summary>
-    /// 清理 UI 事件，避免面板销毁后残留监听。
-    /// </summary>
-    private void OnDestroy()
-    {
-        RemoveUIListeners();
-    }
-
-    /// <summary>
     /// 背包页 Toggle 选中时切换到背包页。
     /// </summary>
     private void OnBackpackToggleValueChanged(bool isOn)
@@ -288,6 +270,8 @@ public class MainMenuPanel : PanelBase_Mini
     /// </summary>
     private void AddUIListeners()
     {
+        RemoveUIListeners();
+
         AddToggleListener(_packageToggle, OnBackpackToggleValueChanged);
         AddToggleListener(_questToggle, OnQuestToggleValueChanged);
         AddToggleListener(_characterToggle, OnCharacterToggleValueChanged);
@@ -357,6 +341,8 @@ public class MainMenuPanel : PanelBase_Mini
 
     public override void OnHideFadedComplete()
     {
+        RemoveUIListeners();
+
         //启用玩家输入
         InputManager.Instance.SetPlayerInputAction(true);
         //恢复游戏
@@ -365,6 +351,15 @@ public class MainMenuPanel : PanelBase_Mini
 
     public override void OnShowFadePreComplete()
     {
+        AddUIListeners();
+
+        if (!_isInitialized)
+        {
+            ShowPageImmediately(_defaultPage);
+        }
+
+        SyncIconFlickerSwitchToggle();
+
         AudioManager.Instance.PlaySound(GameResources.Instance.UiShowPanelClip);
 
         //禁用玩家输入

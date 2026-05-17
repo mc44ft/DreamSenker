@@ -25,14 +25,6 @@ public class BounsChoosePanel : PanelBase_Mini
         _onFinished = onFinished;
     }
 
-    private void Start()
-    {
-        _sureButton.onClick.AddListener(SureButtonOnClick);
-    }
-    private void OnDestroy()
-    {
-        _sureButton.onClick.RemoveListener(SureButtonOnClick);
-    }
     private void SureButtonOnClick()
     {
         AudioManager.Instance.PlaySound(GameResources.Instance.UiButtonClip);
@@ -75,12 +67,13 @@ public class BounsChoosePanel : PanelBase_Mini
     }
     public override void OnHideFadedComplete()
     {
-        
+        _sureButton.onClick.RemoveListener(SureButtonOnClick);
     }
 
     public override void OnShowFadePreComplete()
     {
-        
+        _sureButton.onClick.RemoveListener(SureButtonOnClick);
+        _sureButton.onClick.AddListener(SureButtonOnClick);
     }
 
     

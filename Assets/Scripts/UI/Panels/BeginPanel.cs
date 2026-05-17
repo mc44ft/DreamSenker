@@ -18,6 +18,20 @@ public class BeginPanel : PanelBase_Mini
     [SerializeField] private Button _deleteDataButton;
     public override void OnShowFadePreComplete()
     {
+        RemoveButtonListeners();
+        AddButtonListeners();
+    }
+
+    public override void OnHideFadedComplete()
+    {
+        RemoveButtonListeners();
+    }
+
+    /// <summary>
+    /// 绑定开始菜单按钮监听。
+    /// </summary>
+    private void AddButtonListeners()
+    {
         _playButton.onClick.AddListener(OnPlay);
         _configButton.onClick.AddListener(OnConfig);
         _aboutButton.onClick.AddListener(OnAbout);
@@ -25,9 +39,10 @@ public class BeginPanel : PanelBase_Mini
         _deleteDataButton.onClick.AddListener(OnDeleteData);
     }
 
-    
-
-    public override void OnHideFadedComplete()
+    /// <summary>
+    /// 移除开始菜单按钮监听。
+    /// </summary>
+    private void RemoveButtonListeners()
     {
         _playButton.onClick.RemoveListener(OnPlay);
         _configButton.onClick.RemoveListener(OnConfig);

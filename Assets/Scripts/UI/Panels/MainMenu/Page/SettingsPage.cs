@@ -15,17 +15,48 @@ public class SettingsPage : MonoBehaviour
     [SerializeField] private Button _configPanelButton;
     [SerializeField] private Button _quitButton;
     
-    private void Start()
+    /// <summary>
+    /// 页面启用时绑定按钮监听。
+    /// </summary>
+    private void OnEnable()
     {
-        _resumeButton.onClick.AddListener(OnResume);
-        _configPanelButton.onClick.AddListener(OnConfigPanel);
-        _quitButton.onClick.AddListener(OnQuit);
+        AddButtonListeners();
     }
-    private void OnDestroy()
+
+    /// <summary>
+    /// 页面禁用时移除按钮监听。
+    /// </summary>
+    private void OnDisable()
     {
-        _resumeButton.onClick.RemoveListener(OnResume);
-        _configPanelButton.onClick.RemoveListener(OnConfigPanel);
-        _quitButton.onClick.RemoveListener(OnQuit);
+        RemoveButtonListeners();
+    }
+
+    /// <summary>
+    /// 绑定设置页按钮监听。
+    /// </summary>
+    private void AddButtonListeners()
+    {
+        RemoveButtonListeners();
+
+        if (_resumeButton != null)
+            _resumeButton.onClick.AddListener(OnResume);
+        if (_configPanelButton != null)
+            _configPanelButton.onClick.AddListener(OnConfigPanel);
+        if (_quitButton != null)
+            _quitButton.onClick.AddListener(OnQuit);
+    }
+
+    /// <summary>
+    /// 移除设置页按钮监听。
+    /// </summary>
+    private void RemoveButtonListeners()
+    {
+        if (_resumeButton != null)
+            _resumeButton.onClick.RemoveListener(OnResume);
+        if (_configPanelButton != null)
+            _configPanelButton.onClick.RemoveListener(OnConfigPanel);
+        if (_quitButton != null)
+            _quitButton.onClick.RemoveListener(OnQuit);
     }
     private void OnResume()
     {
