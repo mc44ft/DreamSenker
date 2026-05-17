@@ -14,8 +14,12 @@ public class MainMenuPanel : PanelBase_Mini
     [SerializeField] private Toggle _questToggle;//任务页 Dock Toggle
     [SerializeField] private Toggle _settingsToggle;//设置页 Dock Toggle
     [SerializeField] private Toggle _saveToggle;//保存页 Dock Toggle
+    [SerializeField] private Toggle _iconFlickerSwitchToggle;//控制 Icon 闪烁目标显隐的 Toggle
     [Header("Buttons")]
     [SerializeField] private Button _closeButton;//关闭总菜单按钮
+
+    [Header("Effects")]
+    [SerializeField] private UIIconAlphaFlicker _iconAlphaFlicker;//由 Toggle 控制显隐的 Icon 闪烁组件
 
     [Header("Pages")]
     [SerializeField] private GameObject _characterPage;//人物页根物体
@@ -38,6 +42,7 @@ public class MainMenuPanel : PanelBase_Mini
     {
         AddUIListeners();
         ShowPageImmediately(_defaultPage);
+        SyncIconFlickerSwitchToggle();
     }
 
     /// <summary>
@@ -120,6 +125,19 @@ public class MainMenuPanel : PanelBase_Mini
     {
         AudioManager.Instance.PlaySound(GameResources.Instance.UiButtonClip);
         UIManager.Instance.HidePanel<MainMenuPanel>();
+    }
+
+    /// <summary>
+    /// 根据 Toggle 状态设置 Icon 闪烁组件的 TargetGraphic 显隐。
+    /// </summary>
+    private void OnIconFlickerSwitchToggleValueChanged(bool isOn)
+    {
+        AudioManager.Instance.PlaySound(GameResources.Instance.UiButtonClip);
+
+        if (_iconAlphaFlicker != null)
+        {
+            _iconAlphaFlicker.SetTargetGraphicVisible(isOn);
+        }
     }
 
     /// <summary>
@@ -228,6 +246,17 @@ public class MainMenuPanel : PanelBase_Mini
     }
 
     /// <summary>
+    /// 同步 Icon 闪烁开关 Toggle 的选中状态。
+    /// </summary>
+    private void SyncIconFlickerSwitchToggle()
+    {
+        if (_iconAlphaFlicker != null)
+        {
+            SetToggleIsOnWithoutNotify(_iconFlickerSwitchToggle, _iconAlphaFlicker.IsTargetGraphicVisible);
+        }
+    }
+
+    /// <summary>
     /// 安全设置 Toggle 状态，不触发回调。
     /// </summary>
     private void SetToggleIsOnWithoutNotify(Toggle toggle, bool isOn)
@@ -248,6 +277,7 @@ public class MainMenuPanel : PanelBase_Mini
         AddToggleListener(_characterToggle, OnCharacterToggleValueChanged);
         AddToggleListener(_settingsToggle, OnSettingsToggleValueChanged);
         AddToggleListener(_saveToggle, OnSaveToggleValueChanged);
+        AddToggleListener(_iconFlickerSwitchToggle, OnIconFlickerSwitchToggleValueChanged);
         AddButtonListener(_closeButton, OnCloseButtonClick);
     }
 
@@ -261,6 +291,7 @@ public class MainMenuPanel : PanelBase_Mini
         RemoveToggleListener(_characterToggle, OnCharacterToggleValueChanged);
         RemoveToggleListener(_settingsToggle, OnSettingsToggleValueChanged);
         RemoveToggleListener(_saveToggle, OnSaveToggleValueChanged);
+        RemoveToggleListener(_iconFlickerSwitchToggle, OnIconFlickerSwitchToggleValueChanged);
         RemoveButtonListener(_closeButton, OnCloseButtonClick);
     }
 

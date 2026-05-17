@@ -29,6 +29,8 @@ public class UIIconAlphaFlicker : MonoBehaviour
     private bool _hasDefaultColor;//是否已经缓存过原始颜色
     private bool _isPlaying;//当前是否由本组件控制显示效果
 
+    public bool IsTargetGraphicVisible => _targetGraphic != null && _targetGraphic.enabled;
+
     /// <summary>
     /// 初始化目标 Graphic。
     /// </summary>
@@ -136,6 +138,18 @@ public class UIIconAlphaFlicker : MonoBehaviour
         if (isActiveAndEnabled)
         {
             PlayFlicker();
+        }
+    }
+    /// <summary>
+    /// 设置 TargetGraphic 组件显隐。
+    /// </summary>
+    public void SetTargetGraphicVisible(bool isVisible)
+    {
+        CacheTargetGraphic();
+
+        if (_targetGraphic != null)
+        {
+            _targetGraphic.enabled = isVisible;
         }
     }
 
