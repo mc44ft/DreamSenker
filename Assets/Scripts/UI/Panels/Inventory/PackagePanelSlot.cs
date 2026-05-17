@@ -22,7 +22,7 @@ public class PackagePanelSlot : PoolBase, IPointerClickHandler
     [SerializeField] private Ease _punchEase;
     [Tooltip("数量文本")]
     [SerializeField] private TextMeshProUGUI _countText;
-
+    [SerializeField] private Image _image;
     /// <summary>
     /// 当前格子绑定的物品类型
     /// </summary>
@@ -33,14 +33,13 @@ public class PackagePanelSlot : PoolBase, IPointerClickHandler
     public InventoryItemStack Stack => _stack;
 
     private Toggle _toggle;
-    private Image _image;
+    
     private InventoryItemStack _stack;
     private Action<PackagePanelSlot> _onSelectedCallback;
 
     private void Awake()
     {
         _toggle = GetComponent<Toggle>();
-        _image = GetComponent<Image>();
     }
 
     /// <summary>

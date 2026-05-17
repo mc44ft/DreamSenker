@@ -353,3 +353,4 @@ MonoBehaviour:
   _punchDuration: 0.2
   _punchEase: 7
   _countText: {fileID: 613378218950429907}
+  _image: {fileID: 1899045724415257791}
