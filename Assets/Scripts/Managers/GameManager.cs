@@ -34,7 +34,7 @@ public class GameManager : SingletonMono<GameManager>
     [field: SerializeField] public GameConfigSO GameConfig { get; private set; }
     [field: SerializeField] public PlayerConfigSO PlayerConfigSO { get; private set; }
     [field: SerializeField] public PackageItemConfigSO PackageItemConfig;
-    [field: SerializeField] public QuestDefinitionSO[] QuestDefinitions { get; private set; }
+    [field: SerializeField] public QuestListSO QuestList { get; private set; }
     [field: SerializeField] public GameSaveData GameSaveData { get; private set; }
     //------------------------ public Parameter ---------------------------------
     public PlayerController Player { get; private set; }
@@ -259,7 +259,7 @@ public class GameManager : SingletonMono<GameManager>
                 //玩家初始化完成后 填充背包管理器数据
                 InventoryManager.Instance.SetupData(Player.PlayerSaveData.PackageData, PackageItemConfig);
                 //任务系统依赖背包查询，必须在背包数据注入后初始化
-                QuestManager.Instance.SetupData(QuestDefinitions, GameSaveData.QuestRuntimeDataList);
+                QuestManager.Instance.SetupData(QuestList, GameSaveData.QuestRuntimeDataList);
                 _playerMirrorEffect?.SetShadowDarknessStrength(saveMap.PlayerShadowDarknessStrength);
 
                 //加载主面板

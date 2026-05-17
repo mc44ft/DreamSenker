@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using DreamSeeker.UI.Panels;
-using DreamSeeker.UI.Panels.Inventory;
 using DreamSeeker.UI.Panels.MainMenu;
 
 namespace DreamSeeker.Managers

@@ -4,7 +4,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 
 using DreamSeeker.Managers;
-using DreamSeeker.UI.Panels.Inventory;
+using DreamSeeker.UI.Inventory;
 
 namespace DreamSeeker.UI.Panels.MainMenu
 {

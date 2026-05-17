@@ -27,7 +27,7 @@ public class QuestManager : BaseManager<QuestManager>
     /// <summary>
     /// 注入任务配置和任务存档数据。
     /// </summary>
-    public void SetupData(QuestDefinitionSO[] questDefinitions, List<QuestRuntimeData> runtimeDataList)
+    public void SetupData(QuestListSO questList, List<QuestRuntimeData> runtimeDataList)
     {
         _questDefinitionDict.Clear();
         _runtimeDataList = runtimeDataList;
@@ -38,13 +38,13 @@ public class QuestManager : BaseManager<QuestManager>
             return;
         }
 
-        if (questDefinitions == null)
+        if (questList == null)
         {
             Debug.LogWarning("QuestManager SetupData：任务配置列表为空");
             return;
         }
 
-        foreach (QuestDefinitionSO questDefinition in questDefinitions)
+        foreach (QuestDefinitionSO questDefinition in questList.Quests)
         {
             if (questDefinition == null)
             {
@@ -165,6 +165,19 @@ public class QuestManager : BaseManager<QuestManager>
         return true;
     }
 
+    public List<QuestDefinitionSO> GetAllRunningQuests()
+    {
+        List<QuestDefinitionSO> runningQuests = new List<QuestDefinitionSO>();
+        foreach (QuestRuntimeData runtimeData in _runtimeDataList)
+        {
+            if (runtimeData.State == EQuestState.Active &&
+                TryGetQuestDefinition(runtimeData.QuestId, out QuestDefinitionSO questDefinition))
+            {
+                runningQuests.Add(questDefinition);
+            }
+        }
+        return runningQuests;
+    }
     /// <summary>
     /// 获取任务长期状态；没有存档记录时视为未接取。
     /// </summary>
