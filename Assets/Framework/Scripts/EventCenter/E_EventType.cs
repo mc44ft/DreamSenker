@@ -60,6 +60,7 @@ public enum E_EventType
     /// Boss保持死亡事件 --- 参数 GameBossDeadEventArgs（Boss类型）
     /// </summary>
     Game_BossKeepDead,
+    
     #endregion
     #region PLAYER EVENT
     /// <summary>
@@ -67,7 +68,10 @@ public enum E_EventType
     /// </summary>
     Player_HealthUpdate,
     #endregion
-    
+    /// <summary>
+    /// 追踪任务变化 --- 参数 string
+    /// </summary>
+    Quest_TrackChanged, 
     #endregion
 
 

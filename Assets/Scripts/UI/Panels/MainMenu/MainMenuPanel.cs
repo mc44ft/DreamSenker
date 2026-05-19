@@ -33,7 +33,7 @@ public class MainMenuPanel : PanelBase_Mini
 
     [Header("Page Flip")]
     [SerializeField] private MainMenuPageFlipPlayer _pageFlipPlayer;//切页时播放的翻页动画
-    [SerializeField] private EMainMenuPage _defaultPage = EMainMenuPage.package;//打开面板时默认显示的页面
+    [SerializeField] private EMainMenuPage _defaultPage = EMainMenuPage.Character;//打开面板时默认显示的页面
 
     public PackagePage PackagePage => _packagePageComponent;
     public SettingsPage SettingsPage => _settingsPageComponent;

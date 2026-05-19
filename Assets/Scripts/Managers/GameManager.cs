@@ -269,6 +269,14 @@ public class GameManager : SingletonMono<GameManager>
                         E_EventType.Player_HealthUpdate,
                         this,
                         new PlayerHealthUpdateEventArgs(Player.DamageableHealth.MaxHealthAmount, Player.DamageableHealth.CurrentHealthAmount));
+                    if (!string.IsNullOrEmpty(GameSaveData.CurrentTrackQuestID))
+                    {
+                        EventCenter.Instance.EventTrigger(
+                            E_EventType.Quest_TrackChanged, 
+                            this, 
+                            new StringEventArgs(GameSaveData.CurrentTrackQuestID));
+                    }
+                    
                 });
 
                 //根据当前游戏数据更新地图状态

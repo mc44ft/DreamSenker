@@ -4,6 +4,7 @@ using UnityEngine;
 
 using DreamSeeker.Data.Runtime;
 using DreamSeeker.Inventory;
+using DreamSeeker.Managers;
 using DreamSeeker.QuestSystem.Data;
 
 namespace DreamSeeker.QuestSystem
@@ -98,6 +99,14 @@ public class QuestManager : BaseManager<QuestManager>
         return true;
     }
 
+    public void TrackQuest(string questId)
+    {
+        if (TryGetQuestDefinitionOrLog(questId, out QuestDefinitionSO quest))
+        {
+            GameManager.Instance.GameSaveData.CurrentTrackQuestID = questId;
+            EventCenter.Instance.EventTrigger(E_EventType.Quest_TrackChanged, this,  new StringEventArgs(questId));
+        }
+    }
     /// <summary>
     /// 判断任务当前是否可交付。
     /// </summary>

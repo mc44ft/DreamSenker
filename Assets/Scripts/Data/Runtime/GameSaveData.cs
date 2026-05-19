@@ -26,6 +26,10 @@ public class GameSaveData : IRunningData
     /// 所有任务的长期运行时状态。
     /// </summary>
     [HideInInspector] public List<QuestRuntimeData> QuestRuntimeDataList;
+    /// <summary>
+    /// 当前追踪的任务 用于显示GamePanel的TopBar
+    /// </summary>
+    [HideInInspector] public string CurrentTrackQuestID;
 
     [Tooltip("是否遇到了蜘蛛Boss")]
     public bool IsMetSpiderBoss;

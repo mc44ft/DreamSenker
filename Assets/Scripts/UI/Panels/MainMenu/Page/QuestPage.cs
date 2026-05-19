@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using DreamSeeker.QuestSystem;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace DreamSeeker.UI
 {
     public class QuestPage : MonoManager
     {
         [SerializeField] private QuestControl _questPrefab;
+        [SerializeField] private ToggleGroup _questStateGroup;
         
         private List<QuestControl> _controls = new List<QuestControl>();
 
@@ -31,10 +33,11 @@ namespace DreamSeeker.UI
                 QuestControl control = Instantiate(_questPrefab.gameObject, transform).GetComponent<QuestControl>();
                 if (control != null)
                 {
-                    control.Initialize(quest);
+                    control.Initialize(quest, _questStateGroup);
                     _controls.Add(control);
                 }
             }
         }
+        
     }
 }

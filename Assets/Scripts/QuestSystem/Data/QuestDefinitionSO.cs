@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace DreamSeeker.QuestSystem.Data
 {
@@ -16,7 +17,7 @@ public class QuestDefinitionSO : ScriptableObject
     [SerializeField] private string _title;
     [SerializeField, TextArea] private string _description;
     [Tooltip("任务目标描述 用于TopBar显示")]
-    [SerializeField] private string _targetDescription;
+    [SerializeField] private string topBarDescription;
 
     [Header("REQUIREMENTS")]
     [SerializeField] private QuestItemRequirement[] _itemRequirements;
@@ -36,7 +37,7 @@ public class QuestDefinitionSO : ScriptableObject
     /// <summary>
     /// 任务目标描述。
     /// </summary>
-    public string TargetDescription => _targetDescription;
+    public string TopBarDescription => topBarDescription;
     /// <summary>
     /// 完成任务需要交付的物品列表。
     /// </summary>

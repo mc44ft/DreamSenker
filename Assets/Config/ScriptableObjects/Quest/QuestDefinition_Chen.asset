@@ -15,7 +15,7 @@ MonoBehaviour:
   _questId: e1ca21bbe55d487e9385abaadc19f1bd
   _title: "\u5BFB\u627E\u6668\u9732\u68A6\u6838"
   _description: "\u627E\u5230\u6668\u9732\u68A6\u6838\uFF0C\u5E76\u5C06\u5176\u4EA4\u4ED8\u9E7F\u957F\u8001"
-  _targetDescription: "\u5BFB\u627E\u6668\u9732\u68A6\u6838"
+  topBarDescription: "\u5BFB\u627E\u6668\u9732\u68A6\u6838"
   _itemRequirements:
   - ItemType: 2
     Amount: 1

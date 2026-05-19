@@ -115,7 +115,7 @@ public class TaskPanel : PanelBase_Mini
 
         if (_targetDescriptionText != null)
         {
-            _targetDescriptionText.text = _questDefinition != null ? _questDefinition.TargetDescription : string.Empty;
+            _targetDescriptionText.text = _questDefinition != null ? _questDefinition.TopBarDescription : string.Empty;
         }
     }
 
@@ -137,7 +137,7 @@ public class TaskPanel : PanelBase_Mini
             return string.Empty;
         }
 
-        return $"{_questDefinition.Title}\n{_questDefinition.Description}\n{_questDefinition.TargetDescription}".Trim();
+        return $"{_questDefinition.Title}\n{_questDefinition.Description}\n{_questDefinition.TopBarDescription}".Trim();
     }
 
     /// <summary>
@@ -163,10 +163,7 @@ public class TaskPanel : PanelBase_Mini
         }
 
         //接受任务
-        UIManager.Instance.GetPanel<GamePanel>((panel) =>
-        {
-            panel.SetTopBarActive(true, _questDefinition.TargetDescription);
-        });
+        EventCenter.Instance.EventTrigger(E_EventType.Quest_TrackChanged, this, new StringEventArgs(questId));
 
         AudioManager.Instance.PlaySound(GameResources.Instance.UiButtonClip);
 
@@ -185,7 +182,7 @@ public class TaskPanel : PanelBase_Mini
             return;
         }
 
-        //交付任务
+        //交付任务（这里交付任务之后，追踪的任务应该顺延到下一活动中的任务，如果没有任务了，直接关掉TopBar）
         UIManager.Instance.GetPanel<GamePanel>((panel) =>
         {
             panel.SetTopBarActive(false);
