@@ -23,7 +23,7 @@ namespace PlayArk.GraphCore
 
 namespace PlayArk.GraphCore.Data
 {
-    public class GraphCoreGraph<TNode, TEdge> : GraphCoreGraph, ISerializationCallbackReceiver
+    public class GraphCoreGraph<TNode, TEdge> : GraphCoreGraph
         where TNode : GraphCoreNode 
         where TEdge : GraphCoreEdge, new()
     {
@@ -162,24 +162,10 @@ namespace PlayArk.GraphCore.Data
         {
             _edges.Remove(edge);
         }
-
-        private void OnValidate()
-        {
-            //防御性重构字典
-            RebuildLookups();
-        }
-        protected virtual void OnCreateDefaultNode(){}
         /// <summary>
-        /// 在序列化的前一刻调用
-        /// 在以下几种情况触发：
-        /// 1.手动保存时 control + s 
-        /// 2.自动保存
-        /// 3.打包
-        /// 4.Play
-        /// 5.代码编译后
-        /// 在Unity把对象数据写入文件之前触发（从内存到硬盘）
+        /// 用于确保资源的完整性 使用MenuItem覆盖了Unity默认的CreateAssetMenu特性的默认效果
         /// </summary>
-        public void OnBeforeSerialize()
+        public void EnsureDefaultNodes()
         {
 #if UNITY_EDITOR
 
@@ -188,7 +174,7 @@ namespace PlayArk.GraphCore.Data
             //如果该路径不为空 说明这个类对应的资源已经保存在硬盘当中了
             if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(this)))
                 return;
-            
+
             //在Project里创建新资源时
             //1.内存中先生成一个对象实例
             //2.Unity提示输入文件名
@@ -197,23 +183,34 @@ namespace PlayArk.GraphCore.Data
             //这也是为了实现“自动修复机制” ： 即保证该资源永远时完整的 不会因为误操作而崩溃
             //生成默认节点
             OnCreateDefaultNode();
-            
-            //将图下的所有节点添加到子资源
+
+            bool hasChanged = false;
+
+            //将图下还没有挂载到资源文件中的节点添加为子资源。
             foreach (var node in _nodes)
             {
                 if (node == null) continue;
+
                 //跟上面一样 这里的意思就是：
                 //确保该子状态不是一个已经被保存在硬盘里的资源
                 if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(node)))
                 {
                     AssetDatabase.AddObjectToAsset(node, this);
+                    hasChanged = true;
                 }
+            }
+
+            if (hasChanged)
+            {
+                EditorUtility.SetDirty(this);
             }
 #endif
         }
-        /// <summary>
-        /// 在Unity把保存到磁盘上的二进制数据重新变成内存中的对象之后 立即执行
-        /// </summary>
-        public void OnAfterDeserialize() { }
+        private void OnValidate()
+        {
+            //防御性重构字典
+            RebuildLookups();
+        }
+        protected virtual void OnCreateDefaultNode(){}
     }
 }

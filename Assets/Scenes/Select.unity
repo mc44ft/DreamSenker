@@ -339,6 +339,7 @@ MonoBehaviour:
     PreviousMapId: 
     TriggeredDialogueGuidList: []
     QuestRuntimeDataList: []
+    CurrentTrackQuestID: 
     IsMetSpiderBoss: 0
     IsKilledSpiderBoss: 0
     IsMetFoxBoss: 0

@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace PlayArk.StateMachine
 {
-    [CreateAssetMenu(fileName = "StateMachine_", menuName = "PlayArk Assets/GraphCore/State Machine")]
     public class StateMachine : GraphCoreGraph<State, StateTransitionEdge>
     {
         [SerializeField, HideInInspector] private EntryState _entryState;

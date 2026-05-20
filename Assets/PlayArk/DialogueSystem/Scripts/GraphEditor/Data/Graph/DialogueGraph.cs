@@ -9,7 +9,6 @@ namespace PlayArk.DialogueSystem.Data
     /// 对话图就相当于一个顺序执行器
     /// 可以顺序执行多张图
     /// </summary>
-    [CreateAssetMenu(fileName = "DialogueGraph_", menuName = "PlayArk Assets/GraphCore/DialogueGraph")]
     public class DialogueGraph : GraphCoreGraph<DialogueNodeBase, GraphCoreEdge>
     {
         /// <summary>
@@ -22,7 +21,6 @@ namespace PlayArk.DialogueSystem.Data
 
         [SerializeField, HideInInspector]
         private DialogueNodeEntry _nodeEntry;
-        
         /// <summary>
         /// 
         /// </summary>
