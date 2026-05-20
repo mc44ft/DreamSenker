@@ -4,6 +4,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 
 using DreamSeeker.Managers;
+using DreamSeeker.Shared;
 
 namespace DreamSeeker.UI
 {
@@ -20,7 +21,7 @@ public class MainMenuPanel : PanelBase_Mini
     [SerializeField] private Button _closeButton;//关闭总菜单按钮
 
     [Header("Effects")]
-    [SerializeField] private UIIconAlphaFlicker _iconAlphaFlicker;//由 Toggle 控制显隐的 Icon 闪烁组件
+    [SerializeField] private UIIconAlphaFlicker _lightAlphaFlicker;//由 Toggle 控制显隐的 Icon 闪烁组件
 
     
     
@@ -44,11 +45,50 @@ public class MainMenuPanel : PanelBase_Mini
     private EMainMenuPage _currentPage;//当前显示的页面
     private bool _isInitialized;//是否完成首次页面初始化
 
+#region Unity Lifecycle
+
     private void Awake()
     {
         _packagePageComponent = _packagePage != null ? _packagePage.GetComponent<PackagePage>() : null;
         _settingsPageComponent = _settingsPage != null ? _settingsPage.GetComponent<SettingsPage>() : null;
     }
+
+#endregion
+
+#region Panel Lifecycle
+
+    public override void OnShowFadePreComplete()
+    {
+        AddUIListeners();
+
+        if (!_isInitialized)
+        {
+            ShowPageImmediately(_defaultPage);
+        }
+
+        SyncIconFlickerSwitchToggle();
+
+        AudioManager.Instance.PlaySound(GameResources.Instance.UiShowPanelClip);
+
+        //禁用玩家输入
+        InputManager.Instance.SetPlayerInputAction(false);
+        //暂停游戏
+        Time.timeScale = 0f;
+    }
+
+    public override void OnHideFadedComplete()
+    {
+        RemoveUIListeners();
+
+        //启用玩家输入
+        InputManager.Instance.SetPlayerInputAction(true);
+        //恢复游戏
+        Time.timeScale = 1f;
+    }
+
+#endregion
+
+#region UI Event Handlers
 
     /// <summary>
     /// 背包页 Toggle 选中时切换到背包页。
@@ -131,11 +171,39 @@ public class MainMenuPanel : PanelBase_Mini
     {
         AudioManager.Instance.PlaySound(GameResources.Instance.UiButtonClip);
 
-        if (_iconAlphaFlicker != null)
+        if (_lightAlphaFlicker != null)
         {
-            _iconAlphaFlicker.SetTargetGraphicVisible(isOn);
+            _lightAlphaFlicker.SetTargetGraphicVisible(isOn);
         }
     }
+
+    /// <summary>
+    /// 根据玩家血量比例切换灯光闪烁模式。
+    /// </summary>
+    private void OnPlayerHealthUpdate(object eventSender, PlayerHealthUpdateEventArgs args)
+    {
+        SwitchLightMode((float)args.CurrentHealthAmount / args.MaxHealthAmount);
+    }
+
+    private void SwitchLightMode(float percentage)
+    {
+        if (percentage < 0.2f)
+        {
+            _lightAlphaFlicker.SetMode(EUIIconFlickerMode.PoliceLight);
+        }
+        else if (percentage >= 0.2f && percentage < 0.8f)
+        {
+            _lightAlphaFlicker.SetMode(EUIIconFlickerMode.Normal);
+        }
+        else
+        {
+            _lightAlphaFlicker.SetMode(EUIIconFlickerMode.SolidColor);
+        }
+    }
+
+#endregion
+
+#region Page Switching
 
     /// <summary>
     /// 按页面枚举切换子页面，必要时播放翻页动画。
@@ -230,6 +298,10 @@ public class MainMenuPanel : PanelBase_Mini
         }
     }
 
+#endregion
+
+#region Toggle State Sync
+
     /// <summary>
     /// 同步 Dock Toggle 的选中状态。
     /// </summary>
@@ -247,9 +319,9 @@ public class MainMenuPanel : PanelBase_Mini
     /// </summary>
     private void SyncIconFlickerSwitchToggle()
     {
-        if (_iconAlphaFlicker != null)
+        if (_lightAlphaFlicker != null)
         {
-            SetToggleIsOnWithoutNotify(_iconFlickerSwitchToggle, _iconAlphaFlicker.IsTargetGraphicVisible);
+            SetToggleIsOnWithoutNotify(_iconFlickerSwitchToggle, _lightAlphaFlicker.IsTargetGraphicVisible);
         }
     }
 
@@ -263,6 +335,10 @@ public class MainMenuPanel : PanelBase_Mini
             toggle.SetIsOnWithoutNotify(isOn);
         }
     }
+
+#endregion
+
+#region Listener Binding
 
     /// <summary>
     /// 绑定 Toggle 和按钮监听。
@@ -278,6 +354,7 @@ public class MainMenuPanel : PanelBase_Mini
         AddToggleListener(_saveToggle, OnSaveToggleValueChanged);
         AddToggleListener(_iconFlickerSwitchToggle, OnIconFlickerSwitchToggleValueChanged);
         AddButtonListener(_closeButton, OnCloseButtonClick);
+        EventCenter.Instance.AddEventListener<PlayerHealthUpdateEventArgs>(E_EventType.Player_HealthUpdate, OnPlayerHealthUpdate);
     }
 
     /// <summary>
@@ -292,6 +369,7 @@ public class MainMenuPanel : PanelBase_Mini
         RemoveToggleListener(_saveToggle, OnSaveToggleValueChanged);
         RemoveToggleListener(_iconFlickerSwitchToggle, OnIconFlickerSwitchToggleValueChanged);
         RemoveButtonListener(_closeButton, OnCloseButtonClick);
+        EventCenter.Instance.RemoveEventListener<PlayerHealthUpdateEventArgs>(E_EventType.Player_HealthUpdate, OnPlayerHealthUpdate);
     }
 
     /// <summary>
@@ -338,34 +416,8 @@ public class MainMenuPanel : PanelBase_Mini
         }
     }
 
-    public override void OnHideFadedComplete()
-    {
-        RemoveUIListeners();
+#endregion
 
-        //启用玩家输入
-        InputManager.Instance.SetPlayerInputAction(true);
-        //恢复游戏
-        Time.timeScale = 1f;
-    }
-
-    public override void OnShowFadePreComplete()
-    {
-        AddUIListeners();
-
-        if (!_isInitialized)
-        {
-            ShowPageImmediately(_defaultPage);
-        }
-
-        SyncIconFlickerSwitchToggle();
-
-        AudioManager.Instance.PlaySound(GameResources.Instance.UiShowPanelClip);
-
-        //禁用玩家输入
-        InputManager.Instance.SetPlayerInputAction(false);
-        //暂停游戏
-        Time.timeScale = 0f;
-    }
 }
 
 public enum EMainMenuPage

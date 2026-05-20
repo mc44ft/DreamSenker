@@ -64,7 +64,7 @@ public enum E_EventType
     #endregion
     #region PLAYER EVENT
     /// <summary>
-    /// 玩家受伤事件 --- 参数 PlayerGetHitEventArgs（玩家健康值信息）
+    /// 玩家受伤事件 --- 参数 PlayerHealthUpdateEventArgs（玩家健康值信息）
     /// </summary>
     Player_HealthUpdate,
     #endregion

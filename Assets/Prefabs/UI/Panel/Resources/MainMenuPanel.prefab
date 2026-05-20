@@ -388,7 +388,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4155186199633800830
 RectTransform:
   m_ObjectHideFlags: 0
@@ -428,7 +428,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2995435360533667216
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2320,7 +2320,7 @@ MonoBehaviour:
   _saveToggle: {fileID: 5171156635371214986}
   _iconFlickerSwitchToggle: {fileID: 5399621357041382128}
   _closeButton: {fileID: 8763360266311149738}
-  _iconAlphaFlicker: {fileID: 660919522367285653}
+  _lightAlphaFlicker: {fileID: 660919522367285653}
   _characterPage: {fileID: 270332019443958317}
   _packagePage: {fileID: 7829002038755358335}
   _questPage: {fileID: 1040172754417827676}
