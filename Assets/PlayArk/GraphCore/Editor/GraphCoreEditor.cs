@@ -87,19 +87,13 @@ namespace PlayArk.GraphCore.Editor
             //activeObject 涵盖了所有资产 SO、材质、贴图、预制体、场景中的游戏对象 等 都囊括在内
             //activeGameObject 只包括场景上的物体 和 Project中的预制体文件
             GraphCoreGraph graphCore = Selection.activeObject as GraphCoreGraph;
-            
-            if(graphCore != null)
+
+            if (graphCore == null) return;
+            foreach (GraphCoreNode node in graphCore.GetNodesInternal())
             {
-                _view.Refresh(graphCore);
+                graphCore.TryAttachNodeToAssetInternal(node);
             }
-            //添加一次延迟刷新，快速解决当资源创建时，创建默认节点后无法立即显示的bug（实际上并没有解决）
-            EditorApplication.delayCall += () =>
-            {
-                if (graphCore != null)
-                {
-                    _view.Refresh(graphCore);
-                }
-            };
+            _view.Refresh(graphCore);
         }
     }
 }

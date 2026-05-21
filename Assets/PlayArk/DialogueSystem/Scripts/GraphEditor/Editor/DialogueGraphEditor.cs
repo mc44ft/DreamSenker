@@ -23,6 +23,8 @@ namespace PlayArk.DialogueSystem.Editor
             }
             return false;
         }
+
+        
     }
 
 }

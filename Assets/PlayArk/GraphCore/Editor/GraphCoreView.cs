@@ -241,6 +241,7 @@ namespace PlayArk.GraphCore.Editor
             //这个字符串的意思 就是刚才这个操作的名称
             Undo.RecordObject(_graphCore, "你刚刚添加了一个GraphCoreNode");
             _graphCore.AddNodeInternal(node);
+            _graphCore.TryAttachNodeToAssetInternal(node);
             
             DrawNode(node);
         }

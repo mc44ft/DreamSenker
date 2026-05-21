@@ -14,6 +14,7 @@ namespace PlayArk.GraphCore
         public abstract IEnumerable<GraphCoreEdge> GetEdgesInternal();
         public abstract GraphCoreNode CreateNodeInternal(Type type, Vector2 viewPosition);
         public abstract void AddNodeInternal(GraphCoreNode node);
+        public abstract bool TryAttachNodeToAssetInternal(GraphCoreNode node);
         public abstract void DeleteNodeInternal(GraphCoreNode node);
         public abstract GraphCoreEdge CreateEdgeInternal(string rootNodeID, string rootPortID, string trueNodeID, string truePortID);
         public abstract void AddEdgeInternal(GraphCoreEdge edge);
@@ -44,6 +45,10 @@ namespace PlayArk.GraphCore.Data
             => CreateNode(type, viewPosition);
         public override void AddNodeInternal(GraphCoreNode node)
             => AddNode(node as TNode);
+
+        public override bool TryAttachNodeToAssetInternal(GraphCoreNode node)
+            => TryAttachNodeToAsset(node as TNode);
+
         public override void DeleteNodeInternal(GraphCoreNode node) 
             => DeleteNode(node as TNode);
         public override GraphCoreEdge CreateEdgeInternal(string rootNodeID, string rootPortID, string trueNodeID, string truePortID)
@@ -129,6 +134,34 @@ namespace PlayArk.GraphCore.Data
         public void AddNode(TNode node)
         {
             _nodes.Add(node);
+        }
+
+        public bool TryAttachNodeToAsset(TNode node)
+        {
+#if UNITY_EDITOR
+            if (node == null) return false;
+            //检验当前主资源路径的合法性
+            if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(this))) return false;
+            
+            //判断当前Node是否已经是一个子资源
+            if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(node)))
+            {
+                AssetDatabase.AddObjectToAsset(node, this);
+                EditorUtility.SetDirty(this);
+                return true;
+            }
+            else
+            {
+                if (AssetDatabase.GetAssetPath(node) != AssetDatabase.GetAssetPath(this))
+                {
+                    //这里第二个参数不是用来拼接字符串的 而是让Unity绑定这个对象，在报错窗口双击可以直接定位到这里
+                    Debug.LogWarning($"该节点 {node.name} 不属于本图资源", node);
+                }
+
+                return false;
+            }
+#endif
+            return false;
         }
         public void DeleteNode(TNode node)
         {

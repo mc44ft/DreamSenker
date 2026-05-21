@@ -22,8 +22,12 @@ namespace PlayArk.StateMachine.Editor
             return false;
         }
 
+        /// <summary>
+        /// 重写该函数的目的是让用户在 Hierarchy 选中挂在StateMachineController的游戏对象时 可以即时刷新画布
+        /// </summary>
         protected override void OnSelectionChange()
         {
+            //如果点击的是Project窗口的资源 就用这个默认值
             StateMachine stateMachine = Selection.activeObject as StateMachine;
             //如果是点击了Hierarchy窗口中的GameObject游戏对象
             if (Selection.activeGameObject)
@@ -36,6 +40,10 @@ namespace PlayArk.StateMachine.Editor
             }
             if(stateMachine != null)
             {
+                foreach (var state in stateMachine.GetNodesInternal())
+                {
+                    stateMachine.TryAttachNodeToAssetInternal(state);
+                }
                 //刷新画布
                 _view.Refresh(stateMachine);
             }
