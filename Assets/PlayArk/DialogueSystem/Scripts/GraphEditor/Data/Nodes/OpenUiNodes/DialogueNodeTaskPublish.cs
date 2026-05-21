@@ -25,5 +25,10 @@ namespace PlayArk.DialogueSystem.Data.Nodes
                 DreamSeeker.UI.TaskPanel.E_PanelMode.Publish,
                 onFinished);
         }
+
+        public override Color GetColor()
+        {
+            return new Color32(252, 159, 77, 255);
+        }
     }
 }
