@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4024517187926576109}
   - component: {fileID: 1969299522808246779}
   m_Layer: 0
-  m_Name: HealthPotion_Big
+  m_Name: Key
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: -1381499197
   m_SortingLayer: -3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 95378d80b58134ccdabc1e677f8f8b6e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dfd0e15b901ab9b44a0e6f6d7f078e8a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -119,10 +119,10 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.014200896, y: 0.13469326}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.4715982, y: 0.2306135}
     oldSize: {x: 0.5, y: 0.5}
     newSize: {x: 0.2, y: 0.2}
     adaptiveTilingThreshold: 0.5
@@ -144,8 +144,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5c91972818b696408d0aad8f0d884e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _title: "\u5927\u8840\u74F6"
-  itemType: 1
+  _title: "\u901A\u5F80\u5F02\u4E16\u754C\u7684\u94A5\u5319"
+  itemType: 2
   _worldTips: {fileID: 1425944647838015336}
 --- !u!1001 &427381729774582584
 PrefabInstance:
@@ -229,7 +229,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4648368095783084101, guid: 2fd969c3aef4ccc4fb219906e128fc11, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.07
+      value: -0.01
       objectReference: {fileID: 0}
     - target: {fileID: 4648368095783084101, guid: 2fd969c3aef4ccc4fb219906e128fc11, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

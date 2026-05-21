@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-6721007177160331289
+--- !u!114 &-3284888833074335576
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -13,29 +13,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _title: Entry
-  _uniqueID: 104a8770-c342-49c4-86b3-67e6f75b5c05
+  _uniqueID: e921cf54-59a1-4245-a0af-424e77e13b01
   _viewPosition: {x: 0, y: 0}
   _inputPorts:
-  - rid: 2122959477142716451
+  - rid: 1292939278686093356
   _outputPorts:
-  - rid: 2122959477142716452
+  - rid: 1292939278686093357
   references:
     version: 2
     RefIds:
-    - rid: 2122959477142716451
+    - rid: 1292939278686093356
       type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
       data:
-        _uniqueID: f6d00b82-b3e7-4b99-adb9-28b13912394c
+        _uniqueID: 1baae00b-9371-40a4-b1bc-6ed3d2dea40f
         _portName: New Port
         _direction: 0
-        _selfNodeID: 104a8770-c342-49c4-86b3-67e6f75b5c05
-    - rid: 2122959477142716452
+        _selfNodeID: e921cf54-59a1-4245-a0af-424e77e13b01
+    - rid: 1292939278686093357
       type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
       data:
-        _uniqueID: 933601a0-b82a-4af0-b923-8232504ceb85
+        _uniqueID: 630621f0-d2a7-4cbb-99b1-5852d6f21ddd
         _portName: New Port
         _direction: 1
-        _selfNodeID: 104a8770-c342-49c4-86b3-67e6f75b5c05
+        _selfNodeID: e921cf54-59a1-4245-a0af-424e77e13b01
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49,16 +49,16 @@ MonoBehaviour:
   m_Name: DialogueGraph_Repeat
   m_EditorClassIdentifier: 
   _nodes:
-  - {fileID: -6721007177160331289}
-  - {fileID: 5512686607609541143}
+  - {fileID: -3284888833074335576}
+  - {fileID: 2016855135405236840}
   _edges:
-  - _uniqueID: df5ee032-df69-48d4-a3de-b2fc3ee0da6e
-    _rootNodeID: 104a8770-c342-49c4-86b3-67e6f75b5c05
-    _rootPortID: 933601a0-b82a-4af0-b923-8232504ceb85
-    _connectionNodeID: e45334a2-c034-4f90-be75-bb988a3b3915
-    _connectionPortID: 79f06680-1bf2-4dc0-aad8-d869a7b8f908
-  _nodeEntry: {fileID: -6721007177160331289}
---- !u!114 &5512686607609541143
+  - _uniqueID: 2cc7d957-f8a6-4991-b45f-418be5a3c127
+    _rootNodeID: e921cf54-59a1-4245-a0af-424e77e13b01
+    _rootPortID: 630621f0-d2a7-4cbb-99b1-5852d6f21ddd
+    _connectionNodeID: d9d4e4d4-886e-4d44-b47d-34846a78f623
+    _connectionPortID: ebc7313c-6576-41d2-b477-f46c77178506
+  _nodeEntry: {fileID: -3284888833074335576}
+--- !u!114 &2016855135405236840
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -70,32 +70,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c85e04da01cff9c46824fd4a230ec43c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _title: Normal
-  _uniqueID: e45334a2-c034-4f90-be75-bb988a3b3915
-  _viewPosition: {x: 466.35388, y: -14.18988}
+  _title: "\u5BF9\u8BDD"
+  _uniqueID: d9d4e4d4-886e-4d44-b47d-34846a78f623
+  _viewPosition: {x: 447.24976, y: 8.000008}
   _inputPorts:
-  - rid: 2122959477142716458
+  - rid: 1292939278686093358
   _outputPorts:
-  - rid: 2122959477142716459
+  - rid: 1292939278686093359
   _dialogueDataArray:
-  - SpeakerName: "\u9E7F\u957F\u8001"
-    Content: "\u4F60\u5DF2\u7ECF\u548C\u6211\u5BF9\u8BDD\u8FC7\u4E86\u54E6"
-    DisplayType: 1
+  - SpeakerName: "\u65C1\u767D"
+    Content: "\uFF08\u9E7F\u957F\u8001\u4E00\u8138\u5F97\u610F\u7684\u770B\u7740\u4F60\uFF09"
+    DisplayType: 2
     CanQuickShow: 1
   references:
     version: 2
     RefIds:
-    - rid: 2122959477142716458
+    - rid: 1292939278686093358
       type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
       data:
-        _uniqueID: 79f06680-1bf2-4dc0-aad8-d869a7b8f908
+        _uniqueID: ebc7313c-6576-41d2-b477-f46c77178506
         _portName: New Port
         _direction: 0
-        _selfNodeID: e45334a2-c034-4f90-be75-bb988a3b3915
-    - rid: 2122959477142716459
+        _selfNodeID: d9d4e4d4-886e-4d44-b47d-34846a78f623
+    - rid: 1292939278686093359
       type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
       data:
-        _uniqueID: 8124730b-bd02-442e-8ac6-fdc58f2c9436
+        _uniqueID: 5a3fbeca-9c16-456d-9f9b-cbcb3ae19125
         _portName: New Port
         _direction: 1
-        _selfNodeID: e45334a2-c034-4f90-be75-bb988a3b3915
+        _selfNodeID: d9d4e4d4-886e-4d44-b47d-34846a78f623

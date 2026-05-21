@@ -144,6 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5c91972818b696408d0aad8f0d884e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _title: "\u6668\u9732\u68A6\u6838"
   itemType: 2
   _worldTips: {fileID: 1425944647838015336}
 --- !u!1001 &427381729774582584

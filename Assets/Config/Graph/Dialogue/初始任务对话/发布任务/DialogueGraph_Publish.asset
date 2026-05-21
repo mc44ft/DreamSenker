@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d4fb09544e87d94d9c39fbdd0a65bbc, type: 3}
-  m_Name: DialogueGraph_Public
+  m_Name: DialogueGraph_Publish
   m_EditorClassIdentifier: 
   _nodes:
   - {fileID: -6316562197080411917}
@@ -196,7 +196,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _title: "\u521D\u59CB\u4EFB\u52A1\u53D1\u5E03\u9875"
   _uniqueID: 1495d0f5-298d-48e8-97f2-bec7761f11a8
-  _viewPosition: {x: 1337.6243, y: 7.999996}
+  _viewPosition: {x: 1345.5, y: 12.499994}
   _inputPorts:
   - rid: 1292939278686093346
   _outputPorts:
@@ -233,7 +233,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _title: "\u7ED3\u675F"
   _uniqueID: 28611586-7ddb-4e7a-86d7-0dbb749b416b
-  _viewPosition: {x: 1727.5837, y: 7.999996}
+  _viewPosition: {x: 1741.2919, y: 12.500012}
   _inputPorts:
   - rid: 1292939278686093348
   _outputPorts:

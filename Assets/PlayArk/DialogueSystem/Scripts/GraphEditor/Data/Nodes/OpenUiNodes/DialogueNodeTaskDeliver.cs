@@ -25,5 +25,10 @@ public class DialogueNodeTaskDeliver : DialogueNodeExternalUI
             DreamSeeker.UI.TaskPanel.E_PanelMode.Deliver,
             onFinished);
     }
+
+    public override Color GetColor()
+    {
+        return new Color32(150, 99, 46, 255);
+    }
 }
 }

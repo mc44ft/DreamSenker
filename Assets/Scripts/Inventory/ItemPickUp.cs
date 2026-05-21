@@ -11,6 +11,7 @@ namespace DreamSeeker.Inventory
 [RequireComponent(typeof(BoxCollider2D))]
 public class ItemPickUp : MonoBehaviour
 {
+    [SerializeField] private string _title;//仅用作简单描述
     [FormerlySerializedAs("_itemID")] [SerializeField] private EPackageItemType itemType;
     [SerializeField] private GameObject _worldTips;
 

@@ -26,6 +26,8 @@ public enum EPackageItemType
     HealthPotion_Small,//小血瓶
     HealthPotion_Big,//大血瓶
     Chen,
+    WineGourd,//酒葫芦
+    Key,//通往异世界的钥匙
 }
 public enum EPackageItemCategory
 {
