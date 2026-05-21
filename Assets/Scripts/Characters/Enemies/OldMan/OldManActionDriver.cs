@@ -45,6 +45,13 @@ public class OldManActionDriver : MonoBehaviour, IAction
             case EAction.Knockback:
                 _controller.DamageableHealth.DoKnockback();
                 break;
+            case EAction.DropReward:
+                Destroy(gameObject);
+                Instantiate(Resources.Load<GameObject>("Key"), 
+                    this.transform.position + new Vector3(-0.5f, 0.3f, 0f), Quaternion.identity);
+                Instantiate(Resources.Load<GameObject>("WineGourd"), 
+                    this.transform.position + new Vector3(0.5f, 0.3f, 0f), Quaternion.identity);
+                break;
         }
     }
 }

@@ -17,5 +17,5 @@ MonoBehaviour:
   <PlayerShadowDarknessStrength>k__BackingField: 2.5
   <FollowCameraOrthoSize>k__BackingField: 3
   <FollowCameraBossOrthoSize>k__BackingField: 6
-  <DialogueCameraOrthoSize>k__BackingField: 6
-  <DialogueCameraOffsetY>k__BackingField: 6
+  <DialogueCameraOrthoSize>k__BackingField: 3
+  <DialogueCameraOffsetY>k__BackingField: 0

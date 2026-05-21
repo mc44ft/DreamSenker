@@ -126,6 +126,48 @@ MonoBehaviour:
         _portName: New Port
         _direction: 1
         _selfNodeID: 76e8248d-0fe3-4ec2-9684-9c80b78de6f4
+--- !u!114 &-4940865187011145915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c798ffcdc11614c339068f869ca5404e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _title: Dead
+  _uniqueID: 2ebba3b4-ccb4-4511-a143-f4d20face697
+  _viewPosition: {x: 1157.7285, y: 350.5}
+  _inputPorts:
+  - rid: 1292939297693630464
+  _outputPorts:
+  - rid: 1292939297693630465
+  _onEnterActions:
+  - action: 7
+    parameters: []
+  _onLogicUpdateActions: []
+  _onPhysicsUpdateActions: []
+  _onExitActions: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 1292939297693630464
+      type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
+      data:
+        _uniqueID: 3c68cdd1-96df-4a4e-a1d2-b11385b6ab15
+        _portName: New Port
+        _direction: 0
+        _selfNodeID: 2ebba3b4-ccb4-4511-a143-f4d20face697
+    - rid: 1292939297693630465
+      type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
+      data:
+        _uniqueID: 2998f8b9-9bea-4a15-8507-7dc574585450
+        _portName: New Port
+        _direction: 1
+        _selfNodeID: 2ebba3b4-ccb4-4511-a143-f4d20face697
 --- !u!114 &-3188132286918621292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,6 +233,7 @@ MonoBehaviour:
   - {fileID: -3188132286918621292}
   - {fileID: -6111117822677795472}
   - {fileID: 2801851504479364905}
+  - {fileID: -4940865187011145915}
   _edges:
   - _uniqueID: 14abd478-556d-4a42-a0c5-6a97deed255a
     _rootNodeID: 373ed908-d48d-4aa9-9376-59b963f0c193
@@ -304,6 +347,18 @@ MonoBehaviour:
         - _predicate: 7
           _parameters: []
           _negate: 0
+  - _uniqueID: a60b8f47-43c8-42b2-979d-5413a4b4afba
+    _rootNodeID: eb4ec7b5-b54a-4e19-9ccc-83241600b6bc
+    _rootPortID: 86254587-edf9-4f11-b290-f3aece467c91
+    _connectionNodeID: 2ebba3b4-ccb4-4511-a143-f4d20face697
+    _connectionPortID: 3c68cdd1-96df-4a4e-a1d2-b11385b6ab15
+    _condition:
+      _and:
+      - _or:
+        - _predicate: 1
+          _parameters:
+          - Death
+          _negate: 0
   _entryState: {fileID: -5231830620154182528}
   _anyState: {fileID: 5884770527426524240}
 --- !u!114 &2801851504479364905
@@ -320,7 +375,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _title: Death
   _uniqueID: eb4ec7b5-b54a-4e19-9ccc-83241600b6bc
-  _viewPosition: {x: 402.49997, y: 127.000015}
+  _viewPosition: {x: 840.1346, y: 345.5}
   _inputPorts:
   - rid: 1292939158646947844
   _outputPorts:

@@ -17,5 +17,6 @@ namespace PlayArk.StateMachine.Utilities
         Knockback,
         //--------------- Switch Form -----------
         SwitchFormHandle,//监测切换形态
+        DropReward,//掉落物品
     }
 }

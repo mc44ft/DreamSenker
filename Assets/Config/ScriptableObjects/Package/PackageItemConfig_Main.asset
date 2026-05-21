@@ -34,3 +34,17 @@ MonoBehaviour:
     BonusEffectType: 1
     BonusAmount: 50
     MaxStack: 99
+  - ePackageItemType: 3
+    Category: 2
+    Icon: {fileID: 21300000, guid: 2511c2ba30c4b40f4a80c7c4b3c17b84, type: 3}
+    Description: "\u75AF\u8001\u5934\u7684\u9152\u846B\u82A6\uFF0C\u91CC\u9762\u8FD8\u6709\u4E0D\u5C11\u9152"
+    BonusEffectType: 0
+    BonusAmount: 0
+    MaxStack: 1
+  - ePackageItemType: 4
+    Category: 2
+    Icon: {fileID: 21300000, guid: 00b69e092def2450a82d6b7bed08805a, type: 3}
+    Description: "\u4E00\u628A\u91D1\u94A5\u5319\uFF0C\u4F3C\u4E4E\u80FD\u5F00\u542F\u67D0\u4E2A\u795E\u79D8\u5730\u70B9\u7684\u95E8"
+    BonusEffectType: 0
+    BonusAmount: 0
+    MaxStack: 1

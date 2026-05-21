@@ -25,7 +25,7 @@ MonoBehaviour:
     DisplayType: 2
     CanQuickShow: 1
   - SpeakerName: "\u9E7F\u957F\u8001"
-    Content: "\u4F60\u9700\u8981\u627E\u5230\u4E00\u4E2A\u53EB\u201C<color=red>\u6668\u9732\u68A6\u6838</color>\u7684\u9053\u5177\uFF0C\u5E76\u628A\u5B83\u4EA4\u7ED9\u6211"
+    Content: "\u4F60\u9700\u8981\u627E\u5230\u4E00\u4E2A\u53EB\u201C<color=red>\u6668\u9732\u68A6\u6838</color>\u201C\u7684\u9053\u5177\uFF0C\u5E76\u628A\u5B83\u4EA4\u7ED9\u6211"
     DisplayType: 2
     CanQuickShow: 1
   references:
