@@ -10,7 +10,7 @@ OldMan是一个在森林中乱转的疯老头，在玩家没有接到《击杀�
 
 本计划采用同实体模式切换方案：不切换预制体，也不把对话逻辑塞进战斗状态机，而是在同一个 NPC 实体上增加模式控制器，由模式决定当前开启哪些能力。
 
-执行后，一个 NPC 可以在友好状态下巡逻、停下（小范围检测到玩家后）、对话，也可以切换到敌对状态后追击、攻击、受击、死亡。
+执行后，一个 NPC 可以在友好状态下巡逻、停下（小范围检测到玩家后）、对话，也可以切换到敌对状态后追击、攻击、受击、死亡。特殊敌人可以通过健康系统限制最低血量，避免进入死亡流程，然后按条件切回友好状态并重新允许对话。
 只需要对话、永远不会进入战斗的 NPC 不需要挂 `NpcModeController`，继续只使用 `DialogueNpcTrigger`。
 
 ## 结论
@@ -21,12 +21,11 @@ OldMan是一个在森林中乱转的疯老头，在玩家没有接到《击杀�
 - 新增 NPC 模式控制组件。
 - 新增友好巡逻组件。
 - 修改受击入口，让友好 NPC 被攻击时可以切换敌对。
+- 修改健康系统，让特殊敌人的血量可以被限制在最低值以上，避免进入死亡流程。
 - 保持 `DialogueNpcTrigger` 只负责对话。
 - `DialogueNpcTrigger` 兼容纯对话 NPC，没有 `NpcModeController` 时仍按原逻辑工作。
 - 保持 `StateMachineController` 只负责敌对行动和战斗状态。
-- `StateMachineController` 必须可以单独使用，不能强依赖 `NpcModeController`。
-
-本计划不做完整 NPC 基类抽象，不把 `OldManController` 立刻改成通用 NPC 控制器，也不迁移所有现有 NPC 资源。
+- `StateMachineController` 兼容纯战斗NPC和玩家，没有 `NpcModeController` 时仍按原逻辑工作。
 
 ## 最终结构
 
@@ -37,6 +36,7 @@ NpcModeController
   -> 开关 FriendlyPatrol
   -> 调用 StateMachineController.StartMachine / StopMachine
   -> 开关 OldManBrain / OldManActionDriver / Attacker
+  -> 判断 Hostile 是否允许切回 Friendly
 
 Friendly
   -> DialogueNpcTrigger
@@ -49,6 +49,7 @@ Hostile
   -> OldManActionDriver
   -> Attacker
   -> DamageableHealth
+  -> 最低血量限制
 
 纯对话 NPC
   -> DialogueNpcTrigger
@@ -76,16 +77,22 @@ public class NpcModeController : MonoBehaviour
     // 不要把 StateMachineController 放进这个数组，状态机由 _stateMachineController 单独控制
     [SerializeField] private Behaviour[] _hostileBehaviours;
 
-    // 允许从友好切换为敌对的条件，全部满足才允许受击转敌对
-    [SerializeField] private DialogueConditionSO[] _hostileConditions;
+    // 允许从友好切换为敌对的通用条件
+    [SerializeField] private ConditionSO[] _hostileConditions;
 
-    // 条件判断需要的任务配置，可为空
+    // 敌对条件判断需要的任务配置，可为空
     [SerializeField] private QuestDefinitionSO _hostileQuestDefinition;
+
+    // 允许从敌对切回友好的通用条件
+    [SerializeField] private ConditionSO[] _friendlyConditions;
+
+    // 友好条件判断需要的任务配置，可为空
+    [SerializeField] private QuestDefinitionSO _friendlyQuestDefinition;
 
     // 移动能力组件，用于切换模式时停止上一种模式留下的速度
     [SerializeField] private Mover _mover;
 
-    // 状态机控制器，可为空；纯对话 NPC 不需要配置
+    // 状态机控制器
     [SerializeField] private StateMachineController _stateMachineController;
 
     // 当前是否是友好状态
@@ -113,7 +120,7 @@ public class NpcModeController : MonoBehaviour
             _stateMachineController?.StopMachine();
     }
 
-    // 受击时尝试切换到敌对模式
+    // 尝试切换到敌对模式
     public bool TrySwitchToHostile()
     {
         if (IsHostile)
@@ -129,19 +136,40 @@ public class NpcModeController : MonoBehaviour
     // 判断当前是否允许从友好切换到敌对
     private bool CanSwitchToHostile()
     {
-        if (_hostileConditions == null || _hostileConditions.Length == 0)
+        ConditionContext context = new ConditionContext
+        (
+            _hostileQuestDefinition,
+            gameObject,
+            GameManager.Instance.Player.gameObject
+        );
+
+        return ConditionUtility.AreAllMet(_hostileConditions, context);
+    }
+
+    // 尝试切回友好模式
+    public bool TrySwitchToFriendlyAfterDefeat()
+    {
+        if (IsFriendly)
             return true;
 
-        foreach (var condition in _hostileConditions)
-        {
-            if (condition == null)
-                continue;
+        if (!CanSwitchToFriendly())
+            return false;
 
-            if (!condition.IsMet(_hostileQuestDefinition))
-                return false;
-        }
-
+        SetMode(NpcMode.Friendly);
         return true;
+    }
+
+    // 判断当前是否允许从敌对切回友好
+    private bool CanSwitchToFriendly()
+    {
+        ConditionContext context = new ConditionContext
+        (
+            _friendlyQuestDefinition,
+            gameObject,
+            GameManager.Instance.Player.gameObject
+        );
+
+        return ConditionUtility.AreAllMet(_friendlyConditions, context);
     }
 
     // 批量启停能力组件
@@ -173,7 +201,16 @@ OldMan
     -> 不放 OldManController / StateMachineController
 
   HostileConditions
-    -> QuestStateDialogueConditionSO 或 QuestCompletableDialogueConditionSO
+    -> QuestStateConditionSO 或 QuestCompletableConditionSO
+
+  FriendlyConditions
+    -> QuestStateConditionSO 或 AlwaysTrueConditionSO
+
+  LimitMinHealth
+    -> true
+
+  MinHealth
+    -> 1
 
   Mover
     -> 当前对象上的 Mover
@@ -197,6 +234,29 @@ OldMan
   -> 第一次攻击正常扣血
   -> 正常触发受击硬直
   -> 正常触发 TakeDamage 谓词
+```
+
+`TrySwitchToFriendlyAfterDefeat()` 的行为：
+
+```text
+当前是 Hostile
+  -> 调用方确认对象未死亡
+  -> 判断 FriendlyConditions
+  -> 条件满足时切回 Friendly
+  -> 条件不满足时保持 Hostile
+```
+
+`DamageableHealth` 的最低血量行为：
+
+```text
+未启用最低血量限制
+  -> 血量可以降到 0
+  -> 正常进入死亡流程
+
+启用最低血量限制
+  -> 血量最低只降到临界值
+  -> 不进入死亡流程
+  -> 受击后仍然存活时，才尝试触发 Hostile -> Friendly
 ```
 
 `OldManController` 只负责敌人组件缓存和配置注入，是否运行由 `NpcModeController` 统一控制。
@@ -225,10 +285,13 @@ Hostile：敌对状态，不能对话，可以追击、攻击、受击。
   - 持有 `_friendlyBehaviours`，由 Inspector 配置友好模式启用的组件。
   - 持有 `_hostileBehaviours`，由 Inspector 配置敌对模式启用的组件。
   - `_hostileBehaviours` 不配置 `StateMachineController` 或其子类。
-  - 持有 `_hostileConditions`，用于判断当前是否允许从友好切换敌对。
-  - 持有 `_hostileQuestDefinition`，作为敌对条件判断的任务上下文。
+  - 持有 `_hostileConditions`，类型为 `ConditionSO[]`，用于判断当前是否允许从友好切换敌对。
+  - 持有 `_hostileQuestDefinition`，用于构造敌对判断的 `ConditionContext`。
+  - 持有 `_friendlyConditions`，类型为 `ConditionSO[]`，用于判断当前是否允许从敌对切回友好。
+  - 持有 `_friendlyQuestDefinition`，用于构造友好判断的 `ConditionContext`。
   - 持有 `_mover`，用于切换模式时停止移动。
   - 持有 `_stateMachineController`，用于启动或停止敌对状态机。
+  - 通过 `ConditionUtility.AreAllMet()` 统一执行友好 / 敌对条件判断。
   - 负责切换友好 / 敌对状态。
   - 通过 `Behaviour[]` 批量启停友好组件和敌对组件。
   - 切换模式时调用 `Mover.StopMove()` 清理上一种模式留下的速度。
@@ -236,6 +299,7 @@ Hostile：敌对状态，不能对话，可以追击、攻击、受击。
   - 切到 `Hostile` 时调用 `StateMachineController.StartMachine()`。
   - 提供 `SetMode(NpcMode mode)`。
   - 提供 `TrySwitchToHostile()`。
+  - 提供 `TrySwitchToFriendlyAfterDefeat()`。
 
 - `Assets/Scripts/Characters/Common/FriendlyPatrol.cs`
   - 负责友好状态下的简单来回移动。
@@ -258,7 +322,12 @@ Hostile：敌对状态，不能对话，可以追击、攻击、受击。
   - 有 `NpcModeController` 且当前是 `Friendly` 时，先调用 `TrySwitchToHostile()`。
   - `TrySwitchToHostile()` 返回 `false` 时，本次攻击无效，不扣血，不触发受击硬直，不触发 `TakeDamage` 谓词。
   - `TrySwitchToHostile()` 返回 `true` 时，第一次攻击默认正常扣血。
-  - 保持原有受击和死亡谓词能力。
+  - 新增最低血量限制开关 `_limitMinHealth`，默认关闭，保持原死亡流程。
+  - 新增最低血量配置 `_minHealth`，只在 `_limitMinHealth == true` 时生效。
+  - 开启最低血量限制时，血量最低降到 `_minHealth`，不进入死亡流程。
+  - 受击后如果对象仍然存活，再调用 `NpcModeController.TrySwitchToFriendlyAfterDefeat()`。
+  - `NpcModeController` 只负责条件判断和模式切换，不关心健康系统是否开启最低血量限制。
+  - 保持原有受击谓词能力。
 
 - `Assets/Scripts/Characters/Enemies/OldMan/OldManController.cs`
   - 保持敌人配置注入逻辑。
@@ -287,14 +356,16 @@ Hostile：敌对状态，不能对话，可以追击、攻击、受击。
 ## 执行顺序
 
 1. 新增 `NpcMode` 枚举。
-2. 新增 `NpcModeController`，先只实现组件启停和模式切换。
+2. 新增 `NpcModeController`，先实现组件启停和模式切换。
 3. 新增 `FriendlyPatrol`，实现友好状态下的简单巡逻和遇到玩家停下。
 4. 修改 `StateMachineController`，增加显式启动 / 停止状态机的方法。
 5. 必要时修改 `StateMachine`，增加退出当前状态的方法。
 6. 修改 `DialogueNpcTrigger`，有 `NpcModeController` 时只允许 `Friendly` 模式触发对话，没有时继续按纯对话 NPC 触发对话。
-7. 修改 `DamageableHealth`，支持友好 NPC 被攻击后按条件切换敌对；条件不满足时本次攻击完全无效。
-8. 修改或确认 `OldManController`、`OldManBrain`、`OldManActionDriver` 不承担对话职责。
-9. 在代码层完成引用检查。
+7. 修改 `NpcModeController`，增加敌对状态受击后未死亡时按条件切回友好的判断链。
+8. 修改 `DamageableHealth`，支持友好 NPC 被攻击后按条件切换敌对；条件不满足时本次攻击完全无效。
+9. 修改 `DamageableHealth`，增加最低血量限制；受击后仍然存活时才尝试触发敌对切回友好。
+10. 修改或确认 `OldManController`、`OldManBrain`、`OldManActionDriver` 不承担对话职责。
+11. 在代码层完成引用检查。
 
 ## 验证
 
@@ -303,8 +374,11 @@ Hostile：敌对状态，不能对话，可以追击、攻击、受击。
 - `rg "NpcMode" Assets/Scripts`
 - `rg "NpcModeController" Assets/Scripts`
 - `rg "FriendlyPatrol" Assets/Scripts`
+- `rg "ConditionSO" Assets/Scripts Assets/PlayArk`
+- `rg "ConditionUtility.AreAllMet" Assets/Scripts`
 - `rg "DialogueNpcTrigger" Assets/Scripts`
 - `rg "TrySwitchToHostile" Assets/Scripts`
+- `rg "TrySwitchToFriendlyAfterDefeat" Assets/Scripts`
 - `rg "StartMachine" Assets`
 - `rg "StopMachine" Assets`
 
@@ -324,7 +398,10 @@ Unity Console 检查：
 4. 友好 NPC 被玩家攻击后，进入敌对状态。
 5. 敌对状态下不再显示对话提示，不能触发对话。
 6. 敌对状态下可以追击、攻击玩家。
-7. 敌对状态下可以被玩家攻击并死亡。
+7. 普通敌对 NPC 血量归零后仍按原流程死亡。
+8. 特殊敌对 NPC 开启最低血量限制时，被打到最低血量后不死亡。
+9. 特殊敌对 NPC 受击后仍然存活，并且友好条件满足时，切回友好状态并可以重新对话。
+10. 特殊敌对 NPC 受击后仍然存活，但友好条件不满足时，保持敌对状态。
 
 ## 禁止项
 
@@ -334,3 +411,5 @@ Unity Console 检查：
 - 不用切换预制体来实现友好 / 敌对变化。
 - 不在本计划中抽象完整 NPC 继承体系。
 - 不把所有现有敌人和 NPC 一次性迁移。
+- 不写“当前阶段 / 后续阶段”，规划文档只描述本计划本身。
+- 不扩大用户要求的重构范围。
