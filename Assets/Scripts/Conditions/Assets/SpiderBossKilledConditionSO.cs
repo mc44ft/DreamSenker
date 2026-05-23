@@ -1,9 +1,8 @@
-using DreamSeeker.Conditions;
 using DreamSeeker.Managers;
 using PlayArk.DialogueSystem.Data;
 using UnityEngine;
 
-namespace DreamSeeker.Dialogue.Conditions
+namespace DreamSeeker.Conditions
 {
     /// <summary>
     /// 蜘蛛Boss已遭遇且已击杀的对话条件。

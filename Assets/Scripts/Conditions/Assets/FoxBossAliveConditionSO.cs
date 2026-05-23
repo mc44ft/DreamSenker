@@ -1,9 +1,8 @@
-using DreamSeeker.Conditions;
 using DreamSeeker.Managers;
 using PlayArk.DialogueSystem.Data;
 using UnityEngine;
 
-namespace DreamSeeker.Dialogue.Conditions
+namespace DreamSeeker.Conditions
 {
     /// <summary>
     /// 狐狸Boss已遭遇且未击杀的对话条件。

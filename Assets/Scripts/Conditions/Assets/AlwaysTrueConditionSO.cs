@@ -2,7 +2,7 @@ using DreamSeeker.Conditions;
 using PlayArk.DialogueSystem.Data;
 using UnityEngine;
 
-namespace DreamSeeker.Dialogue.Conditions
+namespace DreamSeeker.Conditions
 {
     /// <summary>
     /// 永远满足的对话条件。
