@@ -10,7 +10,7 @@ OldMan是一个在森林中乱转的疯老头，在玩家没有接到《击杀�
 
 本计划采用同实体模式切换方案：不切换预制体，也不把对话逻辑塞进战斗状态机，而是在同一个 NPC 实体上增加模式控制器，由模式决定当前开启哪些能力。
 
-执行后，一个 NPC 可以在友好状态下巡逻、停下（小范围检测到玩家后）、对话，也可以切换到敌对状态后追击、攻击、受击、死亡。特殊敌人可以通过健康系统限制最低血量，避免进入死亡流程，然后按条件切回友好状态并重新允许对话。
+执行后，一个 NPC 可以在友好状态下巡逻、停下（小范围检测到玩家后）、播放简单待机 / 行走动画、对话，也可以切换到敌对状态后追击、攻击、受击、死亡。特殊敌人可以通过健康系统限制最低血量，避免进入死亡流程，然后按条件切回友好状态并重新允许对话。
 只需要对话、永远不会进入战斗的 NPC 不需要挂 `NpcModeController`，继续只使用 `DialogueNpcTrigger`。
 
 ## 结论
@@ -42,6 +42,7 @@ Friendly
   -> DialogueNpcTrigger
   -> FriendlyPatrol
   -> Mover
+  -> Animator Idle / Walk
 
 Hostile
   -> StateMachineController
@@ -199,6 +200,7 @@ OldMan
     -> OldManActionDriver
     -> Attacker
     -> 不放 OldManController / StateMachineController
+    -> 不放 DamageableHealth
 
   HostileConditions
     -> QuestStateConditionSO 或 QuestCompletableConditionSO
@@ -241,9 +243,27 @@ OldMan
 ```text
 当前是 Hostile
   -> 调用方确认对象未死亡
+  -> 调用方确认本次受击后血量已经到达最低血量
   -> 判断 FriendlyConditions
   -> 条件满足时切回 Friendly
   -> 条件不满足时保持 Hostile
+```
+
+切回 `Friendly` 后的血量处理：
+
+```text
+保持当前最低血量
+  -> 不额外回血
+  -> 不在 NpcModeController 里修改血量
+```
+
+再次从 `Friendly` 切回 `Hostile`：
+
+```text
+不额外写死次数限制
+  -> 仍由 HostileConditions 判断
+  -> 条件满足时允许再次被打回 Hostile
+  -> 条件不满足时保持 Friendly 且本次攻击无效
 ```
 
 `DamageableHealth` 的最低血量行为：
@@ -256,7 +276,43 @@ OldMan
 启用最低血量限制
   -> 血量最低只降到临界值
   -> 不进入死亡流程
-  -> 受击后仍然存活时，才尝试触发 Hostile -> Friendly
+  -> 只有当前是 Hostile 且血量已经到达最低血量时，才尝试触发 Hostile -> Friendly
+```
+
+`FriendlyPatrol` 的友好动画行为：
+
+```text
+FriendlyPatrol 启用时
+  -> 使用同一个 Animator
+  -> 通过动画状态名播放 Idle / Walk
+  -> 巡逻状态变化时才 Play 一次
+  -> 不每帧调用 Animator.Play
+
+开始巡逻移动
+  -> 切到 Walk
+  -> 播放行走动画
+
+到达巡逻点等待
+  -> 切到 Idle
+  -> 播放待机动画
+
+玩家进入停留范围
+  -> 切到 Idle
+  -> 播放待机动画
+
+玩家离开后继续巡逻
+  -> 切到 Walk
+  -> 播放行走动画
+
+NpcModeController 切到 Hostile 时
+  -> 禁用 FriendlyPatrol
+  -> FriendlyPatrol 不再操作 Animator
+  -> StateMachine 接管敌对动画
+
+NpcModeController 切回 Friendly 时
+  -> 停止 StateMachine
+  -> 启用 FriendlyPatrol
+  -> FriendlyPatrol 按当前巡逻状态播放 Idle 或 Walk
 ```
 
 `OldManController` 只负责敌人组件缓存和配置注入，是否运行由 `NpcModeController` 统一控制。
@@ -305,7 +361,12 @@ Hostile：敌对状态，不能对话，可以追击、攻击、受击。
   - 负责友好状态下的简单来回移动。
   - 玩家进入停留范围时停止移动。
   - 玩家离开后继续巡逻。
-  - 只处理友好移动，不处理对话和战斗。
+  - 持有 `Animator`，用于友好状态下播放简单动画。
+  - 持有待机动画名和行走动画名，由 Inspector 配置。
+  - 使用友好巡逻状态记录当前是 `Idle` 还是 `Walk`。
+  - 只有友好巡逻状态变化时才调用 `Animator.Play()`，不每帧播放。
+  - `FriendlyPatrol` 禁用后不再操作 `Animator`，敌对动画交给 `StateMachine` 接管。
+  - 只处理友好移动和友好动画，不处理对话和战斗。
 
 ### 修改
 
@@ -324,9 +385,12 @@ Hostile：敌对状态，不能对话，可以追击、攻击、受击。
   - `TrySwitchToHostile()` 返回 `true` 时，第一次攻击默认正常扣血。
   - 新增最低血量限制开关 `_limitMinHealth`，默认关闭，保持原死亡流程。
   - 新增最低血量配置 `_minHealth`，只在 `_limitMinHealth == true` 时生效。
+  - 最低血量限制只给特殊 NPC 手动开启，玩家、普通敌人、Boss 默认不开启。
   - 开启最低血量限制时，血量最低降到 `_minHealth`，不进入死亡流程。
-  - 受击后如果对象仍然存活，再调用 `NpcModeController.TrySwitchToFriendlyAfterDefeat()`。
-  - `NpcModeController` 只负责条件判断和模式切换，不关心健康系统是否开启最低血量限制。
+  - 可选查找 `NpcModeController`，不要求所有可受击对象都必须挂 `NpcModeController`。
+  - 只有当前是 `Hostile`，本次受击后对象仍然存活，并且血量已经到达 `_minHealth` 时，才调用 `NpcModeController.TrySwitchToFriendlyAfterDefeat()`。
+  - 切回 `Friendly` 后保持当前最低血量，不在模式切换时自动回血。
+  - `NpcModeController` 只负责条件判断和模式切换，不持有 `DamageableHealth`，也不关心健康系统是否开启最低血量限制。
   - 保持原有受击谓词能力。
 
 - `Assets/Scripts/Characters/Enemies/OldMan/OldManController.cs`
@@ -347,23 +411,25 @@ Hostile：敌对状态，不能对话，可以追击、攻击、受击。
   - 不查找 `NpcModeController`。
   - 不判断 NPC 友好 / 敌对模式。
   - 玩家、普通敌人、Boss 等纯战斗角色仍可只挂 `StateMachineController` 或其子类运行。
+  - `StopMachine()` 需要先执行当前状态的退出逻辑，再停止状态机驱动。
 
 - `Assets/PlayArk/StateMachine/StateMachine.cs`
   - 新增 `MachineExit()`。
   - `MachineExit()` 只负责退出当前状态并清空当前状态引用。
-  - `StateMachineController.StopMachine()` 可以调用它，让敌对状态停得更干净。
+  - `StateMachineController.StopMachine()` 调用它，确保切回友好前执行当前敌对状态的退出逻辑。
+  - 攻击判定、攻击动画、状态谓词等敌对状态副作用，应由状态退出逻辑或敌对组件禁用来清理。
 
 ## 执行顺序
 
 1. 新增 `NpcMode` 枚举。
 2. 新增 `NpcModeController`，先实现组件启停和模式切换。
-3. 新增 `FriendlyPatrol`，实现友好状态下的简单巡逻和遇到玩家停下。
+3. 新增 `FriendlyPatrol`，实现友好状态下的简单巡逻、遇到玩家停下、待机 / 行走动画播放。
 4. 修改 `StateMachineController`，增加显式启动 / 停止状态机的方法。
 5. 必要时修改 `StateMachine`，增加退出当前状态的方法。
 6. 修改 `DialogueNpcTrigger`，有 `NpcModeController` 时只允许 `Friendly` 模式触发对话，没有时继续按纯对话 NPC 触发对话。
-7. 修改 `NpcModeController`，增加敌对状态受击后未死亡时按条件切回友好的判断链。
+7. 修改 `NpcModeController`，增加敌对状态受击后未死亡且到达最低血量时按条件切回友好的判断链。
 8. 修改 `DamageableHealth`，支持友好 NPC 被攻击后按条件切换敌对；条件不满足时本次攻击完全无效。
-9. 修改 `DamageableHealth`，增加最低血量限制；受击后仍然存活时才尝试触发敌对切回友好。
+9. 修改 `DamageableHealth`，增加最低血量限制；只有受击后仍然存活且血量到达最低值时才尝试触发敌对切回友好。
 10. 修改或确认 `OldManController`、`OldManBrain`、`OldManActionDriver` 不承担对话职责。
 11. 在代码层完成引用检查。
 
@@ -400,8 +466,10 @@ Unity Console 检查：
 6. 敌对状态下可以追击、攻击玩家。
 7. 普通敌对 NPC 血量归零后仍按原流程死亡。
 8. 特殊敌对 NPC 开启最低血量限制时，被打到最低血量后不死亡。
-9. 特殊敌对 NPC 受击后仍然存活，并且友好条件满足时，切回友好状态并可以重新对话。
-10. 特殊敌对 NPC 受击后仍然存活，但友好条件不满足时，保持敌对状态。
+9. 特殊敌对 NPC 受击后仍然存活、血量到达最低值，并且友好条件满足时，切回友好状态并可以重新对话。
+10. 特殊敌对 NPC 受击后仍然存活、血量到达最低值，但友好条件不满足时，保持敌对状态继续追击。
+11. 友好状态下由 `FriendlyPatrol` 在巡逻状态变化时播放待机 / 行走动画，敌对状态下由 `StateMachine` 接管敌对动画。
+12. 从敌对切回友好时，当前敌对状态先执行退出逻辑，再停止状态机驱动。
 
 ## 禁止项
 
