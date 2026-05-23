@@ -5,6 +5,7 @@ using PlayArk.DialogueSystem.Data;
 using UnityEngine;
 
 using DreamSeeker.CameraSystem;
+using DreamSeeker.Conditions;
 using DreamSeeker.Data.Runtime;
 using DreamSeeker.Managers;
 using DreamSeeker.Shared;
@@ -56,30 +57,15 @@ namespace DreamSeeker.Dialogue
         /// <summary>
         /// 检测当前对话配置的所有触发条件是否满足。
         /// </summary>
-        private bool CheckConditions(DialogueConditionSO[] conditions)
+        private bool CheckConditions(ConditionSO[] conditions)
         {
-            //未配置条件时默认允许触发
-            if (conditions == null || conditions.Length == 0)
-            {
-                return true;
-            }
-
-            foreach (var condition in conditions)
-            {
-                //空条件跳过，避免单个资源缺失阻断整条对话
-                if (condition == null)
-                {
-                    continue;
-                }
-
-                //任意条件不满足，则当前对话配置不可用
-                if (!condition.IsMet())
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            ConditionContext context = new ConditionContext
+            (
+                null,
+                gameObject,
+                GameManager.Instance.Player.gameObject
+            );
+            return ConditionUtility.AreAllMet(conditions, context);
         }
     }
 

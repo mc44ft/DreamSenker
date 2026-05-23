@@ -17,7 +17,7 @@ namespace PlayArk.DialogueSystem.Data
         /// <summary>
         /// 需要全部满足的对话触发条件。
         /// </summary>
-        public DialogueConditionSO[] Conditions;
+        public ConditionSO[] Conditions;
     }
 
     [Serializable]
