@@ -186,7 +186,7 @@ MonoBehaviour:
     CanQuickShow: 1
   - SpeakerName: "\u65C1\u767D"
     Content: "\uFF08\u9E7F\u957F\u8001\u4E00\u628A\u62C9\u8FC7\u4F60\uFF0C\u5F3A\u884C\u5C06\u6668\u9E7F\u68A6\u6838\u585E\u5165\u4F60\u7684\u5634\u91CC\uFF09"
-    DisplayType: 2
+    DisplayType: 1
     CanQuickShow: 1
   references:
     version: 2

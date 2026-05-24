@@ -22,7 +22,7 @@ MonoBehaviour:
   _dialogueDataArray:
   - SpeakerName: "\u65C1\u767D"
     Content: "\uFF08\u5730\u4E0A\u7684\u9E7F\u957F\u8001\u7761\u5F97\u5F88\u5B89\u8BE6\uFF09"
-    DisplayType: 2
+    DisplayType: 1
     CanQuickShow: 1
   references:
     version: 2

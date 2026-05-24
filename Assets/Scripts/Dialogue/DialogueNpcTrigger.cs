@@ -69,6 +69,7 @@ namespace DreamSeeker.Dialogue
                 UIManager.Instance.HidePanel<GamePanel>();
                 //切换到对话镜头
                 CameraManager.Instance?.EnterDialogue(transform);
+                UpdateWorldTips();
 
                 for (int i = 0; i < m_dialogueInfoArray.Length; i++)
                 {
@@ -113,7 +114,7 @@ namespace DreamSeeker.Dialogue
                 return;
             }
 
-            _worldTips.SetActive(_isPlayerInsideZone && CanTriggerDialogue());
+            _worldTips.SetActive(_isPlayerInsideZone && CanTriggerDialogue() &&  !_isPlayerInsideDialogue);
         }
 
         /// <summary>

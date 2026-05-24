@@ -16,17 +16,28 @@ public class GamePanel : PanelBase_Mini
     [SerializeField] private Image _hpImage;
     [SerializeField] private GameObject _topBar;
     [SerializeField] private TextMeshProUGUI _topBarText;
-    
 
-    public override void OnHideFadedComplete()
+    //这里选择在Awake和OnDestroy中进行事件监听的订阅 是因为GamePanel需要在失活状态下也能响应面板更新
+    //比如血量更新、TopBar更新
+    private void Awake()
+    {
+        RemoveListener();
+        AddListener();
+    }
+
+    private void OnDestroy()
     {
         RemoveListener();
     }
 
+    public override void OnHideFadedComplete()
+    {
+        
+    }
+
     public override void OnShowFadePreComplete()
     {
-        RemoveListener();
-        AddListener();
+        
     }
 
     private void AddListener()

@@ -163,7 +163,7 @@ public class TaskPanel : PanelBase_Mini
         }
 
         //接受任务
-        EventCenter.Instance.EventTrigger(E_EventType.Quest_TrackChanged, this, new StringEventArgs(questId));
+        QuestManager.Instance.TrackQuest(questId);
 
         AudioManager.Instance.PlaySound(GameResources.Instance.UiButtonClip);
 

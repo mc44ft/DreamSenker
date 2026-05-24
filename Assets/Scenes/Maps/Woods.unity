@@ -6080,6 +6080,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1074367689}
     m_Modifications:
+    - target: {fileID: 97460979924175220, guid: 09dfcae4e5a6f421e8392a96e302b7e1, type: 3}
+      propertyPath: _hostileQuestDefinition
+      value: 
+      objectReference: {fileID: 11400000, guid: 9ead5e409ae704436873be2636276b2e, type: 2}
+    - target: {fileID: 97460979924175220, guid: 09dfcae4e5a6f421e8392a96e302b7e1, type: 3}
+      propertyPath: _hostileConditions.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 97460979924175220, guid: 09dfcae4e5a6f421e8392a96e302b7e1, type: 3}
+      propertyPath: _hostileConditions.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 194b15bf030044d758645a871209b945, type: 2}
     - target: {fileID: 2596702810372765358, guid: 09dfcae4e5a6f421e8392a96e302b7e1, type: 3}
       propertyPath: _patrolPoints.Array.data[0]
       value: 

@@ -22,15 +22,15 @@ MonoBehaviour:
   _dialogueDataArray:
   - SpeakerName: "\u65C1\u767D"
     Content: "\uFF08\u4F60\u770B\u7740\u9E7F\u957F\u8001\u53CC\u773C\u8FF7\u79BB\u7684\u6837\u5B50\uFF0C\u4EE5\u8FC5\u96F7\u4E0D\u53CA\u63A9\u8033\u4E4B\u52BF\uFF0C\u5C06\u9E7F\u957F\u8001\u6253\u6655\u4E86\uFF09"
-    DisplayType: 2
+    DisplayType: 1
     CanQuickShow: 1
   - SpeakerName: "\u65C1\u767D"
     Content: "\uFF08\u9E7F\u957F\u8001\u5E94\u58F0\u5012\u5730\uFF0C\u4F60\u770B\u5230\u9E7F\u957F\u8001\u7684\u8EAB\u540E\uFF0C\u7AD9\u7740\u4E00\u4E2A\u4ED9\u98CE\u9053\u9AA8\u7684\u8001\u4EBA\uFF0C\u6B63\u662F\u4F60\u521A\u521A\u51FB\u6740\u7684\u75AF\u8001\u5934\uFF01\uFF09"
-    DisplayType: 2
+    DisplayType: 1
     CanQuickShow: 1
   - SpeakerName: "\u65C1\u767D"
     Content: "\uFF08\u75AF\u8001\u5934\u4E00\u8138\u8BE7\u5F02\uFF0C\u4F3C\u4E4E\u60CA\u8BB6\u4E8E\u4F60\u7684\u4E3E\u52A8\uFF0C\u4E00\u9635\u6C89\u9ED8\u540E\uFF0C\u4ED6\u5F00\u53E3\u4E86\uFF09"
-    DisplayType: 2
+    DisplayType: 1
     CanQuickShow: 1
   - SpeakerName: "\u75AF\u8001\u5934"
     Content: "\u62FF\u6765"
@@ -38,15 +38,7 @@ MonoBehaviour:
     CanQuickShow: 1
   - SpeakerName: "\u65C1\u767D"
     Content: "\uFF08\u8FD9\u75AF\u8001\u5934\u7A81\u7136\u53D8\u5F97\u51B7\u51B0\u51B0\u7684\uFF0C\u4F60\u625B\u4E0D\u4F4F\u8FD9\u80A1\u538B\u529B\uFF0C\u53EA\u80FD\u628A\u5305\u88F9\u4EA4\u7ED9\u4E86\u4ED6\uFF09"
-    DisplayType: 2
-    CanQuickShow: 1
-  - SpeakerName: "\u65C1\u767D"
-    Content: "\uFF08\u75AF\u8001\u5934\u63A5\u8FC7\u5305\u88F9\uFF0C\u5C06\u94A5\u5319\u6254\u7ED9\u4E86\u4F60\uFF0C\u968F\u540E\u65BD\u5C55\u51FA\u9AD8\u6DF1\u83AB\u6D4B\u7684\u8F7B\u529F\uFF0C\u4E00\u8F6C\u773C\u4E0D\u89C1\u4E86\uFF09"
-    DisplayType: 2
-    CanQuickShow: 1
-  - SpeakerName: "\u65C1\u767D"
-    Content: "\uFF08\u770B\u6837\u5B50\uFF0C\u4ED6\u7684\u5B9E\u529B\u4F60\u671B\u5C18\u83AB\u53CA\uFF0C\u521A\u624D\u4E3A\u4EC0\u4E48\u6545\u610F\u653E\u6C34\uFF1F\u4ED6\u53C8\u4E3A\u4EC0\u4E48\u88C5\u50BB\u5145\u6123\uFF1F\u8FD9\u59CB\u7EC8\u4EE4\u4F60\u8FF7\u60D1\u4E0D\u89E3\uFF09"
-    DisplayType: 2
+    DisplayType: 1
     CanQuickShow: 1
   references:
     version: 2
@@ -65,6 +57,43 @@ MonoBehaviour:
         _portName: New Port
         _direction: 1
         _selfNodeID: c92c9228-ba88-4a15-8f7f-2b89f4264af4
+--- !u!114 &-6364657656042984226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69b069305fb647788fbf181ea823d1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _title: "\u4EA4\u7ED9\u75AF\u8001\u5934"
+  _uniqueID: 6dba8917-d1af-49ab-93e9-adb155efe0f4
+  _viewPosition: {x: 1755.0002, y: 188}
+  _inputPorts:
+  - rid: 1292939297693630472
+  _outputPorts:
+  - rid: 1292939297693630473
+  _questDefinition: {fileID: 11400000, guid: 9ead5e409ae704436873be2636276b2e, type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: 1292939297693630472
+      type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
+      data:
+        _uniqueID: e763e025-a86f-4d7e-8f31-7d8f03b6f86d
+        _portName: New Port
+        _direction: 0
+        _selfNodeID: 6dba8917-d1af-49ab-93e9-adb155efe0f4
+    - rid: 1292939297693630473
+      type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
+      data:
+        _uniqueID: e99b5f7e-ec7a-4d0b-a866-94e38817b318
+        _portName: New Port
+        _direction: 1
+        _selfNodeID: 6dba8917-d1af-49ab-93e9-adb155efe0f4
 --- !u!114 &-5068141087598204704
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,6 +130,88 @@ MonoBehaviour:
         _portName: New Port
         _direction: 1
         _selfNodeID: 7d4b3726-c4bd-406c-99a7-db3851f73c54
+--- !u!114 &-4660208312136538895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69b069305fb647788fbf181ea823d1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _title: "\u4EA4\u7ED9\u9E7F\u957F\u8001"
+  _uniqueID: 0589c3f5-1ce9-42b0-886d-c06337695dbe
+  _viewPosition: {x: 1317.3344, y: -104.55572}
+  _inputPorts:
+  - rid: 1292939297693630470
+  _outputPorts:
+  - rid: 1292939297693630471
+  _questDefinition: {fileID: 11400000, guid: 9ead5e409ae704436873be2636276b2e, type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: 1292939297693630470
+      type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
+      data:
+        _uniqueID: 58ca4afc-306c-40cf-8758-ad681f3c277a
+        _portName: New Port
+        _direction: 0
+        _selfNodeID: 0589c3f5-1ce9-42b0-886d-c06337695dbe
+    - rid: 1292939297693630471
+      type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
+      data:
+        _uniqueID: 23069025-391b-4f04-8f9b-6eb962194854
+        _portName: New Port
+        _direction: 1
+        _selfNodeID: 0589c3f5-1ce9-42b0-886d-c06337695dbe
+--- !u!114 &-1636778434652547720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c85e04da01cff9c46824fd4a230ec43c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _title: "\u4EA4\u7ED9\u75AF\u8001\u5934"
+  _uniqueID: e59de743-024c-4883-a2fe-22493b65064e
+  _viewPosition: {x: 2147.111, y: 188}
+  _inputPorts:
+  - rid: 1292939297693630474
+  _outputPorts:
+  - rid: 1292939297693630475
+  _dialogueDataArray:
+  - SpeakerName: "\u65C1\u767D"
+    Content: "\uFF08\u75AF\u8001\u5934\u63A5\u8FC7\u5305\u88F9\uFF0C\u5C06\u94A5\u5319\u6254\u7ED9\u4E86\u4F60\uFF0C\u968F\u540E\u65BD\u5C55\u51FA\u9AD8\u6DF1\u83AB\u6D4B\u7684\u8F7B\u529F\uFF0C\u4E00\u8F6C\u773C\u4E0D\u89C1\u4E86\uFF09"
+    DisplayType: 1
+    CanQuickShow: 1
+  - SpeakerName: "\u65C1\u767D"
+    Content: "\uFF08\u770B\u6837\u5B50\uFF0C\u4ED6\u7684\u5B9E\u529B\u4F60\u671B\u5C18\u83AB\u53CA\uFF0C\u521A\u624D\u4E3A\u4EC0\u4E48\u6545\u610F\u653E\u6C34\uFF1F\u4ED6\u53C8\u4E3A\u4EC0\u4E48\u88C5\u50BB\u5145\u6123\uFF1F\u8FD9\u59CB\u7EC8\u4EE4\u4F60\u8FF7\u60D1\u4E0D\u89E3\uFF09"
+    DisplayType: 1
+    CanQuickShow: 1
+  references:
+    version: 2
+    RefIds:
+    - rid: 1292939297693630474
+      type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
+      data:
+        _uniqueID: a256b42b-a525-4a8b-8246-6bdfd4b23b64
+        _portName: New Port
+        _direction: 0
+        _selfNodeID: e59de743-024c-4883-a2fe-22493b65064e
+    - rid: 1292939297693630475
+      type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
+      data:
+        _uniqueID: 4bd02dfa-d808-4608-99e5-7054b064d95a
+        _portName: New Port
+        _direction: 1
+        _selfNodeID: e59de743-024c-4883-a2fe-22493b65064e
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,6 +230,9 @@ MonoBehaviour:
   - {fileID: 2680438381945100469}
   - {fileID: 2622215864993566200}
   - {fileID: -7357639122610617911}
+  - {fileID: -4660208312136538895}
+  - {fileID: -6364657656042984226}
+  - {fileID: -1636778434652547720}
   _edges:
   - _uniqueID: 7c5897a4-766e-4111-b9cd-d18a87c5ed22
     _rootNodeID: 7d4b3726-c4bd-406c-99a7-db3851f73c54
@@ -130,16 +244,31 @@ MonoBehaviour:
     _rootPortID: a8eae455-369b-4607-a2e9-6a9c1c505e35
     _connectionNodeID: e559e167-aefa-4ca4-b173-511e10dcbbfc
     _connectionPortID: 9c7e0ded-7418-412d-8b98-17825d4eb2f6
-  - _uniqueID: bd5929a9-0bde-493e-8a82-39530a848e55
-    _rootNodeID: e559e167-aefa-4ca4-b173-511e10dcbbfc
-    _rootPortID: a95b8cb4-8331-4746-a343-bdbe2c7502cd
-    _connectionNodeID: a8111e79-b083-4866-93b0-e9a73a25f7ad
-    _connectionPortID: 05cbaa99-f354-46d7-a66b-a5b2f5059ff7
   - _uniqueID: 60b3e13e-c224-459e-982a-4c4824ac55d2
     _rootNodeID: e559e167-aefa-4ca4-b173-511e10dcbbfc
     _rootPortID: b30cfd8a-d6a4-4bb5-9046-2c494a53b072
     _connectionNodeID: c92c9228-ba88-4a15-8f7f-2b89f4264af4
     _connectionPortID: 2c7475ac-4f24-4d97-9b04-922ab7e4eb04
+  - _uniqueID: 4891c965-64b5-4859-a52f-36b156836b4f
+    _rootNodeID: e559e167-aefa-4ca4-b173-511e10dcbbfc
+    _rootPortID: a95b8cb4-8331-4746-a343-bdbe2c7502cd
+    _connectionNodeID: 0589c3f5-1ce9-42b0-886d-c06337695dbe
+    _connectionPortID: 58ca4afc-306c-40cf-8758-ad681f3c277a
+  - _uniqueID: 49091305-05ff-4011-9a9d-43036497b592
+    _rootNodeID: 0589c3f5-1ce9-42b0-886d-c06337695dbe
+    _rootPortID: 23069025-391b-4f04-8f9b-6eb962194854
+    _connectionNodeID: a8111e79-b083-4866-93b0-e9a73a25f7ad
+    _connectionPortID: 05cbaa99-f354-46d7-a66b-a5b2f5059ff7
+  - _uniqueID: e0e96337-3009-4e66-aa1f-a279932de7f2
+    _rootNodeID: c92c9228-ba88-4a15-8f7f-2b89f4264af4
+    _rootPortID: 07cbd541-ef67-4895-b949-8d565f2f090f
+    _connectionNodeID: 6dba8917-d1af-49ab-93e9-adb155efe0f4
+    _connectionPortID: e763e025-a86f-4d7e-8f31-7d8f03b6f86d
+  - _uniqueID: b0fbe209-2bca-490b-8d9e-45cba21030c2
+    _rootNodeID: 6dba8917-d1af-49ab-93e9-adb155efe0f4
+    _rootPortID: e99b5f7e-ec7a-4d0b-a866-94e38817b318
+    _connectionNodeID: e59de743-024c-4883-a2fe-22493b65064e
+    _connectionPortID: a256b42b-a525-4a8b-8246-6bdfd4b23b64
   _nodeEntry: {fileID: -5068141087598204704}
 --- !u!114 &2622215864993566200
 MonoBehaviour:
@@ -155,7 +284,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _title: "\u4EA4\u7ED9\u9E7F\u957F\u8001"
   _uniqueID: a8111e79-b083-4866-93b0-e9a73a25f7ad
-  _viewPosition: {x: 1339.5, y: -127.6251}
+  _viewPosition: {x: 1747.1676, y: -110.63874}
   _inputPorts:
   - rid: 1292939278686093367
   _outputPorts:
@@ -171,15 +300,15 @@ MonoBehaviour:
     CanQuickShow: 1
   - SpeakerName: "\u65C1\u767D"
     Content: "\uFF08\u9E7F\u957F\u8001\u4E00\u58F0\u95F7\u54FC\uFF0C\u5012\u5728\u4E86\u5730\u4E0A\uFF0C\u8EAB\u540E\u51FA\u73B0\u4E86\u4E00\u4E2A\u8001\u4EBA\u7684\u8EAB\u5F71\uFF0C\u5C45\u7136\u662F\u4F60\u521A\u521A\u6740\u6B7B\u7684\u75AF\u8001\u5934\uFF01\uFF09"
-    DisplayType: 2
+    DisplayType: 1
     CanQuickShow: 1
   - SpeakerName: "\u65C1\u767D"
     Content: "\uFF08\u75AF\u8001\u5934\u4E0D\u5C51\u7684\u770B\u4E86\u4F60\u4E00\u773C\uFF0C\u6361\u8D77\u5730\u4E0A\u7684\u5305\u88F9\uFF0C\u65BD\u5C55\u51FA\u60CA\u4EBA\u7684\u8F7B\u529F\u79BB\u5F00\u4E86\uFF09"
-    DisplayType: 2
+    DisplayType: 1
     CanQuickShow: 1
   - SpeakerName: "\u65C1\u767D"
     Content: "\uFF08\u770B\u6837\u5B50\uFF0C\u4ED6\u7684\u5B9E\u529B\u4F60\u671B\u5C18\u83AB\u53CA\uFF0C\u521A\u624D\u4E3A\u4EC0\u4E48\u6545\u610F\u653E\u6C34\uFF1F\u4ED6\u53C8\u4E3A\u4EC0\u4E48\u88C5\u50BB\u5145\u6123\uFF1F\u8FD9\u59CB\u7EC8\u4EE4\u4F60\u8FF7\u60D1\u4E0D\u89E3\uFF09"
-    DisplayType: 2
+    DisplayType: 1
     CanQuickShow: 1
   references:
     version: 2
@@ -278,7 +407,7 @@ MonoBehaviour:
     CanQuickShow: 1
   - SpeakerName: "\u65C1\u767D"
     Content: "\uFF08\u9E7F\u957F\u8001\u8D2A\u5A6A\u7684\u770B\u7740\u4F60\u624B\u91CC\u7684\u5305\u88F9\uFF0C\u4F3C\u4E4E\u8FF7\u5931\u4E86\u7406\u667A\uFF0C\u770B\u7740\u6655\u6655\u4E4E\u4E4E\u7684\uFF09"
-    DisplayType: 2
+    DisplayType: 1
     CanQuickShow: 1
   - SpeakerName: "\u9E7F\u957F\u8001"
     Content: "\u5FEB\u628A\u4ED6\u7ED9\u6211"

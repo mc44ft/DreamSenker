@@ -80,7 +80,7 @@ MonoBehaviour:
   _dialogueDataArray:
   - SpeakerName: "\u65C1\u767D"
     Content: "\uFF08\u9E7F\u957F\u8001\u4E00\u8138\u5F97\u610F\u7684\u770B\u7740\u4F60\uFF09"
-    DisplayType: 2
+    DisplayType: 1
     CanQuickShow: 1
   references:
     version: 2
