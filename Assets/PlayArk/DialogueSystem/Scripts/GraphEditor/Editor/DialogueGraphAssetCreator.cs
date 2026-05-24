@@ -10,7 +10,13 @@ namespace PlayArk.DialogueSystem.Editor
         //覆盖Unity默认的CreateAssetMenu 自己书写创建资源的流程
         //因为本资源比较特殊 需要在创建时添加默认的子资源
         //这样的实现思路 会跳过Unity默认创建资源时的手动命名阶段
-        [MenuItem("Assets/Create/PlayArk Assets/GraphCore/DialogueGraph")]
+        
+        //第二个参数：用于表示这个 MenuItem 方法是不是“校验函数”
+        //false：表示该方法是 该选项的直接执行方法
+        //true：表示该方法是 该选项的校验函数 需要返回一个bool值 来检验该选项是否可用
+        
+        //第三个参数：用来表示该选项再右键菜单中的层级 数值越小越靠前，在更高父级菜单中，Unity会按照子级菜单中的层级自动排序
+        [MenuItem("Assets/Create/PlayArk Assets/GraphCore/DialogueGraph", false, -999)]
         private static void CreateDialogueGraphAsset()
         {
             string folderPath = GetSelectedFolderPath();

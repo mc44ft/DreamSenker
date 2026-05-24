@@ -7,7 +7,7 @@ namespace PlayArk.StateMachine.Editor
     public static class StateMachineAssetCreator
     {
         //覆盖Unity默认的CreateAssetMenu，避免在序列化回调中创建默认状态子资源。
-        [MenuItem("Assets/Create/PlayArk Assets/GraphCore/State Machine")]
+        [MenuItem("Assets/Create/PlayArk Assets/GraphCore/State Machine", false, -998)]
         private static void CreateStateMachineAsset()
         {
             string folderPath = GetSelectedFolderPath();

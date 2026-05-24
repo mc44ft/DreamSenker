@@ -1,11 +1,10 @@
 ﻿using DialogueSystem;
-using DialogueSystem.Data;
 using PlayArk.DialogueSystem.Data;
 using UnityEngine;
 
 using DreamSeeker.CameraSystem;
+using DreamSeeker.Characters;
 using DreamSeeker.Conditions;
-using DreamSeeker.Data.Runtime;
 using DreamSeeker.Managers;
 using DreamSeeker.Shared;
 using DreamSeeker.UI;
@@ -26,10 +25,17 @@ namespace DreamSeeker.Dialogue
 
         private bool _isPlayerInsideZone = false;//玩家是否进入了检测区域
         private bool _isPlayerInsideDialogue = false;//玩家是否在对话当中 防止多次按W键
+        private NpcModeController _npcModeController;//可选模式控制器，纯对话 NPC 可以不配置
+
+        private void Awake()
+        {
+            // 可选缓存，兼容没有模式控制器的纯对话 NPC。
+            _npcModeController = GetComponentInParent<NpcModeController>();
+        }
 
         private void Start()
         {
-            _worldTips.SetActive(false);
+            UpdateWorldTips();
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -37,7 +43,7 @@ namespace DreamSeeker.Dialogue
             if (collision.gameObject.CompareTag(Settings.PlayerTag))
             {
                 _isPlayerInsideZone = true;
-                _worldTips.SetActive(true);
+                UpdateWorldTips();
             }
         }
         private void OnTriggerExit2D(Collider2D collision)
@@ -45,12 +51,13 @@ namespace DreamSeeker.Dialogue
             if (collision.gameObject.CompareTag(Settings.PlayerTag))
             {
                 _isPlayerInsideZone = false;
-                _worldTips.SetActive(false);
+                UpdateWorldTips();
             }
         }
         private void Update()
         {
-            if (_isPlayerInsideZone && InputManager.Instance.UpButtonDown && !_isPlayerInsideDialogue)
+            UpdateWorldTips();
+            if (_isPlayerInsideZone && CanTriggerDialogue() && InputManager.Instance.UpButtonDown && !_isPlayerInsideDialogue)
             {
                 //玩家进入对话状态
                 _isPlayerInsideDialogue = true;
@@ -82,13 +89,33 @@ namespace DreamSeeker.Dialogue
                         InputManager.Instance.SetPlayerInputAction(true);
                         //恢复其他UI交互
                         InputManager.Instance.SetUiInputAction(true);
-                        // //保存对话过程中产生的运行时数据
-                        // GameManager.Instance.SaveDataAll();
                     });
                     return;
                 }
             }
         }
+
+        /// <summary>
+        /// 判断当前 NPC 是否允许触发对话。
+        /// </summary>
+        private bool CanTriggerDialogue()
+        {
+            return _npcModeController == null || _npcModeController.IsFriendly;
+        }
+
+        /// <summary>
+        /// 根据玩家范围和 NPC 模式刷新世界提示显隐。
+        /// </summary>
+        private void UpdateWorldTips()
+        {
+            if (_worldTips == null)
+            {
+                return;
+            }
+
+            _worldTips.SetActive(_isPlayerInsideZone && CanTriggerDialogue());
+        }
+
         /// <summary>
         /// 检测当前对话配置的所有触发条件是否满足。
         /// </summary>

@@ -20,12 +20,17 @@ public class DamageableHealth : BaseComponent<IHealthConfig>, IDamageable
 {
     [Tooltip("受击后的无敌时间")]
     [SerializeField] private float _invulnerableTime = 0.5f;
+    [Tooltip("是否限制最低血量，默认关闭以保持普通死亡流程")]
+    [SerializeField] private bool _limitMinHealth = false;
+    [Tooltip("开启最低血量限制时，血量最低降到该值")]
+    [SerializeField] private int _minHealth = 1;
 
     public int MaxHealthAmount => _health.MaxHealthAmount;
     public int CurrentHealthAmount => _health.CurrentHealthAmount;
 
     private Health _health;
     private IHealthConfig _healthConfig;
+    private NpcModeController _npcModeController;
     private Vector2 _getHitDirection;
     private float _invulnerableTimer;
     private readonly LazyEvent _onDamageTaken = new LazyEvent();
@@ -35,6 +40,8 @@ public class DamageableHealth : BaseComponent<IHealthConfig>, IDamageable
     {
         _health = GetComponent<Health>();
         _rb = GetComponent<Rigidbody2D>();
+        // 可选缓存，玩家、Boss、纯战斗敌人可以没有 NpcModeController。
+        _npcModeController = GetComponent<NpcModeController>();
     }
 
     private void Update()
@@ -49,6 +56,12 @@ public class DamageableHealth : BaseComponent<IHealthConfig>, IDamageable
 
     public void ApplyDamage(int damage)
     {
+        if (ShouldLimitMinHealth())
+        {
+            _health.ApplyDamageWithMinHealth(damage, _minHealth);
+            return;
+        }
+
         _health.ApplyDamage(damage);
     }
 
@@ -90,11 +103,45 @@ public class DamageableHealth : BaseComponent<IHealthConfig>, IDamageable
         if (_invulnerableTimer > 0)
             return;
 
+        // 友好状态被攻击时，条件不满足则本次攻击完全无效。
+        if (_npcModeController != null && _npcModeController.IsFriendly && !_npcModeController.TrySwitchToHostile())
+        {
+            return;
+        }
+
         _onDamageTaken.StratInvoke();
         _invulnerableTimer = _invulnerableTime;
 
         _getHitDirection = attackDirection;
         ApplyDamage(damage);
+
+        TrySwitchToFriendlyWhenReachMinHealth();
+    }
+
+    /// <summary>
+    /// 判断当前扣血是否需要限制最低血量。
+    /// </summary>
+    private bool ShouldLimitMinHealth()
+    {
+        return _limitMinHealth && _minHealth > 0;
+    }
+
+    /// <summary>
+    /// 血量到达最低值且对象仍存活时，尝试从敌对切回友好。
+    /// </summary>
+    private void TrySwitchToFriendlyWhenReachMinHealth()
+    {
+        if (_npcModeController == null || !_npcModeController.IsHostile)
+        {
+            return;
+        }
+
+        if (!ShouldLimitMinHealth() || _health.IsDead || _health.CurrentHealthAmount > _minHealth)
+        {
+            return;
+        }
+
+        _npcModeController.TrySwitchToFriendlyAfterDefeat();
     }
 
     public Vector2 GetPosition()

@@ -55,7 +55,7 @@ public class OldManController : StateMachineController
     /// <summary>
     /// 绘制AI检测范围可视化
     /// </summary>
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         if (_config == null)
             return;

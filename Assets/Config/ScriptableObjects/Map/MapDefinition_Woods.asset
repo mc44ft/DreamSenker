@@ -18,4 +18,4 @@ MonoBehaviour:
   <FollowCameraOrthoSize>k__BackingField: 3
   <FollowCameraBossOrthoSize>k__BackingField: 6
   <DialogueCameraOrthoSize>k__BackingField: 3
-  <DialogueCameraOffsetY>k__BackingField: 0
+  <DialogueCameraOffsetY>k__BackingField: 1.8

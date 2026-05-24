@@ -30,6 +30,16 @@ public class Health : MonoBehaviour
             Death();
         }
     }
+
+    /// <summary>
+    /// 扣血但不低于指定最低血量，用于特殊 NPC 战败存活。
+    /// </summary>
+    public void ApplyDamageWithMinHealth(int damage, int minHealth)
+    {
+        CurrentHealthAmount = Mathf.Max(CurrentHealthAmount - damage, minHealth);
+        NotifyHealthChanged();
+    }
+
     public void RestoreHealth(int healthAmount)
     {
         CurrentHealthAmount = Mathf.Min(CurrentHealthAmount + healthAmount, MaxHealthAmount);

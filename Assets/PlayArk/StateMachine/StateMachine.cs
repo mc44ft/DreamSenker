@@ -32,14 +32,33 @@ namespace PlayArk.StateMachine
             TransitionToState(_entryState.Transitions[0].ConnectionNodeID);
         }
 
+        /// <summary>
+        /// 状态机退出入口，用于停止驱动前清理当前状态副作用。
+        /// </summary>
+        public void MachineExit()
+        {
+            _currentState?.Exit();
+            _currentState = null;
+        }
+
         public void LogicUpdate()
         {
+            if (_currentState == null)
+            {
+                return;
+            }
+
             _currentState.LogicUpdate();
             _anyState.LogicUpdate();
         }
 
         public void PhysicsUpdate()
         {
+            if (_currentState == null)
+            {
+                return;
+            }
+
             _currentState.PhysicsUpdate();
         }
 

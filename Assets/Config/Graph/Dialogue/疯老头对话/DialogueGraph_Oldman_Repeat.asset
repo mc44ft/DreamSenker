@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7501699296135352827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5237d5f234834f74bb5c656ab41bb68a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _title: Entry
+  _uniqueID: 058ba817-a210-4900-92e5-79226058f344
+  _viewPosition: {x: 0, y: 0}
+  _inputPorts:
+  - rid: 1292939297693630466
+  _outputPorts:
+  - rid: 1292939297693630467
+  references:
+    version: 2
+    RefIds:
+    - rid: 1292939297693630466
+      type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
+      data:
+        _uniqueID: 7a029bfe-d19e-4099-a639-2cddf9bf14a5
+        _portName: New Port
+        _direction: 0
+        _selfNodeID: 058ba817-a210-4900-92e5-79226058f344
+    - rid: 1292939297693630467
+      type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
+      data:
+        _uniqueID: ce1c0f38-6c8b-438a-93e3-be69eda9ca82
+        _portName: New Port
+        _direction: 1
+        _selfNodeID: 058ba817-a210-4900-92e5-79226058f344
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d4fb09544e87d94d9c39fbdd0a65bbc, type: 3}
+  m_Name: DialogueGraph_Oldman_Repeat
+  m_EditorClassIdentifier: 
+  _nodes:
+  - {fileID: -7501699296135352827}
+  - {fileID: 3083353046414303642}
+  _edges:
+  - _uniqueID: f7b2f38e-9180-4a80-bf51-bccb914ae11c
+    _rootNodeID: 058ba817-a210-4900-92e5-79226058f344
+    _rootPortID: ce1c0f38-6c8b-438a-93e3-be69eda9ca82
+    _connectionNodeID: 3e321ae5-2bb6-4763-b57f-208d527a8c4a
+    _connectionPortID: 91fdc6b4-4bc9-4815-ab7d-2879b8b16cd6
+  _nodeEntry: {fileID: -7501699296135352827}
+--- !u!114 &3083353046414303642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c85e04da01cff9c46824fd4a230ec43c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _title: Normal
+  _uniqueID: 3e321ae5-2bb6-4763-b57f-208d527a8c4a
+  _viewPosition: {x: 443.24988, y: 7.9999866}
+  _inputPorts:
+  - rid: 1292939297693630468
+  _outputPorts:
+  - rid: 1292939297693630469
+  _dialogueDataArray:
+  - SpeakerName: "\u75AF\u8001\u5934"
+    Content: "\u5475\u5475\u5475\u5475\u5475...<1>\u55DD"
+    DisplayType: 2
+    CanQuickShow: 1
+  references:
+    version: 2
+    RefIds:
+    - rid: 1292939297693630468
+      type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
+      data:
+        _uniqueID: 91fdc6b4-4bc9-4815-ab7d-2879b8b16cd6
+        _portName: New Port
+        _direction: 0
+        _selfNodeID: 3e321ae5-2bb6-4763-b57f-208d527a8c4a
+    - rid: 1292939297693630469
+      type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
+      data:
+        _uniqueID: d4c07b92-9d64-448b-89cb-62f583fe39d2
+        _portName: New Port
+        _direction: 1
+        _selfNodeID: 3e321ae5-2bb6-4763-b57f-208d527a8c4a

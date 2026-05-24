@@ -78,7 +78,7 @@ public class Attacker : BaseComponent<IAttackConfig>
         return null;
     }
 #if UNITY_EDITOR
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         if (_attackConfig == null)
             return;
