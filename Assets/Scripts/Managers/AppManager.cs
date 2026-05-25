@@ -4,8 +4,11 @@ using UnityEngine;
 
 namespace DreamSeeker.Managers
 {
-public class AppManager : SingletonMono<AppManager>
-{
-    
-}
+    /// <summary>
+    /// 该类仅用于挂载到游戏对象上，使得整个对象及其子对象都DontDestroy
+    /// </summary>
+    public class AppManager : SingletonMono<AppManager>
+    {
+        
+    }
 }
