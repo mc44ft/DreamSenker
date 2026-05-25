@@ -39,6 +39,7 @@ public class GameManager : SingletonMono<GameManager>
     //------------------------ public Parameter ---------------------------------
     public PlayerController Player { get; private set; }
     //------------------------ Private Parameter ---------------------------------
+    private const string MainMenuSceneName = "Select";//主界面场景名，退出当前游戏运行态时回到这里
     private const float DefaultFollowCameraOrthoSize = 5f;//非地图场景默认跟随相机正交视野，开始UI界面是这个值
     private const string CameraConfinerWallName = "Wall";//每张地图中用于限制 Follow 虚拟相机边界的固定物体名
     private CinemachineImpulseSource _impulseSource;//用于处理镜头震动的相机配置
@@ -310,6 +311,51 @@ public class GameManager : SingletonMono<GameManager>
     #endregion
 
     #region Game Function
+    /// <summary>
+    /// 退出当前游戏运行态并返回主界面。按钮只需要调用这个方法，不要自己直接切场景。
+    /// </summary>
+    /// <param name="saveBeforeReturn">返回主界面前是否保存当前运行数据</param>
+    public void RequestReturnToMainMenu(bool saveBeforeReturn = true)
+    {
+        //返回主界面前恢复时间流速，避免暂停菜单导致后续淡入淡出或 UI 状态异常
+        Time.timeScale = 1f;
+
+        //停止当前地图音乐，避免回到主界面后残留战斗或地图音轨
+        AudioManager.Instance.StopMusic();
+
+        //清理玩家和依赖玩家的镜像表现
+        if (Player != null)
+        {
+            Destroy(Player.gameObject);
+            Player = null;
+            _playerMirrorEffect = null;
+        }
+
+        //清理地图运行时缓存，避免下次进入游戏复用旧场景连接点或出生点
+        _mapFlowController = null;
+        SpawnPointManager.Instance.ClearSpawnPointDict();
+        MapLinkPointManager.Instance.Clear();
+        PoolManager.Instance.Clear();
+
+        //退出 Boss 相机状态，防止回主界面后保留 Boss 镜头参数
+        CameraManager.Instance?.ExitBossFight();
+
+        //隐藏游戏内常见面板，主界面面板在切场景完成后重新显示
+        UIManager.Instance.HidePanel<GamePanel>();
+        UIManager.Instance.HidePanel<MainMenuPanel>();
+        UIManager.Instance.HidePanel<TaskPanel>();
+        UIManager.Instance.HidePanel<UsePanel>();
+        UIManager.Instance.HidePanel<RestoreHealthPanel>();
+        UIManager.Instance.HidePanel<BounsChoosePanel>();
+        UIManager.Instance.HidePanel<DialogueBoxPanel>();
+
+        //统一走过场切换，不直接 SceneManager.LoadScene
+        SceneTransition.Instance.LoadScene(MainMenuSceneName, null, () =>
+        {
+            UIManager.Instance.ShowPanel<BeginPanel>(E_UILayer.Botton);
+        });
+    }
+
     public void DoHitStop(float duration)
     {
         StartCoroutine(HitStopRoutine());

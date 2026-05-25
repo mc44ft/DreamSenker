@@ -73,7 +73,7 @@ public class SettingsPage : MonoBehaviour
     {
         AudioManager.Instance.PlaySound(GameResources.Instance.UiButtonClip);
 
-        Application.Quit();
+        GameManager.Instance.RequestReturnToMainMenu();
     }
     
 }
