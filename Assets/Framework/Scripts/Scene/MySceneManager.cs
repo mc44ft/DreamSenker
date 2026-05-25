@@ -64,9 +64,9 @@ public class MySceneManager : BaseManager<MySceneManager>
     {
         while (!operation.isDone)
         {
-            EventCenter.Instance.EventTrigger(E_EventType.SceneLoadProgress, this, new SceneEventArgs(operation.progress));
+            EventCenter.Instance.EventTrigger(EEventType.SceneLoadProgress, this, new SceneEventArgs(operation.progress));
             yield return null;
         }
-        EventCenter.Instance.EventTrigger(E_EventType.SceneLoadOver, this, new EmptyEventArgs());
+        EventCenter.Instance.EventTrigger(EEventType.SceneLoadOver, this, new EmptyEventArgs());
     }
 }

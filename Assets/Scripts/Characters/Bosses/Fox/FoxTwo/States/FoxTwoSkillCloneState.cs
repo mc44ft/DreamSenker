@@ -27,7 +27,7 @@ public class FoxTwoSkillCloneState : StateBase<FoxTwoController>
         _audioSource.clip = GameResources.Instance.FoxTwoRestoreHealthClip;
         _audioSource.Play();
 
-        EventCenter.Instance.AddEventListener<GameBossDeadEventArgs>(E_EventType.Game_BossDead, OnBossDead);
+        EventCenter.Instance.AddEventListener<GameBossDeadEventArgs>(EEventType.Game_BossDead, OnBossDead);
 
         Debug.Log("进入克隆状态");
         _controller.StartCoroutine(CloneRoutine());
@@ -116,7 +116,7 @@ public class FoxTwoSkillCloneState : StateBase<FoxTwoController>
     }
     public override void Exit()
     {
-        EventCenter.Instance.RemoveEventListener<GameBossDeadEventArgs>(E_EventType.Game_BossDead, OnBossDead);
+        EventCenter.Instance.RemoveEventListener<GameBossDeadEventArgs>(EEventType.Game_BossDead, OnBossDead);
         //恢复Boss状态
         _controller.transform.rotation = Quaternion.identity;
         _controller.Rigidbody.bodyType = RigidbodyType2D.Kinematic;

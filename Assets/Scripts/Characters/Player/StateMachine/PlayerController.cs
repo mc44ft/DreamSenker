@@ -82,7 +82,7 @@ public class PlayerController : StateMachineController, IAction
     private void OnHealthChanged(int maxHealth, int currentHealth)
     {
         EventCenter.Instance.EventTrigger(
-            E_EventType.Player_HealthUpdate,
+            EEventType.Player_HealthUpdate,
             this,
             new PlayerHealthUpdateEventArgs(maxHealth, currentHealth));
     }

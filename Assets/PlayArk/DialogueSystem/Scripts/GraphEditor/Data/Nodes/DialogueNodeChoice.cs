@@ -28,7 +28,7 @@ namespace PlayArk.DialogueSystem.Data.Nodes
             //初始化并显示选项框
             DialogueManager.Instance.ShowDialogueChoicesSection(choiceDatas, _defaultSelectIndex);
             //获取玩家选择的选项索引
-            EventCenter.Instance.AddEventListener<IntEventArgs>(E_EventType.Dialogue_ChoiceClick, OnChoiceClick);
+            EventCenter.Instance.AddEventListener<IntEventArgs>(EEventType.Dialogue_ChoiceClick, OnChoiceClick);
         }
         
         private void OnChoiceClick(object eventSender, IntEventArgs args)
@@ -44,7 +44,7 @@ namespace PlayArk.DialogueSystem.Data.Nodes
 
         protected override void Finished()
         {
-            EventCenter.Instance.RemoveEventListener<IntEventArgs>(E_EventType.Dialogue_ChoiceClick, OnChoiceClick);
+            EventCenter.Instance.RemoveEventListener<IntEventArgs>(EEventType.Dialogue_ChoiceClick, OnChoiceClick);
             DialogueManager.Instance.HideDialogueChoicesSection();
         }
         //只有Choice选项节点是特殊的端口类型 所以这里特殊处理

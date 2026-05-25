@@ -59,13 +59,13 @@ public class GameManager : SingletonMono<GameManager>
     #region Game Event
     private void OnEnable()
     {
-        EventCenter.Instance.AddEventListener<GameBossDeadEventArgs>(E_EventType.Game_BossDead, OnGameBossDead);
+        EventCenter.Instance.AddEventListener<GameBossDeadEventArgs>(EEventType.Game_BossDead, OnGameBossDead);
         SceneManager.activeSceneChanged += OnActiveSceneChanged;
     }
 
     private void OnDisable()
     {
-        EventCenter.Instance.RemoveEventListener<GameBossDeadEventArgs>(E_EventType.Game_BossDead, OnGameBossDead);
+        EventCenter.Instance.RemoveEventListener<GameBossDeadEventArgs>(EEventType.Game_BossDead, OnGameBossDead);
         SceneManager.activeSceneChanged -= OnActiveSceneChanged;
     }
 
@@ -266,13 +266,13 @@ public class GameManager : SingletonMono<GameManager>
                 UIManager.Instance.ShowPanel<GamePanel>(E_UILayer.Botton, null, (panel) =>
                 {
                     EventCenter.Instance.EventTrigger(
-                        E_EventType.Player_HealthUpdate,
+                        EEventType.Player_HealthUpdate,
                         this,
                         new PlayerHealthUpdateEventArgs(Player.DamageableHealth.MaxHealthAmount, Player.DamageableHealth.CurrentHealthAmount));
                     if (!string.IsNullOrEmpty(GameSaveData.CurrentTrackQuestID))
                     {
                         EventCenter.Instance.EventTrigger(
-                            E_EventType.Quest_TrackChanged, 
+                            EEventType.Quest_TrackChanged, 
                             this, 
                             new StringEventArgs(GameSaveData.CurrentTrackQuestID));
                     }

@@ -32,7 +32,7 @@ public class FoxTwoDeathState : StateBase<FoxTwoController>
 
         //宣告死亡
         EventCenter.Instance.EventTrigger(
-                E_EventType.Game_BossDead,
+                EEventType.Game_BossDead,
                 this,
                 new GameBossDeadEventArgs(EBossType.FoxTwo, _controller.gameObject));
 

@@ -104,7 +104,7 @@ public class QuestManager : BaseManager<QuestManager>
         if (TryGetQuestDefinitionOrLog(questId, out QuestDefinitionSO quest))
         {
             GameManager.Instance.GameSaveData.CurrentTrackQuestID = questId;
-            EventCenter.Instance.EventTrigger(E_EventType.Quest_TrackChanged, this,  new StringEventArgs(questId));
+            EventCenter.Instance.EventTrigger(EEventType.Quest_TrackChanged, this,  new StringEventArgs(questId));
         }
     }
     /// <summary>

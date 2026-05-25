@@ -42,14 +42,14 @@ public class GamePanel : PanelBase_Mini
 
     private void AddListener()
     {
-        EventCenter.Instance.AddEventListener<PlayerHealthUpdateEventArgs>(E_EventType.Player_HealthUpdate, OnPlayerGetHit);
-        EventCenter.Instance.AddEventListener<StringEventArgs>(E_EventType.Quest_TrackChanged, OnTrackChanged);
+        EventCenter.Instance.AddEventListener<PlayerHealthUpdateEventArgs>(EEventType.Player_HealthUpdate, OnPlayerGetHit);
+        EventCenter.Instance.AddEventListener<StringEventArgs>(EEventType.Quest_TrackChanged, OnTrackChanged);
     }
     
     private void RemoveListener()
     {
-        EventCenter.Instance.RemoveEventListener<PlayerHealthUpdateEventArgs>(E_EventType.Player_HealthUpdate, OnPlayerGetHit);
-        EventCenter.Instance.RemoveEventListener<StringEventArgs>(E_EventType.Quest_TrackChanged, OnTrackChanged);
+        EventCenter.Instance.RemoveEventListener<PlayerHealthUpdateEventArgs>(EEventType.Player_HealthUpdate, OnPlayerGetHit);
+        EventCenter.Instance.RemoveEventListener<StringEventArgs>(EEventType.Quest_TrackChanged, OnTrackChanged);
     }
     
     private void OnPlayerGetHit(object eventSender, PlayerHealthUpdateEventArgs args)

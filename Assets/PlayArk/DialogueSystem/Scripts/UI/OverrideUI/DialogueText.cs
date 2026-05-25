@@ -211,7 +211,7 @@ namespace PlayArk.DialogueSystem.Runtime
         private void OnPrintShowed()
         {
             IsPrintShowed = true;
-            EventCenter.Instance.EventTrigger(E_EventType.Dialogue_PrintShowed, this, new EmptyEventArgs());
+            EventCenter.Instance.EventTrigger(EEventType.Dialogue_PrintShowed, this, new EmptyEventArgs());
         }
         public enum E_DisplayType
         {

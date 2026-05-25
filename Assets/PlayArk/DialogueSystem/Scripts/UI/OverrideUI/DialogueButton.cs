@@ -66,7 +66,7 @@ namespace PlayArk.DialogueSystem.Runtime
         /// </summary>
         private void OnConfirm()
         {
-            EventCenter.Instance.EventTrigger(E_EventType.Dialogue_ChoiceClick, this, new IntEventArgs() { Value = _index });
+            EventCenter.Instance.EventTrigger(EEventType.Dialogue_ChoiceClick, this, new IntEventArgs() { Value = _index });
         }
     }
 

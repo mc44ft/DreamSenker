@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public class InputMgr : BaseManager<InputMgr>
 {
-    private Dictionary<E_EventType, InputInfo> _inputDict = new Dictionary<E_EventType, InputInfo>();
+    private Dictionary<EEventType, InputInfo> _inputDict = new Dictionary<EEventType, InputInfo>();
 
     /// <summary>
     /// 整体监测开关
@@ -155,29 +155,29 @@ public class InputMgr : BaseManager<InputMgr>
     /// <summary>
     /// 初始化或更改键盘键位
     /// </summary>
-    /// <param name="eventType">绑定的行为事件</param>
+    /// <param name="EventType">绑定的行为事件</param>
     /// <param name="inputType">输入操作类型</param>
     /// <param name="keyCode">键位</param>
-    public void ChangeKeyboardInfo(E_EventType eventType, InputInfo.E_InputType inputType, KeyCode keyCode)
+    public void ChangeKeyboardInfo(EEventType EventType, InputInfo.E_InputType inputType, KeyCode keyCode)
     {
-        _inputDict[eventType] = new InputInfo(inputType, keyCode);
+        _inputDict[EventType] = new InputInfo(inputType, keyCode);
     }
 
     /// <summary>
     /// 初始化或更改鼠标键位
     /// </summary>
-    /// <param name="eventType">绑定的行为事件</param>
+    /// <param name="EventType">绑定的行为事件</param>
     /// <param name="inputType">输入操作类型</param>
     /// <param name="mouseID">鼠标键位ID</param>
-    public void ChangeMouseInfo(E_EventType eventType, InputInfo.E_InputType inputType, int mouseID)
+    public void ChangeMouseInfo(EEventType EventType, InputInfo.E_InputType inputType, int mouseID)
     {
-        _inputDict[eventType] = new InputInfo(inputType, mouseID);
+        _inputDict[EventType] = new InputInfo(inputType, mouseID);
     }
 
-    public void RemoveInputInfo(E_EventType eventType)
+    public void RemoveInputInfo(EEventType EventType)
     {
-        if (_inputDict.ContainsKey(eventType))
-            _inputDict.Remove(eventType);
+        if (_inputDict.ContainsKey(EventType))
+            _inputDict.Remove(EventType);
     }
 
     private void OnAxis()
@@ -193,6 +193,6 @@ public class InputMgr : BaseManager<InputMgr>
         _inputEventArgs.MouseScrollWheelValue = Input.GetAxis("Mouse ScrollWheel");
 
         //分发总事件
-        EventCenter.Instance.EventTrigger(E_EventType.Input_Axis, this, _inputEventArgs);
+        EventCenter.Instance.EventTrigger(EEventType.Input_Axis, this, _inputEventArgs);
     }
 }

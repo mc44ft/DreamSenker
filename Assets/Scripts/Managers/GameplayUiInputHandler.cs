@@ -11,11 +11,11 @@ public class GameplayUiInputHandler : MonoBehaviour
 {
     private void OnEnable()
     {
-        EventCenter.Instance.AddEventListener<EmptyEventArgs>(E_EventType.InputUI_MainMenuPanel, OnMainMenuPanel);
+        EventCenter.Instance.AddEventListener<EmptyEventArgs>(EEventType.InputUI_MainMenuPanel, OnMainMenuPanel);
     }
     private void OnDisable()
     {
-        EventCenter.Instance.RemoveEventListener<EmptyEventArgs>(E_EventType.InputUI_MainMenuPanel, OnMainMenuPanel);
+        EventCenter.Instance.RemoveEventListener<EmptyEventArgs>(EEventType.InputUI_MainMenuPanel, OnMainMenuPanel);
     }
     
 

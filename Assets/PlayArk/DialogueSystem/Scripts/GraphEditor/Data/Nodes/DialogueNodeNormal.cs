@@ -24,10 +24,10 @@ namespace PlayArk.DialogueSystem.Data.Nodes
         protected override void OnExecute()
         {
             //在节点执行时 开启事件监听
-            EventCenter.Instance.AddEventListener<EmptyEventArgs>(E_EventType.Dialogue_ContentNext, OnTextNext);
+            EventCenter.Instance.AddEventListener<EmptyEventArgs>(EEventType.Dialogue_ContentNext, OnTextNext);
             _index = 0;
             //自己先触发一次 直接处理第一句话
-            EventCenter.Instance.EventTrigger(E_EventType.Dialogue_ContentNext, this, new EmptyEventArgs());
+            EventCenter.Instance.EventTrigger(EEventType.Dialogue_ContentNext, this, new EmptyEventArgs());
         }
         private void OnTextNext(object eventCenter, EmptyEventArgs args)
         {
@@ -42,7 +42,7 @@ namespace PlayArk.DialogueSystem.Data.Nodes
         protected override void Finished()
         {
             //节点完成后 结束事件监听
-            EventCenter.Instance.RemoveEventListener<EmptyEventArgs>(E_EventType.Dialogue_ContentNext, OnTextNext);
+            EventCenter.Instance.RemoveEventListener<EmptyEventArgs>(EEventType.Dialogue_ContentNext, OnTextNext);
         }
 
         [Serializable]

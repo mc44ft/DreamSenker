@@ -55,11 +55,11 @@ public class SpiderBossRoom : MonoBehaviour
     private void OnEnable()
     {
         //关心Boss保持死亡事件
-        EventCenter.Instance.AddEventListener<GameBossKeepDeadEventArgs>(E_EventType.Game_BossKeepDead, OnGameBossKeepDead);
+        EventCenter.Instance.AddEventListener<GameBossKeepDeadEventArgs>(EEventType.Game_BossKeepDead, OnGameBossKeepDead);
     }
     private void OnDisable()
     {
-        EventCenter.Instance.RemoveEventListener<GameBossKeepDeadEventArgs>(E_EventType.Game_BossKeepDead, OnGameBossKeepDead);
+        EventCenter.Instance.RemoveEventListener<GameBossKeepDeadEventArgs>(EEventType.Game_BossKeepDead, OnGameBossKeepDead);
     }
     private void OnGameBossKeepDead(object eventSender, GameBossKeepDeadEventArgs args)
     {

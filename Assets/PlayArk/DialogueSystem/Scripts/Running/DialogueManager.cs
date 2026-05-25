@@ -145,7 +145,7 @@ namespace DialogueSystem
                 if (_dialogueBoxPanel.IsPrintShowed)//当前打印完了才能继续打印下一句话
                 {
                     //打印下一句话
-                    EventCenter.Instance.EventTrigger(E_EventType.Dialogue_ContentNext, this, new EmptyEventArgs());
+                    EventCenter.Instance.EventTrigger(EEventType.Dialogue_ContentNext, this, new EmptyEventArgs());
                 }
             }
             if (Input.GetButtonDown("Cancel"))
@@ -173,7 +173,7 @@ namespace DialogueSystem
                 }
                 else if(_dialogueBoxPanel.IsPrintShowed)//如果当前打印完了 Cancel键的作用和Submit的作用一样
                 {
-                    EventCenter.Instance.EventTrigger(E_EventType.Dialogue_ContentNext, this, new EmptyEventArgs());
+                    EventCenter.Instance.EventTrigger(EEventType.Dialogue_ContentNext, this, new EmptyEventArgs());
                 }
             }
         }
@@ -202,11 +202,11 @@ namespace DialogueSystem
 
         private void OnEnable()
         {
-            EventCenter.Instance.AddEventListener<EmptyEventArgs>(E_EventType.Dialogue_PrintShowed, OnTextShowed);
+            EventCenter.Instance.AddEventListener<EmptyEventArgs>(EEventType.Dialogue_PrintShowed, OnTextShowed);
         }
         private void OnDisable()
         {
-            EventCenter.Instance.RemoveEventListener<EmptyEventArgs>(E_EventType.Dialogue_PrintShowed, OnTextShowed);
+            EventCenter.Instance.RemoveEventListener<EmptyEventArgs>(EEventType.Dialogue_PrintShowed, OnTextShowed);
         }
 
         private void OnTextShowed(object eventSender, EmptyEventArgs args)

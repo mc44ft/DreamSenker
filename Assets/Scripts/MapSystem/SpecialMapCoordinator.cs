@@ -71,7 +71,7 @@ public class SpecialMapCoordinator
         }
 
         EventCenter.Instance.EventTrigger(
-            E_EventType.Game_BossKeepDead,
+            EEventType.Game_BossKeepDead,
             _eventSender,
             new GameBossKeepDeadEventArgs(EBossType.Spider));
 

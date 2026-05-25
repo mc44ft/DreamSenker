@@ -45,7 +45,7 @@ public class InputManager : SingletonAutoMono<InputManager>
         if (Input.GetButtonDown("Settings"))
         {
             //通知外部设置键按下
-            EventCenter.Instance.EventTrigger(E_EventType.InputUI_SettingsPanel, this, new EmptyEventArgs());
+            EventCenter.Instance.EventTrigger(EEventType.InputUI_SettingsPanel, this, new EmptyEventArgs());
         }
 
     }
@@ -82,7 +82,7 @@ public class InputManager : SingletonAutoMono<InputManager>
         if (Input.GetButtonDown("MainMenuPanel"))
         {
             //通知外部背包键按下
-            EventCenter.Instance.EventTrigger(E_EventType.InputUI_MainMenuPanel, this, new EmptyEventArgs());
+            EventCenter.Instance.EventTrigger(EEventType.InputUI_MainMenuPanel, this, new EmptyEventArgs());
         }
     }
     

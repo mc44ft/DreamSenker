@@ -354,7 +354,7 @@ public class MainMenuPanel : PanelBase_Mini
         AddToggleListener(_saveToggle, OnSaveToggleValueChanged);
         AddToggleListener(_iconFlickerSwitchToggle, OnIconFlickerSwitchToggleValueChanged);
         AddButtonListener(_closeButton, OnCloseButtonClick);
-        EventCenter.Instance.AddEventListener<PlayerHealthUpdateEventArgs>(E_EventType.Player_HealthUpdate, OnPlayerHealthUpdate);
+        EventCenter.Instance.AddEventListener<PlayerHealthUpdateEventArgs>(EEventType.Player_HealthUpdate, OnPlayerHealthUpdate);
     }
 
     /// <summary>
@@ -369,7 +369,7 @@ public class MainMenuPanel : PanelBase_Mini
         RemoveToggleListener(_saveToggle, OnSaveToggleValueChanged);
         RemoveToggleListener(_iconFlickerSwitchToggle, OnIconFlickerSwitchToggleValueChanged);
         RemoveButtonListener(_closeButton, OnCloseButtonClick);
-        EventCenter.Instance.RemoveEventListener<PlayerHealthUpdateEventArgs>(E_EventType.Player_HealthUpdate, OnPlayerHealthUpdate);
+        EventCenter.Instance.RemoveEventListener<PlayerHealthUpdateEventArgs>(EEventType.Player_HealthUpdate, OnPlayerHealthUpdate);
     }
 
     /// <summary>

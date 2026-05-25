@@ -96,11 +96,11 @@ namespace PlayArk.DialogueSystem.Runtime
         #region Event
         private void OnEnable()
         {
-            EventCenter.Instance.AddEventListener<EmptyEventArgs>(E_EventType.Dialogue_PrintShowed, OnTextShowed);
+            EventCenter.Instance.AddEventListener<EmptyEventArgs>(EEventType.Dialogue_PrintShowed, OnTextShowed);
         }
         private void OnDisable()
         {
-            EventCenter.Instance.RemoveEventListener<EmptyEventArgs>(E_EventType.Dialogue_PrintShowed, OnTextShowed);
+            EventCenter.Instance.RemoveEventListener<EmptyEventArgs>(EEventType.Dialogue_PrintShowed, OnTextShowed);
         }
 
         private void OnTextShowed(object eventSender, EmptyEventArgs args)
