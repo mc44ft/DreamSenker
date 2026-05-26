@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _title: Dead
   _uniqueID: 2ebba3b4-ccb4-4511-a143-f4d20face697
-  _viewPosition: {x: 1157.7285, y: 350.5}
+  _viewPosition: {x: 1192.1865, y: 350.50003}
   _inputPorts:
   - rid: 1292939297693630464
   _outputPorts:
@@ -182,7 +182,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _title: Attack
   _uniqueID: fcd22c64-8e3c-4572-94ec-f956d3a6220f
-  _viewPosition: {x: 846, y: -45.000023}
+  _viewPosition: {x: 892.91754, y: -120.50004}
   _inputPorts:
   - rid: 1292938967777804296
   _outputPorts:
@@ -420,7 +420,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _title: Idle
   _uniqueID: f68d6fdf-83ea-42d5-a945-8ad1b6f4a05b
-  _viewPosition: {x: 522.5, y: -112.5}
+  _viewPosition: {x: 495.28903, y: -120.50002}
   _inputPorts:
   - rid: 1292938967777804292
   _outputPorts:
