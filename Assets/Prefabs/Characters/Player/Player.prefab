@@ -728,7 +728,7 @@ Animator:
   m_GameObject: {fileID: 8440365495553823547}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: a97121ae7d174de43bc2b9b90f9c85bb, type: 2}
+  m_Controller: {fileID: 9100000, guid: 689f75b53a634f342bf88640feb30aca, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -927,6 +927,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stateMachine: {fileID: 11400000, guid: ec5e6288054fc4125942b52b30a4937f, type: 2}
+  _playOnStart: 1
   _playerConfig: {fileID: 11400000, guid: 6134f6c13d18a8a4899479ef73febd85, type: 2}
 --- !u!114 &2392142853500691144
 MonoBehaviour:
@@ -977,6 +978,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _invulnerableTime: 0.5
+  _limitMinHealth: 0
+  _minHealth: 1
 --- !u!1 &8900371867992931335
 GameObject:
   m_ObjectHideFlags: 0
