@@ -17,6 +17,8 @@ public class InputManager : SingletonAutoMono<InputManager>
     public bool JumpButtonUp { get; private set; }
     public bool AttackButtonDown { get; private set; }
     public bool AttackButtonUp { get; private set; }
+    public bool LightAttackButtonDown { get; private set; }
+    public bool LightAttackButtonUp { get; private set; }
     public bool SwitchFormButtonDown { get; private set; }
     public bool PickupButtonDown { get; private set; }
     public bool UpButtonDown { get; private set; }
@@ -60,7 +62,9 @@ public class InputManager : SingletonAutoMono<InputManager>
         JumpButtonUp = Input.GetButtonUp("Jump");
         AttackButtonDown = Input.GetButtonDown("Attack");
         AttackButtonUp = Input.GetButtonUp("Attack");
-        SwitchFormButtonDown = Input.GetButtonDown("SwitchForm");
+        LightAttackButtonDown = Input.GetKeyDown(KeyCode.K);
+        LightAttackButtonUp = Input.GetKeyUp(KeyCode.K);
+        // SwitchFormButtonDown = Input.GetButtonDown("SwitchForm");//暂时取消对Tab键的监听 现在切换形态并不成熟
         PickupButtonDown = Input.GetButtonDown("Pickup");
 
         if(VerticalValue >= 0.5f)//向上推摇杆
