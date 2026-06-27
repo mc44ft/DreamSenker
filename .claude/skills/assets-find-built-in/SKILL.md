@@ -1,6 +1,6 @@
 ---
 name: assets-find-built-in
-description: Search the built-in assets of the Unity Editor located in the built-in resources.
+description: "Search the built-in assets of the Unity Editor located in the built-in resources: Resources/unity_builtin_extra. Doesn't support GUIDs since built-in assets do not have them."
 ---
 
 # Assets Find Built In
@@ -9,4 +9,4 @@ description: Search the built-in assets of the Unity Editor located in the built
 
 - @.agents/skills/assets-find-built-in/SKILL.md
 
-本文件只作为 Claude Code 技能入口。实际规则以对应 Codex skill 为准。
+本文件只作为 Claude Code 技能入口。实际规则以 .agents/skills/assets-find-built-in/SKILL.md 为准。

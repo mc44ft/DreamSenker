@@ -1,6 +1,6 @@
 ---
 name: scene-get-data
-description: Retrieves the list of root GameObjects in the specified scene.
+description: This tool retrieves the list of root GameObjects in the specified scene. Use 'scene-list-opened' tool to get the list of all opened scenes.
 ---
 
 # Scene Get Data
@@ -9,4 +9,4 @@ description: Retrieves the list of root GameObjects in the specified scene.
 
 - @.agents/skills/scene-get-data/SKILL.md
 
-本文件只作为 Claude Code 技能入口。实际规则以对应 Codex skill 为准。
+本文件只作为 Claude Code 技能入口。实际规则以 .agents/skills/scene-get-data/SKILL.md 为准。

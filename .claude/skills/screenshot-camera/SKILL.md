@@ -1,6 +1,6 @@
 ---
 name: screenshot-camera
-description: Captures a screenshot from a camera and returns it as an image.
+description: Captures a screenshot from a camera and returns it as an image. If no camera is specified, uses the Main Camera. Returns the image directly for visual inspection by the LLM.
 ---
 
 # Screenshot Camera
@@ -9,4 +9,4 @@ description: Captures a screenshot from a camera and returns it as an image.
 
 - @.agents/skills/screenshot-camera/SKILL.md
 
-本文件只作为 Claude Code 技能入口。实际规则以对应 Codex skill 为准。
+本文件只作为 Claude Code 技能入口。实际规则以 .agents/skills/screenshot-camera/SKILL.md 为准。

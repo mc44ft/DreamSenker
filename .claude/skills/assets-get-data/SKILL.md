@@ -1,6 +1,6 @@
 ---
 name: assets-get-data
-description: Get asset data from the asset file in the Unity project.
+description: Get asset data from the asset file in the Unity project. It includes all serializable fields and properties of the asset. Use 'assets-find' tool to find asset before using this tool.
 ---
 
 # Assets Get Data
@@ -9,4 +9,4 @@ description: Get asset data from the asset file in the Unity project.
 
 - @.agents/skills/assets-get-data/SKILL.md
 
-本文件只作为 Claude Code 技能入口。实际规则以对应 Codex skill 为准。
+本文件只作为 Claude Code 技能入口。实际规则以 .agents/skills/assets-get-data/SKILL.md 为准。
