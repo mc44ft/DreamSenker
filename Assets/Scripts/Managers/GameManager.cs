@@ -22,6 +22,7 @@ using DreamSeeker.UI;
 using DreamSeeker.Characters.Player;
 using DreamSeeker.Characters.Pet;
 using DreamSeeker.MapSystem.Data;
+using UnityEngine.AddressableAssets;
 
 namespace DreamSeeker.Managers
 {
@@ -242,9 +243,17 @@ public class GameManager : SingletonMono<GameManager>
 
         _mapFlowController.LoadMap(saveMap, () =>
         {
+            GameObject playerPrefab = null;
+            var handle = Addressables.LoadAssetAsync<GameObject>("Player");
+            handle.WaitForCompletion();
+            playerPrefab = handle.Result;
+
+            // playerPrefab = PlayerConfigSO.PlayerConfig.PlayerPrefab;
+            
             PlayerController player = InstantiatePlayer(
-                PlayerConfigSO.PlayerConfig.PlayerPrefab,
+                playerPrefab,
                 SpawnPointManager.Instance.GetSpawnPositionFromID(GameSaveData.SavePointID));
+            
             //防止玩家过场景移除
             DontDestroyOnLoad(player.gameObject);
             Player = player;

@@ -29,4 +29,5 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Maps/Woods.unity
     guid: 3c44ee127f6254c058e16f820c286d19
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: 567b09677dff44080b93d1e9c96c1adf, type: 2}

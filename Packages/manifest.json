@@ -2,6 +2,7 @@
   "dependencies": {
     "com.ivanmurzak.unity.mcp": "0.77.1",
     "com.unity.2d.aseprite": "1.1.11",
+    "com.unity.addressables": "1.22.3",
     "com.unity.cinemachine": "2.10.5",
     "com.unity.collab-proxy": "2.7.1",
     "com.unity.feature.2d": "2.0.1",
