@@ -10,14 +10,8 @@ public class AssetInfo
     private int _count;
     public int Count
     {
-        get
-        {
-            return _count;
-        }
-        set
-        {
-            _count = value < 0 ? 0 : value;
-        }
+        get => _count;
+        set => _count = value < 0 ? 0 : value;
     }
     
     public AssetInfo(AsyncOperationHandle handle)
@@ -33,14 +27,15 @@ public class AddressableManager : BaseManager<AddressableManager>
     
     /// <summary>
     /// 加载单个资源
+    /// 单资源就用name加载 多资源就用label加载
     /// </summary>
     /// <param name="name"></param>
     /// <param name="completed"></param>
     /// <typeparam name="T"></typeparam>
-    public void LoadAssetAsync<T>(string name, Action<T> completed = null) where T : UnityEngine.Object
+    public void LoadAssetAsync<T>(string name, Action<T> completed, Action<Exception> failed = null) where T : UnityEngine.Object
     {
-        string key = name + "_" + typeof(T).Name;
-        if (TryGetCache(key, completed))
+        string key = "name_" + name + "_" + typeof(T).Name;
+        if (TryGetCache(key, completed, failed))
             return;
         AsyncOperationHandle handle = Addressables.LoadAssetAsync<T>(name);
         
@@ -56,51 +51,54 @@ public class AddressableManager : BaseManager<AddressableManager>
             else
             {
                 _assetInfoDict.Remove(key);
-                Debug.LogError($"Asset {key} not Loaded!");
+                //operationHandle.OperationException 是 Addressables 加载失败时挂上的异常对象，但它不保证一定不为 null。失败场景下它可能是 null 的情况：
+                // 加载被取消
+                // 资源 key 不存在，某些版本不抛异常只标记 Status = Failed
+                // 内部错误没构造 Exception 就把状态置为失败
+                var ex = operationHandle.OperationException ?? new Exception($"Load {key} failed");
+                failed?.Invoke(ex);   // 失败时通知调用方，把异常交出去
             }
         };
     }
-
     /// <summary>
-    /// 加载单个资源
-    /// 单资源就用name加载 多资源就用label加载 这个函数之后删掉
+    /// 用label 加载多个资源
+    /// key可以是name 也可以是label
+    /// 但更推荐使用label name就当它是唯一的就好了
     /// </summary>
-    /// <param name="name"></param>
     /// <param name="label"></param>
     /// <param name="completed"></param>
+    /// <param name="mergeMode"></param>
     /// <typeparam name="T"></typeparam>
-    public void LoadAssetAsync<T>(string name, string label, Action<T> completed = null) where T : UnityEngine.Object
+    public void LoadAssetsAsync<T>(string label, Action<IList<T>> completed, Action<Exception> failed = null, 
+        Addressables.MergeMode mergeMode = Addressables.MergeMode.Union) where T : UnityEngine.Object
     {
-        string key = name + "_" + label + "_" + typeof(T).Name;
+        string key = "label_" + label + "_" + typeof(T).Name;
 
-        if (TryGetCache(key, completed))
-            return;
-        AsyncOperationHandle handle = Addressables.LoadAssetAsync<T>(new List<string>(){name, label});
-        
+        if (TryGetCache(key, completed, failed)) return;
+        AsyncOperationHandle<IList<T>> handle = Addressables.LoadAssetsAsync<T>(label, null, mergeMode);
         _assetInfoDict[key] = new AssetInfo(handle);
         _assetInfoDict[key].Count++;
         handle.Completed += (operationHandle) =>
         {
             if (handle.Status == AsyncOperationStatus.Succeeded)
             {
-                completed?.Invoke(operationHandle.Convert<T>().Result);
-                
+                completed?.Invoke(operationHandle.Result);
             }
             else
             {
                 _assetInfoDict.Remove(key);
-                Debug.LogError($"Asset {key} not Loaded!");
+                var ex = operationHandle.OperationException ?? new Exception($"Load {key} failed");
+                failed?.Invoke(ex);   // 失败时通知调用方，把异常交出去
             }
         };
     }
-
-    private bool TryGetCache<T>(string key, Action<T> completed)
+    private bool TryGetCache<T>(string key, Action<T> completed, Action<Exception> failed)
     {
         //缓存命中
         if (_assetInfoDict.TryGetValue(key, out AssetInfo info))
         {
             //该资源的引用计数+1
-            _assetInfoDict[key].Count++;
+            info.Count++;
             //取出来
             AsyncOperationHandle handle = info.Handle;
             //如果加载完成 直接执行
@@ -113,7 +111,8 @@ public class AddressableManager : BaseManager<AddressableManager>
                 else
                 {
                     _assetInfoDict.Remove(key);
-                    Debug.LogError($"Asset {key} not Loaded!");
+                    var ex = handle.OperationException ?? new Exception($"Load {key} failed");
+                    failed?.Invoke(ex);
                 }
             }
             else//如果还没加载完成 传入回调 等加载完成了再执行
@@ -127,7 +126,8 @@ public class AddressableManager : BaseManager<AddressableManager>
                     else
                     {
                         _assetInfoDict.Remove(key);
-                        Debug.LogError($"Asset {key} not Loaded!");
+                        var ex = operationHandle.OperationException ?? new Exception($"Load {key} failed");
+                        failed?.Invoke(ex);
                     }
                 };
             }
@@ -136,82 +136,33 @@ public class AddressableManager : BaseManager<AddressableManager>
 
         return false;
     }
-
-    /// <summary>
-    /// 用label 加载多个资源
-    /// key可以是name 也可以是label
-    /// 但更推荐使用label name就当它是唯一的就好了
-    /// </summary>
-    /// <param name="label"></param>
-    /// <param name="completed"></param>
-    /// <param name="mergeMode"></param>
-    /// <typeparam name="T"></typeparam>
-    public void LoadAssetsAsync<T>(string label, Action<IList<T>> completed, Addressables.MergeMode mergeMode = Addressables.MergeMode.Union) where T : UnityEngine.Object
+    public void ReleaseByName<T>(string name) where T : UnityEngine.Object
     {
-        string key = label + "_" + typeof(T).Name;
-
-        if (TryGetCache(key, completed)) return;
-        AsyncOperationHandle<IList<T>> handle = Addressables.LoadAssetsAsync<T>(label, null, mergeMode);
-        _assetInfoDict[key] = new AssetInfo(handle);
-        _assetInfoDict[key].Count++;
-        handle.Completed += (operationHandle) =>
-        {
-            if (handle.Status == AsyncOperationStatus.Succeeded)
-            {
-                completed?.Invoke(operationHandle.Result);
-            }
-            else
-            {
-                _assetInfoDict.Remove(key);
-                Debug.LogError($"Asset {key} not Loaded!");
-            }
-        };
-        
-    }
-    // /// <summary>
-    // /// 
-    // /// </summary>
-    // /// <param name="names"></param>
-    // /// <param name="completed"></param>
-    // /// <param name="mergeMode"></param>
-    // public void LoadAssetsAsync<T>(List<string> names, Action<T> completed = null, 
-    //     Addressables.MergeMode mergeMode = Addressables.MergeMode.Union) where T : UnityEngine.Object
-    // {
-    //     if (names == null || names.Count == 0) return;
-    //     
-    //     //拼接key
-    //     string key = "";
-    //     foreach (var name in names)
-    //     {
-    //         key += name + "_";
-    //     }
-    //     key += typeof(T).Name;
-    //     
-    //     if (TryGetCache(key, completed)) return;
-    //     
-    //     AsyncOperationHandle<IList<T>> handle = Addressables.LoadAssetsAsync<T>(names, completed, mergeMode);
-    //     _assetInfoDict[handle]++;
-    // }
-    public void Release<T>(string name) where T : UnityEngine.Object
-    {
-        string key = name + "_" + typeof(T).Name;
+        string key = "name_" + name + "_" + typeof(T).Name;
         ReleaseAsset<T>(key);
     }
-
-    public void Release<T>(string name, string label) where T : UnityEngine.Object
+    public void ReleaseByLabel<T>(string label) where T : UnityEngine.Object
     {
-        string key = name + "_" + label + "_" + typeof(T).Name;
+        string key = "label_" + label + "_" + typeof(T).Name;
         ReleaseAsset<T>(key);
     }
     private void ReleaseAsset<T>(string key) where T : UnityEngine.Object
     {
-        if (_assetInfoDict.ContainsKey(key))
+        if (_assetInfoDict.TryGetValue(key,  out AssetInfo info))
         {
-            _assetInfoDict[key].Count--;
-            if (_assetInfoDict[key].Count == 0)
+            if (info.Count == 0)
             {
-                AsyncOperationHandle handle = _assetInfoDict[key].Handle;
-                Addressables.Release(handle);
+                //进这里说明这个字典值是错误存在的，但里面的内容肯定被释放了
+                //只Remove就可以
+                _assetInfoDict.Remove(key);
+                Debug.LogWarning($"Asset {key} already released!");
+                return;
+            }
+            
+            info.Count--;
+            if (info.Count == 0)
+            {
+                Addressables.Release(info.Handle);
                 _assetInfoDict.Remove(key);
             }
         }
