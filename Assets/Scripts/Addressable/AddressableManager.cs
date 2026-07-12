@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
-//改用 UniTask/Task 走 async/await，try/catch 天然处理异常，根本不用纠结回调签名。
 public class AssetInfo
 {
     public AsyncOperationHandle Handle;
@@ -24,7 +24,51 @@ public class AddressableManager : BaseManager<AddressableManager>
 {
     //存引用计数
     private readonly Dictionary<string, AssetInfo> _assetInfoDict =  new();
-    
+
+    //改用 UniTask/Task 走 async/await，try/catch 天然处理异常，根本不用纠结回调签名。
+    public async UniTask<T> LoadAssetAsync<T>(string name) where T : UnityEngine.Object
+    {
+        string key = "name_" + name + "_" + typeof(T).Name;
+        AsyncOperationHandle<T> handle;
+        T result;
+        if (_assetInfoDict.TryGetValue(key, out AssetInfo info))
+        {
+            //该资源的引用计数+1
+            info.Count++;
+            //取出来
+            handle = info.Handle.Convert<T>();
+            //包一层异常捕获 处理后 向上传递
+            try
+            {
+                result = await handle;
+                return result;
+            }
+            catch
+            {
+                //回滚Count
+                info.Count--;
+                throw;
+            }
+            
+        }
+        handle = Addressables.LoadAssetAsync<T>(name);
+        
+        _assetInfoDict[key] = new AssetInfo(handle);
+        _assetInfoDict[key].Count++;
+        try
+        {
+            //这里直接await handle 走的是UniTask的拓展
+            //await handle.Task 是走的原来的 Task
+            result = await handle;
+            return result;
+        }
+        catch
+        {
+            _assetInfoDict.Remove(key);
+            //原样上报
+            throw;
+        }
+    }
     /// <summary>
     /// 加载单个资源
     /// 单资源就用name加载 多资源就用label加载
@@ -60,6 +104,50 @@ public class AddressableManager : BaseManager<AddressableManager>
             }
         };
     }
+
+    public async UniTask<IList<T>> LoadAssetsAsync<T>(string label, Addressables.MergeMode mode = Addressables.MergeMode.Union) where T : UnityEngine.Object
+    {
+        string key = "label_" + label + "_" + typeof(T).Name;
+        
+        AsyncOperationHandle<IList<T>> handle;
+        IList<T> result;
+        if (_assetInfoDict.TryGetValue(key, out AssetInfo info))
+        {
+            //该资源的引用计数+1
+            info.Count++;
+            //取出来
+            handle = info.Handle.Convert<IList<T>>();
+            //包一层异常捕获 处理后 向上传递
+            try
+            {
+                result = await handle;
+                return result;
+            }
+            catch
+            {
+                info.Count--;
+                throw;
+            }
+            
+        }
+        handle = Addressables.LoadAssetsAsync<T>(label, null, mode);
+        
+        _assetInfoDict[key] = new AssetInfo(handle);
+        _assetInfoDict[key].Count++;
+        try
+        {
+            //这里直接await handle 走的是UniTask的拓展
+            //await handle.Task 是走的原来的 Task
+            result = await handle;
+            return result;
+        }
+        catch
+        {
+            _assetInfoDict.Remove(key);
+            //原样上报
+            throw;
+        }
+    }
     /// <summary>
     /// 用label 加载多个资源
     /// key可以是name 也可以是label
@@ -92,6 +180,7 @@ public class AddressableManager : BaseManager<AddressableManager>
             }
         };
     }
+    
     private bool TryGetCache<T>(string key, Action<T> completed, Action<Exception> failed)
     {
         //缓存命中
@@ -110,7 +199,7 @@ public class AddressableManager : BaseManager<AddressableManager>
                 }
                 else
                 {
-                    _assetInfoDict.Remove(key);
+                    info.Count--;
                     var ex = handle.OperationException ?? new Exception($"Load {key} failed");
                     failed?.Invoke(ex);
                 }
@@ -125,7 +214,7 @@ public class AddressableManager : BaseManager<AddressableManager>
                     }
                     else
                     {
-                        _assetInfoDict.Remove(key);
+                        info.Count--;
                         var ex = operationHandle.OperationException ?? new Exception($"Load {key} failed");
                         failed?.Invoke(ex);
                     }
@@ -175,6 +264,8 @@ public class AddressableManager : BaseManager<AddressableManager>
     {
         foreach (var info in _assetInfoDict.Values)
         {
+            if (info.Count > 0) Debug.LogWarning($"[AddressableManager] Force releasing asset, Count={info.Count}. Someone may still hold a reference.");
+            
             var handle = info.Handle;
             Addressables.Release(handle);
         }
