@@ -95,7 +95,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _title: Jump
   _uniqueID: 9800b4d4-3681-4a12-bcd7-0adfbb7d2641
-  _viewPosition: {x: 421.943, y: 321.31613}
+  _viewPosition: {x: 437.9999, y: 331.0804}
   _inputPorts:
   - rid: 2122959257935806484
   _outputPorts:
@@ -234,7 +234,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _title: Punch
   _uniqueID: c165f088-e88a-491e-934a-0032f3d3437c
-  _viewPosition: {x: 558.5, y: 109.00002}
+  _viewPosition: {x: 598.9998, y: 141.99995}
   _inputPorts:
   - rid: 2122959388822994944
   _outputPorts:
@@ -242,7 +242,7 @@ MonoBehaviour:
   _onEnterActions:
   - action: 0
     parameters:
-    - Attack
+    - Punch
   - action: 1
     parameters: []
   _onLogicUpdateActions: []
@@ -287,7 +287,6 @@ MonoBehaviour:
   - {fileID: -1430335484796372352}
   - {fileID: 6937471019473552007}
   - {fileID: -3325628457051465786}
-  - {fileID: 572439671498196808}
   _edges:
   - _uniqueID: 5b0d1f17-d8f4-42c0-9bc5-623e73614b25
     _rootNodeID: 5bff7131-273e-4f54-946b-6ac4b9b44c57
@@ -360,11 +359,6 @@ MonoBehaviour:
       - _or:
         - _predicate: 8
           _parameters: []
-          _negate: 0
-      - _or:
-        - _predicate: 1
-          _parameters:
-          - Attack
           _negate: 0
   - _uniqueID: af8e1733-6ba0-4ab1-a67c-a28ab16338c3
     _rootNodeID: c165f088-e88a-491e-934a-0032f3d3437c
@@ -511,65 +505,8 @@ MonoBehaviour:
         - _predicate: 2
           _parameters: []
           _negate: 0
-  - _uniqueID: f7d05d51-7144-4d2d-b5a7-816c58516554
-    _rootNodeID: d53481c6-1e6d-4a81-a23d-3c65211cc87f
-    _rootPortID: d084bab3-def8-49b6-addb-04e8d9f30a5c
-    _connectionNodeID: ca575cd4-ea13-4ebe-a457-0498de53b759
-    _connectionPortID: 8624295a-ac32-4616-b7bb-e7e7f45c6b60
-    _condition:
-      _and:
-      - _or:
-        - _predicate: 0
-          _parameters:
-          - LightAttackButtonDown
-          _negate: 0
-      - _or:
-        - _predicate: 1
-          _parameters:
-          - Attack
-          _negate: 0
   _entryState: {fileID: 2107513943834104237}
   _anyState: {fileID: -8031548477816232749}
---- !u!114 &572439671498196808
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c798ffcdc11614c339068f869ca5404e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _title: PunchJab
-  _uniqueID: ca575cd4-ea13-4ebe-a457-0498de53b759
-  _viewPosition: {x: 113.86325, y: 569.08264}
-  _inputPorts:
-  - rid: 5099065518876786688
-  _outputPorts:
-  - rid: 5099065518876786689
-  _onEnterActions: []
-  _onLogicUpdateActions: []
-  _onPhysicsUpdateActions: []
-  _onExitActions: []
-  references:
-    version: 2
-    RefIds:
-    - rid: 5099065518876786688
-      type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
-      data:
-        _uniqueID: 8624295a-ac32-4616-b7bb-e7e7f45c6b60
-        _portName: New Port
-        _direction: 0
-        _selfNodeID: ca575cd4-ea13-4ebe-a457-0498de53b759
-    - rid: 5099065518876786689
-      type: {class: GraphCorePort, ns: PlayArk.GraphCore, asm: Assembly-CSharp}
-      data:
-        _uniqueID: 6d0257e0-03c1-4ba4-ac66-f67abc2a82d0
-        _portName: New Port
-        _direction: 1
-        _selfNodeID: ca575cd4-ea13-4ebe-a457-0498de53b759
 --- !u!114 &2107513943834104237
 MonoBehaviour:
   m_ObjectHideFlags: 0

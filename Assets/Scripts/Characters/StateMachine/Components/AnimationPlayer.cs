@@ -4,6 +4,7 @@ using UnityEngine;
 
 
 using DreamSeeker.Characters;
+using DreamSeeker.Managers;
 
 namespace DreamSeeker.Characters.Player
 {
@@ -54,6 +55,7 @@ public class AnimationPlayer : BaseComponent<IConfig>
         switch (predicate)
         {
             case EPredicate.AnimOver:
+                if(InputManager.Instance.AttackButtonDown) Debug.Log("AnimOver:" + CheckAnimOver(parameters[0]));
                 //检测Tag分组动画是否播放完毕
                 return CheckAnimOver(parameters[0]);
         }

@@ -252,7 +252,7 @@ public class GameManager : SingletonMono<GameManager>
     {
         GameObject playerPrefab = await AddressableManager.Instance.LoadAssetAsync<GameObject>("Player");
 
-        // playerPrefab = PlayerConfigSO.PlayerConfig.PlayerPrefab;
+        // GameObject playerPrefab = PlayerConfigSO.PlayerConfig.PlayerPrefab;
         
         PlayerController player = InstantiatePlayer(
             playerPrefab,

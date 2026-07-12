@@ -5,6 +5,7 @@ using UnityEngine;
 using DreamSeeker.Combat.Health;
 
 using DreamSeeker.Characters;
+using DreamSeeker.Managers;
 
 namespace DreamSeeker.Characters.Player
 {
@@ -73,6 +74,7 @@ public class Attacker : BaseComponent<IAttackConfig>
         switch (predicate)
         {
             case EPredicate.AttackCooldownReady:
+                if(InputManager.Instance.AttackButtonDown) Debug.Log("AttackCooldownReady:" + IsCooldownReady);
                 return IsCooldownReady;
         }
         return null;
