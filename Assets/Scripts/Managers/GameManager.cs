@@ -3,6 +3,7 @@ using PlayArk.DialogueSystem.Runtime;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -243,58 +244,59 @@ public class GameManager : SingletonMono<GameManager>
 
         _mapFlowController.LoadMap(saveMap, () =>
         {
-            GameObject playerPrefab = null;
-            var handle = Addressables.LoadAssetAsync<GameObject>("Player");
-            handle.WaitForCompletion();
-            playerPrefab = handle.Result;
-
-            // playerPrefab = PlayerConfigSO.PlayerConfig.PlayerPrefab;
-            
-            PlayerController player = InstantiatePlayer(
-                playerPrefab,
-                SpawnPointManager.Instance.GetSpawnPositionFromID(GameSaveData.SavePointID));
-            
-            //防止玩家过场景移除
-            DontDestroyOnLoad(player.gameObject);
-            Player = player;
-            PaiMonController.SpawnForPlayer(Player);
-            
-            CameraManager.Instance?.SetupVCams();
-            //镜像表现是特殊地图功能，玩家本体控制器不再持有它
-            _playerMirrorEffect = Player.GetComponent<PlayerMirrorEffect>();
-            _playerMirrorEffect?.SetMirrorActive(false);
-
-            Player.Initialize(() =>
-            {
-                //玩家初始化完成后 填充背包管理器数据
-                InventoryManager.Instance.SetupData(Player.PlayerSaveData.PackageData, PackageItemConfig);
-                //任务系统依赖背包查询，必须在背包数据注入后初始化
-                QuestManager.Instance.SetupData(QuestList, GameSaveData.QuestRuntimeDataList);
-                _playerMirrorEffect?.SetShadowDarknessStrength(saveMap.PlayerShadowDarknessStrength);
-
-                //加载主面板
-                UIManager.Instance.ShowPanel<GamePanel>(E_UILayer.Botton, null, (panel) =>
-                {
-                    EventCenter.Instance.EventTrigger(
-                        EEventType.Player_HealthUpdate,
-                        this,
-                        new PlayerHealthUpdateEventArgs(Player.DamageableHealth.MaxHealthAmount, Player.DamageableHealth.CurrentHealthAmount));
-                    if (!string.IsNullOrEmpty(GameSaveData.CurrentTrackQuestID))
-                    {
-                        EventCenter.Instance.EventTrigger(
-                            EEventType.Quest_TrackChanged, 
-                            this, 
-                            new StringEventArgs(GameSaveData.CurrentTrackQuestID));
-                    }
-                    
-                });
-
-                //根据当前游戏数据更新地图状态
-                _mapFlowController.InitializeCurrentSpecialMap();
-            });
+            SpawnPlayerAndInitAsync(saveMap).Forget();
         });
     }
 
+    private async UniTaskVoid SpawnPlayerAndInitAsync(MapDefinitionSO saveMap)
+    {
+        GameObject playerPrefab = await AddressableManager.Instance.LoadAssetAsync<GameObject>("Player");
+
+        // playerPrefab = PlayerConfigSO.PlayerConfig.PlayerPrefab;
+        
+        PlayerController player = InstantiatePlayer(
+            playerPrefab,
+            SpawnPointManager.Instance.GetSpawnPositionFromID(GameSaveData.SavePointID));
+        
+        //防止玩家过场景移除
+        DontDestroyOnLoad(player.gameObject);
+        Player = player;
+        PaiMonController.SpawnForPlayer(Player);
+        
+        CameraManager.Instance?.SetupVCams();
+        //镜像表现是特殊地图功能，玩家本体控制器不再持有它
+        _playerMirrorEffect = Player.GetComponent<PlayerMirrorEffect>();
+        _playerMirrorEffect?.SetMirrorActive(false);
+
+        Player.Initialize(() =>
+        {
+            //玩家初始化完成后 填充背包管理器数据
+            InventoryManager.Instance.SetupData(Player.PlayerSaveData.PackageData, PackageItemConfig);
+            //任务系统依赖背包查询，必须在背包数据注入后初始化
+            QuestManager.Instance.SetupData(QuestList, GameSaveData.QuestRuntimeDataList);
+            _playerMirrorEffect?.SetShadowDarknessStrength(saveMap.PlayerShadowDarknessStrength);
+
+            //加载主面板
+            UIManager.Instance.ShowPanel<GamePanel>(E_UILayer.Botton, null, (panel) =>
+            {
+                EventCenter.Instance.EventTrigger(
+                    EEventType.Player_HealthUpdate,
+                    this,
+                    new PlayerHealthUpdateEventArgs(Player.DamageableHealth.MaxHealthAmount, Player.DamageableHealth.CurrentHealthAmount));
+                if (!string.IsNullOrEmpty(GameSaveData.CurrentTrackQuestID))
+                {
+                    EventCenter.Instance.EventTrigger(
+                        EEventType.Quest_TrackChanged, 
+                        this, 
+                        new StringEventArgs(GameSaveData.CurrentTrackQuestID));
+                }
+                
+            });
+
+            //根据当前游戏数据更新地图状态
+            _mapFlowController.InitializeCurrentSpecialMap();
+        });
+    }
     private PlayerController InstantiatePlayer(GameObject playerPrefab, Vector3 position)
     {
         PlayerController player = Instantiate(playerPrefab, position, Quaternion.identity).GetComponent<PlayerController>();

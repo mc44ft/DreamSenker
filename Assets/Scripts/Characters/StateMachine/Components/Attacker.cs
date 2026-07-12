@@ -11,7 +11,7 @@ namespace DreamSeeker.Characters.Player
 [RequireComponent(typeof(Mover))]
 public class Attacker : BaseComponent<IAttackConfig>
 {
-    private float _lastAttackTime = float.NegativeInfinity;
+    private float _lastAttackTime = float.NegativeInfinity;//负无穷
     private IAttackConfig _attackConfig;
 
     private Mover _mover;

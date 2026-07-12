@@ -21,6 +21,7 @@ public class InputReader : BaseComponent<IConfig>
         }
         if (keyName == "AttackButtonDown")
         {
+            if(InputManager.Instance.AttackButtonDown) Debug.Log("按下攻击键");
             return InputManager.Instance.AttackButtonDown;
         }
         return false;

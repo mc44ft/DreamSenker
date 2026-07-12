@@ -25,6 +25,8 @@ public class AddressableManager : BaseManager<AddressableManager>
     //存引用计数
     private readonly Dictionary<string, AssetInfo> _assetInfoDict =  new();
 
+    private AddressableManager() { }
+
     //改用 UniTask/Task 走 async/await，try/catch 天然处理异常，根本不用纠结回调签名。
     public async UniTask<T> LoadAssetAsync<T>(string name) where T : UnityEngine.Object
     {
