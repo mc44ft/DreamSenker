@@ -15,10 +15,10 @@ MonoBehaviour:
   m_DefaultGroup: 3462a726c030948d4b1ac712ff299826
   m_currentHash:
     serializedVersion: 2
-    Hash: 34008fa2cbd0a2802a1eedb819936ee9
+    Hash: 426d6f293aebe0f2ff804344247271b9
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 1
-  m_BundleLocalCatalog: 0
+  m_BundleLocalCatalog: 1
   m_CatalogRequestsTimeout: 0
   m_DisableCatalogUpdateOnStart: 0
   m_IgnoreUnsupportedFilesInBuild: 0
@@ -78,7 +78,7 @@ MonoBehaviour:
       - m_Id: 42289519281ae4230bb5c1a861dc82f9
         m_Value: http://127.0.0.1:8000/[BuildTarget]
       - m_Id: 77f67edee72f740f8b1377beac600083
-        m_Value: ServerData/[BuildTarget]
+        m_Value: Data/[BuildTarget]
       - m_Id: dc24bb543bf764b45a4ab032f87a72c7
         m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
     m_ProfileEntryNames:
@@ -131,7 +131,7 @@ MonoBehaviour:
           m_Key: HostingServiceUploadSpeed
         - m_AssemblyName: mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
           m_ClassName: System.String
-          m_Data: ServerData/StandaloneOSX
+          m_Data: Data/StandaloneOSX
           m_Key: ContentRoot
         - m_AssemblyName: mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
           m_ClassName: System.Boolean
