@@ -15,10 +15,10 @@ MonoBehaviour:
   m_DefaultGroup: 3462a726c030948d4b1ac712ff299826
   m_currentHash:
     serializedVersion: 2
-    Hash: 00000000000000000000000000000000
+    Hash: 59e3e01d5b0036a5bff31848ba76e0b7
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 1
-  m_BundleLocalCatalog: 1
+  m_BundleLocalCatalog: 0
   m_CatalogRequestsTimeout: 0
   m_DisableCatalogUpdateOnStart: 0
   m_IgnoreUnsupportedFilesInBuild: 0
@@ -45,6 +45,7 @@ MonoBehaviour:
   m_overridePlayerVersion: '[UnityEditor.PlayerSettings.bundleVersion]'
   m_GroupAssets:
   - {fileID: 11400000, guid: 8a439cd072b224b72b7b2decf260001b, type: 2}
+  - {fileID: 11400000, guid: 55a8b3f73f9814a8fb2b84ead6925d54, type: 2}
   - {fileID: 11400000, guid: 0a754335c10a240c581b4087d9d7026f, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
@@ -78,7 +79,7 @@ MonoBehaviour:
       - m_Id: 42289519281ae4230bb5c1a861dc82f9
         m_Value: http://127.0.0.1:8000/[BuildTarget]
       - m_Id: 77f67edee72f740f8b1377beac600083
-        m_Value: ServerData/[BuildTarget]
+        m_Value: /Users/mc44ft/Project/UnityProject/DreamSenker/ServerData/[BuildTarget]
       - m_Id: dc24bb543bf764b45a4ab032f87a72c7
         m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
     m_ProfileEntryNames:
@@ -131,7 +132,7 @@ MonoBehaviour:
           m_Key: HostingServiceUploadSpeed
         - m_AssemblyName: mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
           m_ClassName: System.String
-          m_Data: Data/StandaloneOSX
+          m_Data: /Users/mc44ft/Project/UnityProject/DreamSenker/ServerData/StandaloneOSX;Library/com.unity.addressables/aa/OSX/StandaloneOSX
           m_Key: ContentRoot
         - m_AssemblyName: mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
           m_ClassName: System.Boolean
