@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Shared
+  m_EditorClassIdentifier: 
+  m_GroupName: Shared
+  m_Data:
+    m_SerializedData: []
+  m_GUID: b423360c4fad041bd8c2a13860cad10a
+  m_SerializeEntries:
+  - m_GUID: 1704a4101aedf484eb18be5af853ac40
+    m_Address: Assets/ArtRes/Sprite/Default/Collision/Half of Half of Half of Half
+      Collision Tile.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2a2b7474f03b39642ac889f26d0c7c7b
+    m_Address: Assets/ArtRes/Sprite/Default/Loading.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3bab50cb3fa944a6b8db98b633bb0305
+    m_Address: Assets/ArtRes/Sprite/Default/Collision/Half of Half Width Collision
+      Tile.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 47ef3f6efd34e42b8a8277827299ddc2
+    m_Address: Assets/ArtRes/Sprite/Default/Collision/Half of Half Collision Tile.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 54246604a237e435fbb83872e2e94470
+    m_Address: Assets/ArtRes/Sprite/Default/Collision/Half Width Collision Tile.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 57fc07ea045c744198b8aa2f76686c3b
+    m_Address: Assets/ArtRes/Sprite/Default/Collision/Half of Half Height Collision
+      Tile.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 59cbd68457d3a6e44922cf7f7ea8fb77
+    m_Address: Assets/ArtRes/Sprite/Default/Collision/EnemyPreferredPathTile.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ae4f8cf29fff1cc48baad438bf83fc19
+    m_Address: Assets/ArtRes/Sprite/Default/Collision/Half Height Collision Tile.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bfe6043d3b55644b296e104ad6b9ccdd
+    m_Address: Assets/ArtRes/Sprite/Default/Collision/Half of Half of Half Height
+      Collision Tile.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d0a4677e14af8df479e7d71b1592a6f3
+    m_Address: Assets/ArtRes/Sprite/Default/Collision/Collision Tile.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ecb8d28d544bd469d900d228fa24c499
+    m_Address: Assets/ArtRes/Sprite/Default/Collision/Half of Half of Half Width
+      Collision Tile.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 8003a8a9e8b454901a94a6b16a32a198, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 3c21fba15de5144ff86390e3c81ed6f3, type: 2}
+    - {fileID: 11400000, guid: 9063f44daf03b49b2b569f4bb372895f, type: 2}

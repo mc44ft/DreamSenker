@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Scenes
+  m_EditorClassIdentifier: 
+  m_GroupName: Scenes
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 84d2070ef852048f38999e7f6bf0a06a
+  m_SerializeEntries:
+  - m_GUID: 06943e5bed160448fa1a051cc64ca496
+    m_Address: Assets/ArtRes/Sprite/Maps/Woods/Props/moss-1.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 14c657dfa112f40e0b52c23ca2fff392
+    m_Address: Assets/ArtRes/Sprite/Maps/Woods/Props/Rock.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 29cf9c0d4ad2f42e089a8b1982f6d6ec
+    m_Address: Assets/ArtRes/Sprite/Maps/Woods/Props/Plant.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2a9f08c1f1ff14866941811c70d688de
+    m_Address: Assets/ArtRes/Sprite/Maps/Woods/tileset.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 355bfedbcf7a940a5a235ec16dad5ebd
+    m_Address: Assets/ArtRes/Sprite/Maps/Woods/middle.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3c44ee127f6254c058e16f820c286d19
+    m_Address: Assets/Scenes/Maps/Woods.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bfcefc4abbc1c43ac9c1a63cc5a373f7
+    m_Address: Assets/ArtRes/Sprite/Maps/Woods/back.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e85008f50db924d29afb6766d5840220
+    m_Address: Assets/ArtRes/Sprite/Maps/Woods/Props/moss-2.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ee9d544bab99f439ea168a79bb509c5b
+    m_Address: Assets/ArtRes/Sprite/Maps/Woods/far.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 8003a8a9e8b454901a94a6b16a32a198, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: fae1ff1a5a5a4450e8903a10984a6afd, type: 2}
+    - {fileID: 11400000, guid: 87455d7d1309740798bfe565935287a5, type: 2}

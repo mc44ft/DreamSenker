@@ -26,7 +26,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Maps/Mirror2.unity
     guid: 9706e678d6a4de44890525fd978bd975
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Maps/Woods.unity
     guid: 3c44ee127f6254c058e16f820c286d19
   m_configObjects:

@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: 3462a726c030948d4b1ac712ff299826
   m_currentHash:
     serializedVersion: 2
-    Hash: 59e3e01d5b0036a5bff31848ba76e0b7
+    Hash: 00000000000000000000000000000000
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 1
   m_BundleLocalCatalog: 0
@@ -47,6 +47,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8a439cd072b224b72b7b2decf260001b, type: 2}
   - {fileID: 11400000, guid: 55a8b3f73f9814a8fb2b84ead6925d54, type: 2}
   - {fileID: 11400000, guid: 0a754335c10a240c581b4087d9d7026f, type: 2}
+  - {fileID: 11400000, guid: 5774e0f9c995f451aba742549f139c96, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -132,7 +133,7 @@ MonoBehaviour:
           m_Key: HostingServiceUploadSpeed
         - m_AssemblyName: mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
           m_ClassName: System.String
-          m_Data: /Users/mc44ft/Project/UnityProject/DreamSenker/ServerData/StandaloneOSX;Library/com.unity.addressables/aa/OSX/StandaloneOSX
+          m_Data: Library/com.unity.addressables/aa/OSX/StandaloneOSX
           m_Key: ContentRoot
         - m_AssemblyName: mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
           m_ClassName: System.Boolean
