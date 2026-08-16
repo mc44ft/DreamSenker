@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using DreamSeeker.Framework.Events;
+using PlayArk.DialogueSystem.Events;
 namespace PlayArk.DialogueSystem.Runtime
 {
     [RequireComponent(typeof(Widget))]
@@ -211,7 +213,7 @@ namespace PlayArk.DialogueSystem.Runtime
         private void OnPrintShowed()
         {
             IsPrintShowed = true;
-            EventCenter.Instance.EventTrigger(EEventType.Dialogue_PrintShowed, this, new EmptyEventArgs());
+            EventBus.Publish(new DialoguePrintCompletedEvent());
         }
         public enum E_DisplayType
         {
@@ -221,4 +223,3 @@ namespace PlayArk.DialogueSystem.Runtime
         }
     }
 }
-

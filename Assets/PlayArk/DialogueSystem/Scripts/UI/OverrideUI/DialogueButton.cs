@@ -2,6 +2,8 @@ using DialogueSystem;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using DreamSeeker.Framework.Events;
+using PlayArk.DialogueSystem.Events;
 namespace PlayArk.DialogueSystem.Runtime
 {
     [RequireComponent(typeof(Animator))]
@@ -66,7 +68,7 @@ namespace PlayArk.DialogueSystem.Runtime
         /// </summary>
         private void OnConfirm()
         {
-            EventCenter.Instance.EventTrigger(EEventType.Dialogue_ChoiceClick, this, new IntEventArgs() { Value = _index });
+            EventBus.Publish(new DialogueChoiceSelectedEvent(_index));
         }
     }
 

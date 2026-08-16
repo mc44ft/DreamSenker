@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
+using DreamSeeker.Framework.Events;
+using DreamSeeker.Framework.Scene;
+
 public class MySceneManager : BaseManager<MySceneManager>
 {
     private MySceneManager()
@@ -64,9 +67,9 @@ public class MySceneManager : BaseManager<MySceneManager>
     {
         while (!operation.isDone)
         {
-            EventCenter.Instance.EventTrigger(EEventType.SceneLoadProgress, this, new SceneEventArgs(operation.progress));
+            EventBus.Publish(new SceneLoadProgressEvent(operation.progress));
             yield return null;
         }
-        EventCenter.Instance.EventTrigger(EEventType.SceneLoadOver, this, new EmptyEventArgs());
+        EventBus.Publish(new SceneLoadCompletedEvent());
     }
 }

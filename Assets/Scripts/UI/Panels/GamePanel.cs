@@ -5,6 +5,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+using DreamSeeker.Characters.Player;
+using DreamSeeker.Framework.Events;
 using DreamSeeker.Managers;
 using DreamSeeker.QuestSystem;
 using DreamSeeker.Shared;
@@ -42,19 +44,22 @@ public class GamePanel : PanelBase_Mini
 
     private void AddListener()
     {
-        EventCenter.Instance.AddEventListener<PlayerHealthUpdateEventArgs>(EEventType.Player_HealthUpdate, OnPlayerGetHit);
-        EventCenter.Instance.AddEventListener<StringEventArgs>(EEventType.Quest_TrackChanged, OnTrackChanged);
+        EventBus.Subscribe<PlayerHealthChangedEvent>(OnPlayerGetHit);
+        EventBus.Subscribe<QuestTrackChangedEvent>(OnTrackChanged);
     }
     
     private void RemoveListener()
     {
-        EventCenter.Instance.RemoveEventListener<PlayerHealthUpdateEventArgs>(EEventType.Player_HealthUpdate, OnPlayerGetHit);
-        EventCenter.Instance.RemoveEventListener<StringEventArgs>(EEventType.Quest_TrackChanged, OnTrackChanged);
+        EventBus.Unsubscribe<PlayerHealthChangedEvent>(OnPlayerGetHit);
+        EventBus.Unsubscribe<QuestTrackChangedEvent>(OnTrackChanged);
     }
     
-    private void OnPlayerGetHit(object eventSender, PlayerHealthUpdateEventArgs args)
+    /// <summary>
+    /// 根据玩家生命值事件刷新血条。
+    /// </summary>
+    private void OnPlayerGetHit(PlayerHealthChangedEvent eventData)
     {
-        UpdateHpBar(args.MaxHealthAmount, args.CurrentHealthAmount);
+        UpdateHpBar(eventData.MaxHealthAmount, eventData.CurrentHealthAmount);
     }
     private void UpdateHpBar(int MaxHealthAmount, int CurrentHealthAmount)
     {
@@ -69,9 +74,12 @@ public class GamePanel : PanelBase_Mini
             _topBarText.text = content;
         }
     }
-    private void OnTrackChanged(object eventSender, StringEventArgs args)
+    /// <summary>
+    /// 根据追踪任务变化事件刷新顶部任务提示。
+    /// </summary>
+    private void OnTrackChanged(QuestTrackChangedEvent eventData)
     {
-        if (QuestManager.Instance.TryGetQuestDefinition(args.Value, out var questDefinition))
+        if (QuestManager.Instance.TryGetQuestDefinition(eventData.QuestId, out var questDefinition))
         {
             SetTopBarActive(true, questDefinition.TopBarDescription);
         }

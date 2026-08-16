@@ -6,6 +6,7 @@ using System.Linq;
 using UnityEngine;
 
 using DreamSeeker.Combat.Health;
+using DreamSeeker.Framework.Events;
 using DreamSeeker.Managers;
 using DreamSeeker.Shared;
 
@@ -27,7 +28,7 @@ public class FoxTwoSkillCloneState : StateBase<FoxTwoController>
         _audioSource.clip = GameResources.Instance.FoxTwoRestoreHealthClip;
         _audioSource.Play();
 
-        EventCenter.Instance.AddEventListener<GameBossDeadEventArgs>(EEventType.Game_BossDead, OnBossDead);
+        EventBus.Subscribe<GameBossDiedEvent>(OnBossDead);
 
         Debug.Log("进入克隆状态");
         _controller.StartCoroutine(CloneRoutine());
@@ -116,7 +117,7 @@ public class FoxTwoSkillCloneState : StateBase<FoxTwoController>
     }
     public override void Exit()
     {
-        EventCenter.Instance.RemoveEventListener<GameBossDeadEventArgs>(EEventType.Game_BossDead, OnBossDead);
+        EventBus.Unsubscribe<GameBossDiedEvent>(OnBossDead);
         //恢复Boss状态
         _controller.transform.rotation = Quaternion.identity;
         _controller.Rigidbody.bodyType = RigidbodyType2D.Kinematic;
@@ -125,10 +126,13 @@ public class FoxTwoSkillCloneState : StateBase<FoxTwoController>
 
         GameObject.Destroy(_audioSource);
     }
-    private void OnBossDead(object eventSender, GameBossDeadEventArgs args)
+    /// <summary>
+    /// 移除已死亡的狐狸克隆体并在全部清除后恢复本体状态。
+    /// </summary>
+    private void OnBossDead(GameBossDiedEvent eventData)
     {
-        if (args.BossType == EBossType.FoxClone && 
-            args.BossGameObject.TryGetComponent(out FoxOneController cloneController) &&
+        if (eventData.BossType == EBossType.FoxClone &&
+            eventData.BossGameObject.TryGetComponent(out FoxOneController cloneController) &&
             _cloneFoxList.Contains(cloneController))
         {
             _cloneFoxList.Remove(cloneController);

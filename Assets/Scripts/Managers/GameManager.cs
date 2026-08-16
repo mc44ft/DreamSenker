@@ -20,8 +20,10 @@ using DreamSeeker.QuestSystem.Data;
 using DreamSeeker.Shared;
 using DreamSeeker.UI;
 
+using DreamSeeker.Characters.Bosses;
 using DreamSeeker.Characters.Player;
 using DreamSeeker.Characters.Pet;
+using DreamSeeker.Framework.Events;
 using DreamSeeker.MapSystem.Data;
 using UnityEngine.AddressableAssets;
 
@@ -62,19 +64,22 @@ public class GameManager : SingletonMono<GameManager>
     #region Game Event
     private void OnEnable()
     {
-        EventCenter.Instance.AddEventListener<GameBossDeadEventArgs>(EEventType.Game_BossDead, OnGameBossDead);
+        EventBus.Subscribe<GameBossDiedEvent>(OnGameBossDead);
         SceneManager.activeSceneChanged += OnActiveSceneChanged;
     }
 
     private void OnDisable()
     {
-        EventCenter.Instance.RemoveEventListener<GameBossDeadEventArgs>(EEventType.Game_BossDead, OnGameBossDead);
+        EventBus.Unsubscribe<GameBossDiedEvent>(OnGameBossDead);
         SceneManager.activeSceneChanged -= OnActiveSceneChanged;
     }
 
-    private void OnGameBossDead(object eventSender, GameBossDeadEventArgs args)
+    /// <summary>
+    /// 根据死亡 Boss 类型推进对应的游戏流程。
+    /// </summary>
+    private void OnGameBossDead(GameBossDiedEvent eventData)
     {
-        switch (args.BossType)
+        switch (eventData.BossType)
         {
             case EBossType.Spider:
                 GameSaveData.IsKilledSpiderBoss = true;
@@ -236,8 +241,7 @@ public class GameManager : SingletonMono<GameManager>
             ConnectionDatabase,
             GameSaveData,
             () => Player,
-            () => _playerMirrorEffect,
-            this);
+            () => _playerMirrorEffect);
 
         MapDefinitionSO saveMap = _mapFlowController.GetRequiredMapById(GameSaveData.SaveMapId);
         GameSaveData.CurrentMapId = saveMap.MapId;
@@ -279,16 +283,12 @@ public class GameManager : SingletonMono<GameManager>
             //加载主面板
             UIManager.Instance.ShowPanel<GamePanel>(E_UILayer.Botton, null, (panel) =>
             {
-                EventCenter.Instance.EventTrigger(
-                    EEventType.Player_HealthUpdate,
-                    this,
-                    new PlayerHealthUpdateEventArgs(Player.DamageableHealth.MaxHealthAmount, Player.DamageableHealth.CurrentHealthAmount));
+                EventBus.Publish(new PlayerHealthChangedEvent(
+                    Player.DamageableHealth.MaxHealthAmount,
+                    Player.DamageableHealth.CurrentHealthAmount));
                 if (!string.IsNullOrEmpty(GameSaveData.CurrentTrackQuestID))
                 {
-                    EventCenter.Instance.EventTrigger(
-                        EEventType.Quest_TrackChanged, 
-                        this, 
-                        new StringEventArgs(GameSaveData.CurrentTrackQuestID));
+                    EventBus.Publish(new QuestTrackChangedEvent(GameSaveData.CurrentTrackQuestID));
                 }
                 
             });

@@ -28,14 +28,13 @@ public class MapFlowController
         MapConnectionDatabaseSO connectionDatabase,
         GameSaveData gameSaveData,
         Func<PlayerController> playerGetter,
-        Func<PlayerMirrorEffect> mirrorEffectGetter,
-        object eventSender)
+        Func<PlayerMirrorEffect> mirrorEffectGetter)
     {
         _gameSaveData = gameSaveData;
         _playerGetter = playerGetter;
         _mirrorEffectGetter = mirrorEffectGetter;
         _runtimeQuery = new MapRuntimeQuery(connectionDatabase);
-        _specialMapCoordinator = new SpecialMapCoordinator(gameSaveData, playerGetter, mirrorEffectGetter, eventSender);
+        _specialMapCoordinator = new SpecialMapCoordinator(gameSaveData, playerGetter, mirrorEffectGetter);
     }
 
     /// <summary>

@@ -1,7 +1,9 @@
 using System;
 
+using DreamSeeker.Characters.Bosses;
 using DreamSeeker.Characters.Player;
 using DreamSeeker.Data.Runtime;
+using DreamSeeker.Framework.Events;
 using DreamSeeker.Managers;
 using DreamSeeker.MapSystem.Data;
 using DreamSeeker.Shared;
@@ -17,7 +19,6 @@ public class SpecialMapCoordinator
     private readonly GameSaveData _gameSaveData;//当前游戏存档数据
     private readonly Func<PlayerController> _playerGetter;//玩家控制器获取入口
     private readonly Func<PlayerMirrorEffect> _mirrorEffectGetter;//玩家镜像表现组件获取入口
-    private readonly object _eventSender;//事件发送者，保持原 GameManager 事件来源
 
     /// <summary>
     /// 创建特殊地图协调器。
@@ -25,13 +26,11 @@ public class SpecialMapCoordinator
     public SpecialMapCoordinator(
         GameSaveData gameSaveData,
         Func<PlayerController> playerGetter,
-        Func<PlayerMirrorEffect> mirrorEffectGetter,
-        object eventSender)
+        Func<PlayerMirrorEffect> mirrorEffectGetter)
     {
         _gameSaveData = gameSaveData;
         _playerGetter = playerGetter;
         _mirrorEffectGetter = mirrorEffectGetter;
-        _eventSender = eventSender;
     }
 
     /// <summary>
@@ -70,10 +69,7 @@ public class SpecialMapCoordinator
             return;
         }
 
-        EventCenter.Instance.EventTrigger(
-            EEventType.Game_BossKeepDead,
-            _eventSender,
-            new GameBossKeepDeadEventArgs(EBossType.Spider));
+        EventBus.Publish(new GameBossKeepDeadEvent(EBossType.Spider));
 
         if (!IsMapScene(previousMap, EMapSceneName.MirrorMap2))
         {

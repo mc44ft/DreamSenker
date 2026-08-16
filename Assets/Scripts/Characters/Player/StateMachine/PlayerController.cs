@@ -7,6 +7,7 @@ using DreamSeeker.Combat.Health;
 using DreamSeeker.Data;
 using DreamSeeker.Data.Configs.Character.Player;
 using DreamSeeker.Data.Runtime;
+using DreamSeeker.Framework.Events;
 using DreamSeeker.Shared;
 
 namespace DreamSeeker.Characters.Player
@@ -81,10 +82,7 @@ public class PlayerController : StateMachineController, IAction
     }
     private void OnHealthChanged(int maxHealth, int currentHealth)
     {
-        EventCenter.Instance.EventTrigger(
-            EEventType.Player_HealthUpdate,
-            this,
-            new PlayerHealthUpdateEventArgs(maxHealth, currentHealth));
+        EventBus.Publish(new PlayerHealthChangedEvent(maxHealth, currentHealth));
     }
     /// <summary>
     /// 外部初始化

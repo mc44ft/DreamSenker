@@ -5,6 +5,7 @@ using UnityEngine;
 
 using DreamSeeker.Combat.Health;
 using DreamSeeker.Data.Configs.Character.Monster.Fox;
+using DreamSeeker.Framework.Events;
 using DreamSeeker.Shared;
 
 namespace DreamSeeker.Characters.Bosses
@@ -86,10 +87,7 @@ public class FoxOneController : FoxBoss
         {
             if(_currentMode == E_FoxOneMode.Clone)
             {
-                EventCenter.Instance.EventTrigger(
-                    EEventType.Game_BossDead, 
-                    this, 
-                    new GameBossDeadEventArgs(EBossType.FoxClone, this.gameObject));
+                EventBus.Publish(new GameBossDiedEvent(EBossType.FoxClone, gameObject));
                 _machineManager.TransitionTo(FoxOneDeathState);
             }
             

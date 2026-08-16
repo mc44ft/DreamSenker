@@ -5,6 +5,7 @@ using UnityEngine;
 using DreamSeeker.Data.Runtime;
 using DreamSeeker.Inventory;
 using DreamSeeker.Managers;
+using DreamSeeker.Framework.Events;
 using DreamSeeker.QuestSystem.Data;
 
 namespace DreamSeeker.QuestSystem
@@ -104,7 +105,7 @@ public class QuestManager : BaseManager<QuestManager>
         if (TryGetQuestDefinitionOrLog(questId, out QuestDefinitionSO quest))
         {
             GameManager.Instance.GameSaveData.CurrentTrackQuestID = questId;
-            EventCenter.Instance.EventTrigger(EEventType.Quest_TrackChanged, this,  new StringEventArgs(questId));
+            EventBus.Publish(new QuestTrackChangedEvent(questId));
         }
     }
     /// <summary>

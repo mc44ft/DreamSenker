@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using DreamSeeker.Framework.Events;
 using DreamSeeker.UI;
 
 namespace DreamSeeker.Managers
@@ -11,15 +12,18 @@ public class GameplayUiInputHandler : MonoBehaviour
 {
     private void OnEnable()
     {
-        EventCenter.Instance.AddEventListener<EmptyEventArgs>(EEventType.InputUI_MainMenuPanel, OnMainMenuPanel);
+        EventBus.Subscribe<MainMenuPanelRequestedEvent>(OnMainMenuPanel);
     }
     private void OnDisable()
     {
-        EventCenter.Instance.RemoveEventListener<EmptyEventArgs>(EEventType.InputUI_MainMenuPanel, OnMainMenuPanel);
+        EventBus.Unsubscribe<MainMenuPanelRequestedEvent>(OnMainMenuPanel);
     }
     
 
-    private void OnMainMenuPanel(object eventSender, EmptyEventArgs args)
+    /// <summary>
+    /// 响应主菜单输入请求并切换面板显示状态。
+    /// </summary>
+    private void OnMainMenuPanel(MainMenuPanelRequestedEvent eventData)
     {
         Debug.Log("背包操作");
         if (UIManager.Instance.CheckPanelIsShowing<MainMenuPanel>())

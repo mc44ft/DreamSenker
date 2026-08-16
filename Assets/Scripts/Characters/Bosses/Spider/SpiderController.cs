@@ -5,6 +5,7 @@ using UnityEngine;
 using DreamSeeker.CameraSystem;
 using DreamSeeker.Combat.Health;
 using DreamSeeker.Data.Configs.Character.Monster;
+using DreamSeeker.Framework.Events;
 using DreamSeeker.Shared;
 
 namespace DreamSeeker.Characters.Bosses
@@ -254,10 +255,7 @@ public class SpiderController : MonoBehaviour, IDamageable, ITouchDamageable
             _machineManager.TransitionTo(SpiderDeathState);
 
             //通知外界该Boss已死
-            EventCenter.Instance.EventTrigger(
-                EEventType.Game_BossDead, 
-                this, 
-                new GameBossDeadEventArgs(EBossType.Spider, gameObject));
+            EventBus.Publish(new GameBossDiedEvent(EBossType.Spider, gameObject));
         }
     }
 

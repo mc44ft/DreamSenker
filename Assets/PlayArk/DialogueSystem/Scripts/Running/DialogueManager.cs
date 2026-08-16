@@ -1,11 +1,13 @@
 ﻿using System;
 using PlayArk.DialogueSystem.Data;
 using PlayArk.DialogueSystem.Data.Nodes;
+using PlayArk.DialogueSystem.Events;
 using PlayArk.DialogueSystem.Runtime;
 using UnityEngine;
 using UnityEngine.UI;
 
 using DreamSeeker.Dialogue;
+using DreamSeeker.Framework.Events;
 
 namespace DialogueSystem
 {
@@ -145,7 +147,7 @@ namespace DialogueSystem
                 if (_dialogueBoxPanel.IsPrintShowed)//当前打印完了才能继续打印下一句话
                 {
                     //打印下一句话
-                    EventCenter.Instance.EventTrigger(EEventType.Dialogue_ContentNext, this, new EmptyEventArgs());
+                    EventBus.Publish(new DialogueAdvanceRequestedEvent());
                 }
             }
             if (Input.GetButtonDown("Cancel"))
@@ -173,7 +175,7 @@ namespace DialogueSystem
                 }
                 else if(_dialogueBoxPanel.IsPrintShowed)//如果当前打印完了 Cancel键的作用和Submit的作用一样
                 {
-                    EventCenter.Instance.EventTrigger(EEventType.Dialogue_ContentNext, this, new EmptyEventArgs());
+                    EventBus.Publish(new DialogueAdvanceRequestedEvent());
                 }
             }
         }
@@ -202,14 +204,17 @@ namespace DialogueSystem
 
         private void OnEnable()
         {
-            EventCenter.Instance.AddEventListener<EmptyEventArgs>(EEventType.Dialogue_PrintShowed, OnTextShowed);
+            EventBus.Subscribe<DialoguePrintCompletedEvent>(OnTextShowed);
         }
         private void OnDisable()
         {
-            EventCenter.Instance.RemoveEventListener<EmptyEventArgs>(EEventType.Dialogue_PrintShowed, OnTextShowed);
+            EventBus.Unsubscribe<DialoguePrintCompletedEvent>(OnTextShowed);
         }
 
-        private void OnTextShowed(object eventSender, EmptyEventArgs args)
+        /// <summary>
+        /// 文本打印完成后允许玩家继续操作对话。
+        /// </summary>
+        private void OnTextShowed(DialoguePrintCompletedEvent eventData)
         {
             _canInteractable = true;
         }

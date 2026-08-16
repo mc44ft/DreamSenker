@@ -3,6 +3,7 @@ using UnityEngine;
 using DreamSeeker.CameraSystem;
 using DreamSeeker.Combat.Health;
 using DreamSeeker.Data.Runtime;
+using DreamSeeker.Framework.Events;
 using DreamSeeker.Managers;
 using DreamSeeker.Shared;
 
@@ -55,15 +56,18 @@ public class SpiderBossRoom : MonoBehaviour
     private void OnEnable()
     {
         //关心Boss保持死亡事件
-        EventCenter.Instance.AddEventListener<GameBossKeepDeadEventArgs>(EEventType.Game_BossKeepDead, OnGameBossKeepDead);
+        EventBus.Subscribe<GameBossKeepDeadEvent>(OnGameBossKeepDead);
     }
     private void OnDisable()
     {
-        EventCenter.Instance.RemoveEventListener<GameBossKeepDeadEventArgs>(EEventType.Game_BossKeepDead, OnGameBossKeepDead);
+        EventBus.Unsubscribe<GameBossKeepDeadEvent>(OnGameBossKeepDead);
     }
-    private void OnGameBossKeepDead(object eventSender, GameBossKeepDeadEventArgs args)
+    /// <summary>
+    /// 根据事件中的 Boss 类型恢复对应的永久死亡场景状态。
+    /// </summary>
+    private void OnGameBossKeepDead(GameBossKeepDeadEvent eventData)
     {
-        switch (args.BossType)
+        switch (eventData.BossType)
         {
             case EBossType.Spider:
 

@@ -42,11 +42,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 3c44ee127f6254c058e16f820c286d19
-    m_Address: Assets/Scenes/Maps/Woods.unity
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bfcefc4abbc1c43ac9c1a63cc5a373f7
     m_Address: Assets/ArtRes/Sprite/Maps/Woods/back.png
     m_ReadOnly: 0

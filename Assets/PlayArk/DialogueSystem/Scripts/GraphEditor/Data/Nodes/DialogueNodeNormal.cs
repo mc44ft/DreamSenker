@@ -1,6 +1,8 @@
 ﻿using System;
 using DialogueSystem;
 using UnityEngine;
+using DreamSeeker.Framework.Events;
+using PlayArk.DialogueSystem.Events;
 using PlayArk.DialogueSystem.Runtime;
 using PlayArk.GraphCore.Utilities;
 
@@ -24,12 +26,15 @@ namespace PlayArk.DialogueSystem.Data.Nodes
         protected override void OnExecute()
         {
             //在节点执行时 开启事件监听
-            EventCenter.Instance.AddEventListener<EmptyEventArgs>(EEventType.Dialogue_ContentNext, OnTextNext);
+            EventBus.Subscribe<DialogueAdvanceRequestedEvent>(OnTextNext);
             _index = 0;
             //自己先触发一次 直接处理第一句话
-            EventCenter.Instance.EventTrigger(EEventType.Dialogue_ContentNext, this, new EmptyEventArgs());
+            EventBus.Publish(new DialogueAdvanceRequestedEvent());
         }
-        private void OnTextNext(object eventCenter, EmptyEventArgs args)
+        /// <summary>
+        /// 响应对话推进请求并输出下一条内容。
+        /// </summary>
+        private void OnTextNext(DialogueAdvanceRequestedEvent eventData)
         {
             if (_index < _dialogueDataArray.Length)
             {
@@ -42,7 +47,7 @@ namespace PlayArk.DialogueSystem.Data.Nodes
         protected override void Finished()
         {
             //节点完成后 结束事件监听
-            EventCenter.Instance.RemoveEventListener<EmptyEventArgs>(EEventType.Dialogue_ContentNext, OnTextNext);
+            EventBus.Unsubscribe<DialogueAdvanceRequestedEvent>(OnTextNext);
         }
 
         [Serializable]
@@ -55,4 +60,3 @@ namespace PlayArk.DialogueSystem.Data.Nodes
         }
     }
 }
-

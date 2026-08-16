@@ -3,6 +3,8 @@ using PlayArk.DialogueSystem.Data;
 using PlayArk.DialogueSystem.Data.Nodes;
 using TMPro;
 using UnityEngine;
+using DreamSeeker.Framework.Events;
+using PlayArk.DialogueSystem.Events;
 namespace PlayArk.DialogueSystem.Runtime
 {
     [DisallowMultipleComponent]
@@ -96,14 +98,17 @@ namespace PlayArk.DialogueSystem.Runtime
         #region Event
         private void OnEnable()
         {
-            EventCenter.Instance.AddEventListener<EmptyEventArgs>(EEventType.Dialogue_PrintShowed, OnTextShowed);
+            EventBus.Subscribe<DialoguePrintCompletedEvent>(OnTextShowed);
         }
         private void OnDisable()
         {
-            EventCenter.Instance.RemoveEventListener<EmptyEventArgs>(EEventType.Dialogue_PrintShowed, OnTextShowed);
+            EventBus.Unsubscribe<DialoguePrintCompletedEvent>(OnTextShowed);
         }
 
-        private void OnTextShowed(object eventSender, EmptyEventArgs args)
+        /// <summary>
+        /// 文本打印完成后显示下一步提示光标。
+        /// </summary>
+        private void OnTextShowed(DialoguePrintCompletedEvent eventData)
         {
             if (m_isShowCursor)
             {

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+using DreamSeeker.Framework.Events;
 using DreamSeeker.Shared;
 
 namespace DreamSeeker.Characters.Bosses
@@ -31,10 +32,7 @@ public class FoxTwoDeathState : StateBase<FoxTwoController>
         yield return new WaitForSeconds(_controller.FoxTwoConfig.DeathIntervalTime);
 
         //宣告死亡
-        EventCenter.Instance.EventTrigger(
-                EEventType.Game_BossDead,
-                this,
-                new GameBossDeadEventArgs(EBossType.FoxTwo, _controller.gameObject));
+        EventBus.Publish(new GameBossDiedEvent(EBossType.FoxTwo, _controller.gameObject));
 
     }
     public override void LogicUpdate()

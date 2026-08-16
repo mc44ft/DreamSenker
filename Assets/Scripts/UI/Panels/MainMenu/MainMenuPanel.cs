@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
+using DreamSeeker.Characters.Player;
+using DreamSeeker.Framework.Events;
 using DreamSeeker.Managers;
 using DreamSeeker.Shared;
 
@@ -180,9 +182,9 @@ public class MainMenuPanel : PanelBase_Mini
     /// <summary>
     /// 根据玩家血量比例切换灯光闪烁模式。
     /// </summary>
-    private void OnPlayerHealthUpdate(object eventSender, PlayerHealthUpdateEventArgs args)
+    private void OnPlayerHealthUpdate(PlayerHealthChangedEvent eventData)
     {
-        SwitchLightMode((float)args.CurrentHealthAmount / args.MaxHealthAmount);
+        SwitchLightMode((float)eventData.CurrentHealthAmount / eventData.MaxHealthAmount);
     }
 
     private void SwitchLightMode(float percentage)
@@ -354,7 +356,7 @@ public class MainMenuPanel : PanelBase_Mini
         AddToggleListener(_saveToggle, OnSaveToggleValueChanged);
         AddToggleListener(_iconFlickerSwitchToggle, OnIconFlickerSwitchToggleValueChanged);
         AddButtonListener(_closeButton, OnCloseButtonClick);
-        EventCenter.Instance.AddEventListener<PlayerHealthUpdateEventArgs>(EEventType.Player_HealthUpdate, OnPlayerHealthUpdate);
+        EventBus.Subscribe<PlayerHealthChangedEvent>(OnPlayerHealthUpdate);
     }
 
     /// <summary>
@@ -369,7 +371,7 @@ public class MainMenuPanel : PanelBase_Mini
         RemoveToggleListener(_saveToggle, OnSaveToggleValueChanged);
         RemoveToggleListener(_iconFlickerSwitchToggle, OnIconFlickerSwitchToggleValueChanged);
         RemoveButtonListener(_closeButton, OnCloseButtonClick);
-        EventCenter.Instance.RemoveEventListener<PlayerHealthUpdateEventArgs>(EEventType.Player_HealthUpdate, OnPlayerHealthUpdate);
+        EventBus.Unsubscribe<PlayerHealthChangedEvent>(OnPlayerHealthUpdate);
     }
 
     /// <summary>
