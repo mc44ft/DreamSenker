@@ -186,6 +186,7 @@ GameObject:
   - component: {fileID: 6420459968539633168}
   - component: {fileID: 8084451065229194780}
   - component: {fileID: 1324704499555841219}
+  - component: {fileID: 2277604948305483739}
   m_Layer: 5
   m_Name: LoginPanel
   m_TagString: Untagged
@@ -261,6 +262,22 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2277604948305483739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1341129454184576191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad94036b3c94847a4aaa1ae3f0bcbb2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _confirmButton: {fileID: 1671505113233766228}
+  _closeButton: {fileID: 8318593246234813694}
+  _accountInputField: {fileID: 3358603967179450806}
+  _passwordInputField: {fileID: 192309355304123667}
 --- !u!1 &1706229762097652840
 GameObject:
   m_ObjectHideFlags: 0
