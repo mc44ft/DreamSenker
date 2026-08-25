@@ -17,7 +17,7 @@ namespace PlayArk.StateMachine.Editor
         {
             //加载状态机节点的USS样式文件
             StyleSheet styleSheet =
-                AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/PlayArk/StateMachine/Editor/StateView.uss");
+                AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/DreamFramework/PlayArk/StateMachine/Editor/StateView.uss");
             styleSheets.Add(styleSheet);
         
             base.Init(data, graphCore);

@@ -49,11 +49,11 @@ public class ExcelTool
     /// <summary> 
     /// 读取Excel文件的路径
     /// </summary>
-    public static string EXCEL_PATH = Path.Combine(Application.dataPath, "Framework/Editor/ArtRes/Excel");
+    public static string EXCEL_PATH = Path.Combine(Application.dataPath, "DreamFramework/Framework/Editor/ArtRes/Excel");
     /// <summary>
     /// 读取对话系统Excel文件的路径
     /// </summary>
-    public static string DIALOGUE_EXCEL_PATH = Path.Combine(Application.dataPath, "Framework/Editor/ArtRes/Excel/Dialogue");
+    public static string DIALOGUE_EXCEL_PATH = Path.Combine(Application.dataPath, "DreamFramework/Framework/Editor/ArtRes/Excel/Dialogue");
     /// <summary>
     /// 普通Excel二进制处理
     /// </summary>

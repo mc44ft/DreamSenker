@@ -11,7 +11,7 @@ using UnityEngine.Video;
 public class EditorResMgr : BaseManager<EditorResMgr>
 {
     //所有的资源都放在这个路径下
-    private string _rootPath = "Assets/Framework/Editor/ArtRes/";
+    private string _rootPath = "Assets/DreamFramework/Framework/Editor/ArtRes/";
 
     private EditorResMgr()
     { }
