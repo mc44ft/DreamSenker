@@ -1,8 +1,8 @@
 using System;
+using DreamSeeker.Data;
 using UnityEngine;
 using UnityEngine.UI;
 
-using DreamSeeker.Data;
 using DreamSeeker.Managers;
 using UnityEngine.Serialization;
 
@@ -50,12 +50,26 @@ public class BeginPanel : PanelBase_Mini
         _quitButton.onClick.RemoveListener(OnQuit);
         _deleteDataButton.onClick.RemoveListener(OnDeleteData);
     }
+    /// <summary>
+    /// 打开登录面板，登录成功后才允许进入游戏。
+    /// </summary>
     private void OnPlay()
+    {
+        //开始游戏前先展示登录面板，登录成功后才进入游戏流程。
+        UIManager.Instance.ShowPanel<LoginPanel>(E_UILayer.Middle, panel =>
+        {
+            panel.Initialize(StartGameAfterLogin);
+        });
+    }
+
+    /// <summary>
+    /// 登录成功后执行原有的游戏加载流程。
+    /// </summary>
+    private void StartGameAfterLogin()
     {
         SceneTransition.Instance.ResetLoading(Resources.Load<Sprite>("LoadingCampMap"), 1);
 
         GameManager.Instance.LoadGame();
-        
 
         UIManager.Instance.HidePanel<BeginPanel>();
     }

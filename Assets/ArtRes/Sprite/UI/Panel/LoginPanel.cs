@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+using DreamSeeker.Data;
 using DreamSeeker.Managers;
 
 namespace DreamSeeker.UI
@@ -20,14 +21,15 @@ namespace DreamSeeker.UI
         [SerializeField] private TMP_InputField _accountInputField;//账号输入框
         [SerializeField] private TMP_InputField _passwordInputField;//密码输入框
 
-        private Action<string, string> _onLoginConfirmed;//登录确认回调
+        private Action _onLoginSucceeded;//登录成功回调
+        private bool _isLoginRequestInProgress;//登录请求进行中标记，避免重复提交
 
         /// <summary>
-        /// 注入登录确认回调。
+        /// 注入登录成功回调。
         /// </summary>
-        public void Initialize(Action<string, string> onLoginConfirmed)
+        public void Initialize(Action onLoginSucceeded)
         {
-            _onLoginConfirmed = onLoginConfirmed;
+            _onLoginSucceeded = onLoginSucceeded;
         }
 
         /// <summary>
@@ -74,6 +76,11 @@ namespace DreamSeeker.UI
         /// </summary>
         private void OnConfirmButtonClick()
         {
+            if (_isLoginRequestInProgress)
+            {
+                return;
+            }
+
             string account = _accountInputField != null ? _accountInputField.text.Trim() : string.Empty;
             string password = _passwordInputField != null ? _passwordInputField.text : string.Empty;
 
@@ -84,7 +91,26 @@ namespace DreamSeeker.UI
             }
 
             AudioManager.Instance.PlaySound(GameResources.Instance.UiButtonClip);
-            _onLoginConfirmed?.Invoke(account, password);
+            _isLoginRequestInProgress = true;
+            StartCoroutine(AuthClient.Instance.Login(account, password, OnLoginSucceeded, OnLoginFailed));
+        }
+
+        /// <summary>
+        /// 登录成功后关闭面板，并通知开始菜单继续进入游戏。
+        /// </summary>
+        private void OnLoginSucceeded(LoginResponse response)
+        {
+            _isLoginRequestInProgress = false;
+            UIManager.Instance.HidePanel<LoginPanel>(null, () => _onLoginSucceeded?.Invoke());
+        }
+
+        /// <summary>
+        /// 登录失败时恢复提交状态并输出服务端错误信息。
+        /// </summary>
+        private void OnLoginFailed(string error)
+        {
+            _isLoginRequestInProgress = false;
+            Debug.LogWarning($"登录失败：{error}");
         }
 
         /// <summary>

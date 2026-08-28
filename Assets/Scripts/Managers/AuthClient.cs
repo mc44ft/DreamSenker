@@ -7,9 +7,14 @@ using UnityEngine.Networking;
 
 namespace DreamSeeker.Managers
 {
-    public class AuthClient
+    public class AuthClient : BaseManager<AuthClient>
     {
-        private const string BaseUrl = "https://localhost:5210";
+        private const string BaseUrl = "http://localhost:5210";
+
+        /// <summary>
+        /// 提供给 BaseManager 反射创建认证客户端实例的私有构造函数。
+        /// </summary>
+        private AuthClient() { }
 
         public IEnumerator Login(string username, string password,
             Action<LoginResponse> onSuccess, Action<string> onFailure)
