@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 using DreamSeeker.Data;
 using DreamSeeker.Managers;
+using DreamSeeker.Shared;
 
 namespace DreamSeeker.UI
 {
@@ -86,7 +87,7 @@ namespace DreamSeeker.UI
 
             if (string.IsNullOrEmpty(account) || string.IsNullOrEmpty(password))
             {
-                Debug.LogWarning("登录失败：账号和密码不能为空");
+                HelperUtilities.ShowTipPopup(TipPopupPosition.Bottom, "登录失败：账号和密码不能为空");
                 return;
             }
 
@@ -110,6 +111,7 @@ namespace DreamSeeker.UI
         private void OnLoginFailed(string error)
         {
             _isLoginRequestInProgress = false;
+            HelperUtilities.ShowTipPopup(TipPopupPosition.Bottom, "登录失败");
             Debug.LogWarning($"登录失败：{error}");
         }
 

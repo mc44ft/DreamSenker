@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DreamSeeker.UI;
 
 namespace DreamSeeker.Shared
 {
@@ -15,6 +16,17 @@ public static class HelperUtilities
         rigidbody.velocity = Vector2.zero;
         rigidbody.AddForce(kockbackDirection * addForceValue, ForceMode2D.Impulse);
     }
+
+    /// <summary>
+    /// 显示提示弹窗面板。
+    /// </summary>
+    /// <param name="position">提示在 Canvas 上的垂直位置。</param>
+    /// <param name="message">要显示的提示信息。</param>
+    public static void ShowTipPopup(TipPopupPosition position, string message)
+    {
+        TipPopupPanel.ShowTip(position, message);
+    }
+
     /// <summary>
     /// 用于给容器洗牌的方法
     /// </summary>
