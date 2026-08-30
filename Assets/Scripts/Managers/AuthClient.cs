@@ -39,7 +39,6 @@ namespace DreamSeeker.Managers
             // 读取响应文本。
             request.downloadHandler = new DownloadHandlerBuffer();
             // 设置 HTTP 请求头，告诉服务器：
-
             // 我发送的请求体内容是 JSON 格式。
             request.SetRequestHeader("Content-Type", "application/json");
 
@@ -49,6 +48,38 @@ namespace DreamSeeker.Managers
             {
                 var response = JsonUtility.FromJson<LoginResponse>(request.downloadHandler.text);
                 onSuccess?.Invoke(response);
+            }
+            else
+            {
+                onFailure?.Invoke($"HTTP {request.responseCode}: {request.error}");
+            }
+        }
+
+        /// <summary>
+        /// 向服务端提交注册请求。
+        /// </summary>
+        public IEnumerator Register(string username, string password,
+            Action onSuccess, Action<string> onFailure)
+        {
+            var data = new LoginRequest
+            {
+                Username = username,
+                Password = password,
+            };
+            string json = JsonUtility.ToJson(data);
+            byte[] body = Encoding.UTF8.GetBytes(json);
+
+            using var request = new UnityWebRequest(
+                $"{BaseUrl}/api/auth/register", UnityWebRequest.kHttpVerbPOST);
+            request.uploadHandler = new UploadHandlerRaw(body);
+            request.downloadHandler = new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
+
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                onSuccess?.Invoke();
             }
             else
             {

@@ -16,6 +16,7 @@ namespace DreamSeeker.UI
     {
         [Header("Buttons")]
         [SerializeField] private Button _confirmButton;//确认登录按钮
+        [SerializeField] private Button _registerButton;//注册按钮
         [SerializeField] private Button _closeButton;//关闭面板按钮
 
         [Header("Input Fields")]
@@ -57,6 +58,8 @@ namespace DreamSeeker.UI
         {
             if (_confirmButton != null)
                 _confirmButton.onClick.AddListener(OnConfirmButtonClick);
+            if (_registerButton != null)
+                _registerButton.onClick.AddListener(OnRegisterButtonClick);
             if (_closeButton != null)
                 _closeButton.onClick.AddListener(OnCloseButtonClick);
         }
@@ -68,6 +71,8 @@ namespace DreamSeeker.UI
         {
             if (_confirmButton != null)
                 _confirmButton.onClick.RemoveListener(OnConfirmButtonClick);
+            if (_registerButton != null)
+                _registerButton.onClick.RemoveListener(OnRegisterButtonClick);
             if (_closeButton != null)
                 _closeButton.onClick.RemoveListener(OnCloseButtonClick);
         }
@@ -97,11 +102,55 @@ namespace DreamSeeker.UI
         }
 
         /// <summary>
+        /// 校验输入并提交注册凭据。
+        /// </summary>
+        private void OnRegisterButtonClick()
+        {
+            if (_isLoginRequestInProgress)
+            {
+                return;
+            }
+
+            string account = _accountInputField != null ? _accountInputField.text.Trim() : string.Empty;
+            string password = _passwordInputField != null ? _passwordInputField.text : string.Empty;
+
+            if (string.IsNullOrEmpty(account) || string.IsNullOrEmpty(password))
+            {
+                HelperUtilities.ShowTipPopup(TipPopupPosition.Bottom, "注册失败：账号和密码不能为空");
+                return;
+            }
+
+            AudioManager.Instance.PlaySound(GameResources.Instance.UiButtonClip);
+            _isLoginRequestInProgress = true;
+            StartCoroutine(AuthClient.Instance.Register(account, password, OnRegisterSucceeded, OnRegisterFailed));
+        }
+
+        /// <summary>
+        /// 注册成功后提示用户，并允许再次提交请求。
+        /// </summary>
+        private void OnRegisterSucceeded()
+        {
+            _isLoginRequestInProgress = false;
+            HelperUtilities.ShowTipPopup(TipPopupPosition.Bottom, "注册成功，请登录");
+        }
+
+        /// <summary>
+        /// 注册失败时恢复提交状态并输出服务端错误信息。
+        /// </summary>
+        private void OnRegisterFailed(string error)
+        {
+            _isLoginRequestInProgress = false;
+            HelperUtilities.ShowTipPopup(TipPopupPosition.Bottom, "注册失败");
+            Debug.LogWarning($"注册失败：{error}");
+        }
+
+        /// <summary>
         /// 登录成功后关闭面板，并通知开始菜单继续进入游戏。
         /// </summary>
         private void OnLoginSucceeded(LoginResponse response)
         {
             _isLoginRequestInProgress = false;
+            HelperUtilities.ShowTipPopup(TipPopupPosition.Bottom, "登录成功");
             UIManager.Instance.HidePanel<LoginPanel>(null, () => _onLoginSucceeded?.Invoke());
         }
 
